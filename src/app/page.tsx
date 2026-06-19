@@ -1,6 +1,7 @@
 import NavBar from "@/components/layout/NavBar";
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
+import CTA from "@/components/sections/CTA";
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
       <main>
         <Hero />
         <About />
+        <CTA />
       </main>
     </>
   );
