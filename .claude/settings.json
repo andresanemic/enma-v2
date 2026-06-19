@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "deny": [
+      "mcp__plugin_playwright_playwright__*"
+    ]
+  },
+  "enabledPlugins": {
+    "playwright@claude-plugins-official": false
+  }
+}

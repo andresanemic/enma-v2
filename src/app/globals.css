@@ -1,26 +1,69 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ───────────────────────────────────────────────────────────────────────────
+   Enma — Design tokens (Tailwind v4: tokens en @theme, no en config — lore/routing.md)
+   Paleta cálida protagonista; teal solo acento de marca; verde solo detalle.
+─────────────────────────────────────────────────────────────────────────── */
+@theme {
+  /* Color — base cálida */
+  --color-cream: #f8eddd; /* base / fondo dominante */
+  --color-sand: #f7dfba; /* hueso / fondo alterno, cards */
+
+  /* Color — acentos cálidos protagonistas */
+  --color-orange: #fea94f; /* naranja vibrante / hovers */
+  --color-ember: #f1541c; /* brasa / CTA principal, énfasis */
+  --color-terra: #b12c00; /* terracota / profundidad, texto enfático */
+
+  /* Color — neutros */
+  --color-ink: #1a1a1a; /* texto */
+
+  /* Color — marca (uso puntual) */
+  --color-teal: #205358; /* logo / acento de marca, NO fondo dominante */
+  --color-green: #3e7c6c; /* detalle mínimo */
+  --color-green-dark: #304b3d; /* detalle puntual */
+
+  /* Tipografías */
+  --font-display: var(--font-manrope); /* Manrope — títulos */
+  --font-body: var(--font-outfit); /* Outfit — cuerpo */
+  --font-mono: var(--font-jetbrains); /* JetBrains Mono — etiquetas técnicas */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* overflow-x en AMBOS html y body para bloquear deriva lateral móvil — lore/layout.md */
+html,
+body {
+  overflow-x: hidden;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Eyebrow técnico — etiqueta mono uppercase (carácter I+D) */
+.eyebrow {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.6875rem;
+}
+
+/* Respeto a prefers-reduced-motion (quality floor) */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
