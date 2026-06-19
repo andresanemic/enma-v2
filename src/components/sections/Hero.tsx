@@ -46,6 +46,7 @@ export default function Hero() {
     <section
       ref={heroRef}
       id="inicio"
+      data-nav="dark"
       className="relative w-full min-h-[100svh] overflow-hidden"
       style={{
         // Fallback cálido: si el video tarda o falla, nunca se ve negro frío.

@@ -19,20 +19,38 @@ export default function NavBar() {
   const pathname = usePathname();
   const isHome = pathname === "/" || pathname === null;
 
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  // light = el navbar está sobre un fondo claro → contenido oscuro (logo verde,
+  // texto ink). Sobre fondo oscuro = contenido cream. Lo decide la sección que
+  // queda DEBAJO del navbar, no un umbral ciego de scroll.
+  const [light, setLight] = useState(!isHome);
+  const headerRef = useRef<HTMLElement>(null);
   const drawerLinksRef = useRef<(HTMLAnchorElement | null)[]>([]);
 
-  // Modo "claro": fondo claro bajo el navbar → texto oscuro.
-  // Home arriba (sobre el video oscuro) = modo oscuro (texto crema).
-  const light = !isHome || scrolled;
-
+  // Detección de tono por sección: cada sección declara data-nav="light|dark".
+  // El navbar adapta SOLO el color de su contenido (nunca añade fondo sólido),
+  // por eso es legible sobre cualquier sección sin parches caso a caso.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    const update = () => {
+      const probe = (headerRef.current?.offsetHeight ?? 64) / 2;
+      let mode: string | null = null;
+      for (const el of document.querySelectorAll<HTMLElement>("[data-nav]")) {
+        const r = el.getBoundingClientRect();
+        if (r.top <= probe && r.bottom > probe) {
+          mode = el.getAttribute("data-nav");
+          break;
+        }
+      }
+      setLight((mode ?? (isHome ? "dark" : "light")) === "light");
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [pathname, isHome]);
 
   // Stagger de entrada de los links del drawer al abrir (lore/animation)
   useEffect(() => {
@@ -58,13 +76,7 @@ export default function NavBar() {
 
   return (
     <>
-      <header
-        className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
-          light
-            ? "border-b border-ink/5 bg-cream/85 backdrop-blur-md"
-            : "border-b border-transparent bg-transparent"
-        }`}
-      >
+      <header ref={headerRef} className="fixed inset-x-0 top-0 z-50 bg-transparent">
         <div className="flex items-center justify-between px-6 py-4 sm:px-10 md:px-14">
           {/* Logo — crossfade verde↔blanco según el fondo (sin salto brusco).
               El blanco (sobre el hero) lleva sombra para destacar. */}
@@ -85,7 +97,7 @@ export default function NavBar() {
               aria-hidden="true"
               width={112}
               height={36}
-              className={`absolute left-0 top-0 h-7 w-auto transition-opacity duration-500 sm:h-8 ${
+              className={`absolute left-0 top-0 h-7 w-auto transition-opacity duration-300 sm:h-8 ${
                 light ? "opacity-100" : "opacity-0"
               }`}
             />
@@ -96,7 +108,7 @@ export default function NavBar() {
               width={112}
               height={36}
               priority
-              className={`absolute left-0 top-0 h-7 w-auto transition-opacity duration-500 sm:h-8 ${
+              className={`absolute left-0 top-0 h-7 w-auto transition-opacity duration-300 sm:h-8 ${
                 light ? "opacity-0" : "opacity-100"
               }`}
               style={{ filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.45))" }}
@@ -107,17 +119,17 @@ export default function NavBar() {
           <nav className="hidden items-center gap-3 md:flex" aria-label="Navegación principal">
             {/* Pill transparente que agrupa los links */}
             <div
-              className={`flex items-center gap-1 rounded-full border px-1.5 py-1 backdrop-blur-sm transition-colors duration-500 ${
-                light ? "border-ink/12 bg-ink/[0.03]" : "border-cream/25 bg-cream/[0.06]"
+              className={`flex items-center gap-1 rounded-full border px-1.5 py-1 backdrop-blur-sm transition-colors duration-300 ${
+                light ? "border-ink/10 bg-transparent" : "border-cream/25 bg-cream/[0.06]"
               }`}
             >
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`rounded-full px-4 py-1.5 font-body text-sm font-medium transition-colors duration-200 ${
+                  className={`rounded-full px-4 py-1.5 font-body text-sm font-medium transition-colors duration-300 ${
                     light
-                      ? "text-ink/70 hover:bg-ember/10 hover:text-ember"
+                      ? "text-ink/75 hover:bg-ember/10 hover:text-ember"
                       : "text-cream/85 hover:bg-cream/12 hover:text-cream"
                   }`}
                   style={light ? undefined : { textShadow: "0 1px 6px rgba(0,0,0,0.4)" }}

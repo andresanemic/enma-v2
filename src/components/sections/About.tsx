@@ -66,6 +66,7 @@ export default function About() {
     <section
       ref={ref}
       id="about"
+      data-nav="light"
       className="relative w-full bg-cream px-6 py-20 sm:px-10 sm:py-28 md:px-14 md:py-32"
     >
       <div className="mx-auto max-w-[1400px]">
