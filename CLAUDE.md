@@ -235,9 +235,9 @@ El wireframe define contenido y orden lógico, no el layout visual final — el 
 
 ### ⏳ Fase Actual
 
-- [ ] **Paso 0** — Análisis de `\web`, `golden-paths.md`, estándar Awwwards actual, y material de marca completo
-- [ ] **Fase A** — Setup del proyecto en `\web2`: Next.js + TypeScript + Tailwind + GSAP + plugin frontend-design
-- [ ] **Fase B** — Hero + NavBar: mantener concepto aprobado, corregir contraste, sombra de logo, rediseño visual del NavBar, verificar Golden Paths
+- [x] **Paso 0** — Análisis de `\web`, `golden-paths.md`, estándar Awwwards actual, y material de marca completo
+- [x] **Fase A** — Setup del proyecto en `\web2`: Next.js 16 + TypeScript + Tailwind v4 + GSAP + tokens cálidos + fuentes (Manrope/Outfit/JetBrains Mono). Build de producción OK.
+- [x] **Fase B** — Hero + NavBar: contraste corregido (grade cálido + scrim + fondo de respaldo), logo con drop-shadow + crossfade, NavBar rediseñado (pill transparente, modo claro/oscuro, drawer móvil), rutas stub para no romper navegación. Golden Paths funcionales verificados (rutas 200, CTA mailto, sin errores).
 - [ ] **Fase C** — Landing completa (resto de secciones, diseñadas desde cero), verificar Golden Paths
 - [ ] **Fase D** — Páginas internas (Nosotros, Proyectos, Servicios), verificar Golden Paths
 - [ ] **Fase E** — Blog, verificar Golden Paths

@@ -46,6 +46,13 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Indicador de scroll del Hero */
+@keyframes hero-scroll {
+  0% { transform: scaleY(0); transform-origin: top; opacity: 1; }
+  50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+  100% { transform: scaleY(1); transform-origin: bottom; opacity: 0; }
+}
+
 /* Eyebrow técnico — etiqueta mono uppercase (carácter I+D) */
 .eyebrow {
   font-family: var(--font-mono), ui-monospace, monospace;
