@@ -18,6 +18,12 @@ const LINES = [
 
 export default function CTA() {
   const ref = useRef<HTMLElement>(null);
+  const pulseRef = useRef<gsap.core.Tween | null>(null);
+
+  // Hover en el CTA → la energía de las líneas se acelera ("en movimiento").
+  const surge = (on: boolean) => {
+    if (pulseRef.current) gsap.to(pulseRef.current, { timeScale: on ? 2.8 : 1, duration: 0.5, ease: "power2.out" });
+  };
 
   useEffect(() => {
     const el = ref.current;
@@ -61,7 +67,7 @@ export default function CTA() {
         tl.fromTo(nodes, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(2.2)", transformOrigin: "center" }, 1.25);
         // Pulso de energía recorriendo las líneas (loop ambiental)
         gsap.set(pulses, { opacity: 1 });
-        gsap.to(pulses, { strokeDashoffset: 0, duration: 3.4, ease: "none", repeat: -1, stagger: { each: 0.7, repeat: -1 }, delay: 1.4 });
+        pulseRef.current = gsap.to(pulses, { strokeDashoffset: 0, duration: 3.4, ease: "none", repeat: -1, stagger: { each: 0.7, repeat: -1 }, delay: 1.4 });
       };
 
       const io = new IntersectionObserver(
@@ -179,6 +185,8 @@ export default function CTA() {
           href={CONTACT}
           data-fade
           style={{ opacity: 0 }}
+          onMouseEnter={() => surge(true)}
+          onMouseLeave={() => surge(false)}
           className="group mt-6 inline-flex items-center gap-4"
         >
           <span className="relative font-display text-lg font-medium text-cream sm:text-xl">
