@@ -196,6 +196,7 @@ El wireframe define contenido y orden lógico, no el layout visual final — el 
 9. Estilo objetivo: **Awwwards 2026** — composición disruptiva, tipografía expresiva, motion con propósito, cursor estilizado, no plantillas genéricas.
 10. Validar contraste de color (texto/fondo) en cada sección nueva, especialmente en el Hero ajustado.
 11. **Verificar Golden Paths manualmente antes de cerrar cualquier fase.** No marcar una fase como completa si algún Golden Path se rompió.
+12. **Motion obligatorio por sección (no solo layout).** Toda sección nueva debe incorporar: (a) efecto de aparición al entrar en viewport (reveal con stagger, aparición palabra por palabra en títulos clave, draw-on de SVG, etc., disparado con `IntersectionObserver`), (b) microinteracciones en hover en todo elemento interactivo (links, filas, botones, imágenes — nada "muerto"), y (c) algún guiño de textura/naturaleza acorde a la visión de la diseñadora (huellas, curvas de nivel, raíz/circuito del monograma "E"). Un layout bonito pero plano NO es suficiente. Respetar siempre `prefers-reduced-motion` y los patrones de `\lore\animation.md`. Referencia viva: Hero, About y CTA de la landing.
 
 ### Cuándo consultar cada archivo de Lore
 
