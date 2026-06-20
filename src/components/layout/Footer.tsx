@@ -183,40 +183,41 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* ── Fila de marca — logo blanco de Enma ── */}
-        <div className={`${reveal()} mt-[clamp(18px,3vw,46px)] w-full`} style={delay(4)}>
-          <Link
-            href="/"
-            aria-label="Enma — página de inicio"
-            className="group inline-block no-underline"
-          >
-            <span className="relative block h-[clamp(40px,8vw,128px)] w-[clamp(140px,32vw,480px)] origin-left transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]">
-              <Image
-                src="/logos/logo-blanco-hd.webp"
-                alt="Enma"
-                fill
-                quality={95}
-                sizes="(max-width:560px) 60vw, 32vw"
-                className="object-contain object-left"
-              />
-            </span>
-          </Link>
-        </div>
+        {/* ── Fila de marca: logo a la izq · línea legal a la der (alineada al
+            borde inferior del logo) ── */}
+        <div className="mt-[clamp(18px,3vw,46px)] flex w-full flex-col gap-6 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
+          {/* Logo blanco de Enma */}
+          <div className={`${reveal()}`} style={delay(4)}>
+            <Link
+              href="/"
+              aria-label="Enma — página de inicio"
+              className="group inline-block no-underline"
+            >
+              <span className="relative block h-[clamp(40px,8vw,128px)] w-[clamp(140px,32vw,480px)] origin-left transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]">
+                <Image
+                  src="/logos/logo-blanco-hd.webp"
+                  alt="Enma"
+                  fill
+                  quality={95}
+                  sizes="(max-width:560px) 60vw, 32vw"
+                  className="object-contain object-left"
+                />
+              </span>
+            </Link>
+          </div>
 
-        {/* ── Línea legal ── */}
-        <div
-          className={`${reveal()} mt-[clamp(14px,1.4vw,24px)] flex flex-wrap items-center justify-start gap-x-[18px] gap-y-2`}
-          style={delay(5)}
-        >
-          <p className="m-0 font-body text-[12px] leading-[1.35] text-cream/40">
-            © {year} Enma SPA. Todos los derechos reservados.
-          </p>
-          <span className="font-body text-[12px] leading-[1.35] text-cream/40">
-            Coyhaique, Región de Aysén, Chile
-          </span>
-          <span className="font-mono text-[12px] uppercase leading-[1.35] tracking-[0.2em] text-orange/70">
-            <span className="text-orange">EN</span>ergía · <span className="text-orange">MA</span>nufactura
-          </span>
+          {/* Línea legal — derecha, alineada al borde inferior del logo */}
+          <div
+            className={`${reveal()} flex shrink-0 flex-col gap-1 sm:items-end sm:text-right`}
+            style={delay(5)}
+          >
+            <p className="m-0 font-body text-[15px] leading-[1.4] text-cream/45">
+              © {year} Enma SPA. Todos los derechos reservados.
+            </p>
+            <span className="font-mono text-[14px] uppercase leading-[1.4] tracking-[0.2em] text-orange/70">
+              <span className="text-orange">EN</span>ergía · <span className="text-orange">MA</span>nufactura
+            </span>
+          </div>
         </div>
       </div>
     </footer>
