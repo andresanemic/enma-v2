@@ -98,6 +98,76 @@ body {
   }
 }
 
+/* ───────────────────────────────────────────────────────────────────────────
+   Scrollbar — "Teal sobre arena". Pista arena cálida, pulgar teal de marca
+   (hover verde), flechas ▲▼ conservadas y coloreadas.
+   Firefox: scrollbar-color tiñe pulgar/pista (no puede colorear flechas).
+   Chrome/Edge: al customizar, los botones nativos se borran → hay que
+   redibujar el glifo de cada flecha como SVG (cream) para mantenerlas.
+─────────────────────────────────────────────────────────────────────────── */
+* {
+  scrollbar-color: var(--color-teal) var(--color-sand);
+  scrollbar-width: auto; /* ancho nativo → conserva las flechas en Firefox */
+}
+
+::-webkit-scrollbar {
+  width: 15px;
+  height: 15px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-sand);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-teal);
+  border: 3px solid var(--color-sand); /* inset → cápsula flotante */
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-green);
+}
+::-webkit-scrollbar-thumb:active {
+  background: var(--color-green-dark);
+}
+
+/* Flechas (botones). Sin definir background-image, Chrome los elimina. */
+::-webkit-scrollbar-button {
+  background-color: var(--color-teal);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 11px 11px;
+}
+::-webkit-scrollbar-button:hover {
+  background-color: var(--color-green);
+}
+::-webkit-scrollbar-button:vertical {
+  height: 15px;
+}
+::-webkit-scrollbar-button:horizontal {
+  width: 15px;
+}
+::-webkit-scrollbar-button:vertical:decrement {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 5L13 11H3Z' fill='%23f8eddd'/%3E%3C/svg%3E");
+}
+::-webkit-scrollbar-button:vertical:increment {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 5H13Z' fill='%23f8eddd'/%3E%3C/svg%3E");
+}
+::-webkit-scrollbar-button:horizontal:decrement {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M5 8L11 3V13Z' fill='%23f8eddd'/%3E%3C/svg%3E");
+}
+::-webkit-scrollbar-button:horizontal:increment {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M11 8L5 3V13Z' fill='%23f8eddd'/%3E%3C/svg%3E");
+}
+/* Ocultar los botones duplicados (cuadros vacíos) de los extremos */
+::-webkit-scrollbar-button:vertical:start:increment,
+::-webkit-scrollbar-button:vertical:end:decrement,
+::-webkit-scrollbar-button:horizontal:start:increment,
+::-webkit-scrollbar-button:horizontal:end:decrement {
+  display: none;
+}
+::-webkit-scrollbar-corner {
+  background: var(--color-sand);
+}
+
 /* Respeto a prefers-reduced-motion (quality floor) */
 @media (prefers-reduced-motion: reduce) {
   html {
