@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope, Outfit, JetBrains_Mono } from "next/font/google";
+import FieldCursor from "@/components/cursor/FieldCursor";
 import "./globals.css";
 
 // Manrope — títulos y subtítulos
@@ -46,7 +47,10 @@ export default function RootLayout({
       lang="es"
       className={`${manrope.variable} ${outfit.variable} ${jetbrains.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        {children}
+        <FieldCursor />
+      </body>
     </html>
   );
 }

@@ -89,6 +89,15 @@ body {
   font-size: 0.75rem;
 }
 
+/* Cursor custom — ocultar el nativo SOLO con pointer fino (lore/responsive.md).
+   La clase la añade FieldCursor al montarse; en táctil nunca se monta. */
+@media (pointer: fine) {
+  html.has-field-cursor,
+  html.has-field-cursor * {
+    cursor: none;
+  }
+}
+
 /* Respeto a prefers-reduced-motion (quality floor) */
 @media (prefers-reduced-motion: reduce) {
   html {
