@@ -3,6 +3,7 @@ import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
 import Services from "@/components/sections/Services";
 import Metrics from "@/components/sections/Metrics";
+import WhyUsManifesto from "@/components/sections/WhyUsManifesto";
 import FAQ from "@/components/sections/FAQ";
 import Footer from "@/components/layout/Footer";
 
@@ -15,6 +16,7 @@ export default function Home() {
         <About />
         <Services />
         <Metrics />
+        <WhyUsManifesto />
         <FAQ />
       </main>
       <Footer />
