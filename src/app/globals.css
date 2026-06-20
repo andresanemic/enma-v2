@@ -59,6 +59,16 @@ body {
   50% { transform: translateY(-9px); }
 }
 
+/* Métricas — giro del aerogenerador (la fuente del viento). GPU-composited. */
+@keyframes turbine-spin {
+  to { transform: rotate(360deg); }
+}
+.turbine-spin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: turbine-spin 9s linear infinite;
+}
+
 /* Footer — chispas cálidas que derivan sobre la base fría (GPU-composited) */
 @keyframes footer-sparks {
   from { transform: translate3d(0, -50%, 0); }

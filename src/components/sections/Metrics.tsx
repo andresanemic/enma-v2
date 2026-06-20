@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
 import WindField from "@/components/metrics/WindField";
+import WindTurbine from "@/components/metrics/WindTurbine";
 
 // Métricas REALES (entrevistas + que-es-enma.txt). Sin cifras infladas.
 // Confirmar con el cliente antes de publicar.
@@ -145,6 +146,12 @@ export default function Metrics() {
       />
 
       <div className="relative z-10 mx-auto max-w-[1400px]">
+        {/* Aerogenerador — fuente del viento. Ancho acotado en lg para que su
+            borde derecho quede SIEMPRE antes del contenido (sin solapar). */}
+        <WindTurbine className="pointer-events-none absolute bottom-0 left-[-40%] -z-0 h-[62%] w-auto opacity-25 sm:left-[-22%] sm:h-[80%] sm:opacity-45 md:left-[-14%] md:h-[86%] lg:left-[-4%] lg:h-auto lg:w-[22%] lg:opacity-60" />
+
+        {/* Contenido en su posición editorial, con carril libre para el molino */}
+        <div className="relative md:pl-[30%] lg:pl-[23%]">
         {/* ── Encabezado ── */}
         <div className="mb-16 md:mb-20">
           <h2
@@ -181,7 +188,7 @@ export default function Metrics() {
         </div>
 
         {/* ── Métricas flotando en el viento (sin cards) ── */}
-        <div className="flex flex-col gap-12 lg:flex-row lg:flex-wrap lg:items-start lg:gap-x-16 lg:gap-y-4">
+        <div className="flex flex-col gap-10 lg:flex-row lg:flex-nowrap lg:items-end lg:gap-8">
           {METRICS.map((m, i) => {
             const a = ACCENT[m.accent];
             const numColor = m.hero ? ACCENT.orange.num : m.kind === "badge" ? ACCENT.teal.num : "text-cream";
@@ -189,15 +196,15 @@ export default function Metrics() {
             return (
               <div
                 key={m.label}
-                className={`${f.mt}`}
+                className={`lg:min-w-0 ${m.hero ? "lg:flex-[1.4]" : "lg:flex-1"}`}
                 style={{ animation: `metric-float ${f.dur} ease-in-out ${f.delay} infinite` }}
               >
-                <div data-metric style={{ opacity: 0 }} className={m.hero ? "max-w-[14ch]" : "max-w-[20ch]"}>
+                <div data-metric style={{ opacity: 0 }}>
                   {/* Número / badge */}
                   <p
                     className={`font-display font-light leading-[0.9] ${numColor}`}
                     style={{
-                      fontSize: m.hero ? "clamp(4.5rem, 12vw, 10rem)" : "clamp(3rem, 5.5vw, 5rem)",
+                      fontSize: m.hero ? "clamp(3.25rem, 6vw, 5.5rem)" : "clamp(2.25rem, 3.4vw, 3.5rem)",
                       textShadow: "0 4px 40px rgba(0,0,0,0.55)",
                     }}
                   >
@@ -222,16 +229,17 @@ export default function Metrics() {
                   />
 
                   {/* Label + hint */}
-                  <p className={`mt-4 font-display font-medium text-cream ${m.hero ? "text-xl sm:text-2xl" : "text-lg"}`} style={{ textShadow: "0 1px 16px rgba(0,0,0,0.5)" }}>
+                  <p className={`mt-3.5 font-display font-medium text-cream ${m.hero ? "text-lg sm:text-xl" : "text-base sm:text-lg"}`} style={{ textShadow: "0 1px 16px rgba(0,0,0,0.5)" }}>
                     {m.label}
                   </p>
-                  <p className="mt-1.5 font-body text-sm leading-relaxed text-cream/55 sm:text-base" style={{ textShadow: "0 1px 14px rgba(0,0,0,0.5)" }}>
+                  <p className="mt-1.5 font-body text-sm leading-relaxed text-cream/55" style={{ textShadow: "0 1px 14px rgba(0,0,0,0.5)" }}>
                     {m.hint}
                   </p>
                 </div>
               </div>
             );
           })}
+        </div>
         </div>
       </div>
     </section>
