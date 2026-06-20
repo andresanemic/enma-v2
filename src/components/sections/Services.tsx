@@ -95,14 +95,6 @@ export default function Services() {
       const sub = q("[data-sub]");
       const items = q("[data-item]");
       const panel = q("[data-panel]");
-      const contours = q<SVGPathElement>("[data-contour]");
-
-      // Curvas de nivel: preparar el "dibujado" (stroke-dashoffset) sin plugin.
-      contours.forEach((p) => {
-        const len = p.getTotalLength();
-        p.style.strokeDasharray = `${len}`;
-        p.style.strokeDashoffset = reduce ? "0" : `${len}`;
-      });
 
       if (reduce) {
         gsap.set([words, letters, sub, items, panel], {
@@ -140,8 +132,6 @@ export default function Services() {
           { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9 },
           0.6
         );
-        // Curvas de nivel — se dibujan (textura/territorio)
-        tl.to(contours, { strokeDashoffset: 0, duration: 1.8, stagger: 0.25, ease: "power2.inOut" }, 0.3);
         // Filas del índice — cascada
         tl.fromTo(
           items,
@@ -197,37 +187,6 @@ export default function Services() {
           "linear-gradient(180deg, #f7e9d4 0%, #f8eddd 42%, #faf1e2 100%)",
       }}
     >
-      {/* Curvas de nivel (territorio/Patagonia) — se dibujan al entrar. Textura sutil. */}
-      <svg
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 h-full w-full"
-        viewBox="0 0 1400 900"
-        preserveAspectRatio="xMidYMid slice"
-        fill="none"
-      >
-        <path
-          data-contour
-          d="M-50 240 C 250 160, 520 320, 820 230 S 1300 130, 1500 250"
-          stroke="#f1541c"
-          strokeOpacity="0.10"
-          strokeWidth="1.4"
-        />
-        <path
-          data-contour
-          d="M-50 430 C 280 360, 560 520, 880 430 S 1320 330, 1500 450"
-          stroke="#205358"
-          strokeOpacity="0.09"
-          strokeWidth="1.4"
-        />
-        <path
-          data-contour
-          d="M-50 640 C 240 560, 540 720, 860 620 S 1300 560, 1500 660"
-          stroke="#f1541c"
-          strokeOpacity="0.08"
-          strokeWidth="1.4"
-        />
-      </svg>
-
       <div className="relative z-10 mx-auto max-w-[1400px]">
         {/* ── Encabezado ── */}
         <div className="mb-12 md:mb-16">
