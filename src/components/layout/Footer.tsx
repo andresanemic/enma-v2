@@ -26,11 +26,96 @@ const LOCATION = ["Coyhaique", "Región de Aysén", "Chile"];
 const HEAD_WORDS = ["Pongamos", "tu", "proyecto"];
 const HEAD_ACCENT = "en movimiento";
 
+// ── Chispas: dispersión irregular (no cuadrícula) ──
+// PRNG determinista (mulberry32) → genera la MISMA nube de chispas en servidor y
+// cliente, sin hydration mismatch ni Math.random() en render. Posición, tamaño,
+// alpha y parpadeo aleatorios rompen el patrón de grilla del gradiente tileado.
+function mulberry32(seed: number) {
+  return () => {
+    seed |= 0;
+    seed = (seed + 0x6d2b79f5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+const SPARK_BAND_H = 70; // alto de la banda de dispersión (px)
+const SPARK_RGB = [
+  [247, 223, 186], // arena
+  [254, 169, 79], // naranja
+  [241, 84, 28], // brasa
+] as const;
+
+type Spark = { x: number; y: number; size: number; color: string; dur: number; delay: number };
+
+// Nube fija de chispas (un "viewport"; se renderiza dos veces para el loop sin costuras).
+const SPARKS: Spark[] = (() => {
+  const rnd = mulberry32(0x5e3a91);
+  return Array.from({ length: 58 }, () => {
+    const c = SPARK_RGB[(rnd() * SPARK_RGB.length) | 0];
+    const alpha = 0.3 + rnd() * 0.45;
+    return {
+      x: rnd() * 100, // % dentro del grupo
+      y: rnd() * SPARK_BAND_H, // px vertical
+      size: 1 + rnd() * 2.4, // 1–3.4px
+      color: `rgba(${c[0]},${c[1]},${c[2]},${alpha.toFixed(3)})`,
+      dur: 3 + rnd() * 4, // s — parpadeo
+      delay: -rnd() * 6, // s — desfase del parpadeo
+    };
+  });
+})();
+
 // Bloque de cierre unificado (CTA + Footer): una sola composición sobre un único
 // gradiente verde, con una coreografía de entrada orquestada con GSAP — cada tipo
 // de elemento entra con un efecto propio (máscara, letras, blur, wipe, pop).
 export default function Footer() {
   const ref = useRef<HTMLElement>(null);
+  const sparksRef = useRef<HTMLDivElement>(null);
+
+  // Deriva de las chispas: rAF + módulo sobre el ancho real (un "viewport" = un
+  // grupo). Velocidad constante y wrap pixel-perfecto → nunca "resetea a 0"
+  // (evita el desfase sub-pixel del translateX(%) en bucle CSS).
+  useEffect(() => {
+    const drift = sparksRef.current;
+    if (!drift) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return; // estático centrado
+
+    const band = drift.parentElement;
+    let w = band ? band.clientWidth : window.innerWidth;
+    const onResize = () => {
+      w = band ? band.clientWidth : window.innerWidth;
+    };
+    window.addEventListener("resize", onResize);
+
+    const SECS_PER_VIEWPORT = 22; // tiempo en cruzar un viewport (derecha→izquierda)
+    let raf = 0;
+    let visible = true;
+    const tick = (now: number) => {
+      if (visible && w > 0) {
+        // Posición ligada al reloj global → continua aunque se pause fuera de viewport.
+        const pos = ((now / 1000) * (w / SECS_PER_VIEWPORT)) % w;
+        drift.style.transform = `translate3d(${-pos}px, -50%, 0)`;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+
+    // Pausa fuera de viewport (perf). Al volver retoma según el reloj, sin reset visible.
+    const io = new IntersectionObserver(
+      (entries) => {
+        visible = entries[0].isIntersecting;
+      },
+      { threshold: 0 }
+    );
+    io.observe(band ?? drift);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", onResize);
+      io.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     const el = ref.current;
@@ -129,26 +214,44 @@ export default function Footer() {
       // Un único bloque verde: claro arriba (donde vive el CTA) → oscuro abajo.
       style={{ background: "linear-gradient(to bottom, #3e7c6c 0%, #245049 34%, #163834 64%, #0c2220 100%)" }}
     >
-      {/* ── Chispas cálidas que derivan — entrada del bloque (energía en movimiento) ── */}
+      {/* ── Chispas cálidas que derivan — entrada del bloque (energía en movimiento).
+          Dispersión irregular (SPARKS), no cuadrícula. Se renderiza dos veces para
+          que la deriva derecha→izquierda haga loop sin costuras. ── */}
       <div className="relative h-[96px] overflow-hidden sm:h-[112px]" aria-hidden="true">
         <div
+          ref={sparksRef}
           style={{
             position: "absolute",
             left: 0,
             top: "50%",
             width: "200%",
-            height: "70px",
-            opacity: 0.7,
-            backgroundImage: [
-              "radial-gradient(circle, rgba(247,223,186,0.55) 1.5px, transparent 2px)",
-              "radial-gradient(circle, rgba(254,169,79,0.45) 1.2px, transparent 1.8px)",
-              "radial-gradient(circle, rgba(241,84,28,0.32) 1.2px, transparent 1.8px)",
-            ].join(", "),
-            backgroundPosition: "0 8px, 24px 22px, 48px 14px",
-            backgroundSize: "72px 38px, 110px 44px, 160px 52px",
-            animation: "footer-sparks 18s linear infinite",
+            height: `${SPARK_BAND_H}px`,
+            transform: "translate3d(0, -50%, 0)",
+            willChange: "transform",
           }}
-        />
+        >
+          {[0, 50].map((offset) => (
+            <div
+              key={offset}
+              style={{ position: "absolute", top: 0, left: `${offset}%`, width: "50%", height: "100%" }}
+            >
+              {SPARKS.map((s, i) => (
+                <span
+                  key={i}
+                  className="absolute rounded-full"
+                  style={{
+                    left: `${s.x}%`,
+                    top: `${s.y}px`,
+                    width: `${s.size}px`,
+                    height: `${s.size}px`,
+                    background: s.color,
+                    animation: `spark-twinkle ${s.dur}s ease-in-out ${s.delay}s infinite`,
+                  }}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* ── Contenedor (alineado a la grilla de la landing) ── */}

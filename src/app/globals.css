@@ -75,10 +75,13 @@ body {
   animation: turbine-spin 9s linear infinite;
 }
 
-/* Footer — chispas cálidas que derivan sobre la base fría (GPU-composited) */
-@keyframes footer-sparks {
-  from { transform: translate3d(0, -50%, 0); }
-  to   { transform: translate3d(-50%, -50%, 0); }
+/* Footer — la deriva de las chispas se maneja por rAF en Footer.tsx
+   (velocidad constante + wrap pixel-perfecto, sin reset). */
+
+/* Footer — parpadeo suave de cada chispa (shimmer, desfasado por chispa) */
+@keyframes spark-twinkle {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
 }
 
 /* Eyebrow técnico — etiqueta mono uppercase (carácter I+D) */
