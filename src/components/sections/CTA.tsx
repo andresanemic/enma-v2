@@ -80,8 +80,12 @@ export default function CTA() {
         { threshold: 0.28 }
       );
       io.observe(el);
-      // Fallback: si el observer no dispara, revelar igualmente (nunca queda oculto).
-      const t = window.setTimeout(play, 2200);
+      // Fallback: SOLO si la sección está realmente en viewport (evita revelar
+      // fuera de pantalla y perder la animación al llegar scrolleando).
+      const t = window.setTimeout(() => {
+        const r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) play();
+      }, 2500);
       return () => {
         io.disconnect();
         window.clearTimeout(t);

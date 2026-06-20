@@ -60,7 +60,13 @@ export default function About() {
       { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
     );
     io.observe(el);
-    const t = window.setTimeout(() => setShown(true), 1800);
+    // Fallback de seguridad: SOLO revelar si la sección está realmente en
+    // viewport. Antes revelaba a ciegas y, si el usuario tardaba en bajar, el
+    // título se revelaba fuera de pantalla y se perdía la animación al llegar.
+    const t = window.setTimeout(() => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) setShown(true);
+    }, 2500);
     return () => {
       io.disconnect();
       window.clearTimeout(t);
