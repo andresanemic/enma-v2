@@ -53,6 +53,12 @@ body {
   100% { transform: scaleY(1); transform-origin: bottom; opacity: 0; }
 }
 
+/* Métricas — flotación suave de cada métrica sobre el campo de viento */
+@keyframes metric-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+
 /* Footer — chispas cálidas que derivan sobre la base fría (GPU-composited) */
 @keyframes footer-sparks {
   from { transform: translate3d(0, -50%, 0); }
