@@ -148,62 +148,20 @@ export default function About() {
               ))}
             </dl>
 
-            {/* CTA — botones con textura de huella + relleno orgánico (Golden Path: → /nosotros) */}
-            <div className={`${reveal()} mt-10 flex items-center gap-3`} style={delay(5)}>
+            {/* CTA — pill ink con ignición cálida (Golden Path: → /nosotros) */}
+            <div className={`${reveal()} mt-10`} style={delay(5)}>
               <Link
                 href="/nosotros"
-                className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-ink px-7 py-3.5 font-body text-base font-medium text-cream"
+                className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-ink px-7 py-3.5 font-body text-base font-medium text-cream transition-shadow duration-500 ease-out hover:shadow-[0_10px_34px_-8px_rgba(241,84,28,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember/60 focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
               >
-                {/* Relleno cálido que sube como savia/energía en hover */}
+                {/* Ignición: la energía nace en el borde izquierdo y se expande hasta
+                    inundar el pill en hover (energía cálida sobre base fría — eco del glow del cursor). */}
                 <span
                   aria-hidden="true"
-                  className="absolute inset-0 translate-y-full bg-[linear-gradient(to_top,#b12c00,#f1541c)] transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0"
+                  className="absolute left-5 top-1/2 h-8 w-8 -translate-y-1/2 scale-0 rounded-full bg-[radial-gradient(circle,#f1541c,#b12c00)] transition-transform duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[22]"
                 />
-                {/* Textura de huella / curvas de nivel */}
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 opacity-70 mix-blend-soft-light"
-                  style={{
-                    backgroundImage:
-                      "repeating-radial-gradient(circle at 50% 135%, rgba(248,237,221,0.55) 0 1px, transparent 1px 10px)",
-                  }}
-                />
-                {/* Brote — elemento natural, crece en hover */}
-                <svg
-                  aria-hidden="true"
-                  viewBox="0 0 16 16"
-                  className="relative z-10 h-4 w-4 origin-bottom text-orange transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110 group-hover:text-cream"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={1.2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M8 15 V7" />
-                  <path d="M8 9 C5 9 3.4 7 4 3.8 C7.2 4 8.5 6 8 9 Z" />
-                  <path d="M8 8 C11 8 12.3 6.2 12 4 C9.2 4 8 5.8 8 8 Z" />
-                </svg>
                 <span className="relative z-10">Conoce más sobre nosotros</span>
                 <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">
-                  →
-                </span>
-              </Link>
-              <Link
-                href="/nosotros"
-                aria-hidden="true"
-                tabIndex={-1}
-                className="group relative grid h-12 w-12 place-items-center overflow-hidden rounded-full bg-ember text-cream ring-1 ring-inset ring-cream/0 transition-all duration-300 hover:bg-terra hover:ring-cream/30"
-              >
-                {/* Misma textura de huella, en tono oscuro */}
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 opacity-60 mix-blend-soft-light"
-                  style={{
-                    backgroundImage:
-                      "repeating-radial-gradient(circle at 50% 50%, rgba(26,26,26,0.5) 0 1px, transparent 1px 7px)",
-                  }}
-                />
-                <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-0.5">
                   →
                 </span>
               </Link>
