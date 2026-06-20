@@ -100,7 +100,7 @@ export default function FAQ() {
               letterSpacing: "-0.03em",
             }}
           >
-            Lo que suelen <span className="font-medium text-ember">preguntarnos</span>.
+            Lo que suelen <span className="font-medium text-teal">preguntarnos</span>.
           </h2>
         </div>
 
@@ -112,11 +112,11 @@ export default function FAQ() {
               <li key={item.q} className={reveal()} style={delay(2 + i)}>
                 <div className="group relative border-t border-ink/12">
                   {/* Línea-acento que recorre el borde superior:
-                      cálida (ember) en hover, teal de marca cuando está abierta */}
+                      teal suave en hover, teal de marca pleno cuando está abierta */}
                   <span
                     aria-hidden="true"
                     className={`absolute left-0 top-0 h-px transition-all duration-500 ease-out ${
-                      isOpen ? "w-full bg-teal" : "w-0 bg-ember group-hover:w-full"
+                      isOpen ? "w-full bg-teal" : "w-0 bg-teal/70 group-hover:w-full"
                     }`}
                   />
 
@@ -131,7 +131,7 @@ export default function FAQ() {
                   >
                     <span
                       className={`font-display font-light leading-tight transition-colors duration-300 ${
-                        isOpen ? "text-teal" : "text-ink group-hover:text-ember"
+                        isOpen ? "text-teal" : "text-ink group-hover:text-teal"
                       }`}
                       style={{
                         fontSize: "clamp(1.15rem, 2.4vw, 1.75rem)",
@@ -141,35 +141,24 @@ export default function FAQ() {
                       {item.q}
                     </span>
 
-                    {/* Toggle — firma: relleno cálido que sube + textura de huella */}
+                    {/* Toggle — firma: relleno teal que sube (intensidad por estado) */}
                     <span
                       aria-hidden="true"
                       className={`relative grid h-11 w-11 shrink-0 place-items-center overflow-hidden rounded-full ring-1 ring-inset transition-colors duration-300 ${
                         isOpen
                           ? "ring-transparent"
-                          : "bg-ink/[0.05] ring-ink/15 group-hover:ring-ember/40"
+                          : "bg-ink/[0.05] ring-ink/15 group-hover:ring-teal/40"
                       }`}
                     >
-                      {/* Relleno que sube como savia/energía:
-                          brasa cálida en hover, teal→verde de marca al abrir */}
+                      {/* Relleno teal que sube: teal suave en hover,
+                          teal profundo de marca al abrir (mono teal, sin naranja ni verde) */}
                       <span
                         aria-hidden="true"
                         className={`absolute inset-0 transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
                           isOpen
-                            ? "translate-y-0 bg-[linear-gradient(to_top,#205358,#3e7c6c)]"
-                            : "translate-y-full bg-[linear-gradient(to_top,#b12c00,#f1541c)] group-hover:translate-y-0"
+                            ? "translate-y-0 bg-[linear-gradient(to_top,#173b3e,#205358)]"
+                            : "translate-y-full bg-[linear-gradient(to_top,#2c6a6f,#205358)] group-hover:translate-y-0"
                         }`}
-                      />
-                      {/* Textura de huella / curvas de nivel */}
-                      <span
-                        aria-hidden="true"
-                        className={`pointer-events-none absolute inset-0 mix-blend-soft-light transition-opacity duration-500 ${
-                          isOpen ? "opacity-70" : "opacity-0 group-hover:opacity-70"
-                        }`}
-                        style={{
-                          backgroundImage:
-                            "repeating-radial-gradient(circle at 50% 135%, rgba(248,237,221,0.6) 0 1px, transparent 1px 9px)",
-                        }}
                       />
                       {/* Glifo +/− — la barra vertical colapsa al abrir */}
                       <span className="relative z-10 block h-4 w-4">
