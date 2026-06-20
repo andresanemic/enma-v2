@@ -75,6 +75,17 @@ body {
   animation: turbine-spin 9s linear infinite;
 }
 
+/* Servicios — crossfade del panel al cambiar de servicio activo (key={active}) */
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(10px); filter: blur(5px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+/* Servicios — giro lento del anillo "sonda" del instrumento (eco del cursor CFD) */
+@keyframes probe-spin {
+  to { transform: rotate(360deg); }
+}
+
 /* Footer — la deriva de las chispas se maneja por rAF en Footer.tsx
    (velocidad constante + wrap pixel-perfecto, sin reset). */
 
