@@ -53,6 +53,12 @@ body {
   100% { transform: scaleY(1); transform-origin: bottom; opacity: 0; }
 }
 
+/* Footer — chispas cálidas que derivan sobre la base fría (GPU-composited) */
+@keyframes footer-sparks {
+  from { transform: translate3d(0, -50%, 0); }
+  to   { transform: translate3d(-50%, -50%, 0); }
+}
+
 /* Eyebrow técnico — etiqueta mono uppercase (carácter I+D) */
 .eyebrow {
   font-family: var(--font-mono), ui-monospace, monospace;
