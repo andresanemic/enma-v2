@@ -137,10 +137,10 @@ export default function About() {
                       aria-hidden="true"
                       className="absolute left-0 top-0 h-px w-0 bg-ember transition-all duration-500 ease-out group-hover:w-full"
                     />
-                    <dt className="font-display text-lg font-medium text-ink transition-colors duration-300 group-hover:text-ember sm:text-xl">
+                    <dt className="font-display text-xl font-medium text-ink transition-colors duration-300 group-hover:text-ember sm:text-2xl">
                       {a.title}
                     </dt>
-                    <dd className="mt-1.5 max-w-md font-body text-sm leading-relaxed text-ink/60 transition-colors duration-300 group-hover:text-ink/80 sm:text-base">
+                    <dd className="mt-2 max-w-md font-body text-base leading-relaxed text-ink/60 transition-colors duration-300 group-hover:text-ink/80 sm:text-lg">
                       {a.desc}
                     </dd>
                   </div>
@@ -152,7 +152,7 @@ export default function About() {
             <div className={`${reveal()} mt-10 flex items-center gap-3`} style={delay(5)}>
               <Link
                 href="/nosotros"
-                className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-ink px-7 py-3.5 font-body text-sm font-medium text-cream"
+                className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-ink px-7 py-3.5 font-body text-base font-medium text-cream"
               >
                 {/* Relleno cálido que sube como savia/energía en hover */}
                 <span

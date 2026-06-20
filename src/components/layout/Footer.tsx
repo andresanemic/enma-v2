@@ -130,7 +130,7 @@ export default function Footer() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="group inline-flex items-center gap-2 font-body text-[15px] font-medium text-cream/70 transition-colors duration-200 hover:text-orange"
+                className="group inline-flex items-center gap-2 font-body text-[17px] font-medium text-cream/70 transition-colors duration-200 hover:text-orange"
               >
                 <span
                   aria-hidden="true"
@@ -154,7 +154,7 @@ export default function Footer() {
                 key={item.href}
                 href={item.href}
                 {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className="group inline-flex items-center gap-2 font-body text-[15px] font-medium text-cream/70 transition-colors duration-200 hover:text-orange"
+                className="group inline-flex items-center gap-2 font-body text-[17px] font-medium text-cream/70 transition-colors duration-200 hover:text-orange"
               >
                 <span
                   aria-hidden="true"
@@ -175,7 +175,7 @@ export default function Footer() {
             {LOCATION.map((line) => (
               <span
                 key={line}
-                className="cursor-default font-body text-[15px] font-medium text-cream/55"
+                className="cursor-default font-body text-[17px] font-medium text-cream/55"
               >
                 {line}
               </span>
@@ -208,13 +208,13 @@ export default function Footer() {
           className={`${reveal()} mt-[clamp(14px,1.4vw,24px)] flex flex-wrap items-center justify-start gap-x-[18px] gap-y-2`}
           style={delay(5)}
         >
-          <p className="m-0 font-body text-[10px] leading-[1.35] text-cream/40">
+          <p className="m-0 font-body text-[12px] leading-[1.35] text-cream/40">
             © {year} Enma SPA. Todos los derechos reservados.
           </p>
-          <span className="font-body text-[10px] leading-[1.35] text-cream/40">
+          <span className="font-body text-[12px] leading-[1.35] text-cream/40">
             Coyhaique, Región de Aysén, Chile
           </span>
-          <span className="font-mono text-[10px] uppercase leading-[1.35] tracking-[0.2em] text-orange/70">
+          <span className="font-mono text-[12px] uppercase leading-[1.35] tracking-[0.2em] text-orange/70">
             <span className="text-orange">EN</span>ergía · <span className="text-orange">MA</span>nufactura
           </span>
         </div>

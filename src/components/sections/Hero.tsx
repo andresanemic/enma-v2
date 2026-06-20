@@ -110,7 +110,7 @@ export default function Hero() {
         <p
           data-fade
           style={{ opacity: 0 }}
-          className="mt-3 max-w-md font-body text-base font-light leading-relaxed text-cream/85 sm:text-lg"
+          className="mt-3 max-w-xl font-body text-lg font-light leading-relaxed text-cream/85 sm:text-xl"
         >
           Soluciones de ingeniería en energía limpia y manufactura, diseñadas
           desde la Patagonia chilena para un territorio complejo.
@@ -120,14 +120,14 @@ export default function Hero() {
         <div data-fade style={{ opacity: 0 }} className="mt-10 flex flex-wrap items-center gap-5">
           <a
             href="mailto:contacto@enmachile.com"
-            className="group inline-flex items-center gap-2 rounded-full bg-ember px-7 py-3 font-body text-sm font-medium text-cream shadow-lg shadow-ember/20 transition-colors duration-300 hover:bg-terra"
+            className="group inline-flex items-center gap-2 rounded-full bg-ember px-7 py-3.5 font-body text-base font-medium text-cream shadow-lg shadow-ember/20 transition-colors duration-300 hover:bg-terra"
           >
             Hablemos de tu proyecto
             <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
           </a>
           <Link
             href="/proyectos"
-            className="font-body text-sm font-medium text-cream/80 underline-offset-4 transition-colors duration-200 hover:text-cream hover:underline"
+            className="font-body text-base font-medium text-cream/80 underline-offset-4 transition-colors duration-200 hover:text-cream hover:underline"
           >
             Ver proyectos →
           </Link>

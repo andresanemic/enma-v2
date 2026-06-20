@@ -127,7 +127,7 @@ export default function NavBar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`rounded-full px-4 py-1.5 font-body text-sm font-medium transition-colors duration-300 ${
+                  className={`rounded-full px-4 py-1.5 font-body text-[15px] font-medium transition-colors duration-300 ${
                     light
                       ? "text-ink/75 hover:bg-ember/10 hover:text-ember"
                       : "text-cream/85 hover:bg-cream/12 hover:text-cream"
@@ -140,7 +140,7 @@ export default function NavBar() {
             </div>
             <a
               href={CONTACT}
-              className="group inline-flex items-center gap-1.5 rounded-full bg-ember px-5 py-2.5 font-body text-sm font-medium text-cream transition-colors duration-300 hover:bg-terra"
+              className="group inline-flex items-center gap-1.5 rounded-full bg-ember px-5 py-2.5 font-body text-[15px] font-medium text-cream transition-colors duration-300 hover:bg-terra"
             >
               Hablemos
               <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
@@ -210,7 +210,7 @@ export default function NavBar() {
           <a
             href={CONTACT}
             onClick={closeMenu}
-            className="mt-8 flex items-center justify-center gap-2 rounded-full bg-ember px-6 py-3.5 font-body text-sm font-medium text-cream transition-colors duration-300 hover:bg-terra"
+            className="mt-8 flex items-center justify-center gap-2 rounded-full bg-ember px-6 py-3.5 font-body text-base font-medium text-cream transition-colors duration-300 hover:bg-terra"
           >
             Hablemos de tu proyecto →
           </a>

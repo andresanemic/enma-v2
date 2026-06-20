@@ -199,7 +199,7 @@ export default function FAQ() {
                   >
                     <div className="min-h-0 overflow-hidden">
                       <p
-                        className={`max-w-[62ch] border-l-2 border-teal/35 pb-7 pl-5 pr-12 font-body text-sm leading-relaxed text-ink/60 transition-opacity duration-500 sm:text-base ${
+                        className={`max-w-[62ch] border-l-2 border-teal/35 pb-7 pl-5 pr-12 font-body text-base leading-relaxed text-ink/60 transition-opacity duration-500 sm:text-lg ${
                           isOpen ? "opacity-100" : "opacity-0"
                         }`}
                       >

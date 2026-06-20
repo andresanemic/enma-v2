@@ -177,7 +177,7 @@ export default function CTA() {
         <p
           data-fade
           style={{ opacity: 0 }}
-          className="mt-4 max-w-md font-body text-sm font-light leading-relaxed text-cream/75 sm:text-base"
+          className="mt-5 max-w-xl font-body text-base font-light leading-relaxed text-cream/75 sm:text-lg"
         >
           Cuéntanos qué necesitas resolver en energía, manufactura o
           medioambiente. Diseñamos cada solución a la medida de tu territorio
@@ -193,7 +193,7 @@ export default function CTA() {
           onMouseLeave={() => surge(false)}
           className="group mt-6 inline-flex items-center gap-4"
         >
-          <span className="relative font-display text-lg font-medium text-cream sm:text-xl">
+          <span className="relative font-display text-xl font-medium text-cream sm:text-2xl">
             Hablemos de tu proyecto
             <span
               aria-hidden="true"
