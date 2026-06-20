@@ -77,10 +77,98 @@ const SERVICES: Service[] = [
   },
 ];
 
+// ── Coreografía de la card del panel ────────────────────────────────────────
+// Cada card se "monta" con efectos propios y escalonados (filosofía del Footer):
+// la foto hace clip-wipe + settle de escala, el título se dibuja (clip-wipe) y la
+// descripción entra con fade. Vale para la entrada (con delay) y para el cambio
+// de servicio (snappy). Las cards van apiladas en una celda de grid → todas miden
+// lo del servicio más alto; autoAlpha (visibility) conserva ese alto al ocultarlas.
+function cardParts(c: HTMLElement) {
+  return {
+    media: c.querySelector<HTMLElement>("[data-card-media]")!,
+    img: c.querySelector<HTMLElement>("[data-card-img]")!,
+    title: c.querySelector<HTMLElement>("[data-card-title]")!,
+    desc: c.querySelector<HTMLElement>("[data-card-desc]")!,
+  };
+}
+
+function animateCardIn(c: HTMLElement, delay = 0) {
+  const { media, img, title, desc } = cardParts(c);
+  gsap.killTweensOf([c, media, img, title, desc]);
+  gsap.set(c, { zIndex: 10 });
+  const tl = gsap.timeline({ delay, defaults: { ease: "power3.out" } });
+  tl.to(c, { autoAlpha: 1, duration: 0.25 }, 0)
+    // Foto — clip-wipe (izq → der) + leve settle de escala
+    .fromTo(
+      media,
+      { clipPath: "inset(0 100% 0 0)" },
+      { clipPath: "inset(0 0% 0 0)", duration: 0.7, ease: "power3.inOut" },
+      0
+    )
+    .fromTo(img, { scale: 1.08 }, { scale: 1, duration: 0.9, ease: "power2.out" }, 0)
+    // Título — se "dibuja" con clip-wipe
+    .fromTo(
+      title,
+      { clipPath: "inset(0 100% 0 0)" },
+      { clipPath: "inset(0 0% 0 0)", duration: 0.6, ease: "power2.inOut" },
+      0.18
+    )
+    // Descripción — fade + leve subida
+    .fromTo(desc, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+  return tl;
+}
+
+// Crossfade de ENTRADA al cambiar de servicio (el efecto "de antes"): la card
+// aparece completa (su contenido ya dibujado, sin clip-wipe) y solo cruza con
+// fundido + leve subida + desenfoque que se aclara.
+function crossfadeCardIn(c: HTMLElement) {
+  const { media, img, title, desc } = cardParts(c);
+  gsap.killTweensOf([c, media, img, title, desc]);
+  // Contenido en estado final (la coreografía bonita es solo para la entrada).
+  gsap.set(media, { clipPath: "inset(0 0% 0 0)" });
+  gsap.set(img, { scale: 1 });
+  gsap.set(title, { clipPath: "inset(0 0% 0 0)" });
+  gsap.set(desc, { opacity: 1, y: 0 });
+  gsap.set(c, { zIndex: 10 });
+  gsap.fromTo(
+    c,
+    { autoAlpha: 0, y: 8, filter: "blur(5px)" },
+    { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: "power3.out" }
+  );
+}
+
+// Salida al cambiar de servicio (crossfade): fundido + baja + desenfoque.
+function animateCardOut(c: HTMLElement) {
+  gsap.killTweensOf(c);
+  gsap.to(c, {
+    autoAlpha: 0,
+    y: 8,
+    filter: "blur(5px)",
+    duration: 0.5,
+    ease: "power3.out",
+    onComplete: () => gsap.set(c, { zIndex: 0, y: 0, filter: "blur(0px)" }),
+  });
+}
+
+function setCardFinal(c: HTMLElement, on: boolean) {
+  const { media, img, title, desc } = cardParts(c);
+  gsap.set(c, { autoAlpha: on ? 1 : 0, zIndex: on ? 10 : 0 });
+  gsap.set(media, { clipPath: "inset(0 0% 0 0)" });
+  gsap.set(img, { scale: 1 });
+  gsap.set(title, { clipPath: "inset(0 0% 0 0)" });
+  gsap.set(desc, { opacity: 1, y: 0 });
+}
+
 export default function Services() {
   const ref = useRef<HTMLElement>(null);
   // Servicio activo del índice (0 = consultoría, el base). Hover/foco/tap lo cambia.
   const [active, setActive] = useState(0);
+  // Refs a cada card apilada del panel (para coreografiar entrada y cambios).
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  // Servicio anterior (-1 = aún no se reveló la sección → la primera vez es entrada).
+  const prevActive = useRef(-1);
+  // La sección entró en viewport (dispara la entrada del panel y habilita cambios).
+  const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
@@ -95,6 +183,7 @@ export default function Services() {
       const sub = q("[data-sub]");
       const items = q("[data-item]");
       const panel = q("[data-panel]");
+      const cards = cardRefs.current;
 
       if (reduce) {
         gsap.set([words, letters, sub, items, panel], {
@@ -102,13 +191,30 @@ export default function Services() {
           y: 0,
           filter: "blur(0px)",
         });
+        // En el montaje el servicio activo siempre es 0 (los cambios posteriores
+        // los maneja el efecto de cambio). Fijar 0 evita re-correr todo el setup.
+        cards.forEach((c, i) => c && setCardFinal(c, i === 0));
+        setRevealed(true);
         return;
       }
+
+      // Estado inicial de las cards: ocultas y "sin dibujar" hasta que el panel
+      // entra (la entrada y los cambios las animan después).
+      cards.forEach((c) => {
+        if (!c) return;
+        const { media, img, title, desc } = cardParts(c);
+        gsap.set(c, { autoAlpha: 0, zIndex: 0 });
+        gsap.set(media, { clipPath: "inset(0 100% 0 0)" });
+        gsap.set(img, { scale: 1.08 });
+        gsap.set(title, { clipPath: "inset(0 100% 0 0)" });
+        gsap.set(desc, { opacity: 0, y: 14 });
+      });
 
       let played = false;
       const play = () => {
         if (played) return;
         played = true;
+        setRevealed(true);
 
         const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
         // Título — palabra por palabra (rise + blur → nítido)
@@ -139,12 +245,14 @@ export default function Services() {
           { opacity: 1, y: 0, duration: 0.6, stagger: 0.07 },
           0.7
         );
-        // Panel — fade + blur + leve subida
+        // Panel (marco) — entra primero como contenedor; el CONTENIDO de la card
+        // (foto, título, descripción) se coreografía aparte, justo después, vía el
+        // efecto de cambio de servicio (con delay en la primera aparición).
         tl.fromTo(
           panel,
           { opacity: 0, y: 24, filter: "blur(8px)" },
-          { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.95 },
-          0.85
+          { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.85 },
+          0.55
         );
       };
 
@@ -171,6 +279,34 @@ export default function Services() {
 
     return () => ctx.revert();
   }, []);
+
+  // Entrada + cambio de servicio: una sola coreografía. La primera vez (tras
+  // revelarse la sección) entra con delay → la card aparece DESPUÉS de la lista;
+  // en los cambios posteriores responde al instante.
+  useEffect(() => {
+    if (!revealed) return;
+    const cur = active;
+    const old = prevActive.current;
+    if (cur === old) return;
+    const firstReveal = old === -1;
+    prevActive.current = cur;
+
+    const cCur = cardRefs.current[cur];
+    const cOld = old >= 0 ? cardRefs.current[old] : null;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reduce) {
+      if (cOld) setCardFinal(cOld, false);
+      if (cCur) setCardFinal(cCur, true);
+      return;
+    }
+    if (cOld) animateCardOut(cOld);
+    // Primera aparición → coreografía bonita (clip-wipe); cambios → crossfade.
+    if (cCur) {
+      if (firstReveal) animateCardIn(cCur, 0.95);
+      else crossfadeCardIn(cCur);
+    }
+  }, [active, revealed]);
 
   const HEAD_WORDS = ["De", "la", "consultoría", "al"];
   const HEAD_ACCENT = "prototipo físico";
@@ -249,7 +385,7 @@ export default function Services() {
 
         {/* ── Índice interactivo (izq) ↔ panel sincronizado (der) ── */}
         <div className="grid grid-cols-1 gap-x-[clamp(28px,4vw,72px)] gap-y-10 lg:[grid-template-columns:1.35fr_1fr] lg:items-start">
-          {/* Índice */}
+          {/* Índice interactivo */}
           <ul className="border-b border-ink/12">
             {SERVICES.map((s, i) => {
               const isActive = active === i;
@@ -266,7 +402,7 @@ export default function Services() {
                     onFocus={() => setActive(i)}
                     onClick={() => setActive(i)}
                     aria-pressed={isActive}
-                    className="group relative isolate flex w-full items-center gap-4 py-5 pl-0 pr-1 text-left outline-none transition-[padding] duration-300 ease-out focus-visible:pl-3 sm:gap-6 sm:py-6"
+                    className="group relative isolate flex w-full items-center gap-4 py-5 pl-4 pr-1 text-left outline-none transition-[padding] duration-300 ease-out focus-visible:pl-5 sm:gap-6 sm:py-6"
                   >
                     {/* Wash cálido del estado activo (wipe izq → der) */}
                     <span
@@ -275,11 +411,12 @@ export default function Services() {
                         isActive ? "opacity-100" : "opacity-0"
                       }`}
                     />
-                    {/* Línea-acento brasa que recorre el borde superior */}
+                    {/* Acento vertical brasa a la izquierda (crece scaleY) —
+                        eje distinto al sweep horizontal de FAQ/About */}
                     <span
                       aria-hidden="true"
-                      className={`absolute left-0 top-0 h-px bg-ember transition-all duration-500 ease-out ${
-                        isActive ? "w-full" : "w-0 group-hover:w-full"
+                      className={`pointer-events-none absolute left-0 top-1/2 h-[58%] w-[3px] -translate-y-1/2 rounded-full bg-ember transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                        isActive ? "scale-y-100" : "scale-y-0 group-hover:scale-y-100"
                       }`}
                     />
                     {/* Número técnico (mono) */}
@@ -319,27 +456,33 @@ export default function Services() {
             <div className="relative overflow-hidden rounded-3xl border border-ink/10 bg-cream/70 shadow-[0_18px_50px_-26px_rgba(177,44,0,0.35)] backdrop-blur-sm">
               {/* Capas apiladas en una sola celda de grid: la card mide lo del
                   servicio MÁS ALTO, así TODAS las cards quedan del mismo tamaño
-                  (sin alturas mágicas). Solo la activa es visible → crossfade. */}
+                  (sin alturas mágicas). autoAlpha (visibility) oculta las inactivas
+                  conservando ese alto. La activa se coreografía con GSAP. */}
               <div className="relative grid">
                 {SERVICES.map((s, i) => {
                   const on = i === active;
                   return (
                     <div
                       key={s.n}
+                      ref={(el) => {
+                        cardRefs.current[i] = el;
+                      }}
                       aria-hidden={!on}
-                      className={`col-start-1 row-start-1 transition-[opacity,transform,filter] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                        on
-                          ? "opacity-100 blur-0 translate-y-0"
-                          : "pointer-events-none translate-y-2 opacity-0 blur-[5px]"
-                      }`}
+                      className="col-start-1 row-start-1"
+                      style={{ opacity: 0, visibility: "hidden" }}
                     >
                       {/* ── MEDIA: foto duotono a sangre + trazo CFD encima ── */}
                       <div
+                        data-card-media
                         className="relative isolate h-44 w-full overflow-hidden sm:h-52"
-                        style={{ backgroundColor: s.duoFrom }}
+                        style={{
+                          backgroundColor: s.duoFrom,
+                          clipPath: "inset(0 100% 0 0)",
+                        }}
                       >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
+                          data-card-img
                           src={`https://images.unsplash.com/${s.img}?w=900&q=80&auto=format&fit=crop`}
                           alt=""
                           loading="lazy"
@@ -347,6 +490,7 @@ export default function Services() {
                             e.currentTarget.style.display = "none";
                           }}
                           className="absolute inset-0 h-full w-full object-cover grayscale"
+                          style={{ transform: "scale(1.08)" }}
                         />
                         {/* Duotono — colorea la imagen con el par de marca del servicio */}
                         <span
@@ -385,17 +529,23 @@ export default function Services() {
                           }}
                         />
                         <h3
+                          data-card-title
                           className="relative font-display font-medium text-ink"
                           style={{
                             fontSize: "clamp(1.35rem, 2.6vw, 1.85rem)",
                             letterSpacing: "-0.02em",
                             lineHeight: 1.12,
+                            clipPath: "inset(0 100% 0 0)",
                           }}
                         >
                           {s.title}
                         </h3>
 
-                        <p className="relative mt-3 max-w-[44ch] font-body text-base leading-relaxed text-ink/65 sm:text-[1.05rem]">
+                        <p
+                          data-card-desc
+                          className="relative mt-3 max-w-[44ch] font-body text-base leading-relaxed text-ink/65 sm:text-[1.05rem]"
+                          style={{ opacity: 0 }}
+                        >
                           {s.desc}
                         </p>
                       </div>
