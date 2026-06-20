@@ -25,11 +25,22 @@ export default function WindTurbine({ className = "" }: { className?: string }) 
       {/* Torre — tapereada */}
       <path
         d={`M${CX - 3.5},${CY} L${CX - 8},${BOTTOM} L${CX + 8},${BOTTOM} L${CX + 3.5},${CY} Z`}
-        fill="rgba(248,237,221,0.10)"
-        stroke="rgba(248,237,221,0.32)"
-        strokeWidth={1.3}
+        fill="#dad5ca"
+        stroke="rgba(40,40,40,0.18)"
+        strokeWidth={1.2}
         strokeLinejoin="round"
       />
+
+      {/* Un arbusto + pasto en la base — el molino "nace" del terreno (no flota) */}
+      <ellipse cx={CX} cy={BOTTOM + 2} rx={50} ry={21} fill="#173830" />
+      <g stroke="#2c5a4f" strokeOpacity={0.8} strokeWidth={3} fill="none" strokeLinecap="round">
+        {[CX - 66, CX - 38, CX - 14, CX + 8, CX + 32, CX + 60, CX + 90].map((gx, i) => (
+          <path
+            key={i}
+            d={`M${gx},${BOTTOM} q -7,-26 -11,-46 M${gx},${BOTTOM} q -1,-32 1,-54 M${gx},${BOTTOM} q 7,-24 13,-44`}
+          />
+        ))}
+      </g>
 
       {/* Aspas — grupo que gira alrededor del buje */}
       <g className="turbine-spin">
@@ -40,9 +51,9 @@ export default function WindTurbine({ className = "" }: { className?: string }) 
             key={deg}
             d={BLADE}
             transform={`translate(${CX} ${CY}) rotate(${deg})`}
-            fill="rgba(254,169,79,0.10)"
-            stroke="rgba(248,237,221,0.5)"
-            strokeWidth={1.5}
+            fill="#dad5ca"
+            stroke="rgba(40,40,40,0.16)"
+            strokeWidth={1.2}
             strokeLinejoin="round"
             strokeLinecap="round"
           />
@@ -58,11 +69,12 @@ export default function WindTurbine({ className = "" }: { className?: string }) 
           width={38}
           height={18}
           rx={9}
-          fill="rgba(21,10,5,0.55)"
-          stroke="rgba(248,237,221,0.4)"
+          fill="#dad5ca"
+          stroke="rgba(40,40,40,0.2)"
           strokeWidth={1.2}
         />
-        <circle cx={CX} cy={CY} r={13} fill="none" stroke="rgba(254,169,79,0.5)" strokeWidth={1.3} />
+        {/* Detalle naranja: anillo + buje (el "núcleo de energía") */}
+        <circle cx={CX} cy={CY} r={13} fill="none" stroke="#fea94f" strokeWidth={1.6} />
         <circle cx={CX} cy={CY} r={7} fill="#fea94f" />
       </g>
     </svg>

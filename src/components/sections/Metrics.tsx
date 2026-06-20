@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
 import WindField from "@/components/metrics/WindField";
 import WindTurbine from "@/components/metrics/WindTurbine";
+import Ridge from "@/components/metrics/Ridge";
 
 // Métricas REALES (entrevistas + que-es-enma.txt). Sin cifras infladas.
 // Confirmar con el cliente antes de publicar.
@@ -14,7 +15,7 @@ type Metric = {
   text?: string;
   label: string;
   hint: string;
-  accent: "orange" | "ember" | "teal" | "green";
+  accent: "orange" | "ember" | "teal" | "green" | "sky";
   hero?: boolean;
 };
 
@@ -22,7 +23,7 @@ const METRICS: Metric[] = [
   { kind: "num", value: 5, label: "Estudios energéticos liderados en Aysén", hint: "Para el sector público regional, junto al CIEP.", accent: "orange", hero: true },
   { kind: "badge", text: "ANID", label: "Proyecto de I+D financiado", hint: "Turbina eólica de baja escala, resiliente a vientos extremos.", accent: "teal" },
   { kind: "num", value: 100, suffix: "%", label: "Patagonia", hint: "Nacidos y operando en la Región de Aysén.", accent: "green" },
-  { kind: "num", value: 4, label: "Fuentes renovables que dominamos", hint: "Eólica, solar, hidro y geotermia.", accent: "ember" },
+  { kind: "num", value: 4, label: "Fuentes renovables que dominamos", hint: "Eólica, solar, hidro y geotermia.", accent: "sky" },
   { kind: "num", value: 2, label: "Socios fundadores, ingenieros mecánicos", hint: "Con experiencia exitosa como consultores.", accent: "orange" },
 ];
 
@@ -31,6 +32,7 @@ const ACCENT = {
   ember: { bar: "bg-ember", num: "text-ember" },
   teal: { bar: "bg-[#54c0a8]", num: "text-[#54c0a8]" },
   green: { bar: "bg-[#7cc38a]", num: "text-[#7cc38a]" },
+  sky: { bar: "bg-[#8fb8c4]", num: "text-[#8fb8c4]" },
 } as const;
 
 // Offsets verticales para una disposición orgánica (no-grid), tipo flotando.
@@ -71,7 +73,7 @@ export default function Metrics() {
         gsap.set(sub, { opacity: 1, y: 0 });
         gsap.set(metrics, { opacity: 1, y: 0 });
         gsap.set(bars, { scaleX: 1 });
-        gsap.set(stamps, { clipPath: "inset(0 0% 0 0)" });
+        gsap.set(stamps, { opacity: 1, y: 0 });
         counts.forEach((n) => setCount(n, Number(n.dataset.target)));
         return;
       }
@@ -88,7 +90,7 @@ export default function Metrics() {
         // Métricas — emergen del viento en cascada (izq → der)
         tl.fromTo(metrics, { opacity: 0, y: 30, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, stagger: 0.13 }, 0.7);
         tl.fromTo(bars, { scaleX: 0 }, { scaleX: 1, duration: 0.7, stagger: 0.1, ease: "power2.inOut" }, 1.0);
-        tl.fromTo(stamps, { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.8, ease: "power3.inOut" }, 1.05);
+        tl.fromTo(stamps, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7 }, 1.0);
 
         // Contadores: el viento "carga" cada número (proxy → DOM, sin setState).
         counts.forEach((node, i) => {
@@ -132,23 +134,34 @@ export default function Metrics() {
       className="relative w-full overflow-hidden px-6 py-24 text-cream sm:px-10 sm:py-32 md:px-14 md:py-36"
       style={{
         background:
-          "radial-gradient(125% 100% at 80% 6%, #5a1b06 0%, #2a0f06 48%, #150a05 100%)",
+          "radial-gradient(62% 44% at 20% 100%, rgba(247,201,150,0.55) 0%, rgba(233,150,86,0.16) 38%, transparent 66%)," +
+          "linear-gradient(176deg, #2c4a5e 0%, #3c6976 30%, #56877f 54%, #7f9a76 76%, #b98f63 100%)",
       }}
     >
+      {/* Nubes suaves a la deriva (cielo patagónico) */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+        <span className="absolute left-[6%] top-[14%] h-28 w-72 rounded-full bg-cream/15 blur-3xl" style={{ animation: "metric-cloud 46s ease-in-out infinite alternate" }} />
+        <span className="absolute left-[42%] top-[24%] h-24 w-96 rounded-full bg-cream/10 blur-3xl" style={{ animation: "metric-cloud 64s ease-in-out infinite alternate", animationDelay: "-22s" }} />
+        <span className="absolute left-[22%] top-[40%] h-20 w-72 rounded-full bg-[#cfe0e6]/10 blur-3xl" style={{ animation: "metric-cloud 54s ease-in-out infinite alternate", animationDelay: "-35s" }} />
+      </div>
+
       {/* Campo de viento (CFD) — firma de la sección */}
       <WindField />
 
-      {/* Scrim sutil para legibilidad del texto sobre el flujo */}
+      {/* Cordillera patagónica — bosque, flores y huellas (visión diseñadora) */}
+      <Ridge className="pointer-events-none absolute inset-x-0 bottom-0 h-[46%] w-full" />
+
+      {/* Scrim frío sutil — profundidad arriba/abajo sin reintroducir calidez */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
-        style={{ background: "linear-gradient(100deg, rgba(21,10,5,0.72) 0%, rgba(21,10,5,0.32) 42%, transparent 72%)" }}
+        style={{ background: "linear-gradient(180deg, rgba(26,46,58,0.32) 0%, transparent 26%, transparent 64%, rgba(16,32,38,0.4) 100%)" }}
       />
 
       <div className="relative z-10 mx-auto max-w-[1400px]">
         {/* Aerogenerador — fuente del viento. Ancho acotado en lg para que su
             borde derecho quede SIEMPRE antes del contenido (sin solapar). */}
-        <WindTurbine className="pointer-events-none absolute bottom-0 left-[-40%] -z-0 h-[62%] w-auto opacity-25 sm:left-[-22%] sm:h-[80%] sm:opacity-45 md:left-[-14%] md:h-[86%] lg:left-[-4%] lg:h-auto lg:w-[22%] lg:opacity-60" />
+        <WindTurbine className="pointer-events-none absolute bottom-0 left-[-40%] -z-0 h-[62%] w-auto opacity-90 sm:left-[-22%] sm:h-[80%] md:left-[-14%] md:h-[86%] lg:left-[-4%] lg:h-auto lg:w-[22%]" />
 
         {/* Contenido en su posición editorial, con carril libre para el molino */}
         <div className="relative md:pl-[30%] lg:pl-[23%]">
@@ -191,7 +204,7 @@ export default function Metrics() {
         <div className="flex flex-col gap-10 lg:flex-row lg:flex-nowrap lg:items-end lg:gap-8">
           {METRICS.map((m, i) => {
             const a = ACCENT[m.accent];
-            const numColor = m.hero ? ACCENT.orange.num : m.kind === "badge" ? ACCENT.teal.num : "text-cream";
+            const numColor = m.hero ? ACCENT.orange.num : "text-cream";
             const f = FLOAT[i];
             return (
               <div
@@ -214,7 +227,7 @@ export default function Metrics() {
                         {m.suffix && <span>{m.suffix}</span>}
                       </span>
                     ) : (
-                      <span data-stamp className="inline-block font-medium tracking-tight" style={{ clipPath: "inset(0 100% 0 0)" }}>
+                      <span data-stamp className="inline-block font-medium tracking-tight" style={{ opacity: 0 }}>
                         {m.text}
                       </span>
                     )}

@@ -59,6 +59,12 @@ body {
   50% { transform: translateY(-9px); }
 }
 
+/* Métricas — nubes suaves a la deriva sobre el cielo */
+@keyframes metric-cloud {
+  from { transform: translateX(-7%); }
+  to { transform: translateX(7%); }
+}
+
 /* Métricas — giro del aerogenerador (la fuente del viento). GPU-composited. */
 @keyframes turbine-spin {
   to { transform: rotate(360deg); }

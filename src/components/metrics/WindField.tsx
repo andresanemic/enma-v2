@@ -8,13 +8,15 @@ import { useEffect, useRef } from "react";
 // - El cursor (solo pointer fino) deflecta las líneas a su alrededor.
 // - Se pausa fuera de viewport (IO) y respeta prefers-reduced-motion.
 // Paleta cálida protagonista + teal/green como chispa (coherente con la sección).
+// Estelas de viento / nubes — tonos de cielo (blancos, azul-cielo, teal, verde)
+// con un dorado escaso (sol). Sin naranjas fuertes (se quita el efecto "incendio").
 const PALETTE = [
-  "254,169,79", // orange
-  "254,169,79",
-  "241,84,28", // ember
-  "248,237,221", // cream
-  "84,192,168", // teal brillante
-  "124,195,138", // green brillante
+  "248,237,221", // cream / nubes
+  "248,237,221",
+  "206,224,230", // blanco-azul cielo
+  "160,196,205", // azul-teal claro
+  "132,196,170", // verde suave
+  "247,201,150", // dorado suave (sol) — escaso
 ];
 
 export default function WindField() {
