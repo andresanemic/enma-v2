@@ -105,16 +105,16 @@ function animateCardIn(c: HTMLElement, delay = 0) {
       { clipPath: "inset(0 0% 0 0)", duration: 0.7, ease: "power3.inOut" },
       0
     )
-    .fromTo(img, { scale: 1.08 }, { scale: 1, duration: 0.9, ease: "power2.out" }, 0)
+    .fromTo(img, { scale: 1.04 }, { scale: 1, duration: 0.8, ease: "power2.out" }, 0)
     // Título — se "dibuja" con clip-wipe
     .fromTo(
       title,
       { clipPath: "inset(0 100% 0 0)" },
-      { clipPath: "inset(0 0% 0 0)", duration: 0.6, ease: "power2.inOut" },
-      0.18
+      { clipPath: "inset(0 0% 0 0)", duration: 0.55, ease: "power2.inOut" },
+      0.16
     )
     // Descripción — fade + leve subida
-    .fromTo(desc, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6 }, 0.3);
+    .fromTo(desc, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.55 }, 0.28);
   return tl;
 }
 
@@ -205,9 +205,9 @@ export default function Services() {
         const { media, img, title, desc } = cardParts(c);
         gsap.set(c, { autoAlpha: 0, zIndex: 0 });
         gsap.set(media, { clipPath: "inset(0 100% 0 0)" });
-        gsap.set(img, { scale: 1.08 });
+        gsap.set(img, { scale: 1.04 });
         gsap.set(title, { clipPath: "inset(0 100% 0 0)" });
-        gsap.set(desc, { opacity: 0, y: 14 });
+        gsap.set(desc, { opacity: 0, y: 10 });
       });
 
       let played = false;
@@ -221,32 +221,32 @@ export default function Services() {
         // ni blur). La coreografía palabra+letras queda reservada a Hero y Footer.
         tl.fromTo(
           [...words, ...letters],
-          { opacity: 0, y: "0.6em" },
-          { opacity: 1, y: "0em", duration: 0.9, ease: "power3.out" },
+          { opacity: 0, y: "0.5em" },
+          { opacity: 1, y: "0em", duration: 0.8, ease: "power3.out" },
           0
         );
-        // Subhead — fade + blur
+        // Subhead — fade + leve subida (sin blur)
         tl.fromTo(
           sub,
-          { opacity: 0, y: 16, filter: "blur(8px)" },
-          { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9 },
-          0.6
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, duration: 0.8 },
+          0.55
         );
         // Filas del índice — cascada
         tl.fromTo(
           items,
-          { opacity: 0, y: 18 },
-          { opacity: 1, y: 0, duration: 0.6, stagger: 0.07 },
-          0.7
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, duration: 0.55, stagger: 0.06 },
+          0.65
         );
         // Panel (marco) — entra primero como contenedor; el CONTENIDO de la card
         // (foto, título, descripción) se coreografía aparte, justo después, vía el
         // efecto de cambio de servicio (con delay en la primera aparición).
         tl.fromTo(
           panel,
-          { opacity: 0, y: 24, filter: "blur(8px)" },
-          { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.85 },
-          0.55
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.75 },
+          0.5
         );
       };
 
@@ -297,7 +297,7 @@ export default function Services() {
     if (cOld) animateCardOut(cOld);
     // Primera aparición → coreografía bonita (clip-wipe); cambios → crossfade.
     if (cCur) {
-      if (firstReveal) animateCardIn(cCur, 0.95);
+      if (firstReveal) animateCardIn(cCur, 0.85);
       else crossfadeCardIn(cCur);
     }
   }, [active, revealed]);

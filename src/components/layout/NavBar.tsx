@@ -283,8 +283,7 @@ export default function NavBar() {
                 →
               </span>
             </a>
-            <div className="mt-6 flex items-center justify-between">
-              <p className="font-body text-sm text-cream/45">contacto@enmachile.com</p>
+            <div className="mt-6 flex items-center justify-end">
               <p className="font-body text-xs uppercase tracking-[0.2em] text-cream/30">
                 Aysén · Patagonia
               </p>

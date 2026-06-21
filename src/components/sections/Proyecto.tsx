@@ -48,26 +48,26 @@ export default function Proyecto() {
 
         // Título — el bloque se asienta (leve escala + subida), sin cascada
         // palabra-a-palabra. Esa coreografía queda reservada a Hero y Footer.
-        tl.fromTo(q("[data-head-word]"), { opacity: 0, y: 14, scale: 0.985 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 0);
+        tl.fromTo(q("[data-head-word]"), { opacity: 0, y: 10, scale: 0.99 }, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "power3.out" }, 0);
         const dek = el.querySelector("[data-dek]");
-        if (dek) tl.fromTo(dek, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.8 }, 0.3);
+        if (dek) tl.fromTo(dek, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.75 }, 0.28);
 
         // Panel — el espécimen "se levanta" desde la base (clip de abajo hacia arriba).
         const panel = el.querySelector("[data-panel]");
-        if (panel) tl.fromTo(panel, { clipPath: "inset(100% 0 0 0 round 18px)" }, { clipPath: "inset(0% 0 0 0 round 18px)", duration: 1.0, ease: "power3.inOut" }, 0.45);
+        if (panel) tl.fromTo(panel, { clipPath: "inset(100% 0 0 0 round 18px)" }, { clipPath: "inset(0% 0 0 0 round 18px)", duration: 0.85, ease: "power3.inOut" }, 0.4);
 
         // Cotas técnicas — se trazan; sus labels aparecen detrás.
-        tl.fromTo(q("[data-cota]"), { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.8, stagger: 0.12, ease: "power2.inOut" }, 1.0);
-        tl.fromTo(q("[data-cota-label]"), { opacity: 0 }, { opacity: 1, duration: 0.5, stagger: 0.1 }, 1.3);
+        tl.fromTo(q("[data-cota]"), { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.7, stagger: 0.12, ease: "power2.inOut" }, 0.85);
+        tl.fromTo(q("[data-cota-label]"), { opacity: 0 }, { opacity: 1, duration: 0.5, stagger: 0.1 }, 1.1);
 
         // Líneas guía (draw-on por scaleX) + anotaciones (fade) — desktop.
-        tl.fromTo(q("[data-leader]"), { scaleX: 0 }, { scaleX: 1, duration: 0.6, stagger: 0.12, ease: "power2.out" }, 1.05);
-        tl.fromTo(q("[data-anno]"), { opacity: 0 }, { opacity: 1, duration: 0.6, stagger: 0.12 }, 1.2);
+        tl.fromTo(q("[data-leader]"), { scaleX: 0 }, { scaleX: 1, duration: 0.55, stagger: 0.12, ease: "power2.out" }, 0.9);
+        tl.fromTo(q("[data-anno]"), { opacity: 0 }, { opacity: 1, duration: 0.55, stagger: 0.12 }, 1.0);
         // Lista de specs (móvil) — cascada.
-        tl.fromTo(q("[data-anno-m]"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 }, 1.0);
+        tl.fromTo(q("[data-anno-m]"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.55, stagger: 0.08 }, 0.85);
 
         const cta = el.querySelector("[data-cta]");
-        if (cta) tl.fromTo(cta, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.7 }, 1.5);
+        if (cta) tl.fromTo(cta, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.65 }, 1.25);
       };
 
       const io = new IntersectionObserver(
@@ -184,13 +184,13 @@ export default function Proyecto() {
 
           {/* Panel central — la turbina como espécimen */}
           <div className="relative shrink-0">
-            <div data-panel className="group/panel relative aspect-[3/4] w-[clamp(230px,32vw,340px)] overflow-hidden rounded-[18px] ring-1 ring-ink/15" style={{ clipPath: "inset(100% 0 0 0 round 18px)" }}>
+            <div data-panel className="relative aspect-[3/4] w-[clamp(230px,32vw,340px)] overflow-hidden rounded-[18px] ring-1 ring-ink/15" style={{ clipPath: "inset(100% 0 0 0 round 18px)" }}>
               <Image
                 src="/proyecto/turbina.jpg"
                 alt="Turbina eólica de baja escala en un paisaje abierto"
                 fill
                 sizes="(min-width: 768px) 300px, 70vw"
-                className="object-cover object-center transition-transform duration-[900ms] ease-out group-hover/panel:scale-[1.06]"
+                className="object-cover object-center"
               />
 
               {/* Cotas técnicas (draw-on) — ↕ torre (izq) · ↔ rotor (arriba) */}

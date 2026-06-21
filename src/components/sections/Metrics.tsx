@@ -34,15 +34,6 @@ const ACCENT = {
   sky: { bar: "bg-[#8fb8c4]", num: "text-[#8fb8c4]" },
 } as const;
 
-// Offsets verticales para una disposición orgánica (no-grid), tipo flotando.
-const FLOAT = [
-  { dur: "7s", delay: "0s", mt: "" },
-  { dur: "8.5s", delay: "0.8s", mt: "lg:mt-14" },
-  { dur: "7.8s", delay: "1.6s", mt: "lg:mt-6" },
-  { dur: "9s", delay: "0.4s", mt: "lg:mt-20" },
-  { dur: "8s", delay: "1.2s", mt: "lg:mt-10" },
-];
-
 const HEAD_WORDS = ["Respaldo", "que", "se", "puede"];
 const HEAD_ACCENT = "medir";
 
@@ -83,32 +74,16 @@ export default function Metrics() {
         played = true;
 
         const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-        // Título — entra como UN bloque que "enfoca" (blur→nítido), sin cascada
-        // palabra-a-palabra. Esa coreografía queda reservada a Hero y Footer.
-        tl.fromTo([...words, ...letters], { opacity: 0, y: 10, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.0, ease: "power2.out" }, 0);
-        tl.fromTo(sub, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.8 }, 0.6);
-        // Métricas — emergen del viento en cascada (izq → der)
-        tl.fromTo(metrics, { opacity: 0, y: 30, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, stagger: 0.13 }, 0.7);
-        tl.fromTo(bars, { scaleX: 0 }, { scaleX: 1, duration: 0.7, stagger: 0.1, ease: "power2.inOut" }, 1.0);
-        tl.fromTo(stamps, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7 }, 1.0);
-
-        // Contadores: el viento "carga" cada número (proxy → DOM, sin setState).
-        counts.forEach((node, i) => {
-          const target = Number(node.dataset.target);
-          const o = { v: 0 };
-          setCount(node, 0);
-          gsap.to(o, {
-            v: target,
-            duration: 1.7,
-            ease: "power2.out",
-            delay: 0.85 + i * 0.13,
-            onUpdate: () => setCount(node, o.v),
-            onComplete: () => {
-              // Pulso de "cargado"
-              gsap.fromTo(node, { scale: 1 }, { scale: 1.08, duration: 0.16, yoyo: true, repeat: 1, ease: "power2.out", transformOrigin: "left bottom" });
-            },
-          });
-        });
+        // Título — entra como UN bloque que sube (sin blur ni cascada palabra-a-
+        // palabra). Esa coreografía queda reservada a Hero y Footer.
+        tl.fromTo([...words, ...letters], { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" }, 0);
+        tl.fromTo(sub, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.8 }, 0.55);
+        // Métricas — aparecen con un fundido simple, en cascada. Los números NO se
+        // mueven: sin desplazamiento, sin count-up y sin flotación perpetua; quedan
+        // fijos en su valor final desde el inicio.
+        tl.fromTo(metrics, { opacity: 0 }, { opacity: 1, duration: 0.8, stagger: 0.1 }, 0.6);
+        tl.fromTo(bars, { scaleX: 0 }, { scaleX: 1, duration: 0.7, stagger: 0.1, ease: "power2.inOut" }, 0.9);
+        tl.fromTo(stamps, { opacity: 0 }, { opacity: 1, duration: 0.7 }, 0.9);
       };
 
       const io = new IntersectionObserver(
@@ -205,22 +180,20 @@ export default function Metrics() {
           </p>
         </div>
 
-        {/* ── Métricas flotando en el viento (sin cards) ──
+        {/* ── Métricas sobre el viento (sin cards, estáticas) ──
             En móvil todas las métricas van alineadas a la izquierda, en columna,
             y se reserva espacio al final (pb-%) igual al alto del molino para que
             la columna termine ARRIBA y el molino se vea completo debajo (sin
             solaparse). El pb-% es relativo al ancho → calza con w-% del molino.
             Desde md el carril lo da el padding del wrapper. */}
         <div className="flex flex-col gap-10 pb-[64%] sm:pb-[44%] md:pb-0 lg:flex-row lg:flex-nowrap lg:items-end lg:gap-8">
-          {METRICS.map((m, i) => {
+          {METRICS.map((m) => {
             const a = ACCENT[m.accent];
             const numColor = m.hero ? ACCENT.orange.num : "text-cream";
-            const f = FLOAT[i];
             return (
               <div
                 key={m.label}
                 className={`lg:min-w-0 ${m.hero ? "lg:flex-[1.4]" : "lg:flex-1"}`}
-                style={{ animation: `metric-float ${f.dur} ease-in-out ${f.delay} infinite` }}
               >
                 <div data-metric style={{ opacity: 0 }}>
                   {/* Número / badge */}

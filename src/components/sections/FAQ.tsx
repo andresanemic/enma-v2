@@ -72,10 +72,10 @@ export default function FAQ() {
   }, []);
 
   const reveal = () =>
-    `transition-all duration-[850ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
-      shown ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+    `transition-all duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+      shown ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
     }`;
-  const delay = (i: number) => ({ transitionDelay: `${i * 90}ms` });
+  const delay = (i: number) => ({ transitionDelay: `${i * 80}ms` });
 
   return (
     <section

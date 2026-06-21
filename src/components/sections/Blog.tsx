@@ -130,53 +130,37 @@ export default function Blog() {
         });
       };
 
-      // Encabezado — palabra por palabra (rise + blur → nítido).
+      // Encabezado — palabra por palabra (rise, sin blur).
       const head = el.querySelector("[data-head]");
       if (head) {
         observeOnce(head, () => {
           gsap.fromTo(
             q(head, "[data-head-word]"),
-            { opacity: 0, y: "0.8em", filter: "blur(6px)" },
-            { opacity: 1, y: "0em", filter: "blur(0px)", duration: 0.8, stagger: 0.08, ease: "power3.out" }
+            { opacity: 0, y: "0.5em" },
+            { opacity: 1, y: "0em", duration: 0.7, stagger: 0.06, ease: "power3.out" }
           );
         });
       }
 
-      // Cada franja — coreografía propia: portada clip-wipe → título → resumen →
-      // byline → "Leer nota". Reveal por franja (no una sola IO global) para que
-      // cada una anime al entrar y no fuera de pantalla.
+      // Cada franja entra con un único fundido + leve subida (efecto simple): su
+      // contenido interno (portada, título, resumen, byline, "Leer nota") se fija
+      // en estado final y la franja completa se revela como un solo bloque.
       q(el, "[data-band]").forEach((band) => {
         observeOnce(band, () => {
-          const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
           const cover = band.querySelector("[data-bcover]");
-          if (cover)
-            tl.fromTo(
-              cover,
-              { clipPath: "inset(0 100% 0 0 round 20px)" },
-              { clipPath: "inset(0 0% 0 0 round 20px)", duration: 0.95, ease: "power3.inOut" },
-              0
-            );
-          const title = band.querySelector("[data-btitle]");
-          if (title)
-            tl.fromTo(
-              title,
-              { opacity: 0, y: 16 },
-              { opacity: 1, y: 0, duration: 0.7 },
-              0.18
-            );
-          const sum = band.querySelector("[data-bsum]");
-          if (sum) tl.fromTo(sum, { opacity: 0, y: 14, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8 }, 0.4);
-          const meta = band.querySelector("[data-bmeta]");
-          if (meta) tl.fromTo(meta, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.6 }, 0.55);
-          const more = band.querySelector("[data-bmore]");
-          if (more) tl.fromTo(more, { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: 0.5 }, 0.66);
+          if (cover) gsap.set(cover, { clipPath: "inset(0 0% 0 0 round 20px)" });
+          gsap.set(
+            Array.from(band.querySelectorAll("[data-btitle], [data-bsum], [data-bmeta], [data-bmore]")),
+            { opacity: 1, x: 0, y: 0 }
+          );
+          gsap.fromTo(band, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" });
         });
       });
 
       // Curvas de nivel — se trazan de izquierda a derecha.
       q(el, "[data-rule]").forEach((rule) => {
         observeOnce(rule, () => {
-          gsap.fromTo(rule, { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: "power2.inOut" });
+          gsap.fromTo(rule, { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power2.inOut" });
         });
       });
 
@@ -260,7 +244,7 @@ export default function Blog() {
                   className="group grid items-center gap-7 md:grid-cols-2 md:gap-12 lg:gap-16"
                   aria-label={`Leer: ${a.title}`}
                 >
-                  {/* Portada — clip-wipe en la entrada, zoom + velo cálido que se levanta en hover */}
+                  {/* Portada — estática (sin hover); velo cálido fijo que unifica la paleta */}
                   <div
                     data-bcover
                     className={`relative aspect-[4/3] w-full overflow-hidden rounded-[20px] md:aspect-[3/2] ${
@@ -274,12 +258,12 @@ export default function Blog() {
                       alt={a.coverAlt}
                       fill
                       sizes="(min-width: 768px) 44vw, 92vw"
-                      className="object-cover transition-transform duration-[800ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
+                      className="object-cover"
                     />
-                    {/* Velo cálido terracota (unifica la paleta; se levanta en hover) */}
+                    {/* Velo cálido terracota (unifica la paleta) — estático */}
                     <div
                       aria-hidden="true"
-                      className="absolute inset-0 opacity-100 transition-opacity duration-[800ms] ease-out group-hover:opacity-40"
+                      className="absolute inset-0"
                       style={{
                         background:
                           "linear-gradient(150deg, rgba(177,44,0,0.34) 0%, rgba(219,135,70,0.16) 55%, rgba(241,84,28,0.30) 100%)",

@@ -74,10 +74,10 @@ export default function About() {
   }, []);
 
   const reveal = () =>
-    `transition-all duration-[850ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
-      shown ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+    `transition-all duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+      shown ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
     }`;
-  const delay = (i: number) => ({ transitionDelay: `${i * 110}ms` });
+  const delay = (i: number) => ({ transitionDelay: `${i * 90}ms` });
 
   return (
     <section
@@ -105,7 +105,7 @@ export default function About() {
 
           {/* Contenido */}
           <div className="order-2">
-            {/* Título — aparición palabra por palabra */}
+            {/* Título — aparece como un bloque (mismo gesto que el header de Servicios) */}
             <h2
               className="max-w-[18ch] font-display font-light text-ink"
               style={{
@@ -117,10 +117,10 @@ export default function About() {
               {TITLE_WORDS.map((item, i) => (
                 <span
                   key={i}
-                  className={`inline-block transition-all duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  className={`inline-block transition-all duration-[800ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
                     item.accent ? "font-medium text-ember" : ""
                   } ${shown ? "translate-y-0 opacity-100" : "translate-y-[0.5em] opacity-0"}`}
-                  style={{ transitionDelay: `${160 + i * 65}ms`, marginRight: "0.26em" }}
+                  style={{ transitionDelay: "120ms", marginRight: "0.26em" }}
                 >
                   {item.w}
                 </span>

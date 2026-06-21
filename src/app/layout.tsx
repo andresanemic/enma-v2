@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Manrope, Outfit } from "next/font/google";
-import FieldCursor from "@/components/cursor/FieldCursor";
 import "./globals.css";
 
 // Manrope — títulos y subtítulos
@@ -41,7 +40,6 @@ export default function RootLayout({
     >
       <body>
         {children}
-        <FieldCursor />
       </body>
     </html>
   );

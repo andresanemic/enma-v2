@@ -37,8 +37,7 @@ const COFOUNDERS: Cofounder[] = [
 const HEAD_WORDS = ["Dos", "socios,"];
 const HEAD_ACCENT = "un propósito";
 
-// Retratos: a color pleno siempre; en hover, zoom lento (mismo efecto que la
-// imagen de la sección About — transform scale, sin cambio de color).
+// Retratos: a color pleno siempre, estáticos (sin hover).
 
 export default function Equipo() {
   const ref = useRef<HTMLElement>(null);
@@ -73,23 +72,23 @@ export default function Equipo() {
         played = true;
         const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-        // Encabezado — palabra por palabra (rise + blur).
-        tl.fromTo(q("[data-head-word]"), { opacity: 0, y: "0.8em", filter: "blur(6px)" }, { opacity: 1, y: "0em", filter: "blur(0px)", duration: 0.8, stagger: 0.08 }, 0);
+        // Encabezado — palabra por palabra (rise, sin blur).
+        tl.fromTo(q("[data-head-word]"), { opacity: 0, y: "0.5em" }, { opacity: 1, y: "0em", duration: 0.7, stagger: 0.06 }, 0);
         const dek = el.querySelector("[data-dek]");
-        if (dek) tl.fromTo(dek, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.8 }, 0.3);
+        if (dek) tl.fromTo(dek, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.75 }, 0.28);
 
-        // Cada bloque SURGE desde fuera del viewport y se acomoda con overshoot.
+        // Cada bloque entra deslizando desde su lado (sin overshoot/rebote).
         // Dirección por SLOT (no por cofundador) → coherente con el swap.
         q<HTMLElement>("[data-cf-block]").forEach((b, i) => {
-          const fromX = i === 0 ? -150 : 150;
-          const fromY = i === 0 ? -56 : 64;
-          tl.fromTo(b, { opacity: 0, x: fromX, y: fromY }, { opacity: 1, x: 0, y: 0, duration: 1.0, ease: "back.out(1.4)" }, 0.35 + i * 0.14);
+          const fromX = i === 0 ? -60 : 60;
+          const fromY = i === 0 ? -24 : 28;
+          tl.fromTo(b, { opacity: 0, x: fromX, y: fromY }, { opacity: 1, x: 0, y: 0, duration: 0.85, ease: "power3.out" }, 0.32 + i * 0.12);
         });
 
-        // Hilo "E" — se traza entre ambos; los nodos hacen pop al final.
+        // Hilo "E" — se traza entre ambos; los nodos aparecen al final (sin pop).
         const path = el.querySelector("[data-thread-path]");
-        if (path) tl.fromTo(path, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.1, ease: "power2.inOut" }, 0.7);
-        tl.fromTo(q("[data-thread-node]"), { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.45, stagger: 0.12, ease: "back.out(2.6)", transformOrigin: "center" }, 1.2);
+        if (path) tl.fromTo(path, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.inOut" }, 0.65);
+        tl.fromTo(q("[data-thread-node]"), { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.45, stagger: 0.1, ease: "power2.out", transformOrigin: "center" }, 1.05);
       };
 
       const io = new IntersectionObserver(
@@ -190,14 +189,14 @@ export default function Equipo() {
                   }`}
                 >
                   <div className={`group/cf flex flex-col items-start gap-6 sm:items-center sm:gap-8 ${isSlot1 ? "sm:flex-row" : "sm:flex-row-reverse"}`}>
-                    {/* Retrato — color pleno; zoom lento en hover (efecto de About) */}
+                    {/* Retrato — color pleno, estático (sin hover) */}
                     <div className="relative aspect-[4/5] w-[200px] shrink-0 overflow-hidden rounded-[20px] ring-1 ring-ink/15 sm:w-[clamp(180px,22vw,270px)]">
                       <Image
                         src={cf.photo}
                         alt={cf.alt}
                         fill
                         sizes="(min-width: 768px) 270px, 60vw"
-                        className="object-cover transition-transform duration-[900ms] ease-out group-hover/cf:scale-[1.06]"
+                        className="object-cover"
                       />
                     </div>
 
