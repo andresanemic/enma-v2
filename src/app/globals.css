@@ -25,7 +25,6 @@
   /* Tipografías */
   --font-display: var(--font-manrope); /* Manrope — títulos */
   --font-body: var(--font-outfit); /* Outfit — cuerpo */
-  --font-mono: var(--font-jetbrains); /* JetBrains Mono — etiquetas técnicas */
 }
 
 /* overflow-x en AMBOS html y body para bloquear deriva lateral móvil — lore/layout.md */
@@ -110,7 +109,7 @@ body {
 
 /* Eyebrow técnico — etiqueta mono uppercase (carácter I+D) */
 .eyebrow {
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: var(--font-body), system-ui, sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.22em;
   font-size: 0.75rem;

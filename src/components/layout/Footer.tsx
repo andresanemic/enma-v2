@@ -10,8 +10,8 @@ const WHATSAPP = "https://wa.me/56993377835";
 const NAV_PAGES = [
   { href: "/", label: "Inicio" },
   { href: "/nosotros", label: "Nosotros" },
-  { href: "/servicios", label: "Servicios" },
   { href: "/proyectos", label: "Proyectos" },
+  { href: "/vinculacion", label: "Vinculación" },
   { href: "/blog", label: "Blog" },
 ];
 
@@ -200,7 +200,7 @@ export default function Footer() {
   }, []);
 
   // Etiqueta utilitaria de columna (no es un eyebrow editorial de sección)
-  const colLabel = "mb-4 inline-block font-mono text-[11px] uppercase tracking-[0.2em] text-cream/35";
+  const colLabel = "mb-4 inline-block font-body text-[11px] font-medium uppercase tracking-[0.2em] text-cream/35";
 
   const year = new Date().getFullYear();
 
@@ -437,7 +437,7 @@ export default function Footer() {
 
             {/* Línea legal — derecha, alineada al borde inferior del logo */}
             <div data-legal className="flex shrink-0 flex-col gap-1 sm:items-end sm:text-right" style={{ opacity: 0 }}>
-              <span className="font-mono text-[14px] uppercase leading-[1.4] tracking-[0.2em] text-orange/70">
+              <span className="font-body text-[14px] font-medium uppercase leading-[1.4] tracking-[0.2em] text-orange/70">
                 <span className="text-orange">EN</span>ergía · <span className="text-orange">MA</span>nufactura
               </span>
               <p className="m-0 font-body text-[15px] leading-[1.4] text-cream/45">

@@ -373,7 +373,7 @@ export default function Marquee() {
                 }`}
               >
                 <div className="flex items-baseline gap-4 sm:gap-6">
-                  <span className="font-mono text-sm tabular-nums text-orange">
+                  <span className="font-body text-sm font-medium tabular-nums text-orange">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div>

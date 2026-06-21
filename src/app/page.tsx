@@ -1,3 +1,4 @@
+import IntroVeil from "@/components/layout/IntroVeil";
 import NavBar from "@/components/layout/NavBar";
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
@@ -9,6 +10,7 @@ import Footer from "@/components/layout/Footer";
 export default function Home() {
   return (
     <>
+      <IntroVeil />
       <NavBar />
       <main>
         <Hero />

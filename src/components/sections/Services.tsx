@@ -440,9 +440,9 @@ export default function Services() {
                         isActive ? "scale-y-100" : "scale-y-0 group-hover:scale-y-100"
                       }`}
                     />
-                    {/* Número técnico (mono) */}
+                    {/* Número del índice */}
                     <span
-                      className={`font-mono text-xs tabular-nums transition-colors duration-300 ${
+                      className={`font-body text-xs font-medium tabular-nums transition-colors duration-300 ${
                         isActive ? "text-ember" : "text-ink/35 group-hover:text-ink/55"
                       }`}
                     >
@@ -621,9 +621,9 @@ export default function Services() {
               </button>
             </div>
 
-            {/* CTA → página de Servicios (Golden Path) */}
+            {/* CTA → página de Vinculación (Golden Path) */}
             <Link
-              href="/servicios"
+              href="/vinculacion"
               className="group relative mt-6 inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-ink px-7 py-3.5 font-body text-base font-medium text-cream transition-shadow duration-500 ease-out hover:shadow-[0_10px_34px_-8px_rgba(241,84,28,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember/60 focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
             >
               <span

@@ -9,8 +9,8 @@ import Sparks from "@/components/ui/Sparks";
 
 const NAV_LINKS = [
   { href: "/nosotros", label: "Nosotros" },
-  { href: "/servicios", label: "Servicios" },
   { href: "/proyectos", label: "Proyectos" },
+  { href: "/vinculacion", label: "Vinculación" },
   { href: "/blog", label: "Blog" },
 ];
 
@@ -26,6 +26,7 @@ export default function NavBar() {
   // queda DEBAJO del navbar, no un umbral ciego de scroll.
   const [light, setLight] = useState(!isHome);
   const headerRef = useRef<HTMLElement>(null);
+  const barRef = useRef<HTMLDivElement>(null);
   const drawerLinksRef = useRef<(HTMLSpanElement | null)[]>([]);
   const drawerFootRef = useRef<HTMLDivElement>(null);
 
@@ -53,6 +54,23 @@ export default function NavBar() {
       window.removeEventListener("resize", update);
     };
   }, [pathname, isHome]);
+
+  // Entrada del navbar al montar: slide-down + fade (combina con la cascada del
+  // Hero). Delay corto porque corre en TODAS las páginas (lore/animation: no
+  // dejar invisible con delay largo en rutas no-target). Respeta reduced-motion.
+  useEffect(() => {
+    const bar = barRef.current;
+    if (!bar) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(bar, { opacity: 1, y: 0 });
+      return;
+    }
+    gsap.fromTo(
+      bar,
+      { opacity: 0, y: -16 },
+      { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", delay: 0.15 }
+    );
+  }, []);
 
   // Reveal del menú al abrir: cada link entra con máscara (slide-up dentro de un
   // overflow-hidden) en cascada, y el bloque inferior sube con fade. Respeta
@@ -97,7 +115,11 @@ export default function NavBar() {
   return (
     <>
       <header ref={headerRef} className="fixed inset-x-0 top-0 z-50 bg-transparent">
-        <div className="flex items-center justify-between px-6 py-4 sm:px-10 md:px-14">
+        <div
+          ref={barRef}
+          style={{ opacity: 0 }}
+          className="flex items-center justify-between px-6 py-4 sm:px-10 md:px-14"
+        >
           {/* Logo — crossfade verde↔blanco según el fondo (sin salto brusco).
               El blanco (sobre el hero) lleva sombra para destacar.
               Oculto en móvil (solo desde md): pedido del usuario. */}

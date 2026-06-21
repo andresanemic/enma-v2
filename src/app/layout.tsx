@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Manrope, Outfit, JetBrains_Mono } from "next/font/google";
+import { Manrope, Outfit } from "next/font/google";
 import FieldCursor from "@/components/cursor/FieldCursor";
 import "./globals.css";
 
@@ -16,14 +16,6 @@ const outfit = Outfit({
   variable: "--font-outfit",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
-  display: "swap",
-});
-
-// JetBrains Mono — etiquetas técnicas (CFD ·, AYSÉN 45°S)
-const jetbrains = JetBrains_Mono({
-  variable: "--font-jetbrains",
-  subsets: ["latin"],
-  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -45,7 +37,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${manrope.variable} ${outfit.variable} ${jetbrains.variable}`}
+      className={`${manrope.variable} ${outfit.variable}`}
     >
       <body>
         {children}
