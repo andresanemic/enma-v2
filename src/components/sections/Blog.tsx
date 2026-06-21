@@ -193,9 +193,9 @@ export default function Blog() {
       // Arena-terracota tostado → aclara hacia abajo para entrar suave a FAQ crema.
       // Familia terracota (no crema): más saturado que el sand de las otras secciones.
       style={{
-        // Tramo final del degradado del trío: encadena con Equipo (#e4ab72) y
-        // aclara a arena para entrar suave en FAQ crema.
-        background: "linear-gradient(180deg, #e4ab72 0%, #f4ddb8 100%)",
+        // Tramo final del degradado: encadena con Equipo (#f3ddbc) y termina
+        // exactamente en el crema de FAQ (#f8eddd) → transición invisible.
+        background: "linear-gradient(180deg, #f3ddbc 0%, #f8eddd 100%)",
       }}
     >
       {/* Textura de fondo — curvas de nivel finísimas (topografía patagónica) */}

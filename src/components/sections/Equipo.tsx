@@ -121,8 +121,8 @@ export default function Equipo() {
       id="equipo"
       data-nav="light"
       className="relative w-full overflow-hidden px-6 py-28 sm:px-10 sm:py-32 md:px-14 md:py-40"
-      // Ámbar medio del degradado del trío: encadena con Proyecto (arriba) y Blog (abajo).
-      style={{ background: "linear-gradient(180deg, #ac5b30 0%, #e4ab72 100%)" }}
+      // Tramo medio del degradado claro: encadena con Proyecto (arriba) y Blog (abajo).
+      style={{ background: "linear-gradient(180deg, #eecea1 0%, #f3ddbc 100%)" }}
     >
       {/* Textura de fondo — curvas de nivel finísimas en tinta */}
       <svg aria-hidden="true" className="pointer-events-none absolute -left-24 bottom-0 h-[420px] w-[640px] text-ink/[0.06]" viewBox="0 0 600 400" fill="none">
@@ -141,7 +141,7 @@ export default function Equipo() {
                   {w}
                 </span>
               ))}
-              <span data-head-word className="inline-block font-medium text-ink" style={{ opacity: 0, transform: "translateY(0.8em)" }}>
+              <span data-head-word className="inline-block font-medium text-teal" style={{ opacity: 0, transform: "translateY(0.8em)" }}>
                 {HEAD_ACCENT}
               </span>
               <span data-head-word className="inline-block" style={{ opacity: 0, transform: "translateY(0.8em)" }}>
