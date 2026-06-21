@@ -73,7 +73,7 @@ function words(text: string, attr: string, accentFrom?: number) {
       key={i}
       data-anim={attr}
       className={`mr-[0.26em] inline-block ${
-        accentFrom !== undefined && i >= accentFrom ? "font-medium text-ember" : ""
+        accentFrom !== undefined && i >= accentFrom ? "font-medium text-terra" : ""
       }`}
       style={{ opacity: 0, transform: "translateY(0.6em)" }}
     >
@@ -542,7 +542,7 @@ export default function Nosotros() {
                 className="relative mt-5 max-w-[16ch] font-display font-light text-ink"
                 style={{ fontSize: "clamp(2.2rem, 6vw, 4.4rem)", lineHeight: 1.04, letterSpacing: "-0.035em" }}
               >
-                <span aria-hidden="true">{words("Bajamos el costo de la energía en la Patagonia.", "tesis", 1)}</span>
+                <span aria-hidden="true">{words("Bajamos el costo de la energía en la Patagonia.", "tesis", 7)}</span>
               </h2>
               <p data-rise className="relative mt-7 max-w-[56ch] font-body text-base font-light leading-relaxed text-ink/70 sm:text-lg" style={{ opacity: 0 }}>
                 Al reducir ese costo aumenta la productividad, se abre la puerta a
