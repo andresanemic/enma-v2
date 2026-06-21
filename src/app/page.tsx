@@ -14,8 +14,13 @@ export default function Home() {
       <NavBar />
       <main>
         <Hero />
-        <About />
-        <Services />
+        {/* About + Services comparten un ÚNICO degradado continuo (como el bloque
+            CTA+Footer): el contenedor lleva el fondo y ambas secciones van
+            transparentes → el degradado fluye constante entre ellas, sin costura. */}
+        <div style={{ background: "linear-gradient(180deg, #f8eddd 0%, #fbf3e7 50%, #f7e9d4 100%)" }}>
+          <About />
+          <Services />
+        </div>
         <Metrics />
         <FAQ />
       </main>

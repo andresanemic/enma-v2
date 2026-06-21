@@ -66,20 +66,6 @@ const PETALS = [0, 1, 2, 3, 4].map((i) => {
   return { dx: Math.cos(a) * 3.6, dy: Math.sin(a) * 3.6 };
 });
 
-// Motivo "huella/raíz" ramificado (patrón silvestre del moodboard).
-function vein(x: number, s: number, up: number) {
-  return (
-    `M${x},320 C${x + 18 * s},${300 - up * 0.2} ${x + 10 * s},${276 - up * 0.4} ${x + 34 * s},${250 - up} ` +
-    `M${x + 22 * s},${286 - up * 0.4} C${x + 40 * s},${282 - up * 0.4} ${x + 54 * s},${270 - up * 0.5} ${x + 74 * s},${264 - up * 0.6} ` +
-    `M${x + 17 * s},${298 - up * 0.25} C${x},${294 - up * 0.25} ${x - 16 * s},${286 - up * 0.3} ${x - 32 * s},${283 - up * 0.3} ` +
-    `M${x + 30 * s},${262 - up * 0.85} C${x + 38 * s},${250 - up} ${x + 36 * s},${238 - up * 1.1} ${x + 48 * s},${228 - up * 1.2}`
-  );
-}
-const VEINS = [
-  { x: 110, s: 1, up: 8 }, { x: 360, s: -1, up: 14 }, { x: 600, s: 1, up: 6 },
-  { x: 850, s: -1, up: 16 }, { x: 1080, s: 1, up: 10 }, { x: 1320, s: -1, up: 12 },
-];
-
 export default function Ridge({ className = "" }: { className?: string }) {
   // En desktop el ancho enorme tolera el estiramiento ("none"): las colinas
   // llenan el ancho sin que se note. En móvil ese mismo estiramiento APLASTA los
@@ -107,13 +93,6 @@ export default function Ridge({ className = "" }: { className?: string }) {
 
       {/* Cerro cercano */}
       <path d={HILL_NEAR} fill="#173830" />
-
-      {/* Huellas / raíces ramificadas (patrón silvestre) */}
-      <g stroke="#5a9486" strokeOpacity={0.24} strokeWidth={1.3} fill="none" strokeLinecap="round">
-        {VEINS.map((v, i) => (
-          <path key={`v-${i}`} d={vein(v.x, v.s, v.up)} />
-        ))}
-      </g>
 
       {/* Bosque de primer plano (oscuro) */}
       {TREES_FRONT.map((t) => (

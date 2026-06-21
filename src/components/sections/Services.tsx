@@ -338,11 +338,6 @@ export default function Services() {
       id="servicios"
       data-nav="light"
       className="relative w-full overflow-hidden px-6 py-20 sm:px-10 sm:py-28 md:px-14 md:py-32"
-      style={{
-        background:
-          "radial-gradient(70% 50% at 88% 8%, rgba(254,169,79,0.22) 0%, transparent 60%)," +
-          "linear-gradient(180deg, #f7e9d4 0%, #f8eddd 42%, #faf1e2 100%)",
-      }}
     >
       <div className="relative z-10 mx-auto max-w-[1400px]">
         {/* ── Encabezado ── */}
