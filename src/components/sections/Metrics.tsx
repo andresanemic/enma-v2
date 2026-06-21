@@ -22,7 +22,6 @@ type Metric = {
 const METRICS: Metric[] = [
   { kind: "num", value: 5, label: "Estudios energéticos liderados en Aysén", hint: "Para el sector público regional, junto al CIEP.", accent: "orange", hero: true },
   { kind: "badge", text: "ANID", label: "Proyecto de I+D financiado", hint: "Turbina eólica de baja escala, resiliente a vientos extremos.", accent: "teal" },
-  { kind: "num", value: 100, suffix: "%", label: "Patagonia", hint: "Nacidos y operando en la Región de Aysén.", accent: "green" },
   { kind: "num", value: 4, label: "Fuentes renovables que dominamos", hint: "Eólica, solar, hidro y geotermia.", accent: "sky" },
   { kind: "num", value: 2, label: "Socios fundadores, ingenieros mecánicos", hint: "Con experiencia exitosa como consultores.", accent: "orange" },
 ];
@@ -148,8 +147,10 @@ export default function Metrics() {
       {/* Campo de viento (CFD) — firma de la sección */}
       <WindField />
 
-      {/* Cordillera patagónica — bosque, flores y huellas (visión diseñadora) */}
-      <Ridge className="pointer-events-none absolute inset-x-0 bottom-0 h-[46%] w-full" />
+      {/* Cordillera patagónica — bosque, flores y huellas (visión diseñadora).
+          Más baja en móvil → la franja de bosque ocupa menos y el "slice" del
+          Ridge muestra una porción más ancha (árboles con proporción natural). */}
+      <Ridge className="pointer-events-none absolute inset-x-0 bottom-0 h-[30%] w-full sm:h-[38%] md:h-[46%]" />
 
       {/* Scrim frío sutil — profundidad arriba/abajo sin reintroducir calidez */}
       <div
@@ -159,11 +160,14 @@ export default function Metrics() {
       />
 
       <div className="relative z-10 mx-auto max-w-[1400px]">
-        {/* Aerogenerador — fuente del viento. Ancho acotado en lg para que su
-            borde derecho quede SIEMPRE antes del contenido (sin solapar). */}
-        <WindTurbine className="pointer-events-none absolute bottom-0 left-[-40%] -z-0 h-[62%] w-auto opacity-90 sm:left-[-22%] sm:h-[80%] md:left-[-14%] md:h-[86%] lg:left-[-4%] lg:h-auto lg:w-[22%]" />
+        {/* Aerogenerador — fuente del viento. En móvil se muestra COMPLETO en la
+            esquina inferior izquierda (ancho acotado por w-%), a opacidad plena;
+            el contenido se corre muy a la derecha para dejarle su carril, así no
+            hay solape ni problema de contraste. Desde md recupera su disposición
+            original (alto-% + carril editorial). */}
+        <WindTurbine className="pointer-events-none absolute bottom-0 left-[1%] -z-0 w-[40%] opacity-90 sm:left-0 sm:w-[28%] md:left-[-14%] md:h-[86%] md:w-auto lg:left-[-4%] lg:h-auto lg:w-[22%]" />
 
-        {/* Contenido en su posición editorial, con carril libre para el molino */}
+        {/* Contenido en su posición editorial, con carril libre para el molino. */}
         <div className="relative md:pl-[30%] lg:pl-[23%]">
         {/* ── Encabezado ── */}
         <div className="mb-16 md:mb-20">
@@ -200,8 +204,13 @@ export default function Metrics() {
           </p>
         </div>
 
-        {/* ── Métricas flotando en el viento (sin cards) ── */}
-        <div className="flex flex-col gap-10 lg:flex-row lg:flex-nowrap lg:items-end lg:gap-8">
+        {/* ── Métricas flotando en el viento (sin cards) ──
+            En móvil todas las métricas van alineadas a la izquierda, en columna,
+            y se reserva espacio al final (pb-%) igual al alto del molino para que
+            la columna termine ARRIBA y el molino se vea completo debajo (sin
+            solaparse). El pb-% es relativo al ancho → calza con w-% del molino.
+            Desde md el carril lo da el padding del wrapper. */}
+        <div className="flex flex-col gap-10 pb-[64%] sm:pb-[44%] md:pb-0 lg:flex-row lg:flex-nowrap lg:items-end lg:gap-8">
           {METRICS.map((m, i) => {
             const a = ACCENT[m.accent];
             const numColor = m.hero ? ACCENT.orange.num : "text-cream";

@@ -46,6 +46,19 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Selección de texto — naranja cálido suave en vez del azul estándar del navegador.
+   Fondo naranja + texto tinta → legible tanto sobre secciones claras (crema/arena)
+   como oscuras (Hero, Footer verde, menú móvil).
+   Hex literal (no var) para que la declaración nunca se invalide en ::selection. */
+::selection {
+  background-color: #fea94f;
+  color: #1a1a1a;
+}
+::-moz-selection {
+  background-color: #fea94f;
+  color: #1a1a1a;
+}
+
 /* Indicador de scroll del Hero */
 @keyframes hero-scroll {
   0% { transform: scaleY(0); transform-origin: top; opacity: 1; }

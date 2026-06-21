@@ -13,6 +13,8 @@ const HERO_VIDEO =
 
 const LINES = ["Energía y", "manufactura"];
 
+const WHATSAPP = "https://wa.me/56993377835";
+
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
 
@@ -21,19 +23,25 @@ export default function Hero() {
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       // Reduced motion: revelar todo sin animar (lore/animation FOUC-safe).
+      // OJO: el estado inicial inline es translateY(108%); el navegador lo resuelve
+      // a px en el transform computado y GSAP lo lee como `y` (px). Resetear con
+      // yPercent NO limpia ese residual → hay que borrar el transform por completo
+      // con clearProps, o el H1 queda escondido bajo su máscara.
       if (reduce) {
-        gsap.set("[data-reveal]", { y: "0%", filter: "blur(0px)", opacity: 1 });
+        gsap.set("[data-reveal]", { clearProps: "transform,filter", opacity: 1 });
         gsap.set("[data-fade]", { opacity: 1, y: 0 });
         return;
       }
 
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      // H1 — reveal clip+blur por línea (lore/animation: translateY(108%)+blur, fromTo)
+      // H1 — reveal clip+blur por línea (lore/animation: translateY(108%)+blur, fromTo).
+      // `y: 0` explícito en from y to → anula el residual en px que GSAP parsea del
+      // translateY(108%) inline (si no, el título queda corrido y no se revela).
       tl.fromTo(
         "[data-reveal]",
-        { yPercent: 108, filter: "blur(10px)" },
-        { yPercent: 0, filter: "blur(0px)", duration: 1.0, stagger: 0.16 },
+        { yPercent: 108, y: 0, opacity: 0, filter: "blur(10px)" },
+        { yPercent: 0, y: 0, opacity: 1, duration: 1.0, stagger: 0.16, filter: "blur(0px)" },
         0.35
       );
 
@@ -79,22 +87,25 @@ export default function Hero() {
           className="max-w-[14ch] font-display font-light text-cream"
           style={{
             fontSize: "clamp(2.75rem, 8vw, 6.5rem)",
-            lineHeight: 1.04,
+            lineHeight: 1.1,
             letterSpacing: "-0.035em",
-            textShadow: "0 2px 30px rgba(0,0,0,0.35)",
+            // Sombra proporcional al tamaño (em, no px fijos): en móvil el texto es
+            // más chico y un blur fijo de 30px creaba un halo denso —sobre todo
+            // tras la palabra semibold "sustentable", que se leía como fondo oscuro.
+            textShadow: "0 0.02em 0.28em rgba(0,0,0,0.3)",
           }}
         >
           {LINES.map((line) => (
-            <span key={line} className="block overflow-hidden pb-[0.06em]">
-              <span data-reveal style={{ display: "block", transform: "translateY(108%)", filter: "blur(10px)" }}>
+            <span key={line} className="block overflow-hidden pb-[0.2em] -mb-[0.18em]">
+              <span data-reveal style={{ display: "block", opacity: 0, transform: "translateY(108%)", filter: "blur(10px)" }}>
                 {line}
               </span>
             </span>
           ))}
-          <span className="block overflow-hidden pb-[0.06em]">
+          <span className="block overflow-hidden pb-[0.2em] -mb-[0.18em]">
             <span
               data-reveal
-              style={{ display: "block", transform: "translateY(108%)", filter: "blur(10px)" }}
+              style={{ display: "block", opacity: 0, transform: "translateY(108%)", filter: "blur(10px)" }}
               className="font-semibold text-orange"
             >
               sustentable
@@ -102,34 +113,48 @@ export default function Hero() {
           </span>
         </h1>
 
-        <p data-fade style={{ opacity: 0 }} className="mt-9 flex items-center gap-3">
-          <span aria-hidden="true" className="h-px w-7 bg-ember" />
-          <span className="eyebrow text-cream/80">Energía · Manufactura · Patagonia</span>
-        </p>
-
         <p
           data-fade
           style={{ opacity: 0 }}
-          className="mt-3 max-w-xl font-body text-lg font-light leading-relaxed text-cream/85 sm:text-xl"
+          className="mt-7 max-w-xl font-body text-lg font-light leading-relaxed text-cream/85 sm:text-xl"
         >
           Soluciones de ingeniería en energía limpia y manufactura, diseñadas
           desde la Patagonia chilena para un territorio complejo.
         </p>
 
         {/* ── CTAs — Golden Path 4.1 / 4.2 ── */}
-        <div data-fade style={{ opacity: 0 }} className="mt-10 flex flex-wrap items-center gap-5">
+        <div data-fade style={{ opacity: 0 }} className="mt-10 flex flex-wrap items-center gap-6 sm:gap-8">
+          {/* WhatsApp — mismo botón de texto del footer (sin pill, subrayado animado) */}
           <a
-            href="mailto:contacto@enmachile.com"
-            className="group inline-flex items-center gap-2 rounded-full bg-ember px-7 py-3.5 font-body text-base font-medium text-cream shadow-lg shadow-ember/20 transition-colors duration-300 hover:bg-terra"
+            href={WHATSAPP}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2 font-display text-base font-medium text-cream transition-colors duration-200 hover:text-orange sm:text-lg"
           >
-            Hablemos de tu proyecto
-            <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              className="h-[18px] w-[18px] shrink-0"
+              fill="currentColor"
+            >
+              <path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.039zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.29.173-1.414z" />
+            </svg>
+            <span className="relative">
+              Escríbenos por WhatsApp
+              <span
+                aria-hidden="true"
+                className="absolute -bottom-1 left-0 h-px w-full origin-right scale-x-0 bg-orange transition-transform duration-500 group-hover:origin-left group-hover:scale-x-100"
+              />
+            </span>
           </a>
+
+          {/* Ver proyectos — pill */}
           <Link
             href="/proyectos"
-            className="font-body text-base font-medium text-cream/80 underline-offset-4 transition-colors duration-200 hover:text-cream hover:underline"
+            className="group inline-flex items-center gap-1.5 rounded-full bg-ember px-5 py-2.5 font-body text-sm font-medium text-cream shadow-lg shadow-ember/20 transition-colors duration-300 hover:bg-terra"
           >
-            Ver proyectos →
+            Ver proyectos
+            <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
           </Link>
         </div>
       </div>

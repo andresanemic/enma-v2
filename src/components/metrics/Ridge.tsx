@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 // Cordillera patagónica para la sección Metrics, según la visión de la diseñadora
 // (moodboard: "Huellas · Patrones silvestres · Texturas naturales · Equilibrio
 // empresa/medioambiente"): siluetas onduladas (no planas), bosque de coníferas
@@ -79,8 +81,21 @@ const VEINS = [
 ];
 
 export default function Ridge({ className = "" }: { className?: string }) {
+  // En desktop el ancho enorme tolera el estiramiento ("none"): las colinas
+  // llenan el ancho sin que se note. En móvil ese mismo estiramiento APLASTA los
+  // árboles (se vuelven espigas finas). Ahí usamos "slice": escala uniforme
+  // anclada abajo, recortando los lados → los árboles conservan su proporción.
+  const [par, setPar] = useState("none");
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const update = () => setPar(mq.matches ? "xMidYMax slice" : "none");
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
   return (
-    <svg viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true" className={className}>
+    <svg viewBox="0 0 1440 320" preserveAspectRatio={par} aria-hidden="true" className={className}>
       {/* Cerros */}
       <path d={HILL_FAR} fill="#356057" fillOpacity={0.42} />
       <path d={HILL_MID} fill="#26514a" fillOpacity={0.72} />

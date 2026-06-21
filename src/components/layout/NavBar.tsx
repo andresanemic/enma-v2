@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { gsap } from "@/lib/gsap";
+import Sparks from "@/components/ui/Sparks";
 
 const NAV_LINKS = [
   { href: "/nosotros", label: "Nosotros" },
@@ -25,7 +26,8 @@ export default function NavBar() {
   // queda DEBAJO del navbar, no un umbral ciego de scroll.
   const [light, setLight] = useState(!isHome);
   const headerRef = useRef<HTMLElement>(null);
-  const drawerLinksRef = useRef<(HTMLAnchorElement | null)[]>([]);
+  const drawerLinksRef = useRef<(HTMLSpanElement | null)[]>([]);
+  const drawerFootRef = useRef<HTMLDivElement>(null);
 
   // Detección de tono por sección: cada sección declara data-nav="light|dark".
   // El navbar adapta SOLO el color de su contenido (nunca añade fondo sólido),
@@ -52,15 +54,33 @@ export default function NavBar() {
     };
   }, [pathname, isHome]);
 
-  // Stagger de entrada de los links del drawer al abrir (lore/animation)
+  // Reveal del menú al abrir: cada link entra con máscara (slide-up dentro de un
+  // overflow-hidden) en cascada, y el bloque inferior sube con fade. Respeta
+  // prefers-reduced-motion (lore/animation).
   useEffect(() => {
     if (!menuOpen) return;
-    const links = drawerLinksRef.current.filter(Boolean) as HTMLAnchorElement[];
-    gsap.fromTo(
+    const links = drawerLinksRef.current.filter(Boolean) as HTMLElement[];
+    const foot = drawerFootRef.current;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      gsap.set(links, { yPercent: 0, opacity: 1 });
+      if (foot) gsap.set(foot, { y: 0, opacity: 1 });
+      return;
+    }
+    const tl = gsap.timeline({ delay: 0.12 });
+    tl.fromTo(
       links,
-      { y: 28, opacity: 0 },
-      { y: 0, opacity: 1, stagger: 0.07, duration: 0.5, ease: "power3.out", delay: 0.12 }
+      { yPercent: 115, opacity: 0 },
+      { yPercent: 0, opacity: 1, stagger: 0.08, duration: 0.7, ease: "power4.out" }
     );
+    if (foot) {
+      tl.fromTo(
+        foot,
+        { y: 22, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" },
+        "-=0.25"
+      );
+    }
   }, [menuOpen]);
 
   const openMenu = () => {
@@ -79,8 +99,9 @@ export default function NavBar() {
       <header ref={headerRef} className="fixed inset-x-0 top-0 z-50 bg-transparent">
         <div className="flex items-center justify-between px-6 py-4 sm:px-10 md:px-14">
           {/* Logo — crossfade verde↔blanco según el fondo (sin salto brusco).
-              El blanco (sobre el hero) lleva sombra para destacar. */}
-          <Link href="/" aria-label="Enma — inicio" className="relative block h-7 sm:h-8">
+              El blanco (sobre el hero) lleva sombra para destacar.
+              Oculto en móvil (solo desde md): pedido del usuario. */}
+          <Link href="/" aria-label="Enma — inicio" className="relative hidden h-7 sm:h-8 md:block">
             {/* Define la caja en el flujo (sin layout shift) */}
             <Image
               src="/logos/logo-verde.webp"
@@ -152,72 +173,103 @@ export default function NavBar() {
             onClick={toggleMenu}
             aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
             aria-expanded={menuOpen}
-            className="flex flex-col gap-[5px] p-2 md:hidden"
+            className="ml-auto flex flex-col gap-[5px] p-2 md:hidden"
           >
             <span
               className={`block h-[2px] w-6 origin-center rounded-full transition-all duration-300 ${
-                light || menuOpen ? "bg-ink" : "bg-cream"
+                menuOpen ? "bg-cream" : light ? "bg-ink" : "bg-cream"
               } ${menuOpen ? "translate-y-[7px] rotate-45" : ""}`}
             />
             <span
               className={`block h-[2px] w-6 rounded-full transition-all duration-300 ${
-                light || menuOpen ? "bg-ink" : "bg-cream"
+                menuOpen ? "bg-cream" : light ? "bg-ink" : "bg-cream"
               } ${menuOpen ? "scale-x-0 opacity-0" : ""}`}
             />
             <span
               className={`block h-[2px] w-6 origin-center rounded-full transition-all duration-300 ${
-                light || menuOpen ? "bg-ink" : "bg-cream"
+                menuOpen ? "bg-cream" : light ? "bg-ink" : "bg-cream"
               } ${menuOpen ? "-translate-y-[7px] -rotate-45" : ""}`}
             />
           </button>
         </div>
       </header>
 
-      {/* ── Backdrop móvil ── */}
+      {/* ── Menú móvil — overlay full-screen con la estética del bloque CTA+Footer
+          (gradiente verde) y chispas cálidas a la deriva como efecto diferenciador ── */}
       <div
-        onClick={closeMenu}
-        aria-hidden="true"
-        className={`fixed inset-0 z-40 bg-ink/40 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
+        aria-hidden={!menuOpen}
+        className={`fixed inset-0 z-40 transition-opacity duration-500 ease-out md:hidden ${
           menuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
-      />
-
-      {/* ── Drawer móvil ── */}
-      <aside
-        aria-hidden={!menuOpen}
-        className={`fixed inset-y-0 right-0 z-[45] w-[85%] max-w-sm bg-cream shadow-2xl transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden ${
-          menuOpen ? "translate-x-0" : "translate-x-full"
-        }`}
       >
-        <div className="flex h-full flex-col px-8 pb-8 pt-24">
+        {/* Fondo — mismo gradiente verde del bloque CTA+Footer (estética aprobada) */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, #3e7c6c 0%, #245049 34%, #163834 64%, #0c2220 100%)",
+          }}
+        />
+        {/* Chispas cálidas a la deriva — el efecto diferenciador (lenguaje del footer) */}
+        <Sparks className="pointer-events-none absolute inset-0" />
+
+        {/* Contenido */}
+        <div className="relative flex h-full flex-col px-8 pb-12 pt-28">
           <nav className="flex flex-col" aria-label="Menú móvil">
             {NAV_LINKS.map((link, i) => (
               <Link
                 key={link.href}
                 href={link.href}
-                ref={(el) => {
-                  drawerLinksRef.current[i] = el;
-                }}
                 onClick={closeMenu}
-                style={{ opacity: 0 }}
-                className="border-b border-ink/10 py-4 font-display text-2xl font-light text-ink transition-colors duration-200 hover:text-ember"
+                className="group relative flex items-center justify-between border-b border-cream/12 py-5"
               >
-                {link.label}
+                <span className="overflow-hidden py-1">
+                  <span
+                    ref={(el) => {
+                      drawerLinksRef.current[i] = el;
+                    }}
+                    className="flex items-baseline gap-4"
+                    style={{ opacity: 0 }}
+                  >
+                    <span className="font-body text-sm font-light tracking-wide text-orange/70">
+                      0{i + 1}
+                    </span>
+                    <span className="font-display text-[2.4rem] font-light leading-[1.02] text-cream transition-colors duration-300 group-hover:text-orange">
+                      {link.label}
+                    </span>
+                  </span>
+                </span>
+                <span
+                  aria-hidden="true"
+                  className="text-xl text-cream/35 transition-all duration-300 group-hover:translate-x-1 group-hover:text-orange"
+                >
+                  →
+                </span>
               </Link>
             ))}
           </nav>
 
-          <a
-            href={CONTACT}
-            onClick={closeMenu}
-            className="mt-8 flex items-center justify-center gap-2 rounded-full bg-ember px-6 py-3.5 font-body text-base font-medium text-cream transition-colors duration-300 hover:bg-terra"
-          >
-            Hablemos de tu proyecto →
-          </a>
-
-          <p className="mt-auto eyebrow text-ink/35">contacto@enmachile.com</p>
+          <div ref={drawerFootRef} className="mt-auto" style={{ opacity: 0 }}>
+            <a
+              href={CONTACT}
+              onClick={closeMenu}
+              className="group flex items-center justify-center gap-2 rounded-full bg-orange px-6 py-4 font-body text-base font-medium text-ink transition-colors duration-300 hover:bg-cream"
+            >
+              Hablemos de tu proyecto
+              <span className="transition-transform duration-300 group-hover:translate-x-0.5">
+                →
+              </span>
+            </a>
+            <div className="mt-6 flex items-center justify-between">
+              <p className="font-body text-sm text-cream/45">contacto@enmachile.com</p>
+              <p className="font-body text-xs uppercase tracking-[0.2em] text-cream/30">
+                Aysén · Patagonia
+              </p>
+            </div>
+          </div>
         </div>
-      </aside>
+      </div>
     </>
   );
 }

@@ -10,9 +10,9 @@ import { gsap } from "@/lib/gsap";
 // explicación. Fondo dark cálido (forja/brasa); teal fuera (regla de paleta).
 //
 // NOTA: este componente NACIÓ como la sección "¿Por qué somos distintos?" de la
-// landing, pero esa sección quedó finalmente con la versión "Manifiesto pinneado"
-// (WhyUsManifesto.tsx). Se conserva como patrón reutilizable de marquee/ríos de
-// tipografía para PÁGINAS INTERNAS (Nosotros, Servicios, Proyectos). Para reusar:
+// landing. Esa sección pasó por una versión "Manifiesto pinneado" (hoy en
+// WhyUs2.tsx, fuera de la landing). Ambos se conservan como patrones reutilizables
+// de tipografía para PÁGINAS INTERNAS (Nosotros, Servicios, Proyectos). Para reusar:
 // parametrizar REASONS/HEAD_* y, si se usa fuera de la landing, revisar el id.
 type Reason = {
   key: string; // palabra-río (mayúsculas)

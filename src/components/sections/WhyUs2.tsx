@@ -4,6 +4,10 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 
+// ⚠️ GUARDADO PARA REUSO — ya NO se usa en la landing. El "Manifiesto pinneado"
+// no alcanzó el estándar buscado para la sección "¿Por qué somos distintos?",
+// pero se conserva aquí por si sirve para otra sección/página interna.
+//
 // "Manifiesto pinneado" — tipografía monumental: el título de cada diferenciador
 // llena el viewport y se scrubbea con el scroll (el anterior sale arriba, el
 // nuevo sube letra por letra). Enmarcado por una TESIS persistente. Concepto:
@@ -159,7 +163,7 @@ function Zone({ i }: { i: number }) {
   );
 }
 
-export default function WhyUsManifesto() {
+export default function WhyUs2() {
   const sectionRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const wordRefs = useRef<(HTMLDivElement | null)[]>([]);

@@ -308,6 +308,27 @@ export default function Services() {
     }
   }, [active, revealed]);
 
+  // ── Slider móvil ── la lista (índice) se oculta < lg; las cards se navegan con
+  // swipe del dedo o con los controles. Wrap-around para que el recorrido sea
+  // circular como un carrusel.
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const goTo = (dir: number) =>
+    setActive((a) => (a + dir + SERVICES.length) % SERVICES.length);
+  const onTouchStart = (e: React.TouchEvent) => {
+    const t = e.touches[0];
+    touchStart.current = { x: t.clientX, y: t.clientY };
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    const s = touchStart.current;
+    if (!s) return;
+    touchStart.current = null;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - s.x;
+    const dy = t.clientY - s.y;
+    // Solo si el gesto es claramente horizontal (no interferir con el scroll).
+    if (Math.abs(dx) > 44 && Math.abs(dx) > Math.abs(dy) * 1.4) goTo(dx < 0 ? 1 : -1);
+  };
+
   const HEAD_WORDS = ["De", "la", "consultoría", "al"];
   const HEAD_ACCENT = "prototipo físico";
 
@@ -385,8 +406,8 @@ export default function Services() {
 
         {/* ── Índice interactivo (izq) ↔ panel sincronizado (der) ── */}
         <div className="grid grid-cols-1 gap-x-[clamp(28px,4vw,72px)] gap-y-10 lg:[grid-template-columns:1.35fr_1fr] lg:items-start">
-          {/* Índice interactivo */}
-          <ul className="border-b border-ink/12">
+          {/* Índice interactivo — oculto en móvil (las cards pasan a ser slider) */}
+          <ul className="hidden border-b border-ink/12 lg:block">
             {SERVICES.map((s, i) => {
               const isActive = active === i;
               return (
@@ -453,7 +474,11 @@ export default function Services() {
             style={{ opacity: 0 }}
             className="lg:sticky lg:top-28"
           >
-            <div className="relative overflow-hidden rounded-3xl border border-ink/10 bg-cream/70 shadow-[0_18px_50px_-26px_rgba(177,44,0,0.35)] backdrop-blur-sm">
+            <div
+              onTouchStart={onTouchStart}
+              onTouchEnd={onTouchEnd}
+              className="relative overflow-hidden rounded-3xl border border-ink/10 bg-cream/70 shadow-[0_18px_50px_-26px_rgba(177,44,0,0.35)] backdrop-blur-sm lg:[touch-action:auto] [touch-action:pan-y]"
+            >
               {/* Capas apiladas en una sola celda de grid: la card mide lo del
                   servicio MÁS ALTO, así TODAS las cards quedan del mismo tamaño
                   (sin alturas mágicas). autoAlpha (visibility) oculta las inactivas
@@ -553,6 +578,47 @@ export default function Services() {
                   );
                 })}
               </div>
+            </div>
+
+            {/* ── Controles del slider (solo móvil) ── flechas discretas + dots
+                de posición; las cards también responden a swipe. */}
+            <div className="mt-5 flex items-center justify-between gap-4 lg:hidden">
+              <button
+                type="button"
+                onClick={() => goTo(-1)}
+                aria-label="Servicio anterior"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-ink/15 text-lg text-ink transition-colors duration-300 hover:border-ember hover:text-ember active:scale-95"
+              >
+                ←
+              </button>
+
+              <div className="flex flex-1 items-center justify-center gap-2" role="tablist" aria-label="Servicios">
+                {SERVICES.map((s, i) => {
+                  const on = i === active;
+                  return (
+                    <button
+                      key={s.n}
+                      type="button"
+                      onClick={() => setActive(i)}
+                      role="tab"
+                      aria-selected={on}
+                      aria-label={`Servicio ${s.n}: ${s.title}`}
+                      className={`h-1.5 rounded-full transition-all duration-300 ease-out ${
+                        on ? "w-6 bg-ember" : "w-1.5 bg-ink/20 hover:bg-ink/40"
+                      }`}
+                    />
+                  );
+                })}
+              </div>
+
+              <button
+                type="button"
+                onClick={() => goTo(1)}
+                aria-label="Servicio siguiente"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-ink/15 text-lg text-ink transition-colors duration-300 hover:border-ember hover:text-ember active:scale-95"
+              >
+                →
+              </button>
             </div>
 
             {/* CTA → página de Servicios (Golden Path) */}
