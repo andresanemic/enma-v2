@@ -48,7 +48,7 @@ const ARTICLES: Article[] = [
     coverAlt: "Impresora 3D junto a piezas de turbina prototipadas y herramientas",
     title: "Enma explicado en fácil: energía y tecnología hechas en la Patagonia",
     summary:
-      "Qué es Enma, qué hace y a quién ayuda, contado en simple: energía y tecnología hechas en la Patagonia para bajar costos y abrir oportunidades.",
+      "Qué somos, qué hacemos y a quién ayudamos, contado en simple: energía y tecnología hechas en la Patagonia para bajar costos y abrir oportunidades.",
     author: "Equipo Enma",
     imageSide: "left",
   },

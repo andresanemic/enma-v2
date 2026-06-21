@@ -21,7 +21,7 @@ const COFOUNDERS: Cofounder[] = [
     role: "Socio fundador · Ingeniero mecánico",
     photo: "/equipo/equipo-bruno.jpg",
     alt: "Persona andando en bicicleta al atardecer",
-    bio: "La mirada de la energía: generación renovable, eléctrica y térmica. Experiencia en eólica, solar, geotermia e hidro; supervisó la calefacción geotérmica que dio origen a Enma.",
+    bio: "La mirada de la energía: generación renovable, eléctrica y térmica. Experiencia en eólica, solar, geotermia e hidro; supervisé la calefacción geotérmica que dio origen a Enma.",
   },
   {
     id: "patricio",
@@ -29,7 +29,7 @@ const COFOUNDERS: Cofounder[] = [
     role: "Socio fundador · Ingeniero mecánico",
     photo: "/equipo/equipo-patricio.jpg",
     alt: "Un pato solitario nadando en un lago",
-    bio: "Diseñó el upcycling de residuos salmoneros que originó Enma. Lideró estudios energéticos para el CIEP y aporta formulación de proyectos, simulaciones CFD y huella de carbono.",
+    bio: "Diseñé el upcycling de residuos salmoneros que originó Enma. Lideré estudios energéticos para el CIEP y aporto formulación de proyectos, simulaciones CFD y huella de carbono.",
   },
 ];
 
@@ -149,7 +149,7 @@ export default function Equipo() {
             </span>
           </h2>
           <p data-dek className="mt-5 max-w-[54ch] font-body text-base font-light leading-relaxed text-ink/65 sm:text-lg" style={{ opacity: 0 }}>
-            Bruno y Patricio fundaron Enma para resolver, desde Aysén, los problemas de energía y manufactura de un territorio complejo.
+            Fundamos Enma para resolver, desde Aysén, los problemas de energía y manufactura de un territorio complejo.
           </p>
         </div>
 

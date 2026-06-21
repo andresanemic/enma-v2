@@ -174,9 +174,9 @@ export default function Metrics() {
             className="mt-5 max-w-[58ch] font-body text-base font-light leading-relaxed text-cream/70 sm:text-lg"
             style={{ opacity: 0, textShadow: "0 1px 20px rgba(0,0,0,0.5)" }}
           >
-            Una empresa joven con evidencia real detrás de cada solución: estudios
-            liderados en el territorio, I+D financiado y dominio de las principales
-            energías renovables.
+            Somos una empresa joven con evidencia real detrás de cada solución:
+            estudios liderados en el territorio, I+D financiado y dominio de las
+            principales energías renovables.
           </p>
         </div>
 
