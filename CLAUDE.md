@@ -113,7 +113,7 @@ Todo lo demás del sitio (About, Servicios, Por qué somos distintos, Proyectos,
 
 ## Elementos nuevos obligatorios
 
-- **Cursor personalizado / efectos de puntero estilizado**: el sitio debe incorporar un cursor custom con interacciones (cambios de estado en hovers de links, botones, imágenes, etc.), coherente con el estándar Awwwards. Ver `responsive.md` en Lore antes de implementarlo (guard táctil obligatorio).
+- ~~**Cursor personalizado / efectos de puntero estilizado**~~ **(RETIRADO 2026-06-21):** se incorporó un cursor custom (`FieldCursor`), pero **tras la revisión de los cofundadores de Enma se eliminó** para bajar la carga de efectos del sitio. Ahora se usa el **cursor nativo** del sistema. **NO reintroducir un cursor estilizado salvo orden explícita del usuario.**
 - **Barra de navegación rediseñada**: acorde a la nueva estética visual y de marca (no genérica, no plantilla), preservando los Golden Paths de navegación.
 - Motion design con **propósito narrativo**, no decorativo: transiciones, scroll storytelling, microinteracciones que refuercen el mensaje de marca (cercanía + tecnología).
 
@@ -223,7 +223,7 @@ El wireframe define contenido y orden lógico, no el layout visual final — el 
 - **Pin en móvil**: desactivar `pin:true` completamente en mobile con guard `isMobile`.
 - **`anticipatePin: 1`**: obligatorio en secciones con fondo oscuro + `pin:true`.
 - **`overflow-x: hidden`**: aplicar en `html` y `body` para bloquear deriva lateral en móvil.
-- **Cursor custom**: guard obligatorio con `window.matchMedia('(pointer: fine)')` para no romper táctil.
+- **Cursor custom** *(RETIRADO 2026-06-21 — se usa el cursor nativo; patrón válido solo si se reintroduce por orden explícita)*: guard obligatorio con `window.matchMedia('(pointer: fine)')` para no romper táctil.
 - **`<br/>` en H2**: no usar en componentes responsive — usar JSX condicional.
 - **Next.js 16 `params`**: son `Promise` — hacer `await params` en rutas dinámicas.
 
@@ -250,7 +250,15 @@ El wireframe define contenido y orden lógico, no el layout visual final — el 
   - **Color/paleta:** acento de **Blog** calentado de teal → terra (rompe la cadena de acentos fríos de la cola; queda Proyecto terra → Equipo teal/hilo "E" → Blog terra → FAQ teal). **Métricas** se mantiene como contraste frío deliberado. Comentario obsoleto de `page.tsx` corregido. ✅
   - **Motion (anti-saturación):** la coreografía completa de titular (palabra-por-palabra + blur + letras) quedó **reservada a Hero y Footer**; Servicios/Métricas/Proyecto pasaron a reveals más simples y distintos entre sí (bloque que sube / que "enfoca" con blur / que se asienta con escala). Blog: títulos de franja → fade-up (el H2 conserva cascada). Typecheck OK. ✅
   - **Estándar de calidad:** la **landing completa** queda como vara mínima para las páginas interiores (no solo Hero + CTA/Footer).
+- [x] **Refino post-Fase D — NIVEL DE EFECTOS BAJADO (2026-06-21, tras la revisión de los cofundadores de Enma):**
+  - **Cursor estilizado (`FieldCursor`) eliminado** → cursor nativo (ver "Elementos nuevos obligatorios").
+  - **Reveals de entrada de la landing suavizados** (opción "suavizar manteniendo carácter"): sin `blur`, sin rebotes (`back.out`→`power3.out`) ni pulsos, menos recorrido/duración; cada sección conserva su firma pero atenuada. **About** entra como bloque (no palabra×palabra, igual que Servicios); **Métricas** con números **estáticos** (sin count-up ni `metric-float`); **Blog** con un **único fade-up**; **sin hover de zoom** en imágenes de Equipo/Proyecto/Blog.
+  - **Copy de la landing unificado en primera persona** (Equipo, Métricas, Servicios, Blog) y limpieza del dek de Proyecto (se quitó "El proyecto que más queremos mostrar").
+  - **El estado ACTUAL de la landing (más quieto) es el estándar mínimo para las páginas internas y el Blog** — no la versión más cargada previa. Hero y Footer siguen siendo los showcases con coreografía completa. Principio: *menos es más; el motion disperso hace ver el diseño "autogenerado"*.
 - [ ] **Fase E** — Páginas internas (Nosotros, Proyectos, Vinculación), verificar Golden Paths.
-  - ⚠️ **NO arrancar hasta nueva orden:** el usuario hará primero un **cambio importante en el wireframe**. Esperar su indicación.
+  - Wireframe **ya actualizado**. Construcción **por página** (de simple a compleja), una minifase por página con aprobación del usuario antes de avanzar. Orden: **A) Nosotros → B) Vinculación → C) Proyectos** (mini-landing + 3 detalles dinámicos `/proyectos/[slug]`).
+  - [x] **Minifase A — Nosotros (`/nosotros`)** ✅ COMPLETA y pusheada (commits `4609770`, `5fb5014`). Scroll-storytelling "bitácora" en 7 capítulos (Origen → Territorio → Valores → El problema → Misión & Visión → Qué nos distingue [núcleo oscuro] → Equipo), copy real en 1ª persona, índice lateral de capítulos (ticks al borde derecho), textura de alta tensión con chispas que recorren el cableado en "El problema", equipo con orden aleatorio. `components/sections/Nosotros.tsx`. Reutiliza NavBar + bloque CTA+Footer.
+  - [ ] **Minifase B — Vinculación (`/vinculacion`)** — repositorio editorial de medios + charlas (placeholders con TODOs, aún sin listado real).
+  - [ ] **Minifase C — Proyectos (`/proyectos` + `/proyectos/[slug]`)** — la más compleja; arrancar con brainstorm ampliado.
 - [ ] **Fase F** — Blog, verificar Golden Paths
 - [ ] **Fase G** — Verificación final de Golden Paths en todo el sitio + ajustes finales
