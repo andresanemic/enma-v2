@@ -92,19 +92,20 @@ export default function Proyecto() {
   }, []);
 
   // Anotación flanqueante (desktop). side controla la dirección de la línea guía.
+  // Sección oscura (ámbar profundo) → líneas y texto en crema (look blueprint).
   const Anno = ({ s, side }: { s: Spec; side: "left" | "right" }) => {
-    const dot = <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-ink/50" />;
+    const dot = <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-cream/45" />;
     const leader = (
       <span
         data-leader
-        className={`block h-px w-12 bg-ink/40 lg:w-20 ${side === "left" ? "origin-left" : "origin-right"}`}
+        className={`block h-px w-12 bg-cream/35 lg:w-20 ${side === "left" ? "origin-left" : "origin-right"}`}
         style={{ transform: "scaleX(0)" }}
       />
     );
     const text = (
       <div className={side === "left" ? "text-right" : "text-left"}>
-        <p className="font-display text-[15px] font-medium leading-tight text-ink lg:text-base">{s.title}</p>
-        <p className="mt-0.5 font-body text-[12px] uppercase tracking-[0.12em] text-ink/55">{s.sub}</p>
+        <p className="font-display text-[15px] font-medium leading-tight text-cream lg:text-base">{s.title}</p>
+        <p className="mt-0.5 font-body text-[12px] uppercase tracking-[0.12em] text-cream/55">{s.sub}</p>
       </div>
     );
     return (
@@ -130,33 +131,33 @@ export default function Proyecto() {
     <section
       ref={ref}
       id="proyecto"
-      data-nav="light"
-      className="relative w-full overflow-hidden px-6 py-24 sm:px-10 sm:py-28 md:px-14 md:py-32"
-      // Arena-clay terrosa (familia terracota, distinta del apricot del Blog).
-      style={{ background: "linear-gradient(180deg, #e3a878 0%, #eec59b 52%, #f4d9b2 100%)" }}
+      data-nav="dark"
+      className="relative w-full overflow-hidden px-6 py-24 text-cream sm:px-10 sm:py-28 md:px-14 md:py-32"
+      // Ámbar-siena profundo (inicio del degradado del trío) → encadena con Equipo.
+      style={{ background: "linear-gradient(180deg, #9e4c26 0%, #ac5b30 100%)" }}
     >
-      {/* Grilla de ingeniería finísima (papel técnico) — diferencia visual con Blog */}
+      {/* Grilla de ingeniería finísima (papel técnico) — líneas en crema sobre fondo oscuro */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.5]"
+        className="pointer-events-none absolute inset-0 opacity-[0.6]"
         style={{
           backgroundImage:
-            "repeating-linear-gradient(0deg, rgba(26,26,26,0.05) 0 1px, transparent 1px 34px)," +
-            "repeating-linear-gradient(90deg, rgba(26,26,26,0.05) 0 1px, transparent 1px 34px)",
+            "repeating-linear-gradient(0deg, rgba(248,237,221,0.07) 0 1px, transparent 1px 34px)," +
+            "repeating-linear-gradient(90deg, rgba(248,237,221,0.07) 0 1px, transparent 1px 34px)",
         }}
       />
 
       <div className="relative mx-auto max-w-[1180px]">
         {/* ── Encabezado (alineado a la izquierda, como las demás secciones) ── */}
         <div className="mb-14 md:mb-20">
-          <h2 className="m-0 max-w-[20ch] font-display font-light text-ink" aria-label="Una turbina para el viento extremo." style={{ fontSize: "clamp(1.9rem, 4vw, 3.2rem)", lineHeight: 1.06, letterSpacing: "-0.03em" }}>
+          <h2 className="m-0 max-w-[20ch] font-display font-light text-cream" aria-label="Una turbina para el viento extremo." style={{ fontSize: "clamp(1.9rem, 4vw, 3.2rem)", lineHeight: 1.06, letterSpacing: "-0.03em" }}>
             <span aria-hidden="true">
               {HEAD_WORDS.map((w, i) => (
                 <span key={i} data-head-word className="mr-[0.24em] inline-block" style={{ opacity: 0, transform: "translateY(0.8em)" }}>
                   {w}
                 </span>
               ))}
-              <span data-head-word className="inline-block font-medium text-ember" style={{ opacity: 0, transform: "translateY(0.8em)" }}>
+              <span data-head-word className="inline-block font-medium text-[#ffce85]" style={{ opacity: 0, transform: "translateY(0.8em)" }}>
                 {HEAD_ACCENT}
               </span>
               <span data-head-word className="inline-block" style={{ opacity: 0, transform: "translateY(0.8em)" }}>
@@ -164,7 +165,7 @@ export default function Proyecto() {
               </span>
             </span>
           </h2>
-          <p data-dek className="mt-5 max-w-[58ch] font-body text-base font-light leading-relaxed text-ink/65 sm:text-lg" style={{ opacity: 0 }}>
+          <p data-dek className="mt-5 max-w-[58ch] font-body text-base font-light leading-relaxed text-cream/70 sm:text-lg" style={{ opacity: 0 }}>
             El proyecto que más queremos mostrar: un diseño propio de baja escala, financiado por ANID, pensado para los vientos más difíciles de la Patagonia.
           </p>
         </div>
@@ -180,7 +181,7 @@ export default function Proyecto() {
 
           {/* Panel central — la turbina como espécimen */}
           <div className="relative shrink-0">
-            <div data-panel className="group/panel relative aspect-[3/4] w-[clamp(230px,32vw,340px)] overflow-hidden rounded-[18px] ring-1 ring-ink/15" style={{ clipPath: "inset(100% 0 0 0 round 18px)" }}>
+            <div data-panel className="group/panel relative aspect-[3/4] w-[clamp(230px,32vw,340px)] overflow-hidden rounded-[18px] ring-1 ring-cream/15" style={{ clipPath: "inset(100% 0 0 0 round 18px)" }}>
               <Image
                 src="/proyecto/turbina.jpg"
                 alt="Turbina eólica de baja escala en un paisaje abierto"
@@ -190,7 +191,7 @@ export default function Proyecto() {
               />
 
               {/* Cotas técnicas (draw-on) — ↕ torre (izq) · ↔ rotor (arriba) */}
-              <svg aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full text-ink/55" viewBox="0 0 100 133" preserveAspectRatio="none" fill="none">
+              <svg aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full text-cream/60" viewBox="0 0 100 133" preserveAspectRatio="none" fill="none">
                 {/* rotor — horizontal arriba */}
                 <path data-cota d="M26 16 H74" stroke="currentColor" strokeWidth="0.6" vectorEffect="non-scaling-stroke" pathLength={1} style={{ strokeDasharray: 1, strokeDashoffset: 1 }} />
                 <path d="M26 13 V19 M74 13 V19" stroke="currentColor" strokeWidth="0.6" vectorEffect="non-scaling-stroke" />
@@ -219,10 +220,10 @@ export default function Proyecto() {
         <ul className="mx-auto mt-10 grid max-w-[420px] grid-cols-1 gap-4 sm:grid-cols-2 md:hidden">
           {SPECS_ALL.map((s) => (
             <li key={s.title} data-anno-m className="flex items-start gap-2.5" style={{ opacity: 0 }}>
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-ink/50" />
+              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cream/45" />
               <div>
-                <p className="font-display text-[15px] font-medium leading-tight text-ink">{s.title}</p>
-                <p className="mt-0.5 font-body text-[12px] uppercase tracking-[0.12em] text-ink/55">{s.sub}</p>
+                <p className="font-display text-[15px] font-medium leading-tight text-cream">{s.title}</p>
+                <p className="mt-0.5 font-body text-[12px] uppercase tracking-[0.12em] text-cream/55">{s.sub}</p>
               </div>
             </li>
           ))}
@@ -230,16 +231,16 @@ export default function Proyecto() {
 
         {/* ── Pie + CTA ── */}
         <div data-cta className="mt-14 text-center md:mt-20" style={{ opacity: 0 }}>
-          <p className="font-body text-sm uppercase tracking-[0.16em] text-ink/55">
+          <p className="font-body text-sm uppercase tracking-[0.16em] text-cream/60">
             Netbilling · reduce la cuenta de luz — campo, electrificación rural e industria
           </p>
           <Link
             href="/proyectos"
-            className="group mt-6 inline-flex items-center gap-2.5 font-display text-lg font-medium text-terra transition-colors duration-200 hover:text-ember"
+            className="group mt-6 inline-flex items-center gap-2.5 font-display text-lg font-medium text-cream transition-colors duration-200 hover:text-[#ffce85]"
           >
             <span className="relative">
               Ver el proyecto
-              <span aria-hidden="true" className="absolute -bottom-1 left-0 h-px w-full origin-right scale-x-0 bg-ember transition-transform duration-500 group-hover:origin-left group-hover:scale-x-100" />
+              <span aria-hidden="true" className="absolute -bottom-1 left-0 h-px w-full origin-right scale-x-0 bg-[#ffce85] transition-transform duration-500 group-hover:origin-left group-hover:scale-x-100" />
             </span>
             <svg viewBox="0 0 20 20" className="h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-1" fill="none" aria-hidden="true">
               <path d="M3 10h13M11 5l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />

@@ -119,17 +119,13 @@ export default function Equipo() {
     <section
       ref={ref}
       id="equipo"
-      data-nav="dark"
-      className="relative w-full overflow-hidden px-6 py-28 text-cream sm:px-10 sm:py-32 md:px-14 md:py-40"
-      // Terracota pleno con variación cálida sutil (no plano). Ancla oscura del trío.
-      style={{
-        background:
-          "radial-gradient(70% 55% at 25% 12%, #c2380f 0%, rgba(194,56,15,0) 60%)," +
-          "linear-gradient(180deg, #a82800 0%, #b12c00 45%, #9c2600 100%)",
-      }}
+      data-nav="light"
+      className="relative w-full overflow-hidden px-6 py-28 sm:px-10 sm:py-32 md:px-14 md:py-40"
+      // Ámbar medio del degradado del trío: encadena con Proyecto (arriba) y Blog (abajo).
+      style={{ background: "linear-gradient(180deg, #ac5b30 0%, #e4ab72 100%)" }}
     >
-      {/* Textura de fondo — curvas de nivel finísimas en crema */}
-      <svg aria-hidden="true" className="pointer-events-none absolute -left-24 bottom-0 h-[420px] w-[640px] text-cream/[0.05]" viewBox="0 0 600 400" fill="none">
+      {/* Textura de fondo — curvas de nivel finísimas en tinta */}
+      <svg aria-hidden="true" className="pointer-events-none absolute -left-24 bottom-0 h-[420px] w-[640px] text-ink/[0.06]" viewBox="0 0 600 400" fill="none">
         {[0, 28, 56, 84, 112].map((o) => (
           <path key={o} d={`M-20 ${300 - o} C 150 ${360 - o}, 320 ${200 - o}, 470 ${300 - o} S 760 ${380 - o}, 920 ${260 - o}`} stroke="currentColor" strokeWidth="1.5" />
         ))}
@@ -138,14 +134,14 @@ export default function Equipo() {
       <div className="relative mx-auto max-w-[1180px]">
         {/* ── Encabezado (sin eyebrow) ── */}
         <div className="mb-16 md:mb-24">
-          <h2 className="m-0 max-w-[18ch] font-display font-light text-cream" aria-label="Dos socios, un propósito." style={{ fontSize: "clamp(1.9rem, 4vw, 3.2rem)", lineHeight: 1.06, letterSpacing: "-0.03em" }}>
+          <h2 className="m-0 max-w-[18ch] font-display font-light text-ink" aria-label="Dos socios, un propósito." style={{ fontSize: "clamp(1.9rem, 4vw, 3.2rem)", lineHeight: 1.06, letterSpacing: "-0.03em" }}>
             <span aria-hidden="true">
               {HEAD_WORDS.map((w, i) => (
                 <span key={i} data-head-word className="mr-[0.26em] inline-block" style={{ opacity: 0, transform: "translateY(0.8em)" }}>
                   {w}
                 </span>
               ))}
-              <span data-head-word className="inline-block font-medium text-orange" style={{ opacity: 0, transform: "translateY(0.8em)" }}>
+              <span data-head-word className="inline-block font-medium text-ink" style={{ opacity: 0, transform: "translateY(0.8em)" }}>
                 {HEAD_ACCENT}
               </span>
               <span data-head-word className="inline-block" style={{ opacity: 0, transform: "translateY(0.8em)" }}>
@@ -153,7 +149,7 @@ export default function Equipo() {
               </span>
             </span>
           </h2>
-          <p data-dek className="mt-5 max-w-[54ch] font-body text-base font-light leading-relaxed text-cream/70 sm:text-lg" style={{ opacity: 0 }}>
+          <p data-dek className="mt-5 max-w-[54ch] font-body text-base font-light leading-relaxed text-ink/65 sm:text-lg" style={{ opacity: 0 }}>
             Bruno y Patricio fundaron Enma para resolver, desde Aysén, los problemas de energía y manufactura de un territorio complejo.
           </p>
         </div>
@@ -161,7 +157,7 @@ export default function Equipo() {
         {/* ── Dúo entrelazado ── */}
         <div className="relative md:grid md:grid-cols-12">
           {/* Hilo "E" (desktop) — circuito/raíz que teje entre ambos slots */}
-          <svg aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 hidden h-full w-full text-orange/55 md:block" viewBox="0 0 100 70" preserveAspectRatio="none" fill="none">
+          <svg aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 hidden h-full w-full text-teal/45 md:block" viewBox="0 0 100 70" preserveAspectRatio="none" fill="none">
             <path data-thread-path d="M24 20 C 44 20, 38 40, 54 44 S 74 52, 80 56" stroke="currentColor" strokeWidth="1" vectorEffect="non-scaling-stroke" pathLength={1} style={{ strokeDasharray: 1, strokeDashoffset: 1 }} />
             <circle data-thread-node cx="24" cy="20" r="1.4" fill="currentColor" style={{ opacity: 0 }} />
             <circle data-thread-node cx="54" cy="44" r="1" fill="currentColor" style={{ opacity: 0 }} />
@@ -176,7 +172,7 @@ export default function Equipo() {
                 {/* Conector vertical (solo móvil) entre los dos bloques */}
                 {!isSlot1 && (
                   <div aria-hidden="true" className="flex justify-center py-8 md:hidden">
-                    <svg className="h-16 w-3 text-orange/55" viewBox="0 0 12 64" fill="none">
+                    <svg className="h-16 w-3 text-teal/45" viewBox="0 0 12 64" fill="none">
                       <path d="M6 2 C 1 16, 11 28, 6 42 S 1 56, 6 62" stroke="currentColor" strokeWidth="1" />
                       <circle cx="6" cy="2" r="1.6" fill="currentColor" />
                       <circle cx="6" cy="62" r="1.6" fill="currentColor" />
@@ -194,8 +190,8 @@ export default function Equipo() {
                   }`}
                 >
                   <div className={`group/cf flex flex-col items-start gap-6 sm:items-center sm:gap-8 ${isSlot1 ? "sm:flex-row" : "sm:flex-row-reverse"}`}>
-                    {/* Retrato — duotono cálido por defecto; color + zoom en hover */}
-                    <div className="relative aspect-[4/5] w-[200px] shrink-0 overflow-hidden rounded-[20px] ring-1 ring-cream/15 sm:w-[clamp(180px,22vw,270px)]">
+                    {/* Retrato — color pleno; zoom lento en hover (efecto de About) */}
+                    <div className="relative aspect-[4/5] w-[200px] shrink-0 overflow-hidden rounded-[20px] ring-1 ring-ink/15 sm:w-[clamp(180px,22vw,270px)]">
                       <Image
                         src={cf.photo}
                         alt={cf.alt}
@@ -207,11 +203,11 @@ export default function Equipo() {
 
                     {/* Texto */}
                     <div className="min-w-0">
-                      <h3 className="m-0 font-display font-light leading-tight text-cream" style={{ fontSize: "clamp(1.5rem, 2.6vw, 2.1rem)", letterSpacing: "-0.02em" }}>
+                      <h3 className="m-0 font-display font-light leading-tight text-ink" style={{ fontSize: "clamp(1.5rem, 2.6vw, 2.1rem)", letterSpacing: "-0.02em" }}>
                         {cf.name}
                       </h3>
-                      <p className="mt-1.5 font-body text-[11px] uppercase tracking-[0.2em] text-cream/55">{cf.role}</p>
-                      <p className="mt-4 max-w-[40ch] font-body text-base font-light leading-relaxed text-cream/75">{cf.bio}</p>
+                      <p className="mt-1.5 font-body text-[11px] uppercase tracking-[0.2em] text-ink/55">{cf.role}</p>
+                      <p className="mt-4 max-w-[40ch] font-body text-base font-light leading-relaxed text-ink/70">{cf.bio}</p>
                     </div>
                   </div>
                 </article>
