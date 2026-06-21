@@ -217,19 +217,13 @@ export default function Services() {
         setRevealed(true);
 
         const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-        // Título — palabra por palabra (rise + blur → nítido)
+        // Título — entra como UN bloque (subida limpia, sin cascada palabra-a-palabra
+        // ni blur). La coreografía palabra+letras queda reservada a Hero y Footer.
         tl.fromTo(
-          words,
-          { opacity: 0, y: "0.9em", filter: "blur(6px)" },
-          { opacity: 1, y: "0em", filter: "blur(0px)", duration: 0.8, stagger: 0.09 },
+          [...words, ...letters],
+          { opacity: 0, y: "0.6em" },
+          { opacity: 1, y: "0em", duration: 0.9, ease: "power3.out" },
           0
-        );
-        // Acento "prototipo físico" — letra por letra
-        tl.fromTo(
-          letters,
-          { opacity: 0, y: "0.45em" },
-          { opacity: 1, y: "0em", duration: 0.5, stagger: 0.03, ease: "power2.out" },
-          0.45
         );
         // Subhead — fade + blur
         tl.fromTo(

@@ -83,8 +83,9 @@ export default function Metrics() {
         played = true;
 
         const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-        tl.fromTo(words, { opacity: 0, y: "0.9em", filter: "blur(6px)" }, { opacity: 1, y: "0em", filter: "blur(0px)", duration: 0.8, stagger: 0.09 }, 0);
-        tl.fromTo(letters, { opacity: 0, y: "0.45em" }, { opacity: 1, y: "0em", duration: 0.5, stagger: 0.04, ease: "power2.out" }, 0.45);
+        // Título — entra como UN bloque que "enfoca" (blur→nítido), sin cascada
+        // palabra-a-palabra. Esa coreografía queda reservada a Hero y Footer.
+        tl.fromTo([...words, ...letters], { opacity: 0, y: 10, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.0, ease: "power2.out" }, 0);
         tl.fromTo(sub, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.8 }, 0.6);
         // Métricas — emergen del viento en cascada (izq → der)
         tl.fromTo(metrics, { opacity: 0, y: 30, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, stagger: 0.13 }, 0.7);

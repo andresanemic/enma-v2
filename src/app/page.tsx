@@ -25,7 +25,10 @@ export default function Home() {
           <Services />
         </div>
         <Metrics />
-        {/* Trío terracota: Proyecto (claro) → Equipo (#B12C00 pleno) → Blog (claro). */}
+        {/* Trío sobre degradado claro continuo anclado en crema (#f8eddd, inicio de
+            FAQ) que sube calentándose apenas: Proyecto (#eac395→#eecea1) → Equipo
+            (#eecea1→#f3ddbc) → Blog (#f3ddbc→#f8eddd). Acentos alternados cálido/
+            frío: Proyecto terra → Equipo teal (hilo "E") → Blog terra. */}
         <Proyecto />
         <Equipo />
         <Blog />

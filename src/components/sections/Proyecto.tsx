@@ -31,7 +31,7 @@ export default function Proyecto() {
     const q = <T extends Element>(sel: string) => Array.from(el.querySelectorAll<T>(sel));
 
     if (reduce) {
-      gsap.set(q("[data-head-word]"), { opacity: 1, y: 0, filter: "blur(0px)" });
+      gsap.set(q("[data-head-word]"), { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" });
       gsap.set(q("[data-dek], [data-cta], [data-anno], [data-anno-m], [data-cota-label]"), { opacity: 1, x: 0, y: 0 });
       gsap.set(q("[data-panel]"), { clipPath: "inset(0 0 0 0 round 18px)" });
       gsap.set(q("[data-leader]"), { scaleX: 1 });
@@ -46,7 +46,9 @@ export default function Proyecto() {
         played = true;
         const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-        tl.fromTo(q("[data-head-word]"), { opacity: 0, y: "0.8em", filter: "blur(6px)" }, { opacity: 1, y: "0em", filter: "blur(0px)", duration: 0.8, stagger: 0.08 }, 0);
+        // Título — el bloque se asienta (leve escala + subida), sin cascada
+        // palabra-a-palabra. Esa coreografía queda reservada a Hero y Footer.
+        tl.fromTo(q("[data-head-word]"), { opacity: 0, y: 14, scale: 0.985 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }, 0);
         const dek = el.querySelector("[data-dek]");
         if (dek) tl.fromTo(dek, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.8 }, 0.3);
 

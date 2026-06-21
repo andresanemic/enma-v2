@@ -94,7 +94,7 @@ export default function Blog() {
 
     // Reduced motion → todo en estado final, sin observers.
     if (reduce) {
-      gsap.set(q(el, "[data-head-word], [data-bword]"), { opacity: 1, y: 0, filter: "blur(0px)" });
+      gsap.set(q(el, "[data-head-word], [data-btitle]"), { opacity: 1, y: 0, filter: "blur(0px)" });
       gsap.set(q(el, "[data-bcover]"), { clipPath: "inset(0 0% 0 0 round 20px)" });
       gsap.set(q(el, "[data-bsum], [data-bmeta], [data-bmore]"), { opacity: 1, x: 0, y: 0, filter: "blur(0px)" });
       gsap.set(q(el, "[data-rule]"), { scaleX: 1 });
@@ -156,12 +156,14 @@ export default function Blog() {
               { clipPath: "inset(0 0% 0 0 round 20px)", duration: 0.95, ease: "power3.inOut" },
               0
             );
-          tl.fromTo(
-            q(band, "[data-bword]"),
-            { opacity: 0, y: "0.7em", filter: "blur(6px)" },
-            { opacity: 1, y: "0em", filter: "blur(0px)", duration: 0.7, stagger: 0.055 },
-            0.18
-          );
+          const title = band.querySelector("[data-btitle]");
+          if (title)
+            tl.fromTo(
+              title,
+              { opacity: 0, y: 16 },
+              { opacity: 1, y: 0, duration: 0.7 },
+              0.18
+            );
           const sum = band.querySelector("[data-bsum]");
           if (sum) tl.fromTo(sum, { opacity: 0, y: 14, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8 }, 0.4);
           const meta = band.querySelector("[data-bmeta]");
@@ -229,10 +231,10 @@ export default function Blog() {
                   {w}
                 </span>
               ))}
-              <span data-head-word className="inline-block font-medium text-teal" style={{ opacity: 0, transform: "translateY(0.8em)" }}>
+              <span data-head-word className="inline-block font-medium text-terra" style={{ opacity: 0, transform: "translateY(0.8em)" }}>
                 {HEAD_ACCENT}
               </span>
-              <span data-head-word className="inline-block text-teal" style={{ opacity: 0, transform: "translateY(0.8em)" }}>
+              <span data-head-word className="inline-block text-terra" style={{ opacity: 0, transform: "translateY(0.8em)" }}>
                 .
               </span>
             </span>
@@ -289,17 +291,11 @@ export default function Blog() {
                   {/* Texto — título, resumen, byline, "Leer nota" */}
                   <div className={a.imageSide === "right" ? "md:order-1" : "md:order-2"}>
                     <h3
+                      data-btitle
                       className="m-0 font-display font-light leading-[1.1] text-ink transition-colors duration-300 group-hover:text-terra"
-                      style={{ fontSize: "clamp(1.45rem, 2.8vw, 2.25rem)", letterSpacing: "-0.02em" }}
+                      style={{ fontSize: "clamp(1.45rem, 2.8vw, 2.25rem)", letterSpacing: "-0.02em", opacity: 0, transform: "translateY(16px)" }}
                     >
-                      <span aria-hidden="true">
-                        {a.title.split(" ").map((w, wi) => (
-                          <span key={wi} data-bword className="mr-[0.22em] inline-block" style={{ opacity: 0, transform: "translateY(0.7em)" }}>
-                            {w}
-                          </span>
-                        ))}
-                      </span>
-                      <span className="sr-only">{a.title}</span>
+                      {a.title}
                     </h3>
 
                     <p data-bsum className="mt-4 max-w-[46ch] font-body text-base font-light leading-relaxed text-ink/70 sm:text-lg" style={{ opacity: 0 }}>
@@ -314,12 +310,12 @@ export default function Blog() {
                     </div>
 
                     {/* "Leer nota" — subrayado que se traza + flecha que desliza */}
-                    <span data-bmore className="mt-5 inline-flex items-center gap-2 font-body text-[13px] font-medium uppercase tracking-[0.16em] text-teal" style={{ opacity: 0 }}>
+                    <span data-bmore className="mt-5 inline-flex items-center gap-2 font-body text-[13px] font-medium uppercase tracking-[0.16em] text-terra" style={{ opacity: 0 }}>
                       <span className="relative">
                         Leer nota
                         <span
                           aria-hidden="true"
-                          className="absolute -bottom-1 left-0 h-px w-full origin-right scale-x-0 bg-teal transition-transform duration-500 group-hover:origin-left group-hover:scale-x-100"
+                          className="absolute -bottom-1 left-0 h-px w-full origin-right scale-x-0 bg-terra transition-transform duration-500 group-hover:origin-left group-hover:scale-x-100"
                         />
                       </span>
                       <svg viewBox="0 0 20 20" className="h-3.5 w-3.5 transition-transform duration-300 ease-out group-hover:translate-x-1" fill="none" aria-hidden="true">

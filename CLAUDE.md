@@ -245,9 +245,12 @@ El wireframe define contenido y orden lógico, no el layout visual final — el 
 - [x] **Fase A** — Setup del proyecto en `\web2`: Next.js 16 + TypeScript + Tailwind v4 + GSAP + tokens cálidos + fuentes (Manrope/Outfit/JetBrains Mono). Build de producción OK.
 - [x] **Fase B** — Hero + NavBar: contraste corregido (grade cálido + scrim + fondo de respaldo), logo con drop-shadow + crossfade, NavBar rediseñado (pill transparente, modo claro/oscuro, drawer móvil), rutas stub para no romper navegación. Golden Paths funcionales verificados (rutas 200, CTA mailto, sin errores).
 - [x] **Fase C** — Landing completa. Trío final diseñado y aprobado: **Proyecto** (espécimen técnico: foto turbina + blueprint con cotas/líneas guía), **Equipo** (dúo entrelazado + hilo "E" + swap aleatorio de slots), **Blog** (franjas editoriales con las 3 notas reales). Orden: Métricas → Proyecto → Equipo → Blog → FAQ. Ritmo tonal = **degradado claro continuo anclado abajo en crema** (`#f8eddd` = inicio de FAQ) que sube calentándose apenas, sin tonos oscuros (se descartó el intercalado y el terracota `#B12C00` de fondo). Hover de imágenes = zoom lento estilo About (sin cambio de color). Sin eyebrows ni mono. Golden Paths verificados (rutas 200, Home→Blog/Proyectos, navbar). Build/typecheck OK.
-- [ ] **Fase D** — Revisión de detalles de la landing (correcciones puntuales antes de páginas internas):
-  - **Botón de la sección Servicios:** su copy hablaba de "servicios" pero enlaza a `/vinculacion`. Cambiado a copy coherente con **Vinculación** ("Mira a Enma en medios y charlas"); la página será un repositorio de participaciones en medios digitales y charlas de Enma. ✅
-  - **Pulido de motion** + **revisión de contraste y coherencia de paleta** en toda la landing (movido desde la antigua última fase).
-- [ ] **Fase E** — Páginas internas (Nosotros, Proyectos, Vinculación), verificar Golden Paths
+- [x] **Fase D** — Revisión de detalles de la landing (CERRADA y aprobada como "fabulosa", 2026-06-21):
+  - **Botón de la sección Servicios:** copy coherente con **Vinculación** ("Mira a Enma en medios y charlas"); la página será un repositorio de participaciones en medios digitales y charlas de Enma. ✅
+  - **Color/paleta:** acento de **Blog** calentado de teal → terra (rompe la cadena de acentos fríos de la cola; queda Proyecto terra → Equipo teal/hilo "E" → Blog terra → FAQ teal). **Métricas** se mantiene como contraste frío deliberado. Comentario obsoleto de `page.tsx` corregido. ✅
+  - **Motion (anti-saturación):** la coreografía completa de titular (palabra-por-palabra + blur + letras) quedó **reservada a Hero y Footer**; Servicios/Métricas/Proyecto pasaron a reveals más simples y distintos entre sí (bloque que sube / que "enfoca" con blur / que se asienta con escala). Blog: títulos de franja → fade-up (el H2 conserva cascada). Typecheck OK. ✅
+  - **Estándar de calidad:** la **landing completa** queda como vara mínima para las páginas interiores (no solo Hero + CTA/Footer).
+- [ ] **Fase E** — Páginas internas (Nosotros, Proyectos, Vinculación), verificar Golden Paths.
+  - ⚠️ **NO arrancar hasta nueva orden:** el usuario hará primero un **cambio importante en el wireframe**. Esperar su indicación.
 - [ ] **Fase F** — Blog, verificar Golden Paths
 - [ ] **Fase G** — Verificación final de Golden Paths en todo el sitio + ajustes finales
