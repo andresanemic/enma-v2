@@ -147,9 +147,9 @@ export default function Proyecto() {
       />
 
       <div className="relative mx-auto max-w-[1180px]">
-        {/* ── Encabezado centrado (sin eyebrow) ── */}
-        <div className="mx-auto mb-14 max-w-[20ch] text-center md:mb-20">
-          <h2 className="m-0 font-display font-light text-ink" aria-label="Una turbina para el viento extremo." style={{ fontSize: "clamp(1.9rem, 4vw, 3.2rem)", lineHeight: 1.06, letterSpacing: "-0.03em" }}>
+        {/* ── Encabezado (alineado a la izquierda, como las demás secciones) ── */}
+        <div className="mb-14 md:mb-20">
+          <h2 className="m-0 max-w-[20ch] font-display font-light text-ink" aria-label="Una turbina para el viento extremo." style={{ fontSize: "clamp(1.9rem, 4vw, 3.2rem)", lineHeight: 1.06, letterSpacing: "-0.03em" }}>
             <span aria-hidden="true">
               {HEAD_WORDS.map((w, i) => (
                 <span key={i} data-head-word className="mr-[0.24em] inline-block" style={{ opacity: 0, transform: "translateY(0.8em)" }}>
@@ -164,7 +164,7 @@ export default function Proyecto() {
               </span>
             </span>
           </h2>
-          <p data-dek className="mx-auto mt-5 max-w-[60ch] font-body text-base font-light leading-relaxed text-ink/65 sm:text-lg" style={{ opacity: 0 }}>
+          <p data-dek className="mt-5 max-w-[58ch] font-body text-base font-light leading-relaxed text-ink/65 sm:text-lg" style={{ opacity: 0 }}>
             El proyecto que más queremos mostrar: un diseño propio de baja escala, financiado por ANID, pensado para los vientos más difíciles de la Patagonia.
           </p>
         </div>
@@ -180,7 +180,7 @@ export default function Proyecto() {
 
           {/* Panel central — la turbina como espécimen */}
           <div className="relative shrink-0">
-            <div data-panel className="group/panel relative aspect-[3/4] w-[clamp(210px,30vw,300px)] overflow-hidden rounded-[18px] ring-1 ring-ink/15" style={{ clipPath: "inset(100% 0 0 0 round 18px)" }}>
+            <div data-panel className="group/panel relative aspect-[3/4] w-[clamp(230px,32vw,340px)] overflow-hidden rounded-[18px] ring-1 ring-ink/15" style={{ clipPath: "inset(100% 0 0 0 round 18px)" }}>
               <Image
                 src="/proyecto/turbina.jpg"
                 alt="Turbina eólica de baja escala en un paisaje abierto"
