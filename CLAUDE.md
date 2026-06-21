@@ -94,6 +94,7 @@ Paleta completa (`paleta.txt`):
 
 - **Manrope**: títulos y subtítulos
 - **Outfit**: cuerpo de texto
+- **NO usar tipografía monospace** en ninguna parte del sitio (se eliminó JetBrains Mono). Lo que antes era mono (números de índice, labels, líneas técnicas) va en **Outfit en uppercase**. Solo Manrope y Outfit.
 
 ---
 
@@ -199,6 +200,8 @@ El wireframe define contenido y orden lógico, no el layout visual final — el 
 12. **Motion obligatorio por sección (no solo layout).** Toda sección nueva debe incorporar: (a) efecto de aparición al entrar en viewport (reveal con stagger, aparición palabra por palabra en títulos clave, draw-on de SVG, etc., disparado con `IntersectionObserver`), (b) microinteracciones en hover en todo elemento interactivo (links, filas, botones, imágenes — nada "muerto"), y (c) algún guiño de textura/naturaleza acorde a la visión de la diseñadora (huellas, curvas de nivel, raíz/circuito del monograma "E"). Un layout bonito pero plano NO es suficiente. Respetar siempre `prefers-reduced-motion` y los patrones de `\lore\animation.md`. Referencia viva: Hero, About, FAQ y el bloque de cierre **CTA+Footer** de la landing.
 
 13. **Estándar mínimo de calidad (la vara a igualar).** El nivel actual de la landing es el piso de calidad para TODA sección nueva (resto de la landing y, a futuro, páginas internas y Blog) — aprobado explícitamente por el usuario. Implica: composición cohesiva de color (no plana; regla de paleta, principio "energía cálida sobre base fría"), **motion con propósito y variado** (coreografía orquestada donde cada tipo de elemento entra con un efecto propio: palabra-por-palabra, letra-por-letra, fade+blur, clip-wipe, cascada, pop — no un solo fade genérico), orden premium y delicado (grilla/contenedor compartido, jerarquía deliberada, una sola voz editorial por bloque), y el quality floor del punto 12. Referencia máxima: el **bloque CTA+Footer unificado** (`components/layout/Footer.tsx`). Si una sección nueva se siente más plana o más simple que ese nivel, no alcanza el estándar.
+
+14. **Sin eyebrows ni tipografía mono (secciones nuevas y páginas internas).** Ninguna sección lleva eyebrow (etiqueta superior tipo "(06) ..." sobre el título): los títulos arrancan directo. Y no se usa tipografía monospace en ninguna parte (se eliminó JetBrains Mono): lo que antes era mono va en **Outfit uppercase**. Ambas reglas aplican tanto al resto de la landing como a las páginas internas (Nosotros, Proyectos, Vinculación, Blog).
 
 ### Cuándo consultar cada archivo de Lore
 
