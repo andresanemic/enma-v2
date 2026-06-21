@@ -37,9 +37,8 @@ const COFOUNDERS: Cofounder[] = [
 const HEAD_WORDS = ["Dos", "socios,"];
 const HEAD_ACCENT = "un propósito";
 
-// Retratos: duotono cálido por defecto (unifica sobre terracota) y, en hover, se
-// retira con la MISMA lista de funciones de filtro → interpolación suave. Va como
-// clases Tailwind en el <Image> para que lo dispare el hover de toda la card.
+// Retratos: a color pleno siempre; en hover, zoom lento (mismo efecto que la
+// imagen de la sección About — transform scale, sin cambio de color).
 
 export default function Equipo() {
   const ref = useRef<HTMLElement>(null);
@@ -202,7 +201,7 @@ export default function Equipo() {
                         alt={cf.alt}
                         fill
                         sizes="(min-width: 768px) 270px, 60vw"
-                        className="object-cover transition-[filter,transform] duration-[800ms] ease-out [filter:sepia(0.82)_saturate(1.6)_hue-rotate(-18deg)_brightness(0.9)_contrast(1.02)] group-hover/cf:scale-[1.05] group-hover/cf:[filter:sepia(0)_saturate(1)_hue-rotate(0deg)_brightness(1)_contrast(1)]"
+                        className="object-cover transition-transform duration-[900ms] ease-out group-hover/cf:scale-[1.06]"
                       />
                     </div>
 
