@@ -4,6 +4,7 @@ import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
 import Services from "@/components/sections/Services";
 import Metrics from "@/components/sections/Metrics";
+import Proyecto from "@/components/sections/Proyecto";
 import Equipo from "@/components/sections/Equipo";
 import Blog from "@/components/sections/Blog";
 import FAQ from "@/components/sections/FAQ";
@@ -24,8 +25,8 @@ export default function Home() {
           <Services />
         </div>
         <Metrics />
-        {/* Trío terracota (Proyecto → Equipo → Blog). Proyecto se inserta encima
-            en la Fase 3. */}
+        {/* Trío terracota: Proyecto (claro) → Equipo (#B12C00 pleno) → Blog (claro). */}
+        <Proyecto />
         <Equipo />
         <Blog />
         <FAQ />
