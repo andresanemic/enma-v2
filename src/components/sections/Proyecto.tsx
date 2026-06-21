@@ -186,7 +186,7 @@ export default function Proyecto() {
                 alt="Turbina eólica de baja escala en un paisaje abierto"
                 fill
                 sizes="(min-width: 768px) 300px, 70vw"
-                className="object-cover object-center transition-[filter,transform] duration-[800ms] ease-out [filter:sepia(0.7)_saturate(1.5)_hue-rotate(-15deg)_brightness(0.96)_contrast(1.02)] group-hover/panel:scale-[1.05] group-hover/panel:[filter:sepia(0)_saturate(1)_hue-rotate(0deg)_brightness(1)_contrast(1)]"
+                className="object-cover object-center transition-transform duration-[900ms] ease-out group-hover/panel:scale-[1.06]"
               />
 
               {/* Cotas técnicas (draw-on) — ↕ torre (izq) · ↔ rotor (arriba) */}
