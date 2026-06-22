@@ -1,0 +1,615 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { gsap } from "@/lib/gsap";
+
+// ─────────────────────────────────────────────────────────────────────────────
+// VINCULACIÓN — "EN VIVO: la señal de Enma"
+// Repositorio vivo de presencia pública: medios, charlas y entrevistas.
+// Fuente de verdad: que-es-enma.txt ("Charlas y difusión" + "Qué debe lograr la
+// presencia de Enma") y la voz de los fundadores (entrevistas). La marca es
+// "comunicativa, activa, intrusa pero profesional, entra por la vista".
+//
+// ⚠️ CONTENIDO PLACEHOLDER: aún NO hay listado real de apariciones. Las entradas
+// de abajo son verosímiles (derivadas del contexto regional real) pero deben
+// reemplazarse por el registro real. Cada campo a confirmar lleva un TODO.
+// ─────────────────────────────────────────────────────────────────────────────
+
+type Kind = "medios" | "charlas" | "entrevistas";
+
+type Aparicion = {
+  id: string;
+  year: string; // TODO: confirmar fechas reales
+  kind: Kind;
+  tag: string; // etiqueta corta (Charla, Tribuna, Radio, Prensa, TV…)
+  title: string;
+  outlet: string; // medio o lugar
+  detail: string; // línea que se revela al hover/focus
+};
+
+// TODO(enma): reemplazar TODO este arreglo por las apariciones reales (medio,
+// fecha, enlace cuando exista). Los textos actuales son placeholders verosímiles.
+const APARICIONES: Aparicion[] = [
+  {
+    id: "consejo-regional",
+    year: "2024",
+    kind: "charlas",
+    tag: "Tribuna",
+    title: "Camino a la descarbonización de Aysén",
+    outlet: "Comisión de Ciencia, Tecnología e Innovación · Consejo Regional",
+    detail:
+      "Presentamos tres formulaciones de proyectos energéticos para sectores aislados de la región y su ruta de implementación.",
+  },
+  {
+    id: "junta-vecinos",
+    year: "2024",
+    kind: "charlas",
+    tag: "Charla",
+    title: "Eficiencia energética para tu hogar",
+    outlet: "Junta de vecinos · Puerto Cisnes",
+    detail:
+      "Cómo bajar la cuenta de luz en una región donde la energía cuesta especialmente caro —explicado sin tecnicismos.",
+  },
+  {
+    id: "turbina-prensa",
+    year: "2024",
+    kind: "medios",
+    tag: "Prensa",
+    title: "Una turbina diseñada para el viento patagónico",
+    outlet: "TODO: medio digital regional",
+    detail:
+      "Reportaje sobre el prototipo de turbina eólica de baja escala desarrollado con financiamiento ANID.",
+  },
+  {
+    id: "radio-renovables",
+    year: "2024",
+    kind: "entrevistas",
+    tag: "Radio",
+    title: "Energías renovables para sistemas aislados",
+    outlet: "TODO: radio local",
+    detail:
+      "Conversamos sobre microcentrales hidráulicas, netbilling y autogeneración para comunidades aisladas de Aysén.",
+  },
+  {
+    id: "energia-territorio",
+    year: "2023",
+    kind: "charlas",
+    tag: "Charla",
+    title: "Energía que nace en el territorio",
+    outlet: "Encuentro abierto a la comunidad",
+    detail:
+      "Por qué las soluciones pensadas desde un escritorio en Santiago no resisten la realidad de la Patagonia.",
+  },
+  {
+    id: "columna-costo",
+    year: "2023",
+    kind: "medios",
+    tag: "Columna",
+    title: "El verdadero costo de la energía en Aysén",
+    outlet: "TODO: medio digital",
+    detail:
+      "Columna sobre dependencia energética, costo del combustible y logística como factores que matan proyectos.",
+  },
+  {
+    id: "tv-origen",
+    year: "2023",
+    kind: "entrevistas",
+    tag: "TV",
+    title: "Innovación con raíces en la Patagonia",
+    outlet: "TODO: canal de televisión local",
+    detail:
+      "Nota sobre el origen de Enma en Puerto Cisnes y su trabajo en energía y manufactura sustentable.",
+  },
+];
+
+type Channel = "todo" | Kind;
+const CHANNELS: { id: Channel; label: string }[] = [
+  { id: "todo", label: "Todo" },
+  { id: "medios", label: "Medios" },
+  { id: "charlas", label: "Charlas" },
+  { id: "entrevistas", label: "Entrevistas" },
+];
+
+// Color del tag por tipo (cálidos protagonistas; teal solo acento de marca puntual).
+const TAG_TONE: Record<Kind, string> = {
+  charlas: "text-ember",
+  medios: "text-terra",
+  entrevistas: "text-teal",
+};
+
+// Nombres que derivan en el marquee perpetuo del hero (tribunas y medios donde
+// aparece Enma). Continuo, sin números inventados.
+const MARQUEE = [
+  "Radio local",
+  "Consejo Regional",
+  "Junta de vecinos",
+  "Televisión local",
+  "Cámara de comercio",
+  "Charlas comunitarias",
+  "Difusión de estudios",
+  "Prensa digital",
+];
+
+// ── Marquee perpetuo (deriva izquierda, rAF + wrap pixel-perfecto, patrón Footer).
+// Pausa fuera de viewport; reduce-motion → estático. ──
+function SignalMarquee() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const groupRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const track = trackRef.current;
+    const group = groupRef.current;
+    if (!track || !group) return;
+
+    let w = group.offsetWidth;
+    const onResize = () => {
+      w = group.offsetWidth;
+    };
+    window.addEventListener("resize", onResize);
+    if (document.fonts?.ready) document.fonts.ready.then(() => (w = group.offsetWidth));
+
+    const SPEED = 46; // px/s
+    let raf = 0;
+    let visible = true;
+    const tick = (now: number) => {
+      if (visible && w > 0) {
+        const pos = ((now / 1000) * SPEED) % w;
+        track.style.transform = `translate3d(${-pos}px,0,0)`;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    const io = new IntersectionObserver((e) => (visible = e[0].isIntersecting), {
+      threshold: 0,
+    });
+    io.observe(track);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", onResize);
+      io.disconnect();
+    };
+  }, []);
+
+  const Item = ({ label }: { label: string }) => (
+    <span className="flex items-center">
+      <span
+        aria-hidden="true"
+        className="mx-5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-ember/70 sm:mx-7"
+      />
+      <span
+        className="whitespace-nowrap font-body text-sm font-medium uppercase tracking-[0.18em] text-ink/45 sm:text-base"
+        style={{ letterSpacing: "0.18em" }}
+      >
+        {label}
+      </span>
+    </span>
+  );
+
+  return (
+    <div
+      className="relative w-full overflow-hidden py-5"
+      style={{
+        maskImage:
+          "linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%)",
+        WebkitMaskImage:
+          "linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%)",
+      }}
+    >
+      <div
+        ref={trackRef}
+        className="flex w-max"
+        style={{ transform: "translate3d(0,0,0)", willChange: "transform" }}
+      >
+        {[0, 1].map((g) => (
+          <div key={g} ref={g === 0 ? groupRef : undefined} className="flex shrink-0">
+            {MARQUEE.map((m) => (
+              <Item key={`${g}-${m}`} label={m} />
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default function Vinculacion() {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const repoRef = useRef<HTMLElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  const [channel, setChannel] = useState<Channel>("todo");
+  const [repoIn, setRepoIn] = useState(false);
+
+  const shown = APARICIONES.filter((a) => channel === "todo" || a.kind === channel);
+
+  // ── Reveals de los bloques narrativos (hero, destacada, cierre): IO + fallback
+  // gateado por visibilidad real (lore/animation). Cada bloque, su firma. ──
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const blocks = Array.from(root.querySelectorAll<HTMLElement>("[data-reveal]"));
+    const q = <T extends Element>(s: string, ctx: ParentNode) =>
+      Array.from(ctx.querySelectorAll<T>(s));
+
+    if (reduce) {
+      blocks.forEach((b) => {
+        q("[data-fade]", b).forEach((e) => gsap.set(e, { opacity: 1, y: 0 }));
+        q("[data-clip]", b).forEach((e) =>
+          gsap.set(e, { clipPath: "inset(0 0% 0 0)", opacity: 1 })
+        );
+        q("[data-rule]", b).forEach((e) => gsap.set(e, { scaleX: 1 }));
+      });
+      return;
+    }
+
+    const played = new WeakSet<HTMLElement>();
+    const play = (b: HTMLElement) => {
+      if (played.has(b)) return;
+      played.add(b);
+      const id = b.dataset.reveal;
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      switch (id) {
+        case "hero": {
+          tl.fromTo(
+            q("[data-clip]", b),
+            { clipPath: "inset(0 100% 0 0)", opacity: 1 },
+            { clipPath: "inset(0 0% 0 0)", duration: 0.9, stagger: 0.14, ease: "power3.inOut" },
+            0
+          );
+          tl.fromTo(q("[data-fade]", b), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.8, stagger: 0.14 }, 0.45);
+          break;
+        }
+        case "cierre": {
+          tl.fromTo(q("[data-rule]", b), { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power2.inOut" }, 0);
+          tl.fromTo(q("[data-fade]", b), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.8, stagger: 0.12 }, 0.15);
+          break;
+        }
+      }
+    };
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            play(e.target as HTMLElement);
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.16, rootMargin: "0px 0px -8% 0px" }
+    );
+    blocks.forEach((b) => io.observe(b));
+
+    const t = window.setTimeout(() => {
+      blocks.forEach((b) => {
+        const r = b.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) play(b);
+      });
+    }, 2600);
+
+    return () => {
+      io.disconnect();
+      window.clearTimeout(t);
+    };
+  }, []);
+
+  // ── Repositorio: detectar entrada en viewport (revela cabecera + canales + filas).
+  // Separado de los bloques narrativos porque las filas se re-animan al filtrar. ──
+  useEffect(() => {
+    const el = repoRef.current;
+    if (!el) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      setRepoIn(true);
+      el.querySelectorAll<HTMLElement>("[data-repo-head]").forEach((e) =>
+        gsap.set(e, { opacity: 1, y: 0 })
+      );
+      return;
+    }
+    let done = false;
+    const reveal = () => {
+      if (done) return;
+      done = true;
+      gsap.fromTo(
+        el.querySelectorAll<HTMLElement>("[data-repo-head]"),
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: "power3.out" }
+      );
+      setRepoIn(true);
+    };
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          reveal();
+          io.disconnect();
+        }
+      },
+      { threshold: 0.14 }
+    );
+    io.observe(el);
+    const t = window.setTimeout(() => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) reveal();
+    }, 2600);
+    return () => {
+      io.disconnect();
+      window.clearTimeout(t);
+    };
+  }, []);
+
+  // ── Filas: entran (y re-entran al cambiar de canal) con cascada fade+rise. ──
+  useEffect(() => {
+    if (!repoIn) return;
+    const list = listRef.current;
+    if (!list) return;
+    const rows = Array.from(list.querySelectorAll<HTMLElement>("[data-row]"));
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(rows, { opacity: 1, y: 0 });
+      return;
+    }
+    gsap.fromTo(
+      rows,
+      { opacity: 0, y: 18 },
+      { opacity: 1, y: 0, duration: 0.55, stagger: 0.07, ease: "power3.out" }
+    );
+  }, [channel, repoIn]);
+
+  return (
+    <div ref={rootRef} className="w-full">
+      {/* ════════ 1 · HERO — "la señal" (más diseño que Nosotros) ════════ */}
+      <section
+        data-reveal="hero"
+        data-nav="light"
+        className="relative w-full overflow-hidden"
+        style={{ background: "linear-gradient(180deg, #f8eddd 0%, #f7e6cf 58%, #f3ddbc 100%)" }}
+      >
+        <div className="relative mx-auto max-w-[1400px] px-6 pb-10 pt-36 sm:px-10 sm:pt-44 md:px-14">
+          <div className="grid min-h-[64svh] grid-cols-1 items-center gap-8 md:grid-cols-[1.05fr_0.95fr] md:gap-12">
+            {/* ── Texto ── */}
+            <div>
+              <h1
+                aria-label="Salimos a hablar."
+                className="m-0 max-w-[14ch] font-display font-light text-ink"
+                style={{ fontSize: "clamp(2.6rem, 8vw, 6rem)", lineHeight: 1.0, letterSpacing: "-0.04em" }}
+              >
+                <span aria-hidden="true" className="block overflow-hidden">
+                  <span data-clip className="block" style={{ clipPath: "inset(0 100% 0 0)" }}>
+                    Salimos a
+                  </span>
+                </span>
+                <span aria-hidden="true" className="block overflow-hidden">
+                  <span data-clip className="block font-medium text-ember" style={{ clipPath: "inset(0 100% 0 0)" }}>
+                    hablar.
+                  </span>
+                </span>
+              </h1>
+
+              <p
+                data-fade
+                className="mt-7 max-w-[46ch] font-body text-lg font-light leading-relaxed text-ink/70 sm:text-xl"
+                style={{ opacity: 0 }}
+              >
+                Charlas, prensa y comunidad. Porque la mejor tecnología no sirve de
+                nada si nadie sabe que existe —y porque la confianza se construye
+                hablando de frente.
+              </p>
+
+              <p
+                data-fade
+                className="mt-9 max-w-[52ch] font-body text-sm font-light uppercase tracking-[0.2em] text-ink/45"
+                style={{ opacity: 0 }}
+              >
+                Medios · Charlas · Entrevistas · Difusión
+              </p>
+            </div>
+
+            {/* ── Imagen del hero ──
+                TODO(enma): reemplazar /placeholders/hero-vinculacion.webp por la
+                imagen/visual definitivo del hero de Vinculación. Es un placeholder. */}
+            <div data-fade className="relative mx-auto w-full max-w-[440px]" style={{ opacity: 0 }}>
+              {/* Halo cálido que ancla la figura sobre la base clara */}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 -z-10"
+                style={{ background: "radial-gradient(58% 52% at 50% 46%, rgba(241,84,28,0.14) 0%, transparent 68%)" }}
+              />
+              {/* unoptimized: el optimizador de Next se cuelga con este .webp y
+                  bloquea el dev server. Es un placeholder → se sirve directo. */}
+              <Image
+                src="/placeholders/hero-vinculacion.webp"
+                alt=""
+                width={530}
+                height={680}
+                priority
+                unoptimized
+                className="mx-auto h-auto w-full max-w-[360px] md:max-w-none"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Marquee perpetuo al pie del hero */}
+        <div data-fade className="relative border-t border-ink/10" style={{ opacity: 0 }}>
+          <SignalMarquee />
+        </div>
+      </section>
+
+      {/* ════════ 2 · REPOSITORIO — lista editorial filtrable por canal ════════ */}
+      <section
+        ref={repoRef}
+        data-nav="light"
+        className="relative w-full"
+        style={{ background: "linear-gradient(180deg, #f3ddbc 0%, #f8eddd 22%, #f8eddd 100%)" }}
+      >
+        <div className="mx-auto max-w-[1400px] px-6 pb-12 pt-20 sm:px-10 md:px-14 md:pb-16 md:pt-28">
+          {/* Cabecera + canales */}
+          <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+            <h2
+              data-repo-head
+              className="m-0 max-w-[18ch] font-display font-light text-ink"
+              style={{ opacity: 0, fontSize: "clamp(1.8rem, 3.8vw, 2.9rem)", lineHeight: 1.08, letterSpacing: "-0.03em" }}
+            >
+              Dónde nos han <span className="font-medium text-ember">escuchado</span>.
+            </h2>
+
+            <div
+              data-repo-head
+              role="tablist"
+              aria-label="Filtrar por canal"
+              className="flex flex-wrap items-center gap-2"
+              style={{ opacity: 0 }}
+            >
+              {CHANNELS.map((c) => {
+                const on = channel === c.id;
+                return (
+                  <button
+                    key={c.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={on}
+                    onClick={() => setChannel(c.id)}
+                    className={`rounded-full border px-4 py-2 font-body text-sm font-medium transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember/50 ${
+                      on
+                        ? "border-ember bg-ember text-cream shadow-[0_8px_24px_-12px_rgba(241,84,28,0.7)]"
+                        : "border-ink/15 text-ink/60 hover:border-ember/50 hover:text-ink"
+                    }`}
+                  >
+                    {c.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Lista */}
+          <div ref={listRef} className="mt-12 flex flex-col md:mt-16">
+            <span aria-hidden="true" className="block border-t border-ink/12" />
+            {shown.map((a) => (
+              <article
+                key={a.id}
+                data-row
+                style={{ opacity: 0 }}
+                className="group relative grid grid-cols-1 items-baseline gap-x-8 gap-y-2 border-b border-ink/12 py-7 transition-[padding] duration-300 ease-out hover:pl-3 md:grid-cols-[150px_1fr_auto] md:py-8"
+              >
+                {/* Año + tag */}
+                <div className="flex items-center gap-3">
+                  <span className="font-body text-sm font-medium tabular-nums text-ink/45">
+                    {a.year}
+                  </span>
+                  <span className="hidden h-3 w-px bg-ink/20 md:block" />
+                  <span className={`font-body text-xs font-semibold uppercase tracking-[0.18em] ${TAG_TONE[a.kind]}`}>
+                    {a.tag}
+                  </span>
+                </div>
+
+                {/* Título + detalle (revela en hover/focus) */}
+                <div className="min-w-0 md:px-4">
+                  <h3
+                    className="m-0 font-display font-light text-ink transition-colors duration-300 group-hover:text-ember"
+                    style={{ fontSize: "clamp(1.2rem, 2.4vw, 1.7rem)", letterSpacing: "-0.02em", lineHeight: 1.15 }}
+                  >
+                    {a.title}
+                  </h3>
+                  <p className="mt-1 font-body text-sm font-light text-ink/55">{a.outlet}</p>
+                  {/* Detalle — siempre en el DOM (lectores de pantalla); colapsa visualmente */}
+                  <div className="grid grid-rows-[0fr] opacity-0 transition-all duration-500 ease-out group-hover:grid-rows-[1fr] group-hover:opacity-100 group-focus-within:grid-rows-[1fr] group-focus-within:opacity-100">
+                    <p className="overflow-hidden pt-0 font-body text-sm font-light leading-relaxed text-ink/65 group-hover:pt-3">
+                      {a.detail}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Onda de "señal" que se traza en hover (firma de la página) */}
+                <div className="flex items-center justify-end self-center">
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 64 16"
+                    className="h-4 w-16 text-ember"
+                    fill="none"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      d="M0 8 H8 L12 2 L18 14 L24 4 L30 12 L34 8 H64"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      pathLength={1}
+                      style={{
+                        strokeDasharray: 1,
+                        strokeDashoffset: 1,
+                        transition: "stroke-dashoffset 0.6s ease-out",
+                      }}
+                      className="group-hover:[stroke-dashoffset:0] group-focus-within:[stroke-dashoffset:0]"
+                    />
+                  </svg>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          {/* Nota de repositorio en construcción (placeholder transparente) */}
+          <p className="mt-10 font-body text-sm font-light text-ink/40">
+            {/* TODO(enma): quitar esta nota cuando el listado real esté completo. */}
+            Registro en crecimiento: vamos sumando cada charla, nota y entrevista a
+            medida que ocurren.
+          </p>
+        </div>
+      </section>
+
+      {/* ════════ 3 · CIERRE — claro cálido, centrado (tono CTA) que entrega al Footer ════════ */}
+      <section
+        data-reveal="cierre"
+        data-nav="light"
+        className="relative w-full"
+        style={{ background: "linear-gradient(180deg, #f8eddd 0%, #f3ddbc 100%)" }}
+      >
+        <div className="mx-auto max-w-[900px] px-6 pb-24 pt-12 text-center sm:px-10 md:px-14 md:pb-32 md:pt-16">
+          {/* Curva de nivel que se traza (mismo divider que las franjas del Blog) */}
+          <div
+            data-rule
+            aria-hidden="true"
+            className="mx-auto mb-10 w-full max-w-[440px] origin-left"
+            style={{ transform: "scaleX(0)" }}
+          >
+            <svg viewBox="0 0 1200 12" preserveAspectRatio="none" className="h-3 w-full text-ink/20" fill="none">
+              <path
+                d="M0 6 C 100 1, 200 11, 300 6 S 500 1, 600 6 S 800 11, 900 6 S 1100 1, 1200 6"
+                stroke="currentColor"
+                strokeWidth="1"
+                vectorEffect="non-scaling-stroke"
+              />
+            </svg>
+          </div>
+          <h2
+            data-fade
+            className="m-0 mx-auto max-w-[26ch] font-display font-light text-ink md:max-w-none"
+            style={{ opacity: 0, fontSize: "clamp(1.8rem, 4vw, 3rem)", lineHeight: 1.1, letterSpacing: "-0.03em" }}
+          >
+            <span className="md:block md:whitespace-nowrap">
+              ¿Tienes un espacio, un micrófono{" "}
+            </span>
+            <span className="md:block md:whitespace-nowrap">
+              o una comunidad?{" "}
+              <span className="font-medium text-ember">Conversemos</span>.
+            </span>
+          </h2>
+          <p
+            data-fade
+            className="mx-auto mt-6 max-w-[56ch] font-body text-base font-light leading-relaxed text-ink/65 sm:text-lg"
+            style={{ opacity: 0 }}
+          >
+            Damos charlas de eficiencia energética y cambio climático, y conversamos
+            con medios y comunidades sobre lo que se puede hacer desde la Patagonia.
+            Si quieres que contemos algo, escríbenos.
+          </p>
+        </div>
+      </section>
+    </div>
+  );
+}
