@@ -82,17 +82,6 @@ function words(text: string, attr: string, accentFrom?: number) {
   ));
 }
 
-// Conductores de alta tensión (cap. El problema): cada uno es un riel continuo de
-// extremo a extremo (cola → torres → cola) que cruza las tres torres a su altura
-// de brazo. Sirven a la vez como cable VISIBLE y como path-riel de las chispas
-// (SMIL animateMotion), para que las chispas viajen exactamente sobre el cable.
-const HV_CONDUCTORS = [
-  { id: "hvTop", dur: 7.5, d: "M60 58 Q 90 50 120 44 Q 240 70 360 44 Q 480 70 600 44 Q 650 52 690 60" },
-  { id: "hvMid", dur: 8.4, d: "M48 86 Q 75 82 96 78 L144 78 Q 240 108 336 78 L384 78 Q 480 108 576 78 L624 78 Q 656 84 690 92" },
-  { id: "hvLow", dur: 9.2, d: "M40 104 Q 70 100 86 96 L154 96 Q 240 130 326 96 L394 96 Q 480 130 566 96 L634 96 Q 664 100 690 106" },
-];
-const SPARK_OFFSETS = [0, 1 / 3, 2 / 3]; // 3 chispas equiespaciadas por conductor
-
 // ── Índice de capítulos (1–7) — marcas verticales mínimas al borde derecho.
 // Mapea cada entrada a su <section data-chapter>. ──
 const INDEX = [
@@ -220,12 +209,8 @@ export default function Nosotros() {
   // re-aleatoriza tras montar —mientras las cards siguen ocultas (sin reveal)—
   // así no hay hydration mismatch ni salto visible. Patrón del Equipo del landing.
   const [teamOrder, setTeamOrder] = useState<[number, number]>([0, 1]);
-  // Chispas que recorren el cableado: SMIL no responde a prefers-reduced-motion
-  // (es CSS), así que las omitimos manualmente cuando el usuario lo pide.
-  const [reduceMotion, setReduceMotion] = useState(false);
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setReduceMotion(reduce);
     if (reduce) return;
     setTeamOrder(Math.random() < 0.5 ? [0, 1] : [1, 0]);
   }, []);
@@ -481,59 +466,20 @@ export default function Nosotros() {
 
             {/* ── 04 · El problema ── */}
             <section data-chapter="problema" data-nav="light" className="relative py-24 md:py-32">
-              {/* Textura — líneas de alta tensión: torres + catenarias, con chispas
-                  brasa que VIAJAN por el cableado (la corriente fluyendo). */}
-              <svg
+              {/* Ilustración de las torres (dibujo original, transparente) como
+                  textura del capítulo. */}
+              <div
                 aria-hidden="true"
-                className="pointer-events-none absolute -right-12 top-1/2 hidden h-[233px] w-[680px] -translate-y-1/2 lg:block"
-                viewBox="0 0 700 240"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                className="pointer-events-none absolute -right-16 top-1/2 hidden w-[650px] -translate-y-1/2 lg:block"
               >
-                <g className="text-ink/[0.07]" stroke="currentColor" strokeWidth="1.6">
-                  {/* Conductores (line-art) — también sirven de riel a las chispas */}
-                  {HV_CONDUCTORS.map((c) => (
-                    <path key={c.id} id={c.id} d={c.d} />
-                  ))}
-                  {/* Torres (forma única en x=120, replicada por translate) */}
-                  {[120, 360, 600].map((cx) => (
-                    <g key={cx} transform={`translate(${cx - 120} 0)`}>
-                      <path d="M94 210 L113 70" />
-                      <path d="M146 210 L127 70" />
-                      <path d="M113 70 L120 44 L127 70" />
-                      <path d="M101 170 L139 170" />
-                      <path d="M108 120 L132 120" />
-                      <path d="M94 210 L139 170" />
-                      <path d="M146 210 L101 170" />
-                      <path d="M101 170 L132 120" />
-                      <path d="M139 170 L108 120" />
-                      <path d="M86 96 L154 96" />
-                      <path d="M96 78 L144 78" />
-                    </g>
-                  ))}
-                </g>
-                {/* Chispas brasa que recorren los cables (animateMotion sobre los
-                    propios conductores) + parpadeo. Omitidas si reduce-motion. */}
-                {!reduceMotion && (
-                  <g style={{ opacity: 0.65 }}>
-                    {HV_CONDUCTORS.map((c) =>
-                      SPARK_OFFSETS.map((off, k) => (
-                        <circle
-                          key={`${c.id}-${k}`}
-                          r="1.8"
-                          fill="#f1541c"
-                          style={{ animation: `spark-twinkle ${2.4 + k * 0.5}s ease-in-out ${-off * 3}s infinite` }}
-                        >
-                          <animateMotion dur={`${c.dur}s`} begin={`${(-off * c.dur).toFixed(2)}s`} repeatCount="indefinite">
-                            <mpath href={`#${c.id}`} />
-                          </animateMotion>
-                        </circle>
-                      ))
-                    )}
-                  </g>
-                )}
-              </svg>
+                <Image
+                  src="/illustrations/torres-electricas.png"
+                  alt=""
+                  width={1761}
+                  height={893}
+                  className="h-auto w-full opacity-20"
+                />
+              </div>
               <p data-rise className="relative font-body text-sm uppercase tracking-[0.22em] text-terra/80" style={{ opacity: 0 }}>
                 04 · El problema que resolvemos
               </p>
