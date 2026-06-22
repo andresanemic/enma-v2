@@ -24,6 +24,10 @@ type NavPair = { prev: Proyecto; next: Proyecto };
 export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto; nav: NavPair }) {
   const rootRef = useRef<HTMLDivElement>(null);
 
+  // Riel "Cómo lo abordamos": usa el enriquecido (label + detalle) si existe;
+  // si no, cae a las capabilities simples (CIEP / biodiésel).
+  const steps = proyecto.approach ?? proyecto.capabilities.map((label) => ({ label, detail: "" }));
+
   // Título con realce: parte el título alrededor de titleAccent (solo énfasis).
   const renderTitle = () => {
     const acc = proyecto.titleAccent;
@@ -65,7 +69,7 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
         q("[data-rail]", b).forEach((e) => gsap.set(e, { scaleX: 1 }));
         q("[data-rail-v]", b).forEach((e) => gsap.set(e, { scaleY: 1 }));
         q("[data-step]", b).forEach((e) => gsap.set(e, { opacity: 1, y: 0 }));
-        q("[data-rule]", b).forEach((e) => gsap.set(e, { scaleX: 1 }));
+        q("[data-spine]", b).forEach((e) => gsap.set(e, { scaleY: 1 }));
         q("[data-card]", b).forEach((e) => gsap.set(e, { opacity: 1, y: 0 }));
       });
       return;
@@ -93,7 +97,6 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
         }
         case "narrativa": {
           tl.fromTo(q("[data-fade]", b), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.8, stagger: 0.16 }, 0);
-          tl.fromTo(q("[data-rule]", b), { scaleX: 0 }, { scaleX: 1, duration: 0.85, ease: "power2.inOut" }, 0.3);
           break;
         }
         case "rail": {
@@ -101,6 +104,12 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
           tl.fromTo(q("[data-rail]", b), { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: "power2.inOut" }, 0.15);
           tl.fromTo(q("[data-rail-v]", b), { scaleY: 0 }, { scaleY: 1, duration: 0.9, ease: "power2.inOut" }, 0.15);
           tl.fromTo(q("[data-step]", b), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.55, stagger: 0.1 }, 0.35);
+          break;
+        }
+        case "validacion": {
+          tl.fromTo(q("[data-fade]", b), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.75, stagger: 0.12 }, 0);
+          tl.fromTo(q("[data-step]", b), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.16 }, 0.2);
+          tl.fromTo(q("[data-spine]", b), { scaleY: 0 }, { scaleY: 1, duration: 0.5, stagger: 0.16, ease: "power2.inOut" }, 0.3);
           break;
         }
         case "next": {
@@ -192,12 +201,42 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
         </div>
       </section>
 
-      {/* ════════ 2 · FICHA = "lecturas" (no tabla) ════════ */}
+      {/* ════════ 2 · NARRATIVA — Contexto / Qué hicimos (asimétrica) ════════ */}
+      <section
+        data-reveal="narrativa"
+        data-nav="light"
+        className="relative w-full"
+        style={{ background: "linear-gradient(180deg, #f3ddbc 0%, #eecea1 100%)" }}
+      >
+        <div className="mx-auto max-w-[1180px] px-6 py-16 sm:px-10 md:px-14 md:py-24">
+          {/* El contexto */}
+          <div className="grid grid-cols-1 gap-x-10 gap-y-4 md:grid-cols-12">
+            <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-terra md:col-span-3" style={{ opacity: 0 }}>
+              El contexto
+            </h2>
+            <p data-fade className="font-body text-xl font-light leading-relaxed text-ink/80 md:col-span-9 md:text-2xl" style={{ opacity: 0 }}>
+              {proyecto.context}
+            </p>
+          </div>
+
+          {/* Qué hicimos — desplazado, acento teal */}
+          <div className="mt-14 grid grid-cols-1 gap-x-10 gap-y-4 md:mt-20 md:grid-cols-12">
+            <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-teal md:col-span-3" style={{ opacity: 0 }}>
+              Qué hicimos
+            </h2>
+            <p data-fade className="font-body text-base font-light leading-relaxed text-ink/75 md:col-span-9 md:text-lg" style={{ opacity: 0 }}>
+              {proyecto.did}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ════════ 3 · FICHA = "lecturas" (no tabla) ════════ */}
       <section
         data-reveal="ficha"
         data-nav="light"
         className="relative w-full overflow-hidden"
-        style={{ background: "linear-gradient(180deg, #f3ddbc 0%, #eecea1 100%)" }}
+        style={{ background: "linear-gradient(180deg, #eecea1 0%, #eac395 100%)" }}
       >
         <div className="relative mx-auto max-w-[1180px] px-6 py-16 sm:px-10 md:px-14 md:py-24">
           <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-terra" style={{ opacity: 0 }}>
@@ -222,43 +261,6 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
         </div>
       </section>
 
-      {/* ════════ 3 · NARRATIVA — Contexto / Qué hicimos (asimétrica) ════════ */}
-      <section
-        data-reveal="narrativa"
-        data-nav="light"
-        className="relative w-full"
-        style={{ background: "linear-gradient(180deg, #eecea1 0%, #eac395 100%)" }}
-      >
-        <div className="mx-auto max-w-[1180px] px-6 py-16 sm:px-10 md:px-14 md:py-24">
-          {/* El contexto */}
-          <div className="grid grid-cols-1 gap-x-10 gap-y-4 md:grid-cols-12">
-            <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-terra md:col-span-3" style={{ opacity: 0 }}>
-              El contexto
-            </h2>
-            <p data-fade className="font-body text-xl font-light leading-relaxed text-ink/80 md:col-span-9 md:text-2xl" style={{ opacity: 0 }}>
-              {proyecto.context}
-            </p>
-          </div>
-
-          {/* Qué hicimos — desplazado, acento teal */}
-          <div className="mt-14 grid grid-cols-1 gap-x-10 gap-y-4 md:mt-20 md:grid-cols-12">
-            <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-teal md:col-span-3" style={{ opacity: 0 }}>
-              Qué hicimos
-            </h2>
-            <p data-fade className="font-body text-base font-light leading-relaxed text-ink/75 md:col-span-9 md:text-lg" style={{ opacity: 0 }}>
-              {proyecto.did}
-            </p>
-          </div>
-
-          {/* Curva de nivel (mismo divider que el cierre de la mini-landing) */}
-          <div data-rule aria-hidden="true" className="mt-16 w-full origin-left md:mt-24" style={{ transform: "scaleX(0)" }}>
-            <svg viewBox="0 0 1200 12" preserveAspectRatio="none" className="h-3 w-full text-ink/20" fill="none">
-              <path d="M0 6 C 100 1, 200 11, 300 6 S 500 1, 600 6 S 800 11, 900 6 S 1100 1, 1200 6" stroke="currentColor" strokeWidth="1" vectorEffect="non-scaling-stroke" />
-            </svg>
-          </div>
-        </div>
-      </section>
-
       {/* ════════ 4 · CÓMO LO ABORDAMOS — riel conectado (ex-pills) ════════ */}
       <section
         data-reveal="rail"
@@ -272,23 +274,33 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
           </h2>
 
           <div className="relative mt-10 md:mt-14">
-            {/* Riel: línea base que se traza (horizontal en desktop, vertical en móvil) */}
-            <span data-rail aria-hidden="true" className="absolute left-0 right-0 top-[11px] hidden h-px origin-left bg-ink/20 sm:block" style={{ transform: "scaleX(0)" }} />
+            {/* Riel: curva de nivel que se traza tras los nodos (desktop); en móvil,
+                conector vertical recto para la columna. */}
+            <div data-rail aria-hidden="true" className="absolute left-0 right-0 top-[5px] hidden origin-left sm:block" style={{ transform: "scaleX(0)" }}>
+              <svg viewBox="0 0 1200 12" preserveAspectRatio="none" className="h-3 w-full text-ink/25" fill="none">
+                <path d="M0 6 C 100 1, 200 11, 300 6 S 500 1, 600 6 S 800 11, 900 6 S 1100 1, 1200 6" stroke="currentColor" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+              </svg>
+            </div>
             <span data-rail-v aria-hidden="true" className="absolute bottom-2 left-[11px] top-2 block w-px origin-top bg-ink/20 sm:hidden" style={{ transform: "scaleY(0)" }} />
 
-            <ol className="flex flex-col gap-7 sm:flex-row sm:items-start sm:justify-between sm:gap-5">
-              {proyecto.capabilities.map((c) => (
+            <ol className="flex flex-col gap-7 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+              {steps.map((s) => (
                 <li
-                  key={c}
+                  key={s.label}
                   data-step
-                  className="group flex items-start gap-4 sm:max-w-[15ch] sm:flex-col sm:items-center sm:gap-4 sm:text-center"
+                  className="group flex items-start gap-4 sm:max-w-[16ch] sm:flex-col sm:items-center sm:gap-3 sm:text-center"
                   style={{ opacity: 0 }}
                 >
-                  <span className="relative z-10 flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full border-2 border-terra bg-cream transition-colors duration-200 group-hover:border-ember">
+                  <span className="relative z-10 mt-0.5 flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full border-2 border-terra bg-cream transition-colors duration-200 group-hover:border-ember sm:mt-0">
                     <span className="h-[6px] w-[6px] rounded-full bg-terra transition-colors duration-200 group-hover:bg-ember" />
                   </span>
-                  <span className="font-display text-base font-medium leading-snug text-ink transition-colors duration-200 group-hover:text-terra">
-                    {c}
+                  <span className="block">
+                    <span className="block font-display text-base font-medium leading-snug text-ink transition-colors duration-200 group-hover:text-terra">
+                      {s.label}
+                    </span>
+                    {s.detail && (
+                      <span className="mt-1 block font-body text-[13px] font-light leading-snug text-ink/55">{s.detail}</span>
+                    )}
                   </span>
                 </li>
               ))}
@@ -296,6 +308,65 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
           </div>
         </div>
       </section>
+
+      {/* ════════ 4b · VALIDACIÓN DE PUNTA A PUNTA — editorial + timeline vertical ════════ */}
+      {proyecto.validation && proyecto.validation.length > 0 && (
+        <section data-reveal="validacion" data-nav="light" className="relative w-full" style={{ background: "#eecea1" }}>
+          <div className="mx-auto max-w-[1180px] px-6 py-16 sm:px-10 md:px-14 md:py-24">
+            <div className="grid grid-cols-1 gap-x-10 gap-y-12 md:grid-cols-12 md:gap-y-0">
+              {/* Voz editorial */}
+              <div className="md:col-span-5 lg:col-span-4">
+                <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-terra" style={{ opacity: 0 }}>
+                  Validación de punta a punta
+                </h2>
+                <p data-fade className="mt-5 font-display font-light leading-[1.05] text-ink" style={{ opacity: 0, fontSize: "clamp(1.8rem, 3.2vw, 2.8rem)", letterSpacing: "-0.03em" }}>
+                  Del modelo a la <span className="font-medium text-terra">materia</span>.
+                </p>
+                <p data-fade className="mt-5 max-w-[34ch] font-body text-base font-light leading-relaxed text-ink/65" style={{ opacity: 0 }}>
+                  Probamos cada diseño en tres etapas, del modelo digital al prototipo físico.
+                </p>
+              </div>
+
+              {/* Secuencia vertical — timeline que se traza (modelo → materia) */}
+              <ol className="md:col-span-7 md:col-start-6 lg:col-span-7 lg:col-start-6">
+                {proyecto.validation.map((v, i) => {
+                  const last = i === proyecto.validation!.length - 1;
+                  return (
+                    <li key={v.title} data-step className="flex gap-5" style={{ opacity: 0 }}>
+                      {/* Marcador + conector. El marcador va de hueco/punteado (digital)
+                          a sólido (físico): encarna el paso del modelo a la materia. */}
+                      <div className="flex flex-col items-center self-stretch">
+                        <span
+                          className={`relative z-10 flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full bg-cream ${
+                            last
+                              ? "border-2 border-terra bg-terra"
+                              : i === 0
+                              ? "border-2 border-dashed border-terra"
+                              : "border-2 border-terra"
+                          }`}
+                        >
+                          {i === 1 && <span className="h-[7px] w-[7px] rounded-full bg-terra" />}
+                        </span>
+                        {!last && (
+                          <span data-spine aria-hidden="true" className="mt-1.5 w-px flex-1 origin-top bg-ink/25" style={{ transform: "scaleY(0)" }} />
+                        )}
+                      </div>
+                      {/* Contenido */}
+                      <div className={last ? "pb-0" : "pb-12"}>
+                        <span className="font-body text-[11px] font-semibold uppercase tracking-[0.18em] text-terra/70">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <h3 className="mt-1 font-display text-xl font-medium leading-snug text-ink sm:text-2xl">{v.title}</h3>
+                        <p className="mt-2 max-w-[46ch] font-body text-sm font-light leading-relaxed text-ink/70 sm:text-base">{v.note}</p>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ol>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ════════ 5 · SIGUIENTE LÁMINA — prev / next con imagen ════════ */}
       <section

@@ -33,8 +33,12 @@ export type Proyecto = {
   context: string;
   /** Párrafo "Qué hicimos". */
   did: string;
-  /** Chips de capacidades empleadas. */
+  /** Chips de capacidades empleadas (riel "Cómo lo abordamos"). */
   capabilities: string[];
+  /** Riel enriquecido (etiqueta + detalle/herramienta real). Si falta, se usan `capabilities`. */
+  approach?: { label: string; detail: string }[];
+  /** Bloque "Validación de punta a punta" — secuencia real (CFD → túnel → prototipo). Solo si aplica. */
+  validation?: { title: string; note: string }[];
 };
 
 export const PROYECTOS: Proyecto[] = [
@@ -65,6 +69,19 @@ export const PROYECTOS: Proyecto[] = [
     did:
       "Desarrollamos un diseño propio, resiliente a condiciones no convencionales de viento, y lo validamos de principio a fin: ensayos en túnel de viento, simulaciones fluidodinámicas (CFD) y un prototipo físico construido con el fondo ANID. «Baja escala» significa que cada máquina es de baja potencia, pero pensada para instalarse en granjas de muchas unidades; para clientes conectados a la red, permite inyectar energía mediante netbilling y bajar la cuenta de luz.",
     capabilities: ["Simulaciones CFD", "Túnel de viento", "Diseño CAD", "Manufactura avanzada", "Prototipado 3D / CNC"],
+    approach: [
+      { label: "Simulaciones CFD", detail: "Optimización del diseño en aire" },
+      { label: "Túnel de viento propio", detail: "En construcción · Santiago" },
+      { label: "Diseño CAD", detail: "Fusion 360 · Inventor · AutoCAD" },
+      { label: "Manufactura avanzada", detail: "Impresión 3D · corte CNC" },
+      { label: "Estaciones meteorológicas", detail: "Caracterización del viento" },
+      { label: "Analizador de redes Clase A", detail: "Medición para netbilling" },
+    ],
+    validation: [
+      { title: "Simulación CFD", note: "Modelamos el comportamiento aerodinámico en aire antes de construir nada." },
+      { title: "Túnel de viento propio", note: "Lo validamos físicamente en aire, con el túnel de viento que construimos en Santiago." },
+      { title: "Prototipo físico", note: "Construimos un prototipo real con el fondo ANID." },
+    ],
   },
   {
     slug: "estudios-energeticos-ciep",
