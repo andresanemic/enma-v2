@@ -1,8 +1,22 @@
 import type { Metadata } from "next";
-import PagePlaceholder from "@/components/layout/PagePlaceholder";
+import NavBar from "@/components/layout/NavBar";
+import Proyectos from "@/components/sections/Proyectos";
+import Footer from "@/components/layout/Footer";
 
-export const metadata: Metadata = { title: "Proyectos" };
+export const metadata: Metadata = {
+  title: "Proyectos",
+  description:
+    "Tres proyectos nacidos en Aysén que muestran cómo trabajamos: la turbina eólica de baja escala financiada por ANID, los estudios energéticos para el CIEP y la producción de biodiésel regional.",
+};
 
 export default function ProyectosPage() {
-  return <PagePlaceholder eyebrow="Casos de ingeniería" title="Proyectos" phase="Fase D" />;
+  return (
+    <>
+      <NavBar />
+      <main>
+        <Proyectos />
+      </main>
+      <Footer />
+    </>
+  );
 }
