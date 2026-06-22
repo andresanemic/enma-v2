@@ -155,7 +155,7 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
         className="relative w-full overflow-hidden"
         style={{ background: "linear-gradient(180deg, #f8eddd 0%, #f3ddbc 100%)" }}
       >
-        <div className="relative z-10 mx-auto grid max-w-[1180px] grid-cols-1 items-center gap-10 px-6 pb-16 pt-32 sm:px-10 sm:pt-40 md:grid-cols-[1.05fr_0.95fr] md:gap-14 md:px-14 md:pb-24 md:pt-44">
+        <div className="relative z-10 mx-auto grid max-w-[1180px] grid-cols-1 items-center gap-10 px-6 pb-12 pt-32 sm:px-10 sm:pt-40 md:grid-cols-[1.05fr_0.95fr] md:gap-14 md:px-14 md:pb-16 md:pt-40">
           {/* Texto */}
           <div>
             <Link
@@ -208,7 +208,7 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
         className="relative w-full"
         style={{ background: "linear-gradient(180deg, #f3ddbc 0%, #eecea1 100%)" }}
       >
-        <div className="mx-auto max-w-[1180px] px-6 py-16 sm:px-10 md:px-14 md:py-24">
+        <div className="mx-auto max-w-[1180px] px-6 py-12 sm:px-10 md:px-14 md:py-16">
           {/* El contexto */}
           <div className="grid grid-cols-1 gap-x-10 gap-y-4 md:grid-cols-12">
             <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-terra md:col-span-3" style={{ opacity: 0 }}>
@@ -238,7 +238,7 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
         className="relative w-full overflow-hidden"
         style={{ background: "linear-gradient(180deg, #eecea1 0%, #eac395 100%)" }}
       >
-        <div className="relative mx-auto max-w-[1180px] px-6 py-16 sm:px-10 md:px-14 md:py-24">
+        <div className="relative mx-auto max-w-[1180px] px-6 py-12 sm:px-10 md:px-14 md:py-16">
           <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-terra" style={{ opacity: 0 }}>
             Ficha técnica
           </h2>
@@ -268,7 +268,7 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
         className="relative w-full"
         style={{ background: "linear-gradient(180deg, #eac395 0%, #eecea1 100%)" }}
       >
-        <div className="mx-auto max-w-[1180px] px-6 py-16 sm:px-10 md:px-14 md:py-24">
+        <div className="mx-auto max-w-[1180px] px-6 py-12 sm:px-10 md:px-14 md:py-16">
           <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-ink/55" style={{ opacity: 0 }}>
             Cómo lo abordamos
           </h2>
@@ -312,7 +312,7 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
       {/* ════════ 4b · VALIDACIÓN DE PUNTA A PUNTA — editorial + timeline vertical ════════ */}
       {proyecto.validation && proyecto.validation.length > 0 && (
         <section data-reveal="validacion" data-nav="light" className="relative w-full" style={{ background: "#eecea1" }}>
-          <div className="mx-auto max-w-[1180px] px-6 py-16 sm:px-10 md:px-14 md:py-24">
+          <div className="mx-auto max-w-[1180px] px-6 py-12 sm:px-10 md:px-14 md:py-16">
             <div className="grid grid-cols-1 gap-x-10 gap-y-12 md:grid-cols-12 md:gap-y-0">
               {/* Voz editorial */}
               <div className="md:col-span-5 lg:col-span-4">
@@ -375,7 +375,7 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
         className="relative w-full"
         style={{ background: "linear-gradient(180deg, #eecea1 0%, #f3ddbc 100%)" }}
       >
-        <div className="mx-auto max-w-[1180px] px-6 pb-24 pt-4 sm:px-10 md:px-14 md:pb-32">
+        <div className="mx-auto max-w-[1180px] px-6 pb-20 pt-4 sm:px-10 md:px-14 md:pb-24">
           <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-ink/55" style={{ opacity: 0 }}>
             Más proyectos
           </h2>
