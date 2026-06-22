@@ -470,7 +470,7 @@ export default function Nosotros() {
             </section>
 
             {/* ── 04 · El problema ── */}
-            <section data-chapter="problema" data-nav="light" className="relative py-12 md:py-16">
+            <section data-chapter="problema" data-nav="light" className="relative py-12 md:pt-16 md:pb-10">
               {/* Ilustración de las torres (dibujo original, transparente) como
                   textura del capítulo. */}
               <div
@@ -504,7 +504,7 @@ export default function Nosotros() {
             </section>
 
             {/* ── 05 · Misión & Visión ── */}
-            <section data-chapter="proposito" data-nav="light" className="py-12 md:py-16">
+            <section data-chapter="proposito" data-nav="light" className="py-12 md:pt-10 md:pb-16">
               <p data-rise className="font-body text-sm uppercase tracking-[0.22em] text-terra/80" style={{ opacity: 0 }}>
                 05 · Misión &amp; Visión
               </p>

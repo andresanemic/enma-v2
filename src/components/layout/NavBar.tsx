@@ -250,7 +250,7 @@ export default function NavBar() {
                 onClick={closeMenu}
                 className="group relative flex items-center justify-between border-b border-cream/12 py-5"
               >
-                <span className="overflow-hidden py-1">
+                <span className="overflow-hidden pt-1 pb-3">
                   <span
                     ref={(el) => {
                       drawerLinksRef.current[i] = el;

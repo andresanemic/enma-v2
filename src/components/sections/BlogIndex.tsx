@@ -262,18 +262,15 @@ export default function BlogIndex() {
             className="m-0 mx-auto max-w-[26ch] font-display font-light text-ink md:max-w-none"
             style={{ opacity: 0, fontSize: "clamp(1.8rem, 4vw, 3rem)", lineHeight: 1.1, letterSpacing: "-0.03em" }}
           >
-            <span className="md:block md:whitespace-nowrap">Escribimos para abrir la </span>
-            <span className="md:block md:whitespace-nowrap">
-              conversación, no para cerrarla. <span className="font-medium text-teal">Hablemos</span>.
-            </span>
+            <span className="md:block md:whitespace-nowrap">Escribimos para abrir la conversación, </span>
+            <span className="md:block md:whitespace-nowrap font-medium text-teal">no para cerrarla.</span>
           </h2>
           <p
             data-fade
             className="mx-auto mt-6 max-w-[56ch] font-body text-base font-light leading-relaxed text-ink/65 sm:text-lg"
             style={{ opacity: 0 }}
           >
-            Si algo de lo que escribimos te hizo ruido —para bien o para mal—,
-            cuéntanoslo. Las mejores ideas siempre nacen conversando.
+            Las mejores ideas siempre nacen conversando.
           </p>
         </div>
       </section>

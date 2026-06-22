@@ -160,7 +160,7 @@ export default function Equipo() {
                   style={{ opacity: 0 }}
                   className={`relative z-10 ${
                     isSlot1
-                      ? "md:col-start-1 md:col-end-8 md:row-start-1"
+                      ? "mb-14 md:mb-0 md:col-start-1 md:col-end-8 md:row-start-1"
                       : "md:col-start-6 md:col-end-13 md:row-start-2 md:-mt-16 lg:-mt-24"
                   }`}
                 >
