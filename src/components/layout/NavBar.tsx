@@ -14,6 +14,10 @@ const NAV_LINKS = [
   { href: "/blog", label: "Blog" },
 ];
 
+// En desktop el logo cumple la función de "Inicio"; en el drawer móvil no hay
+// logo, así que el menú lleva "Inicio" como primer enlace.
+const MOBILE_NAV_LINKS = [{ href: "/", label: "Inicio" }, ...NAV_LINKS];
+
 const CONTACT = "mailto:contacto@enmachile.com";
 
 export default function NavBar() {
@@ -239,7 +243,7 @@ export default function NavBar() {
         {/* Contenido */}
         <div className="relative flex h-full flex-col px-8 pb-12 pt-28">
           <nav className="flex flex-col" aria-label="Menú móvil">
-            {NAV_LINKS.map((link, i) => (
+            {MOBILE_NAV_LINKS.map((link, i) => (
               <Link
                 key={link.href}
                 href={link.href}
