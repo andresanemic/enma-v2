@@ -8,7 +8,7 @@ import { gsap } from "@/lib/gsap";
 // ── Specs reales de la turbina (que-es-enma.txt) — sin números inventados ──
 type Spec = { title: string; sub: string };
 const SPECS_LEFT: Spec[] = [
-  { title: "Financiada por ANID", sub: "También financió este sitio" },
+  { title: "Financiada por ANID", sub: "Visión a largo plazo" },
   { title: "Baja escala", sub: "Granjas de muchas unidades" },
 ];
 const SPECS_RIGHT: Spec[] = [
@@ -32,10 +32,9 @@ export default function Proyecto() {
 
     if (reduce) {
       gsap.set(q("[data-head-word]"), { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" });
-      gsap.set(q("[data-dek], [data-cta], [data-anno], [data-anno-m], [data-cota-label]"), { opacity: 1, x: 0, y: 0 });
+      gsap.set(q("[data-dek], [data-cta], [data-anno], [data-anno-m]"), { opacity: 1, x: 0, y: 0 });
       gsap.set(q("[data-panel]"), { clipPath: "inset(0 0 0 0 round 18px)" });
       gsap.set(q("[data-leader]"), { scaleX: 1 });
-      gsap.set(q("[data-cota]"), { strokeDashoffset: 0 });
       return;
     }
 
@@ -55,10 +54,6 @@ export default function Proyecto() {
         // Panel — el espécimen "se levanta" desde la base (clip de abajo hacia arriba).
         const panel = el.querySelector("[data-panel]");
         if (panel) tl.fromTo(panel, { clipPath: "inset(100% 0 0 0 round 18px)" }, { clipPath: "inset(0% 0 0 0 round 18px)", duration: 0.85, ease: "power3.inOut" }, 0.4);
-
-        // Cotas técnicas — se trazan; sus labels aparecen detrás.
-        tl.fromTo(q("[data-cota]"), { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.7, stagger: 0.12, ease: "power2.inOut" }, 0.85);
-        tl.fromTo(q("[data-cota-label]"), { opacity: 0 }, { opacity: 1, duration: 0.5, stagger: 0.1 }, 1.1);
 
         // Líneas guía (draw-on por scaleX) + anotaciones (fade) — desktop.
         tl.fromTo(q("[data-leader]"), { scaleX: 0 }, { scaleX: 1, duration: 0.55, stagger: 0.12, ease: "power2.out" }, 0.9);
@@ -193,21 +188,6 @@ export default function Proyecto() {
                 className="object-cover object-center"
               />
 
-              {/* Cotas técnicas (draw-on) — ↕ torre (izq) · ↔ rotor (arriba) */}
-              <svg aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full text-ink/55" viewBox="0 0 100 133" preserveAspectRatio="none" fill="none">
-                {/* rotor — horizontal arriba */}
-                <path data-cota d="M26 16 H74" stroke="currentColor" strokeWidth="0.6" vectorEffect="non-scaling-stroke" pathLength={1} style={{ strokeDasharray: 1, strokeDashoffset: 1 }} />
-                <path d="M26 13 V19 M74 13 V19" stroke="currentColor" strokeWidth="0.6" vectorEffect="non-scaling-stroke" />
-                {/* torre — vertical izquierda */}
-                <path data-cota d="M10 30 V120" stroke="currentColor" strokeWidth="0.6" vectorEffect="non-scaling-stroke" pathLength={1} style={{ strokeDasharray: 1, strokeDashoffset: 1 }} />
-                <path d="M7 30 H13 M7 120 H13" stroke="currentColor" strokeWidth="0.6" vectorEffect="non-scaling-stroke" />
-              </svg>
-              <span data-cota-label className="absolute left-[14%] top-[8%] font-body text-[10px] uppercase tracking-[0.18em] text-cream/90 mix-blend-difference" style={{ opacity: 0 }}>
-                rotor
-              </span>
-              <span data-cota-label className="absolute left-[2%] top-1/2 -translate-y-1/2 -rotate-90 font-body text-[10px] uppercase tracking-[0.18em] text-cream/90 mix-blend-difference" style={{ opacity: 0 }}>
-                torre
-              </span>
             </div>
           </div>
 
@@ -242,7 +222,7 @@ export default function Proyecto() {
             className="group mt-6 inline-flex items-center gap-2.5 font-display text-lg font-medium text-terra transition-colors duration-200 hover:text-ember"
           >
             <span className="relative">
-              Ver el proyecto
+              Ver proyectos
               <span aria-hidden="true" className="absolute -bottom-1 left-0 h-px w-full origin-right scale-x-0 bg-ember transition-transform duration-500 group-hover:origin-left group-hover:scale-x-100" />
             </span>
             <svg viewBox="0 0 20 20" className="h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-1" fill="none" aria-hidden="true">

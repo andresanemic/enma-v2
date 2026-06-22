@@ -328,7 +328,7 @@ export default function Nosotros() {
             <section
               data-chapter="apertura"
               data-nav="light"
-              className="flex min-h-[88svh] flex-col justify-center pb-20 pt-36 sm:pt-44"
+              className="flex min-h-[88svh] flex-col justify-center pb-10 pt-24 sm:pt-32"
             >
               <h1
                 data-anim="title"
@@ -342,8 +342,8 @@ export default function Nosotros() {
                 className="mt-7 max-w-[40ch] font-body text-lg font-light leading-relaxed text-ink/70 sm:text-xl"
                 style={{ opacity: 0 }}
               >
-                Energía y manufactura sustentable, diseñadas desde la Patagonia —y
-                hechas a la medida de un territorio difícil.
+                Energía y manufactura sustentable, diseñadas desde la Patagonia.
+                Hechas a la medida de un territorio difícil.
               </p>
               <p
                 data-rise
@@ -355,7 +355,7 @@ export default function Nosotros() {
             </section>
 
             {/* ── 01 · Origen ── */}
-            <section data-chapter="origen" data-nav="light" className="grid items-center gap-10 py-20 md:grid-cols-2 md:gap-16 md:py-28">
+            <section data-chapter="origen" data-nav="light" className="grid items-center gap-10 py-10 md:grid-cols-2 md:gap-16 md:py-14">
               <div className="order-2 md:order-1">
                 <p data-rise className="font-body text-sm uppercase tracking-[0.22em] text-terra/80" style={{ opacity: 0 }}>
                   01 · Origen
@@ -395,7 +395,7 @@ export default function Nosotros() {
             </section>
 
             {/* ── 02 · Territorio ── */}
-            <section data-chapter="territorio" data-nav="light" className="relative py-20 md:py-28">
+            <section data-chapter="territorio" data-nav="light" className="relative py-10 md:py-14">
               {/* Textura — curvas de nivel finísimas (huella del territorio) */}
               <svg aria-hidden="true" className="pointer-events-none absolute -right-20 top-1/2 hidden h-[360px] w-[560px] -translate-y-1/2 text-ink/[0.06] lg:block" viewBox="0 0 600 400" fill="none">
                 {[0, 26, 52, 78, 104, 130].map((o) => (
@@ -417,13 +417,12 @@ export default function Nosotros() {
                 Una región aislada, de grandes distancias y logística cara, donde
                 personas y empresas pagan un valor altísimo por la energía. Las
                 empresas de ingeniería de este tipo suelen estar en Santiago y no
-                logran entender esa realidad. Nosotros la entendemos en los huesos
-                —porque vivimos acá.
+                logran entender esa realidad. Nosotros la entendemos completamente.
               </p>
             </section>
 
             {/* ── 03 · Valores ── */}
-            <section data-chapter="valores" data-nav="light" className="py-20 md:py-28">
+            <section data-chapter="valores" data-nav="light" className="py-10 md:py-14">
               <p data-rise className="font-body text-sm uppercase tracking-[0.22em] text-terra/80" style={{ opacity: 0 }}>
                 03 · Valores
               </p>
@@ -465,7 +464,7 @@ export default function Nosotros() {
             </section>
 
             {/* ── 04 · El problema ── */}
-            <section data-chapter="problema" data-nav="light" className="relative py-24 md:py-32">
+            <section data-chapter="problema" data-nav="light" className="relative py-12 md:py-16">
               {/* Ilustración de las torres (dibujo original, transparente) como
                   textura del capítulo. */}
               <div
@@ -499,7 +498,7 @@ export default function Nosotros() {
             </section>
 
             {/* ── 05 · Misión & Visión ── */}
-            <section data-chapter="proposito" data-nav="light" className="py-24 md:py-32">
+            <section data-chapter="proposito" data-nav="light" className="py-12 md:py-16">
               <p data-rise className="font-body text-sm uppercase tracking-[0.22em] text-terra/80" style={{ opacity: 0 }}>
                 05 · Misión &amp; Visión
               </p>
@@ -533,7 +532,7 @@ export default function Nosotros() {
       <section
         data-chapter="distintos"
         data-nav="dark"
-        className="relative w-full overflow-hidden py-28 text-cream sm:py-36 md:py-44"
+        className="relative w-full overflow-hidden py-14 text-cream sm:py-20 md:py-28"
         style={{ background: "linear-gradient(180deg, #1d100a 0%, #2a1206 55%, #3a1206 100%)" }}
       >
         {/* Glow brasa — energía cálida sobre base oscura (núcleo geotérmico) */}
@@ -581,7 +580,7 @@ export default function Nosotros() {
         <div className="relative mx-auto max-w-[1400px] px-6 sm:px-10 md:px-14">
           <div>
             {/* ── 07 · Equipo ── */}
-            <section data-chapter="equipo" data-nav="light" className="py-20 pb-28 md:py-28 md:pb-36">
+            <section data-chapter="equipo" data-nav="light" className="py-10 pb-14 md:py-14 md:pb-20">
               <p data-rise className="font-body text-sm uppercase tracking-[0.22em] text-teal/80" style={{ opacity: 0 }}>
                 07 · El equipo
               </p>

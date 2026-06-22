@@ -60,8 +60,6 @@ export default function Equipo() {
       gsap.set(q("[data-cf-block]"), { opacity: 1, x: 0, y: 0 });
       gsap.set(q("[data-head-word]"), { opacity: 1, y: 0, filter: "blur(0px)" });
       gsap.set(q("[data-dek]"), { opacity: 1, y: 0 });
-      gsap.set(q("[data-thread-path]"), { strokeDashoffset: 0 });
-      gsap.set(q("[data-thread-node]"), { opacity: 1, scale: 1 });
       return;
     }
 
@@ -85,10 +83,6 @@ export default function Equipo() {
           tl.fromTo(b, { opacity: 0, x: fromX, y: fromY }, { opacity: 1, x: 0, y: 0, duration: 0.85, ease: "power3.out" }, 0.32 + i * 0.12);
         });
 
-        // Hilo "E" — se traza entre ambos; los nodos aparecen al final (sin pop).
-        const path = el.querySelector("[data-thread-path]");
-        if (path) tl.fromTo(path, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.inOut" }, 0.65);
-        tl.fromTo(q("[data-thread-node]"), { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.45, stagger: 0.1, ease: "power2.out", transformOrigin: "center" }, 1.05);
       };
 
       const io = new IntersectionObserver(
@@ -155,29 +149,11 @@ export default function Equipo() {
 
         {/* ── Dúo entrelazado ── */}
         <div className="relative md:grid md:grid-cols-12">
-          {/* Hilo "E" (desktop) — circuito/raíz que teje entre ambos slots */}
-          <svg aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 hidden h-full w-full text-teal/45 md:block" viewBox="0 0 100 70" preserveAspectRatio="none" fill="none">
-            <path data-thread-path d="M24 20 C 44 20, 38 40, 54 44 S 74 52, 80 56" stroke="currentColor" strokeWidth="1" vectorEffect="non-scaling-stroke" pathLength={1} style={{ strokeDasharray: 1, strokeDashoffset: 1 }} />
-            <circle data-thread-node cx="24" cy="20" r="1.4" fill="currentColor" style={{ opacity: 0 }} />
-            <circle data-thread-node cx="54" cy="44" r="1" fill="currentColor" style={{ opacity: 0 }} />
-            <circle data-thread-node cx="80" cy="56" r="1.4" fill="currentColor" style={{ opacity: 0 }} />
-          </svg>
-
-          {order.map((cfIndex, i) => {
+{order.map((cfIndex, i) => {
             const cf = COFOUNDERS[cfIndex];
             const isSlot1 = i === 0;
             return (
               <div key={i} className="contents">
-                {/* Conector vertical (solo móvil) entre los dos bloques */}
-                {!isSlot1 && (
-                  <div aria-hidden="true" className="flex justify-center py-8 md:hidden">
-                    <svg className="h-16 w-3 text-teal/45" viewBox="0 0 12 64" fill="none">
-                      <path d="M6 2 C 1 16, 11 28, 6 42 S 1 56, 6 62" stroke="currentColor" strokeWidth="1" />
-                      <circle cx="6" cy="2" r="1.6" fill="currentColor" />
-                      <circle cx="6" cy="62" r="1.6" fill="currentColor" />
-                    </svg>
-                  </div>
-                )}
 
                 <article
                   data-cf-block

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { gsap } from "@/lib/gsap";
@@ -19,6 +19,15 @@ import { PROYECTOS } from "@/lib/proyectos";
 
 export default function Proyectos() {
   const rootRef = useRef<HTMLDivElement>(null);
+  const [activeMobileCard, setActiveMobileCard] = useState<string | null>(null);
+
+  const handleCardClick =
+    (slug: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
+      if (!window.matchMedia("(pointer: coarse)").matches) return;
+      if (activeMobileCard === slug) return;
+      e.preventDefault();
+      setActiveMobileCard(slug);
+    };
 
   // ── Reveals por bloque (IO + fallback gateado por visibilidad real, lore/animation).
   //    Cada bloque su firma; ninguna repite la coreografía reservada a Hero/Footer. ──
@@ -119,8 +128,8 @@ export default function Proyectos() {
             className="m-0 mx-auto font-display font-light text-ink"
             style={{ opacity: 0, fontSize: "clamp(2.4rem, 6.5vw, 5rem)", lineHeight: 1.02, letterSpacing: "-0.04em" }}
           >
-            Nuestros proyectos, una forma{" "}
-            <span className="font-medium text-terra">única de trabajar</span>.
+            Nuestros proyectos,{" "}
+            <span className="font-medium text-terra">del modelo al territorio</span>.
           </h1>
 
           <p
@@ -128,8 +137,7 @@ export default function Proyectos() {
             className="mx-auto mt-6 max-w-[46ch] font-body text-lg font-light leading-relaxed text-ink/70 sm:text-xl"
             style={{ opacity: 0 }}
           >
-            Tres proyectos nacidos en Aysén que muestran cómo trabajamos: del modelo
-            al territorio.
+            Tres iniciativas en energía y manufactura, nacidas en Aysén.
           </p>
         </div>
       </section>
@@ -143,125 +151,88 @@ export default function Proyectos() {
       >
         <div className="relative mx-auto max-w-[1340px] px-6 pb-20 pt-4 sm:px-10 md:px-14 md:pb-28 md:pt-6">
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
-            {PROYECTOS.map((p) => (
-              <Link
-                key={p.slug}
-                href={`/proyectos/${p.slug}`}
-                data-card
-                aria-label={`${p.title} — ver proyecto`}
-                className="pcard group block aspect-[3/4.4] w-full rounded-[18px] outline-none ring-1 ring-ink/12 transition-shadow duration-500 focus-visible:ring-2 focus-visible:ring-terra/60 hover:shadow-[0_28px_60px_-28px_rgba(26,26,26,0.45)]"
-                style={{ opacity: 0 }}
-              >
-                <div className="pcard-inner">
-                  {/* ── Cara frontal: foto + pill + título ── */}
-                  <div className="pcard-face pcard-front">
-                    <Image
-                      src={p.image}
-                      alt={p.imageAlt}
-                      fill
-                      sizes="(min-width: 1024px) 360px, (min-width: 640px) 45vw, 90vw"
-                      className="object-cover object-center"
-                    />
-                    {/* Scrim inferior para legibilidad del título */}
-                    <span
-                      aria-hidden="true"
-                      className="pointer-events-none absolute inset-0"
-                      style={{
-                        background:
-                          "linear-gradient(180deg, rgba(26,26,26,0.28) 0%, transparent 26%, transparent 52%, rgba(26,26,26,0.78) 100%)",
-                      }}
-                    />
-                    {/* Pill de dominio (arriba-izquierda) */}
-                    <span className="absolute left-4 top-4 rounded-full bg-cream/90 px-3.5 py-1.5 font-body text-xs font-semibold uppercase tracking-[0.16em] text-ink shadow-[0_6px_18px_-8px_rgba(26,26,26,0.5)] backdrop-blur-sm">
-                      {p.domain}
-                    </span>
-                    {/* Título (abajo) */}
-                    <div className="absolute inset-x-0 bottom-0 p-6">
-                      <h2
-                        className="m-0 font-display font-medium text-cream"
-                        style={{ fontSize: "clamp(1.5rem, 2.4vw, 1.95rem)", lineHeight: 1.1, letterSpacing: "-0.02em" }}
-                      >
-                        {p.title}
-                      </h2>
-                      <p className="mt-2 font-body text-[15px] font-light text-cream/75">{p.kicker}</p>
-                    </div>
-                  </div>
+            {PROYECTOS.map((p) => {
+              const mob = activeMobileCard === p.slug;
+              return (
+                <Link
+                  key={p.slug}
+                  href={`/proyectos/${p.slug}`}
+                  onClick={handleCardClick(p.slug)}
+                  data-card
+                  aria-label={`${p.title} — ver proyecto`}
+                  className="group relative block aspect-[3/4.4] w-full overflow-hidden rounded-[18px] outline-none ring-1 ring-ink/12 transition-shadow duration-500 focus-visible:ring-2 focus-visible:ring-terra/60 hover:shadow-[0_28px_60px_-28px_rgba(26,26,26,0.45)]"
+                  style={{ opacity: 0 }}
+                >
+                  <Image
+                    src={p.image}
+                    alt={p.imageAlt}
+                    fill
+                    sizes="(min-width: 1024px) 360px, (min-width: 640px) 45vw, 90vw"
+                    className={`object-cover object-center transition-[filter] duration-700 ease-out group-hover:blur-[7px] group-focus-within:blur-[7px]${mob ? " blur-[7px]" : ""}`}
+                  />
+                  {/* Scrim base */}
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                      background:
+                        "linear-gradient(180deg, rgba(26,26,26,0.28) 0%, transparent 26%, transparent 52%, rgba(26,26,26,0.78) 100%)",
+                    }}
+                  />
+                  {/* Velo oscuro al hover / tap */}
+                  <span
+                    aria-hidden="true"
+                    className={`pointer-events-none absolute inset-0 transition-colors duration-500 ease-out group-hover:bg-ink/55 group-focus-within:bg-ink/55${mob ? " bg-ink/55" : " bg-ink/0"}`}
+                  />
 
-                  {/* ── Reverso: ficha de ingeniería sobre papel técnico ── */}
-                  <div
-                    className="pcard-face pcard-back flex flex-col justify-between p-6"
-                    style={{ background: "linear-gradient(160deg, #f7e6cf 0%, #efd6b3 100%)" }}
-                  >
-                    {/* Grilla + cota que se traza al girar */}
-                    <span
-                      aria-hidden="true"
-                      className="pointer-events-none absolute inset-0 opacity-[0.55]"
-                      style={{
-                        backgroundImage:
-                          "repeating-linear-gradient(0deg, rgba(26,26,26,0.06) 0 1px, transparent 1px 26px)," +
-                          "repeating-linear-gradient(90deg, rgba(26,26,26,0.06) 0 1px, transparent 1px 26px)",
-                      }}
-                    />
-                    <svg
-                      aria-hidden="true"
-                      viewBox="0 0 100 8"
-                      preserveAspectRatio="none"
-                      className="absolute left-6 right-6 top-[64px] h-2 text-terra/70"
-                      fill="none"
+                  {/* Pill de dominio */}
+                  <span className="absolute left-4 top-4 rounded-full bg-cream/90 px-3.5 py-1.5 font-body text-xs font-semibold uppercase tracking-[0.16em] text-ink shadow-[0_6px_18px_-8px_rgba(26,26,26,0.5)] backdrop-blur-sm">
+                    {p.domain}
+                  </span>
+
+                  <div className="absolute inset-x-0 bottom-0 p-6">
+                    <h2
+                      className="m-0 font-display font-medium text-cream"
+                      style={{ fontSize: "clamp(1.5rem, 2.4vw, 1.95rem)", lineHeight: 1.1, letterSpacing: "-0.02em" }}
                     >
-                      <path
-                        d="M0 4 H100"
-                        stroke="currentColor"
-                        strokeWidth="1"
-                        vectorEffect="non-scaling-stroke"
-                        pathLength={1}
-                        style={{
-                          strokeDasharray: 1,
-                          strokeDashoffset: 1,
-                          transition: "stroke-dashoffset 0.7s ease-out 0.25s",
-                        }}
-                        className="group-hover:[stroke-dashoffset:0] group-focus-within:[stroke-dashoffset:0]"
-                      />
-                      <path d="M0 1.5 V6.5 M100 1.5 V6.5" stroke="currentColor" strokeWidth="1" vectorEffect="non-scaling-stroke" />
-                    </svg>
+                      {p.title}
+                    </h2>
+                    <p className={`mt-2 font-body text-[15px] font-light text-cream/75 transition-opacity duration-300 ease-out group-hover:opacity-0 group-focus-within:opacity-0${mob ? " opacity-0" : ""}`}>
+                      {p.kicker}
+                    </p>
 
-                    <div className="relative">
-                      <span className="font-body text-xs font-semibold uppercase tracking-[0.16em] text-terra">
-                        {p.domain}
-                      </span>
-                      <h3
-                        className="mt-12 font-display font-medium text-ink"
-                        style={{ fontSize: "clamp(1.2rem, 2vw, 1.45rem)", lineHeight: 1.15, letterSpacing: "-0.02em" }}
-                      >
-                        {p.title}
-                      </h3>
-                      <ul className="mt-5 flex flex-col gap-2.5">
-                        {p.cardFacts.map((f) => (
-                          <li key={f} className="flex items-start gap-2.5">
-                            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-terra/70" />
-                            <span className="font-body text-sm font-light leading-snug text-ink/75">{f}</span>
-                          </li>
-                        ))}
-                      </ul>
+                    <div className={`grid transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:grid-rows-[1fr] group-hover:opacity-100 group-focus-within:grid-rows-[1fr] group-focus-within:opacity-100${mob ? " grid-rows-[1fr] opacity-100" : " grid-rows-[0fr] opacity-0"}`}>
+                      <div className="overflow-hidden">
+                        <ul className="mt-4 flex flex-col gap-2.5">
+                          {p.cardFacts.map((f) => (
+                            <li key={f} className="flex items-start gap-2.5">
+                              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange" />
+                              <span className="font-body text-sm font-light leading-snug text-cream/85">{f}</span>
+                            </li>
+                          ))}
+                        </ul>
+                        {mob && (
+                          <p className="mt-4 font-body text-xs font-semibold uppercase tracking-[0.12em] text-orange/90">
+                            Toca de nuevo para entrar →
+                          </p>
+                        )}
+                        {!mob && (
+                          <span className="mt-5 inline-flex items-center gap-2 font-display text-base font-medium text-cream">
+                            <span className="relative">
+                              Ver proyecto
+                              <span aria-hidden="true" className="absolute -bottom-1 left-0 h-px w-full bg-orange" />
+                            </span>
+                            <svg viewBox="0 0 20 20" className="h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-1" fill="none" aria-hidden="true">
+                              <path d="M3 10h13M11 5l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                          </span>
+                        )}
+                      </div>
                     </div>
-
-                    {/* "Ver proyecto →" — afordancia visual (el enlace es la card entera) */}
-                    <span className="relative mt-6 inline-flex items-center gap-2 font-display text-base font-medium text-terra">
-                      <span className="relative">
-                        Ver proyecto
-                        <span
-                          aria-hidden="true"
-                          className="absolute -bottom-1 left-0 h-px w-full origin-right scale-x-0 bg-terra transition-transform duration-500 group-hover:origin-left group-hover:scale-x-100"
-                        />
-                      </span>
-                      <svg viewBox="0 0 20 20" className="h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-1" fill="none" aria-hidden="true">
-                        <path d="M3 10h13M11 5l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </span>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -296,7 +267,7 @@ export default function Proyectos() {
             style={{ opacity: 0, fontSize: "clamp(1.8rem, 4vw, 3rem)", lineHeight: 1.1, letterSpacing: "-0.03em" }}
           >
             ¿Tienes un problema de energía o manufactura?{" "}
-            <span className="font-medium text-terra">Conversémoslo</span>.
+            <span className="font-medium text-teal">Conversémoslo</span>.
           </h2>
           <p
             data-fade
@@ -304,7 +275,7 @@ export default function Proyectos() {
             style={{ opacity: 0 }}
           >
             Cada uno de estos proyectos empezó con una conversación. Cuéntanos qué
-            necesitas resolver y lo estudiamos contigo, desde el territorio.
+            necesitas resolver y lo estudiamos contigo.
           </p>
         </div>
       </section>

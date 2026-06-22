@@ -22,7 +22,7 @@ const SERVICES: Service[] = [
   {
     n: "01",
     title: "Consultoría y estudios energéticos",
-    desc: "El servicio base, y el que abre la puerta a todos los demás: estudios de soluciones energéticas para empresas y sector público. Su mayor valor es intangible —el conocimiento técnico y el del territorio.",
+    desc: "El servicio base, y el que abre la puerta a todos los demás: estudios de soluciones energéticas para empresas y sector público. Su mayor valor es intangible: el conocimiento técnico y el del territorio.",
     img: "photo-1469474968028-56623f02e42e",
     duoFrom: "#b12c00",
     duoTo: "#fea94f",
@@ -388,8 +388,8 @@ export default function Services() {
             style={{ opacity: 0 }}
           >
             Siete líneas de servicio, una misma lógica: entender el territorio y
-            resolver con ingeniería a la medida —consultoría, innovación y
-            desarrollo, en ese orden.
+            resolver con ingeniería a la medida. Consultoría, innovación y
+            desarrollo.
           </p>
         </div>
 
@@ -549,6 +549,7 @@ export default function Services() {
                             fontSize: "clamp(1.35rem, 2.6vw, 1.85rem)",
                             letterSpacing: "-0.02em",
                             lineHeight: 1.12,
+                            paddingBottom: "0.18em",
                             clipPath: "inset(0 100% 0 0)",
                           }}
                         >

@@ -306,7 +306,7 @@ export default function Footer() {
             >
               Cuéntanos qué necesitas resolver en energía, manufactura o
               medioambiente. Diseñamos cada solución a la medida de tu
-              territorio —y partimos por escuchar.
+              territorio, y partimos por escuchar.
             </p>
 
             {/* Acción — WhatsApp directo (el correo vive en la columna Contacto) */}

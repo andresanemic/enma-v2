@@ -395,7 +395,7 @@ export default function Vinculacion() {
                 style={{ opacity: 0 }}
               >
                 Charlas, prensa y comunidad. Porque la mejor tecnología no sirve de
-                nada si nadie sabe que existe —y porque la confianza se construye
+                nada si nadie sabe que existe, y porque la confianza se construye
                 hablando de frente.
               </p>
 
@@ -606,7 +606,6 @@ export default function Vinculacion() {
           >
             Damos charlas de eficiencia energética y cambio climático, y conversamos
             con medios y comunidades sobre lo que se puede hacer desde la Patagonia.
-            Si quieres que contemos algo, escríbenos.
           </p>
         </div>
       </section>
