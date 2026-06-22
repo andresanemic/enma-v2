@@ -2,11 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import NavBar from "@/components/layout/NavBar";
 import Footer from "@/components/layout/Footer";
-import { PROYECTOS, getProyecto, getProyectoNav } from "@/lib/proyectos";
-import ProyectoHero from "@/components/sections/proyecto-detalle/ProyectoHero";
-import ProyectoFicha from "@/components/sections/proyecto-detalle/ProyectoFicha";
-import ProyectoCuerpo from "@/components/sections/proyecto-detalle/ProyectoCuerpo";
-import ProyectoNav from "@/components/sections/proyecto-detalle/ProyectoNav";
+import { PROYECTOS, getProyecto } from "@/lib/proyectos";
 
 export function generateStaticParams() {
   return PROYECTOS.map((p) => ({ slug: p.slug }));
@@ -35,20 +31,31 @@ export default async function ProyectoDetallePage({
   const proyecto = getProyecto(slug);
   if (!proyecto) notFound();
 
-  const nav = getProyectoNav(slug)!;
-
   return (
     <>
       <NavBar />
-      <main>
-        <ProyectoHero proyecto={proyecto} />
-        <ProyectoFicha facts={proyecto.facts} />
-        <ProyectoCuerpo
-          context={proyecto.context}
-          did={proyecto.did}
-          capabilities={proyecto.capabilities}
-        />
-        <ProyectoNav prev={nav.prev} next={nav.next} />
+      <main
+        style={{
+          minHeight: "70vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          textAlign: "center",
+          padding: "160px 24px 96px",
+          background: "#F8EDDD",
+        }}
+      >
+        <p
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 300,
+            fontSize: "clamp(28px, 5vw, 48px)",
+            letterSpacing: "-0.02em",
+            color: "#1A1A1A",
+          }}
+        >
+          En construcción
+        </p>
       </main>
       <Footer />
     </>
