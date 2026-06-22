@@ -14,9 +14,10 @@ import type { Proyecto } from "@/lib/proyectos";
 //   · Vocabulario blueprint/cota (leaders que se trazan, nodos) en TODOS los bloques.
 //   · Reveals IO + fallback, hovers vivos, gradiente cálido anclado → Footer verde.
 //
-// Bloques: Hero (espécimen acotado en su viento) · Ficha = "lecturas" · Narrativa
-// asimétrica (Contexto / Qué hicimos) · "Cómo lo abordamos" (riel conectado) ·
-// "Siguiente lámina" (prev/next con imagen). Copy desde lib/proyectos.ts.
+// Bloques: Hero (espécimen acotado en su viento) · Narrativa asimétrica (Contexto /
+// Qué hicimos) · Ficha técnica = "lámina de cotas" (incluye la validación CFD →
+// túnel → prototipo) · "Cómo lo abordamos" (riel conectado) · "Siguiente lámina"
+// (prev/next con imagen). Copy desde lib/proyectos.ts.
 // ─────────────────────────────────────────────────────────────────────────────
 
 type NavPair = { prev: Proyecto; next: Proyecto };
@@ -36,15 +37,7 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
     return (
       <>
         {before}
-        <span className="relative inline-block text-terra">
-          {acc}
-          <span
-            data-accent-rule
-            aria-hidden="true"
-            className="absolute -bottom-[0.04em] left-0 block h-[3px] w-full origin-left rounded-full bg-ember"
-            style={{ transform: "scaleX(0)" }}
-          />
-        </span>
+        <span className="text-terra">{acc}</span>
         {after}
       </>
     );
@@ -62,14 +55,10 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
     if (reduce) {
       blocks.forEach((b) => {
         q("[data-fade]", b).forEach((e) => gsap.set(e, { opacity: 1, y: 0 }));
-        q("[data-accent-rule]", b).forEach((e) => gsap.set(e, { scaleX: 1 }));
         q("[data-panel]", b).forEach((e) => gsap.set(e, { clipPath: "inset(0% 0 0 0 round 18px)" }));
-        q("[data-leader]", b).forEach((e) => gsap.set(e, { scaleX: 1 }));
-        q("[data-node]", b).forEach((e) => gsap.set(e, { opacity: 1, scale: 1 }));
         q("[data-rail]", b).forEach((e) => gsap.set(e, { scaleX: 1 }));
         q("[data-rail-v]", b).forEach((e) => gsap.set(e, { scaleY: 1 }));
         q("[data-step]", b).forEach((e) => gsap.set(e, { opacity: 1, y: 0 }));
-        q("[data-spine]", b).forEach((e) => gsap.set(e, { scaleY: 1 }));
         q("[data-card]", b).forEach((e) => gsap.set(e, { opacity: 1, y: 0 }));
       });
       return;
@@ -82,39 +71,35 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
       const id = b.dataset.reveal;
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
+      // Orquestación en 2 tiers (acorde al sitio, sin sobrecarga):
+      //   · Showcase → clip-wipe: la foto del espécimen en el Hero.
+      //   · Tranquilo → una sola familia de fade-up (y:16/18, ~0.7s) en el resto;
+      //     la curva de nivel de "Cómo" es el único trazo-firma extra.
       switch (id) {
         case "hero": {
           tl.fromTo(q("[data-fade]", b), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.85, stagger: 0.12 }, 0);
           tl.fromTo(q("[data-panel]", b), { clipPath: "inset(100% 0 0 0 round 18px)" }, { clipPath: "inset(0% 0 0 0 round 18px)", duration: 0.9, ease: "power3.inOut" }, 0.25);
-          tl.fromTo(q("[data-accent-rule]", b), { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 0.6);
           break;
         }
         case "ficha": {
-          tl.fromTo(q("[data-fade]", b), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.7 }, 0);
-          tl.fromTo(q("[data-leader]", b), { scaleX: 0 }, { scaleX: 1, duration: 0.7, stagger: 0.1, ease: "power2.inOut" }, 0.15);
-          tl.fromTo(q("[data-node]", b), { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.45, stagger: 0.1, ease: "back.out(2)" }, 0.3);
+          tl.fromTo(q("[data-fade]", b), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7 }, 0);
+          tl.fromTo(q("[data-card]", b), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.09 }, 0.15);
           break;
         }
         case "narrativa": {
-          tl.fromTo(q("[data-fade]", b), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.8, stagger: 0.16 }, 0);
+          tl.fromTo(q("[data-fade]", b), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.75, stagger: 0.12 }, 0);
           break;
         }
         case "rail": {
-          tl.fromTo(q("[data-fade]", b), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.7 }, 0);
+          tl.fromTo(q("[data-fade]", b), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7 }, 0);
           tl.fromTo(q("[data-rail]", b), { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: "power2.inOut" }, 0.15);
           tl.fromTo(q("[data-rail-v]", b), { scaleY: 0 }, { scaleY: 1, duration: 0.9, ease: "power2.inOut" }, 0.15);
-          tl.fromTo(q("[data-step]", b), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.55, stagger: 0.1 }, 0.35);
-          break;
-        }
-        case "validacion": {
-          tl.fromTo(q("[data-fade]", b), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.75, stagger: 0.12 }, 0);
-          tl.fromTo(q("[data-step]", b), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.16 }, 0.2);
-          tl.fromTo(q("[data-spine]", b), { scaleY: 0 }, { scaleY: 1, duration: 0.5, stagger: 0.16, ease: "power2.inOut" }, 0.3);
+          tl.fromTo(q("[data-step]", b), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.09 }, 0.35);
           break;
         }
         case "next": {
-          tl.fromTo(q("[data-fade]", b), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.7 }, 0);
-          tl.fromTo(q("[data-card]", b), { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.8, stagger: 0.12 }, 0.12);
+          tl.fromTo(q("[data-fade]", b), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7 }, 0);
+          tl.fromTo(q("[data-card]", b), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.09 }, 0.12);
           break;
         }
       }
@@ -206,7 +191,7 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
         data-reveal="narrativa"
         data-nav="light"
         className="relative w-full"
-        style={{ background: "linear-gradient(180deg, #f3ddbc 0%, #eecea1 100%)" }}
+        style={{ background: "linear-gradient(180deg, #f3ddbc 0%, #edcfa4 100%)" }}
       >
         <div className="mx-auto max-w-[1180px] px-6 py-12 sm:px-10 md:px-14 md:py-16">
           {/* El contexto */}
@@ -231,32 +216,62 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
         </div>
       </section>
 
-      {/* ════════ 3 · FICHA = "lecturas" (no tabla) ════════ */}
+      {/* ════════ 3 · FICHA TÉCNICA — lámina de cotas (grilla blueprint) ════════ */}
       <section
         data-reveal="ficha"
         data-nav="light"
         className="relative w-full overflow-hidden"
-        style={{ background: "linear-gradient(180deg, #eecea1 0%, #eac395 100%)" }}
+        style={{ background: "linear-gradient(180deg, #edcfa4 0%, #e8c08e 100%)" }}
       >
+        {/* Trama blueprint tenue, anclada a la esquina superior derecha */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(26,26,26,0.05) 1px, transparent 1px)," +
+              "linear-gradient(90deg, rgba(26,26,26,0.05) 1px, transparent 1px)",
+            backgroundSize: "34px 34px",
+            maskImage: "radial-gradient(120% 100% at 100% 0%, #000 28%, transparent 78%)",
+            WebkitMaskImage: "radial-gradient(120% 100% at 100% 0%, #000 28%, transparent 78%)",
+          }}
+        />
         <div className="relative mx-auto max-w-[1180px] px-6 py-12 sm:px-10 md:px-14 md:py-16">
           <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-terra" style={{ opacity: 0 }}>
             Ficha técnica
           </h2>
-          <dl className="mt-8 flex flex-col">
-            {proyecto.facts.map((f) => (
-              <div key={f.label} className="group relative">
-                <div className="grid grid-cols-1 gap-1 py-5 transition-colors duration-300 sm:grid-cols-[220px_1fr] sm:items-baseline sm:gap-8 sm:py-6">
-                  <dt className="flex items-center gap-2.5 font-body text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/55">
-                    <span data-node className="h-1.5 w-1.5 shrink-0 rounded-full bg-terra transition-colors duration-200 group-hover:bg-ember" style={{ opacity: 0, transform: "scale(0)" }} />
+
+          {/* Panel flotante: celdas en grilla, separadas por hairlines (papel técnico).
+              Cada celda enciende en hover; la marca de registro "+" gira y se vuelve brasa. */}
+          <dl className="mt-8 grid grid-cols-1 gap-px overflow-hidden rounded-[20px] bg-ink/12 shadow-[0_24px_60px_-40px_rgba(26,26,26,0.55)] ring-1 ring-ink/12 sm:grid-cols-2">
+            {proyecto.facts.map((f, i) => {
+              const spanAll = i === proyecto.facts.length - 1 && proyecto.facts.length % 2 === 1;
+              return (
+                <div
+                  key={f.label}
+                  data-card
+                  className={`group relative bg-cream/75 px-6 py-6 transition-colors duration-300 hover:bg-sand/80 sm:px-7 sm:py-7 ${spanAll ? "sm:col-span-2" : ""}`}
+                  style={{ opacity: 0 }}
+                >
+                  {/* Marca de registro (cruz de cotas) — gira y se enciende en hover */}
+                  <svg
+                    viewBox="0 0 12 12"
+                    aria-hidden="true"
+                    className="absolute right-5 top-5 h-3 w-3 text-ink/25 transition-all duration-300 group-hover:rotate-90 group-hover:text-ember"
+                    fill="none"
+                  >
+                    <path d="M6 0.5v11M0.5 6h11" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+                  </svg>
+                  <dt className="flex items-center gap-2.5 pr-8 font-body text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/55">
+                    <span className="h-3 w-[3px] shrink-0 rounded-full bg-terra transition-all duration-300 group-hover:h-4 group-hover:bg-ember" />
                     {f.label}
                   </dt>
-                  <dd className="font-display text-lg font-medium leading-snug text-ink transition-colors duration-200 group-hover:text-terra sm:text-xl">
+                  <dd className="mt-2.5 font-display text-lg font-medium leading-snug text-ink transition-colors duration-200 group-hover:text-terra sm:text-xl">
                     {f.value}
                   </dd>
                 </div>
-                <span data-leader aria-hidden="true" className="absolute bottom-0 left-0 block h-px w-full origin-left bg-ink/15" style={{ transform: "scaleX(0)" }} />
-              </div>
-            ))}
+              );
+            })}
           </dl>
         </div>
       </section>
@@ -266,7 +281,7 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
         data-reveal="rail"
         data-nav="light"
         className="relative w-full"
-        style={{ background: "linear-gradient(180deg, #eac395 0%, #eecea1 100%)" }}
+        style={{ background: "linear-gradient(180deg, #e8c08e 0%, #edca9c 100%)" }}
       >
         <div className="mx-auto max-w-[1180px] px-6 py-12 sm:px-10 md:px-14 md:py-16">
           <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-ink/55" style={{ opacity: 0 }}>
@@ -274,32 +289,34 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
           </h2>
 
           <div className="relative mt-10 md:mt-14">
-            {/* Riel: curva de nivel que se traza tras los nodos (desktop); en móvil,
-                conector vertical recto para la columna. */}
-            <div data-rail aria-hidden="true" className="absolute left-0 right-0 top-[5px] hidden origin-left sm:block" style={{ transform: "scaleX(0)" }}>
+            {/* Curva de nivel que se traza tras los nodos (desktop); en móvil,
+                conector vertical recto para la columna de cards. */}
+            <div data-rail aria-hidden="true" className="absolute left-0 right-0 top-[10px] hidden origin-left sm:block" style={{ transform: "scaleX(0)" }}>
               <svg viewBox="0 0 1200 12" preserveAspectRatio="none" className="h-3 w-full text-ink/25" fill="none">
                 <path d="M0 6 C 100 1, 200 11, 300 6 S 500 1, 600 6 S 800 11, 900 6 S 1100 1, 1200 6" stroke="currentColor" strokeWidth="1" vectorEffect="non-scaling-stroke" />
               </svg>
             </div>
-            <span data-rail-v aria-hidden="true" className="absolute bottom-2 left-[11px] top-2 block w-px origin-top bg-ink/20 sm:hidden" style={{ transform: "scaleY(0)" }} />
+            <span data-rail-v aria-hidden="true" className="absolute bottom-3 left-[11px] top-3 block w-px origin-top bg-ink/20 sm:hidden" style={{ transform: "scaleY(0)" }} />
 
-            <ol className="flex flex-col gap-7 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+            <ol className="flex flex-col gap-5 sm:flex-row sm:items-stretch sm:justify-between sm:gap-4">
               {steps.map((s) => (
                 <li
                   key={s.label}
                   data-step
-                  className="group flex items-start gap-4 sm:max-w-[16ch] sm:flex-col sm:items-center sm:gap-3 sm:text-center"
+                  className="group flex items-start gap-4 sm:flex-1 sm:flex-col sm:items-center sm:gap-4 sm:text-center"
                   style={{ opacity: 0 }}
                 >
-                  <span className="relative z-10 mt-0.5 flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full border-2 border-terra bg-cream transition-colors duration-200 group-hover:border-ember sm:mt-0">
-                    <span className="h-[6px] w-[6px] rounded-full bg-terra transition-colors duration-200 group-hover:bg-ember" />
+                  {/* Nodo (estación) sobre la curva — se enciende y crece en hover */}
+                  <span className="relative z-10 mt-0.5 flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full border-2 border-terra bg-cream transition-colors duration-300 group-hover:border-ember sm:mt-0">
+                    <span className="h-[6px] w-[6px] rounded-full bg-terra transition-all duration-300 group-hover:h-[10px] group-hover:w-[10px] group-hover:bg-ember" />
                   </span>
-                  <span className="block">
+                  {/* Card: panel cálido que cuelga del nodo */}
+                  <span className="block w-full rounded-2xl bg-cream/70 px-4 py-4 text-left ring-1 ring-ink/10 transition-all duration-300 group-hover:-translate-y-1 group-hover:bg-sand/75 group-hover:shadow-[0_18px_42px_-28px_rgba(26,26,26,0.55)] group-hover:ring-terra/40 sm:flex-1 sm:text-center">
                     <span className="block font-display text-base font-medium leading-snug text-ink transition-colors duration-200 group-hover:text-terra">
                       {s.label}
                     </span>
                     {s.detail && (
-                      <span className="mt-1 block font-body text-[13px] font-light leading-snug text-ink/55">{s.detail}</span>
+                      <span className="mt-1.5 block font-body text-[13px] font-light leading-snug text-ink/55">{s.detail}</span>
                     )}
                   </span>
                 </li>
@@ -309,71 +326,12 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
         </div>
       </section>
 
-      {/* ════════ 4b · VALIDACIÓN DE PUNTA A PUNTA — editorial + timeline vertical ════════ */}
-      {proyecto.validation && proyecto.validation.length > 0 && (
-        <section data-reveal="validacion" data-nav="light" className="relative w-full" style={{ background: "#eecea1" }}>
-          <div className="mx-auto max-w-[1180px] px-6 py-12 sm:px-10 md:px-14 md:py-16">
-            <div className="grid grid-cols-1 gap-x-10 gap-y-12 md:grid-cols-12 md:gap-y-0">
-              {/* Voz editorial */}
-              <div className="md:col-span-5 lg:col-span-4">
-                <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-terra" style={{ opacity: 0 }}>
-                  Validación de punta a punta
-                </h2>
-                <p data-fade className="mt-5 font-display font-light leading-[1.05] text-ink" style={{ opacity: 0, fontSize: "clamp(1.8rem, 3.2vw, 2.8rem)", letterSpacing: "-0.03em" }}>
-                  Del modelo a la <span className="font-medium text-terra">materia</span>.
-                </p>
-                <p data-fade className="mt-5 max-w-[34ch] font-body text-base font-light leading-relaxed text-ink/65" style={{ opacity: 0 }}>
-                  Probamos cada diseño en tres etapas, del modelo digital al prototipo físico.
-                </p>
-              </div>
-
-              {/* Secuencia vertical — timeline que se traza (modelo → materia) */}
-              <ol className="md:col-span-7 md:col-start-6 lg:col-span-7 lg:col-start-6">
-                {proyecto.validation.map((v, i) => {
-                  const last = i === proyecto.validation!.length - 1;
-                  return (
-                    <li key={v.title} data-step className="flex gap-5" style={{ opacity: 0 }}>
-                      {/* Marcador + conector. El marcador va de hueco/punteado (digital)
-                          a sólido (físico): encarna el paso del modelo a la materia. */}
-                      <div className="flex flex-col items-center self-stretch">
-                        <span
-                          className={`relative z-10 flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full bg-cream ${
-                            last
-                              ? "border-2 border-terra bg-terra"
-                              : i === 0
-                              ? "border-2 border-dashed border-terra"
-                              : "border-2 border-terra"
-                          }`}
-                        >
-                          {i === 1 && <span className="h-[7px] w-[7px] rounded-full bg-terra" />}
-                        </span>
-                        {!last && (
-                          <span data-spine aria-hidden="true" className="mt-1.5 w-px flex-1 origin-top bg-ink/25" style={{ transform: "scaleY(0)" }} />
-                        )}
-                      </div>
-                      {/* Contenido */}
-                      <div className={last ? "pb-0" : "pb-12"}>
-                        <span className="font-body text-[11px] font-semibold uppercase tracking-[0.18em] text-terra/70">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        <h3 className="mt-1 font-display text-xl font-medium leading-snug text-ink sm:text-2xl">{v.title}</h3>
-                        <p className="mt-2 max-w-[46ch] font-body text-sm font-light leading-relaxed text-ink/70 sm:text-base">{v.note}</p>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ol>
-            </div>
-          </div>
-        </section>
-      )}
-
       {/* ════════ 5 · SIGUIENTE LÁMINA — prev / next con imagen ════════ */}
       <section
         data-reveal="next"
         data-nav="light"
         className="relative w-full"
-        style={{ background: "linear-gradient(180deg, #eecea1 0%, #f3ddbc 100%)" }}
+        style={{ background: "linear-gradient(180deg, #edca9c 0%, #f3ddbc 100%)" }}
       >
         <div className="mx-auto max-w-[1180px] px-6 pb-20 pt-4 sm:px-10 md:px-14 md:pb-24">
           <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-ink/55" style={{ opacity: 0 }}>
