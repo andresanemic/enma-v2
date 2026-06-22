@@ -82,13 +82,32 @@ export default function FAQ() {
       ref={ref}
       id="faq"
       data-nav="light"
-      className="relative w-full px-6 py-20 sm:px-10 sm:py-28 md:px-14 md:py-32"
+      className="relative w-full overflow-hidden px-6 py-20 sm:px-10 sm:py-28 md:px-14 md:py-32"
       style={{
         background:
           "linear-gradient(180deg, #f8eddd 0%, #fbf3e7 46%, #f7e9d4 100%)",
       }}
     >
-      <div className="mx-auto max-w-[1180px]">
+      {/* Textura de fondo — curvas de nivel finísimas (topografía patagónica),
+          en la costura con Blog (arriba-izquierda). Mismo motivo que Equipo y Blog,
+          lado alternado para dar ritmo a la composición de la cola de la landing. */}
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-24 -top-20 h-[440px] w-[640px] text-ink/[0.05]"
+        viewBox="0 0 600 400"
+        fill="none"
+      >
+        {[0, 27, 54, 81, 108].map((o) => (
+          <path
+            key={o}
+            d={`M-20 ${80 + o} C 160 ${160 + o}, 320 ${20 + o}, 480 ${120 + o} S 780 ${200 + o}, 940 ${60 + o}`}
+            stroke="currentColor"
+            strokeWidth="1.5"
+          />
+        ))}
+      </svg>
+
+      <div className="relative mx-auto max-w-[1180px]">
         {/* ── Encabezado ── */}
         <div className="mb-12 md:mb-16">
           <h2

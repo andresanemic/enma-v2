@@ -60,60 +60,70 @@ export default function BlogBands({ accent = "terra" }: { accent?: Accent }) {
       return;
     }
 
-    const ctx = gsap.context(() => {
-      const cleanups: Array<() => void> = [];
+    // Reveal SIN gsap.context/revert: en su lugar, cada nodo se marca como revelado
+    // con un data-attr en el propio DOM, que SOBREVIVE al doble montaje de StrictMode
+    // (dev). Así, si el reveal ya corrió en el primer montaje, el segundo lo omite y
+    // NO se revierte → desaparece el parpadeo de las cards que quedan sobre el pliegue
+    // (caso /blog). En la landing (cards bajo el pliegue) y en producción el resultado
+    // es idéntico: cada elemento se revela una sola vez al entrar en viewport.
+    // Se pasan NODOS reales a GSAP (no selectores string) → scope seguro sin context.
+    const cleanups: Array<() => void> = [];
 
-      // Dispara fn una sola vez al entrar en viewport. Fallback por timeout
-      // GATEADO por visibilidad real (no revelar fuera de pantalla, lore).
-      const observeOnce = (target: Element, fn: () => void) => {
-        const io = new IntersectionObserver(
-          (entries) => {
-            if (entries[0].isIntersecting) {
-              fn();
-              io.disconnect();
-            }
-          },
-          { threshold: 0.18, rootMargin: "0px 0px -8% 0px" }
-        );
-        io.observe(target);
-        const t = window.setTimeout(() => {
-          const r = target.getBoundingClientRect();
-          if (r.top < window.innerHeight && r.bottom > 0) {
-            fn();
+    // Dispara fn una sola vez. Guard por data-attr en el nodo + fallback por timeout
+    // GATEADO por visibilidad real (no revelar fuera de pantalla, lore).
+    const observeOnce = (target: Element, fn: () => void) => {
+      const node = target as HTMLElement;
+      if (node.dataset.revealed) return;
+      const run = () => {
+        if (node.dataset.revealed) return;
+        node.dataset.revealed = "1";
+        fn();
+      };
+      const io = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting) {
+            run();
             io.disconnect();
           }
-        }, 2600);
-        cleanups.push(() => {
+        },
+        { threshold: 0.18, rootMargin: "0px 0px -8% 0px" }
+      );
+      io.observe(target);
+      const t = window.setTimeout(() => {
+        const r = target.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) {
+          run();
           io.disconnect();
-          window.clearTimeout(t);
-        });
-      };
-
-      // Cada franja entra como un solo bloque (fundido + leve subida); su contenido
-      // interno se fija en estado final y la portada termina de descubrirse.
-      q(el, "[data-band]").forEach((band) => {
-        observeOnce(band, () => {
-          const cover = band.querySelector("[data-bcover]");
-          if (cover) gsap.set(cover, { clipPath: "inset(0 0% 0 0 round 20px)" });
-          gsap.set(
-            Array.from(band.querySelectorAll("[data-btitle], [data-bsum], [data-bmeta], [data-bmore]")),
-            { opacity: 1, x: 0, y: 0 }
-          );
-          gsap.fromTo(band, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" });
-        });
+        }
+      }, 2600);
+      cleanups.push(() => {
+        io.disconnect();
+        window.clearTimeout(t);
       });
+    };
 
-      // Curvas de nivel — se trazan de izquierda a derecha.
-      q(el, "[data-rule]").forEach((rule) => {
-        observeOnce(rule, () => {
-          gsap.fromTo(rule, { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power2.inOut" });
-        });
+    // Cada franja entra como un solo bloque (fundido + leve subida); su contenido
+    // interno se fija en estado final y la portada termina de descubrirse.
+    q(el, "[data-band]").forEach((band) => {
+      observeOnce(band, () => {
+        const cover = band.querySelector("[data-bcover]");
+        if (cover) gsap.set(cover, { clipPath: "inset(0 0% 0 0 round 20px)" });
+        gsap.set(
+          Array.from(band.querySelectorAll("[data-btitle], [data-bsum], [data-bmeta], [data-bmore]")),
+          { opacity: 1, x: 0, y: 0 }
+        );
+        gsap.fromTo(band, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" });
       });
+    });
 
-      return () => cleanups.forEach((c) => c());
-    }, ref);
+    // Curvas de nivel — se trazan de izquierda a derecha.
+    q(el, "[data-rule]").forEach((rule) => {
+      observeOnce(rule, () => {
+        gsap.fromTo(rule, { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power2.inOut" });
+      });
+    });
 
-    return () => ctx.revert();
+    return () => cleanups.forEach((c) => c());
   }, []);
 
   return (

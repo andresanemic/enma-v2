@@ -429,38 +429,44 @@ export default function Nosotros() {
               <h2 data-rise className="mt-4 max-w-[20ch] font-display font-light text-ink" style={{ opacity: 0, fontSize: "clamp(1.7rem, 3.4vw, 2.6rem)", lineHeight: 1.1, letterSpacing: "-0.03em" }}>
                 Principios que sostienen cómo trabajamos.
               </h2>
-              <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2">
-                {VALORES.map((v, i) => (
-                  <article
+              {/* Ficha técnica — el MISMO panel de "lámina de cotas" del detalle de
+                  proyectos (hairlines, marca de registro, barra de cota), para que la
+                  página hable con el resto del sitio. Cada valor = término; su glosa =
+                  descripción. Celdas que encienden en hover. */}
+              <dl className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-[20px] bg-ink/12 shadow-[0_24px_60px_-40px_rgba(26,26,26,0.55)] ring-1 ring-ink/12 sm:grid-cols-2">
+                {VALORES.map((v) => (
+                  <div
                     key={v.word}
                     data-pop
                     style={{ opacity: 0 }}
-                    className="group relative overflow-hidden rounded-[28px] border border-ink/10 bg-[#fbf3e7] p-8 transition-all duration-500 ease-out hover:-translate-y-1 hover:border-ember/40 hover:shadow-[0_22px_55px_-26px_rgba(177,44,0,0.45)] sm:p-9"
+                    className="group relative bg-cream/75 px-6 py-7 transition-colors duration-300 hover:bg-sand/80 sm:px-8 sm:py-8"
                   >
-                    {/* Huella — anillos concéntricos que se intensifican en hover */}
-                    <span
+                    {/* Marca de registro (cruz de cotas) — gira y se enciende en hover */}
+                    <svg
+                      viewBox="0 0 12 12"
                       aria-hidden="true"
-                      className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full opacity-50 transition-all duration-700 ease-out group-hover:scale-110 group-hover:opacity-100"
-                      style={{ background: "repeating-radial-gradient(circle at center, rgba(177,44,0,0.12) 0 1px, transparent 1px 13px)" }}
-                    />
-                    <div className="relative flex items-baseline gap-4">
-                      <span className="font-body text-sm font-medium tabular-nums tracking-[0.15em] text-terra/70">
-                        0{i + 1}
-                      </span>
-                      <h3
-                        className="m-0 font-display font-medium text-ink transition-colors duration-300 group-hover:text-ember"
+                      className="absolute right-5 top-5 h-3 w-3 text-ink/25 transition-all duration-300 group-hover:rotate-90 group-hover:text-ember"
+                      fill="none"
+                    >
+                      <path d="M6 0.5v11M0.5 6h11" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+                    </svg>
+                    {/* Término (el valor) — con la barra de cota que crece en hover */}
+                    <dt className="flex items-baseline gap-3 pr-8">
+                      <span className="mt-1 h-4 w-[3px] shrink-0 self-start rounded-full bg-terra transition-all duration-300 group-hover:h-5 group-hover:bg-ember" />
+                      <span
+                        className="font-display font-medium leading-snug text-ink transition-colors duration-200 group-hover:text-terra"
                         style={{ fontSize: "clamp(1.5rem, 2.6vw, 2rem)", letterSpacing: "-0.02em" }}
                       >
                         {v.word}
-                      </h3>
-                    </div>
-                    <span aria-hidden="true" className="relative mt-5 block h-px w-10 origin-left bg-ember/50 transition-all duration-500 ease-out group-hover:w-24" />
-                    <p className="relative mt-5 max-w-[34ch] font-body text-base font-light leading-relaxed text-ink/65 transition-colors duration-300 group-hover:text-ink/85">
+                      </span>
+                    </dt>
+                    {/* Descripción (la glosa) */}
+                    <dd className="mt-3 max-w-[38ch] pl-[15px] font-body text-base font-light leading-relaxed text-ink/65 transition-colors duration-300 group-hover:text-ink/80">
                       {v.gloss}
-                    </p>
-                  </article>
+                    </dd>
+                  </div>
                 ))}
-              </div>
+              </dl>
             </section>
 
             {/* ── 04 · El problema ── */}

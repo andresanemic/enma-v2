@@ -100,6 +100,18 @@ export default function Proyectos() {
     );
     blocks.forEach((b) => io.observe(b));
 
+    // En móvil el Hero es alto y la fila de cards entra apenas asomada bajo el
+    // pliegue, por debajo del umbral del IO → sin scroll, solo la revelaba el
+    // fallback de 2.6s (demora visible en iPhone/Safari). Pasada inmediata al
+    // montar: revela YA cualquier bloque realmente en viewport (mismo gate de
+    // visibilidad del fallback — lore/animation), conservando su coreografía.
+    const raf = requestAnimationFrame(() => {
+      blocks.forEach((b) => {
+        const r = b.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) play(b);
+      });
+    });
+
     const t = window.setTimeout(() => {
       blocks.forEach((b) => {
         const r = b.getBoundingClientRect();
@@ -109,6 +121,7 @@ export default function Proyectos() {
 
     return () => {
       io.disconnect();
+      cancelAnimationFrame(raf);
       window.clearTimeout(t);
     };
   }, []);

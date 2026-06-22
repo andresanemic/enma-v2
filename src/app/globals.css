@@ -77,14 +77,17 @@ body {
   to { transform: translateX(7%); }
 }
 
-/* Métricas — giro del aerogenerador (la fuente del viento). GPU-composited. */
+/* Métricas — giro del aerogenerador (la fuente del viento). La rotación va sobre
+   un DIV HTML (no un <g> del SVG) + will-change → capa de compositor (GPU): sigue
+   girando durante el scroll táctil de iOS Safari, que suspende el hilo principal.
+   transform-origin:center = centro del div, posicionado EXACTO sobre el buje. */
 @keyframes turbine-spin {
   to { transform: rotate(360deg); }
 }
 .turbine-spin {
-  transform-box: fill-box;
   transform-origin: center;
   animation: turbine-spin 9s linear infinite;
+  will-change: transform;
 }
 
 /* Servicios — crossfade del panel al cambiar de servicio activo (key={active}) */
