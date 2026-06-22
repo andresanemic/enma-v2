@@ -15,6 +15,8 @@ export type Proyecto = {
   /** Pill superior de la card (dominio). Outfit uppercase. */
   domain: string;
   title: string;
+  /** Substring del título a resaltar (acento terra) en el hero del detalle. Solo énfasis. */
+  titleAccent?: string;
   /** Subtítulo corto de la cara frontal de la card. */
   kicker: string;
   /** Imagen de portada (cara frontal). */
@@ -40,6 +42,7 @@ export const PROYECTOS: Proyecto[] = [
     slug: "turbina-eolica-baja-escala",
     domain: "Eólica",
     title: "Turbina eólica de baja escala",
+    titleAccent: "eólica",
     kicker: "Diseño propio · financiado por ANID",
     image: "/proyecto/turbina.jpg",
     imageAlt: "Turbina eólica de baja escala en un paisaje abierto de la Patagonia",
@@ -49,7 +52,7 @@ export const PROYECTOS: Proyecto[] = [
       "Validada con túnel de viento y CFD",
     ],
     lead:
-      "El proyecto que más queremos mostrar: una turbina de diseño propio, financiada por ANID, pensada para los vientos más difíciles de la Patagonia.",
+      "Una turbina de diseño propio, financiada por ANID, pensada para los vientos más difíciles de la Patagonia.",
     facts: [
       { label: "Financiamiento", value: "Agencia Nacional de Investigación y Desarrollo (ANID)" },
       { label: "Escala", value: "Baja escala — pensada para granjas de muchas unidades" },
