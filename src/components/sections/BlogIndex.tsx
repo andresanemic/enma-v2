@@ -224,7 +224,7 @@ export default function BlogIndex() {
               className="mt-5 max-w-[52ch] font-body text-base font-light leading-relaxed text-ink/65 sm:text-lg"
               style={{ opacity: 0 }}
             >
-              Tres lecturas para entender desde dónde y para qué trabajamos. Vamos
+              Lecturas para entender desde dónde y para qué trabajamos. Vamos
               sumando columnas y notas a medida que las escribimos.
             </p>
           </div>
