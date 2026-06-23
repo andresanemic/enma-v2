@@ -21,8 +21,7 @@ type Metric = {
 
 const METRICS: Metric[] = [
   { kind: "num", value: 5, label: "Estudios energéticos liderados en Aysén", hint: "Para el sector público regional, junto al CIEP.", accent: "orange", hero: true },
-  { kind: "badge", text: "+$150M", label: "Para proyectos de I+D.", hint: "Apalancados por concursos públicos.", accent: "teal" },
-  { kind: "num", value: 4, label: "Fuentes renovables que dominamos", hint: "Eólica, solar, hidro y geotermia.", accent: "sky" },
+  { kind: "badge", text: "+$150M", label: "Para proyectos de I+D", hint: "Apalancados por concursos públicos.", accent: "teal" },
   { kind: "num", value: 2, label: "Socios fundadores, ingenieros mecánicos", hint: "Con experiencia exitosa como consultores.", accent: "orange" },
 ];
 
