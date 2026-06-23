@@ -11,8 +11,8 @@ import HeroVideo from "@/components/hero/HeroVideo";
 const HERO_VIDEO =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260511_131941_d136af49-e243-493a-be14-6ff3f24e09e6.mp4";
 
-const LINES = ["Energía y", "manufactura"];
-const ACCENT = "sustentable";
+const LINES = ["Energía y", "Manufactura"];
+const ACCENT = "Sustentable";
 
 const WHATSAPP = "https://wa.me/56993377835";
 
@@ -138,7 +138,7 @@ export default function Hero() {
       <div className="relative z-10 flex min-h-[100svh] flex-col justify-center px-6 pt-28 sm:px-10 md:px-14">
         <h1
           className="max-w-[14ch] font-display font-light text-cream"
-          aria-label="Energía y manufactura sustentable"
+          aria-label="Energía y Manufactura Sustentable"
           style={{
             fontSize: "clamp(2.75rem, 8vw, 6.5rem)",
             lineHeight: 1.1,
@@ -172,8 +172,8 @@ export default function Hero() {
           style={{ opacity: 0 }}
           className="mt-7 max-w-xl font-body text-lg font-light leading-relaxed text-cream/85 sm:text-xl"
         >
-          Soluciones de ingeniería en energía limpia y manufactura, diseñadas
-          desde la Patagonia chilena para un territorio complejo.
+          Soluciones de ingeniería para la transición energética y una
+          manufactura avanzada, diseñadas desde la Patagonia chilena.
         </p>
 
         {/* ── CTAs — Golden Path 4.1 / 4.2 ── */}

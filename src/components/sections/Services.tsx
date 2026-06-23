@@ -21,7 +21,7 @@ type Service = {
 const SERVICES: Service[] = [
   {
     n: "01",
-    title: "Consultoría y estudios energéticos",
+    title: "Asesoría y estudios energéticos",
     desc: "El servicio base, y el que abre la puerta a todos los demás: estudios de soluciones energéticas para empresas y sector público. Su mayor valor es intangible: el conocimiento técnico y el del territorio.",
     img: "photo-1469474968028-56623f02e42e",
     duoFrom: "#b12c00",
@@ -30,21 +30,13 @@ const SERVICES: Service[] = [
   {
     n: "02",
     title: "Formulación y acompañamiento",
-    desc: "Formulamos y acompañamos proyectos para apalancar recursos públicos —Corfo, ANID, GORE— con foco energético o ambiental. Desde la idea hasta la presentación y ejecución de la iniciativa.",
+    desc: "Formulamos y acompañamos proyectos para apalancar recursos públicos como Corfo y ANID, con foco energético o ambiental. Desde la idea hasta la presentación y ejecución de la iniciativa.",
     img: "photo-1501785888041-af3ef285b470",
     duoFrom: "#f1541c",
     duoTo: "#fea94f",
   },
   {
     n: "03",
-    title: "Ejecución, operación y mantenimiento",
-    desc: "Apoyados en una red sólida de socios y colaboradores, ejecutamos proyectos de energía y manufactura de forma efectiva, y nos hacemos cargo de su posterior operación y mantenimiento.",
-    img: "photo-1466611653911-95081537e5b7",
-    duoFrom: "#b12c00",
-    duoTo: "#f1541c",
-  },
-  {
-    n: "04",
     title: "Simulaciones CFD",
     desc: "Simulaciones fluidodinámicas que optimizan el diseño de sistemas que interactúan con fluidos —turbinas, sistemas hidráulicos, embarcaciones—. Traducen el análisis en soluciones más rápidas y confiables.",
     img: "photo-1518770660439-4636190af475",
@@ -52,7 +44,7 @@ const SERVICES: Service[] = [
     duoTo: "#8fb8c4",
   },
   {
-    n: "05",
+    n: "04",
     title: "Ensayos en túnel de viento",
     desc: "Un túnel de viento propio —en construcción en Santiago— que complementa al CFD en todo lo referente al aire, permitiendo validar físicamente los diseños antes de fabricarlos.",
     img: "photo-1470071459604-3b5ec3a7fe05",
@@ -60,7 +52,7 @@ const SERVICES: Service[] = [
     duoTo: "#f7dfba",
   },
   {
-    n: "06",
+    n: "05",
     title: "Cuantificación de huella de carbono",
     desc: "Medimos las emisiones de gases de efecto invernadero de empresas y municipios, camino a los sellos de calidad que entrega el Ministerio del Medio Ambiente.",
     img: "photo-1441974231531-c6227db76b6e",
@@ -68,7 +60,7 @@ const SERVICES: Service[] = [
     duoTo: "#3e7c6c",
   },
   {
-    n: "07",
+    n: "06",
     title: "Charlas y difusión",
     desc: "Charlas sobre eficiencia energética y cambio climático, presentaciones ante consejos regionales, comunidades y juntas de vecinos, y difusión de estudios en medios de la región.",
     img: "photo-1475721027785-f74eccf877e2",
@@ -323,8 +315,8 @@ export default function Services() {
     if (Math.abs(dx) > 44 && Math.abs(dx) > Math.abs(dy) * 1.4) goTo(dx < 0 ? 1 : -1);
   };
 
-  const HEAD_WORDS = ["De", "la", "consultoría", "al"];
-  const HEAD_ACCENT = "prototipo físico";
+  const HEAD_WORDS = ["Desde", "la", "idea", "hasta", "su"];
+  const HEAD_ACCENT = "validación";
 
   return (
     <section
@@ -338,7 +330,7 @@ export default function Services() {
         <div className="mb-12 md:mb-16">
           <h2
             className="m-0 max-w-[20ch] font-display font-light text-ink"
-            aria-label="De la consultoría al prototipo físico."
+            aria-label="Desde la idea hasta su validación."
             style={{
               fontSize: "clamp(1.9rem, 4vw, 3.4rem)",
               letterSpacing: "-0.03em",
@@ -387,7 +379,7 @@ export default function Services() {
             className="mt-5 max-w-[56ch] font-body text-base font-light leading-relaxed text-ink/60 sm:text-lg"
             style={{ opacity: 0 }}
           >
-            Siete líneas de servicio, una misma lógica: entender el territorio y
+            Seis líneas de servicio, una misma lógica: entender el territorio y
             resolver con ingeniería a la medida. Consultoría, innovación y
             desarrollo.
           </p>

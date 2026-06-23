@@ -17,19 +17,19 @@ type Cofounder = {
 const COFOUNDERS: Cofounder[] = [
   {
     id: "bruno",
-    name: "Bruno Ortega",
-    role: "Socio fundador · Ingeniero mecánico",
-    photo: "/equipo/equipo-bruno.jpg",
-    alt: "Persona andando en bicicleta al atardecer",
-    bio: "La mirada de la energía: generación renovable, eléctrica y térmica. Experiencia en eólica, solar, geotermia e hidro; supervisé la calefacción geotérmica que dio origen a Enma.",
+    name: "Bruno Ortega Leiva",
+    role: "Gerente de proyecto",
+    photo: "/equipo/bruno-ortega-v2.webp",
+    alt: "Bruno Ortega, co-fundador de Enma",
+    bio: "Ingeniero civil mecánico. Diez años en energías renovables e innovación, donde lidero proyectos de hidrógeno verde y geotermia con mirada territorial y sostenible. Sumo experiencia en IoT, sensorización y automatización.",
   },
   {
     id: "patricio",
-    name: "Patricio Campos",
-    role: "Socio fundador · Ingeniero mecánico",
-    photo: "/equipo/equipo-patricio.jpg",
-    alt: "Un pato solitario nadando en un lago",
-    bio: "Diseñé el upcycling de residuos salmoneros que originó Enma. Lideré estudios energéticos para el CIEP y aporto formulación de proyectos, simulaciones CFD y huella de carbono.",
+    name: "Patricio Campos Cisternas",
+    role: "Personal científico-tecnológico",
+    photo: "/equipo/patricio-campos.webp",
+    alt: "Patricio Campos, co-fundador de Enma",
+    bio: "Ingeniero civil mecánico. Diez años en energías renovables, I+D+i y cambio climático, donde lidero proyectos de generación limpia, eficiencia energética y desarrollo tecnológico.",
   },
 ];
 

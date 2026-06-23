@@ -11,11 +11,11 @@ const IMG =
 const AREAS = [
   {
     title: "Energía",
-    desc: "Autogeneración renovable: microhidro, solar, eólica y geotermia, en diseño y planificación.",
+    desc: "Autogeneración renovable: microhidro, solar, eólica y geotermia, desde el diseño hasta su planificación.",
   },
   {
     title: "Manufactura",
-    desc: "Upcycling y manufactura avanzada con prototipado en impresión 3D y corte CNC.",
+    desc: "Upcycling y manufactura avanzada mediante impresión 3D y corte CNC, para el prototipado de ideas.",
   },
   {
     title: "Cambio Climático",
