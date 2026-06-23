@@ -60,9 +60,9 @@ export const ARTICLES: Article[] = [
     ],
   },
   {
-    slug: "patagonia-no-se-entiende-desde-santiago",
+    slug: "patagonia-se-resuelve-desde-la-patagonia",
     topic: "Territorio",
-    title: "La Patagonia no se entiende desde Santiago",
+    title: "La Patagonia se resuelve desde la Patagonia",
     summary:
       "La pertenencia territorial no es un eslogan: es una ventaja técnica. Por qué la realidad de Aysén no se entiende —ni se resuelve— a control remoto.",
     author: "Patricio Campos",
