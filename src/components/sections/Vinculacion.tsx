@@ -338,7 +338,7 @@ export default function Vinculacion() {
                   fill
                   priority
                   sizes="(min-width: 768px) 460px, 90vw"
-                  className="object-cover object-center"
+                  className="object-cover object-top"
                 />
                 <span
                   aria-hidden="true"

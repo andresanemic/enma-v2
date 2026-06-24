@@ -22,7 +22,7 @@ const SERVICES: Service[] = [
     title: "Asesoría y estudios energéticos",
     desc: "El servicio base, y el que abre la puerta a todos los demás: estudios de soluciones energéticas para empresas y sector público. Su mayor valor es intangible: el conocimiento técnico y el del territorio.",
     img: "/servicios/servicio-01-v1.webp",
-    objPos: "top",
+    objPos: "bottom",
   },
   {
     n: "02",
@@ -40,8 +40,7 @@ const SERVICES: Service[] = [
     n: "04",
     title: "Ensayos en túnel de viento",
     desc: "Un túnel de viento propio —en construcción en Santiago— que complementa al CFD en todo lo referente al aire, permitiendo validar físicamente los diseños antes de fabricarlos.",
-    img: "/servicios/servicio-04-v1.webp",
-    imgScale: 0.82,
+    img: "/servicios/servicio-04-v2.png",
   },
   {
     n: "05",
@@ -54,7 +53,7 @@ const SERVICES: Service[] = [
     title: "Charlas y difusión",
     desc: "Charlas sobre eficiencia energética y cambio climático, presentaciones ante consejos regionales, comunidades y juntas de vecinos, y difusión de estudios en medios de la región.",
     img: "/servicios/servicio-06-v1.webp",
-    objPos: "bottom",
+    objPos: "top",
   },
 ];
 

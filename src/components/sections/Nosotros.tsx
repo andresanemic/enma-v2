@@ -6,7 +6,7 @@ import { gsap } from "@/lib/gsap";
 
 // ── Contenido real (1ª persona) — fuente: que-es-enma.txt + entrevistas ──
 
-const IMG_TERRITORIO = "/nosotros/origen-v1.webp";
+const IMG_TERRITORIO = "/nosotros/origen-v2.webp";
 
 type Diferenciador = { lead: string; accent: string; support: string };
 const DIFERENCIADORES: Diferenciador[] = [
