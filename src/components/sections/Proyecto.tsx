@@ -181,7 +181,7 @@ export default function Proyecto() {
           <div className="relative shrink-0">
             <div data-panel className="relative aspect-[3/4] w-[clamp(230px,32vw,340px)] overflow-hidden rounded-[18px] ring-1 ring-ink/15" style={{ clipPath: "inset(100% 0 0 0 round 18px)" }}>
               <Image
-                src="/proyecto/turbina.jpg"
+                src="/proyecto/turbina-v2.webp"
                 alt="Turbina eólica de baja escala en un paisaje abierto"
                 fill
                 sizes="(min-width: 768px) 300px, 70vw"

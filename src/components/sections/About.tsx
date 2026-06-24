@@ -1,12 +1,10 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 
-// TODO: reemplazar por imagen propia de Enma (Patagonia / Aysén / proceso).
-// Placeholder Unsplash (montañas y agua — fiordos/bosques de Aysén).
-const IMG =
-  "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1400&q=80&auto=format&fit=crop";
+const IMG = "/about/about-v1.webp";
 
 const AREAS = [
   {
@@ -91,14 +89,13 @@ export default function About() {
         <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-14 lg:gap-20">
           {/* Imagen */}
           <div className={`${reveal()} order-1`} style={delay(1)}>
-            <div className="group overflow-hidden rounded-3xl bg-sand">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+            <div className="relative aspect-[4/5] group overflow-hidden rounded-3xl bg-sand">
+              <Image
                 src={IMG}
                 alt="Paisaje de la Patagonia chilena, Región de Aysén"
-                loading="lazy"
-                className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
-                style={{ aspectRatio: "4 / 5" }}
+                fill
+                sizes="(min-width: 768px) 50vw, 90vw"
+                className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
               />
             </div>
           </div>

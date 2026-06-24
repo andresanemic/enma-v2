@@ -46,7 +46,7 @@ export const PROYECTOS: Proyecto[] = [
     title: "Turbina eólica de baja escala",
     titleAccent: "eólica",
     kicker: "Diseño propio · financiado por ANID",
-    image: "/proyecto/turbina.jpg",
+    image: "/proyectos/turbina-v1.webp",
     imageAlt: "Turbina eólica de baja escala en un paisaje abierto de la Patagonia",
     cardFacts: [
       "Financiada por ANID",

@@ -11,11 +11,9 @@ type Service = {
   n: string;
   title: string;
   desc: string;
-  // TODO: reemplazar por fotografía propia de Enma (Aysén / proceso / equipo).
-  // Placeholders Unsplash; el duotono homogeniza la paleta y cubre fallos de carga.
-  img: string; // id de foto Unsplash
-  duoFrom: string; // duotono — color base/sombra (par de marca del servicio)
-  duoTo: string; // duotono — color de realce
+  img: string;
+  duoFrom: string;
+  duoTo: string;
 };
 
 const SERVICES: Service[] = [
@@ -23,7 +21,7 @@ const SERVICES: Service[] = [
     n: "01",
     title: "Asesoría y estudios energéticos",
     desc: "El servicio base, y el que abre la puerta a todos los demás: estudios de soluciones energéticas para empresas y sector público. Su mayor valor es intangible: el conocimiento técnico y el del territorio.",
-    img: "photo-1469474968028-56623f02e42e",
+    img: "/servicios/servicio-01-v1.webp",
     duoFrom: "#b12c00",
     duoTo: "#fea94f",
   },
@@ -31,7 +29,7 @@ const SERVICES: Service[] = [
     n: "02",
     title: "Formulación y acompañamiento",
     desc: "Formulamos y acompañamos proyectos para apalancar recursos públicos como Corfo y ANID, con foco energético o ambiental. Desde la idea hasta la presentación y ejecución de la iniciativa.",
-    img: "photo-1501785888041-af3ef285b470",
+    img: "/servicios/servicio-02-v1.webp",
     duoFrom: "#f1541c",
     duoTo: "#fea94f",
   },
@@ -39,7 +37,7 @@ const SERVICES: Service[] = [
     n: "03",
     title: "Simulaciones CFD",
     desc: "Simulaciones fluidodinámicas que optimizan el diseño de sistemas que interactúan con fluidos —turbinas, sistemas hidráulicos, embarcaciones—. Traducen el análisis en soluciones más rápidas y confiables.",
-    img: "photo-1518770660439-4636190af475",
+    img: "/servicios/servicio-03-v1.webp",
     duoFrom: "#205358",
     duoTo: "#8fb8c4",
   },
@@ -47,7 +45,7 @@ const SERVICES: Service[] = [
     n: "04",
     title: "Ensayos en túnel de viento",
     desc: "Un túnel de viento propio —en construcción en Santiago— que complementa al CFD en todo lo referente al aire, permitiendo validar físicamente los diseños antes de fabricarlos.",
-    img: "photo-1470071459604-3b5ec3a7fe05",
+    img: "/servicios/servicio-04-v1.webp",
     duoFrom: "#fea94f",
     duoTo: "#f7dfba",
   },
@@ -55,7 +53,7 @@ const SERVICES: Service[] = [
     n: "05",
     title: "Cuantificación de huella de carbono",
     desc: "Medimos las emisiones de gases de efecto invernadero de empresas y municipios, camino a los sellos de calidad que entrega el Ministerio del Medio Ambiente.",
-    img: "photo-1441974231531-c6227db76b6e",
+    img: "/servicios/servicio-05-v1.webp",
     duoFrom: "#205358",
     duoTo: "#3e7c6c",
   },
@@ -63,7 +61,7 @@ const SERVICES: Service[] = [
     n: "06",
     title: "Charlas y difusión",
     desc: "Charlas sobre eficiencia energética y cambio climático, presentaciones ante consejos regionales, comunidades y juntas de vecinos, y difusión de estudios en medios de la región.",
-    img: "photo-1475721027785-f74eccf877e2",
+    img: "/servicios/servicio-06-v1.webp",
     duoFrom: "#f1541c",
     duoTo: "#b12c00",
   },
@@ -489,12 +487,9 @@ export default function Services() {
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           data-card-img
-                          src={`https://images.unsplash.com/${s.img}?w=900&q=80&auto=format&fit=crop`}
+                          src={s.img}
                           alt=""
                           loading="lazy"
-                          onError={(e) => {
-                            e.currentTarget.style.display = "none";
-                          }}
                           className="absolute inset-0 h-full w-full object-cover grayscale"
                           style={{ transform: "scale(1.08)" }}
                         />

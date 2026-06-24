@@ -176,7 +176,7 @@ export default function BlogIndex() {
                 style={{ clipPath: "inset(100% 0 0 0 round 18px)" }}
               >
                 <Image
-                  src="/blog/portada-1.webp"
+                  src="/blog/hero-blog-v1.webp"
                   alt=""
                   fill
                   priority

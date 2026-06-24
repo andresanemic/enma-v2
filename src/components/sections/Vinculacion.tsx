@@ -325,9 +325,6 @@ export default function Vinculacion() {
               </p>
             </div>
 
-            {/* ── Imagen del hero ──
-                TODO(enma): reemplazar /placeholders/hero-vinculacion.webp por la
-                imagen/visual definitivo del hero de Vinculación. Es un placeholder. */}
             <div data-fade className="relative mx-auto w-full max-w-[440px]" style={{ opacity: 0 }}>
               {/* Halo cálido que ancla la figura sobre la base clara */}
               <span
@@ -335,15 +332,12 @@ export default function Vinculacion() {
                 className="pointer-events-none absolute inset-0 -z-10"
                 style={{ background: "radial-gradient(58% 52% at 50% 46%, rgba(241,84,28,0.14) 0%, transparent 68%)" }}
               />
-              {/* unoptimized: el optimizador de Next se cuelga con este .webp y
-                  bloquea el dev server. Es un placeholder → se sirve directo. */}
               <Image
-                src="/placeholders/hero-vinculacion.webp"
+                src="/vinculacion/hero-v1.webp"
                 alt=""
                 width={530}
                 height={680}
                 priority
-                unoptimized
                 className="mx-auto h-auto w-full max-w-[360px] md:max-w-none"
               />
             </div>

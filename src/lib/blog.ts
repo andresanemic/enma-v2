@@ -42,7 +42,7 @@ export const ARTICLES: Article[] = [
     author: "Bruno Ortega",
     role: "Socio fundador",
     date: "2026-06-22",
-    cover: "/blog/blog-cover-1.jpg",
+    cover: "/blog/portada-aysen-v1.webp",
     coverAlt: "Parque eólico recortado contra una bruma dorada al atardecer",
     imageSide: "left",
     body: [
@@ -68,7 +68,7 @@ export const ARTICLES: Article[] = [
     author: "Patricio Campos",
     role: "Socio fundador",
     date: "2026-06-22",
-    cover: "/blog/blog-cover-2.jpg",
+    cover: "/blog/portada-patagonia-v1.webp",
     coverAlt: "Lago turquesa, montañas nevadas y vegetación otoñal de la Patagonia",
     imageSide: "right",
     body: [
@@ -93,7 +93,7 @@ export const ARTICLES: Article[] = [
       "Qué somos, qué hacemos y a quién ayudamos, contado en simple: energía y tecnología hechas en la Patagonia para bajar costos y abrir oportunidades.",
     author: "Equipo Enma",
     date: "2026-06-22",
-    cover: "/blog/blog-cover-3.jpg",
+    cover: "/blog/portada-enma-v1.webp",
     coverAlt: "Impresora 3D junto a piezas de turbina prototipadas y herramientas",
     imageSide: "left",
     body: [

@@ -6,10 +6,7 @@ import { gsap } from "@/lib/gsap";
 
 // ── Contenido real (1ª persona) — fuente: que-es-enma.txt + entrevistas ──
 
-// TODO: reemplazar por fotografía propia de Enma (territorio Aysén / proceso).
-// Placeholder Unsplash (fiordos/bosque patagónico) — distinto al de About.
-const IMG_TERRITORIO =
-  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&q=80&auto=format&fit=crop";
+const IMG_TERRITORIO = "/nosotros/origen-v1.webp";
 
 type Diferenciador = { lead: string; accent: string; support: string };
 const DIFERENCIADORES: Diferenciador[] = [
@@ -52,14 +49,14 @@ const COFOUNDERS: Cofounder[] = [
   {
     name: "Bruno Ortega Leiva",
     role: "Gerente de proyecto",
-    photo: "/equipo/bruno-ortega-v2.webp",
+    photo: "/equipo/bruno-ortega-v3.webp",
     alt: "Bruno Ortega, co-fundador de Enma",
     bio: "Ingeniero civil mecánico. Diez años en energías renovables e innovación, donde lidero proyectos de hidrógeno verde y geotermia con mirada territorial y sostenible. Sumo experiencia en IoT, sensorización y automatización.",
   },
   {
     name: "Patricio Campos Cisternas",
     role: "Personal científico-tecnológico",
-    photo: "/equipo/patricio-campos.webp",
+    photo: "/equipo/patricio-campos-v2.webp",
     alt: "Patricio Campos, co-fundador de Enma",
     bio: "Ingeniero civil mecánico. Diez años en energías renovables, I+D+i y cambio climático, donde lidero proyectos de generación limpia, eficiencia energética y desarrollo tecnológico.",
   },
@@ -381,14 +378,13 @@ export default function Nosotros() {
                 </p>
               </div>
               <div className="order-1 md:order-2">
-                <div data-clip className="group overflow-hidden rounded-3xl bg-sand" style={{ clipPath: "inset(0 100% 0 0)" }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                <div data-clip className="relative aspect-[4/5] group overflow-hidden rounded-3xl bg-sand" style={{ clipPath: "inset(0 100% 0 0)" }}>
+                  <Image
                     src={IMG_TERRITORIO}
                     alt="Paisaje de la Región de Aysén, Patagonia chilena"
-                    loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
-                    style={{ aspectRatio: "4 / 5" }}
+                    fill
+                    sizes="(min-width: 768px) 50vw, 90vw"
+                    className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
                   />
                 </div>
               </div>
