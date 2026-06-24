@@ -325,21 +325,30 @@ export default function Vinculacion() {
               </p>
             </div>
 
-            <div data-fade className="relative mx-auto w-full max-w-[440px]" style={{ opacity: 0 }}>
-              {/* Halo cálido que ancla la figura sobre la base clara */}
+            <div data-fade className="relative mx-auto w-full max-w-[460px]" style={{ opacity: 0 }}>
               <span
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-0 -z-10"
                 style={{ background: "radial-gradient(58% 52% at 50% 46%, rgba(241,84,28,0.14) 0%, transparent 68%)" }}
               />
-              <Image
-                src="/vinculacion/hero-v1.webp"
-                alt=""
-                width={530}
-                height={680}
-                priority
-                className="mx-auto h-auto w-full max-w-[360px] md:max-w-none"
-              />
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[18px] ring-1 ring-ink/15 shadow-[0_30px_70px_-40px_rgba(26,26,26,0.6)]">
+                <Image
+                  src="/vinculacion/hero-v1.webp"
+                  alt=""
+                  fill
+                  priority
+                  sizes="(min-width: 768px) 460px, 90vw"
+                  className="object-cover object-center"
+                />
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0"
+                  style={{
+                    background: "linear-gradient(150deg, rgba(177,44,0,0.22) 0%, rgba(219,135,70,0.10) 55%, rgba(241,84,28,0.18) 100%)",
+                    mixBlendMode: "multiply",
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>

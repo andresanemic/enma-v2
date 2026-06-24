@@ -97,6 +97,14 @@ export default function About() {
                 sizes="(min-width: 768px) 50vw, 90vw"
                 className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
               />
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background: "linear-gradient(160deg, rgba(254,169,79,0.28) 0%, rgba(241,84,28,0.18) 60%, rgba(177,44,0,0.22) 100%)",
+                  mixBlendMode: "multiply",
+                }}
+              />
             </div>
           </div>
 

@@ -12,8 +12,8 @@ type Service = {
   title: string;
   desc: string;
   img: string;
-  duoFrom: string;
-  duoTo: string;
+  objPos?: string;   // object-position del img (default "center")
+  imgScale?: number; // zoom del img (default 1.08)
 };
 
 const SERVICES: Service[] = [
@@ -22,48 +22,39 @@ const SERVICES: Service[] = [
     title: "Asesoría y estudios energéticos",
     desc: "El servicio base, y el que abre la puerta a todos los demás: estudios de soluciones energéticas para empresas y sector público. Su mayor valor es intangible: el conocimiento técnico y el del territorio.",
     img: "/servicios/servicio-01-v1.webp",
-    duoFrom: "#b12c00",
-    duoTo: "#fea94f",
+    objPos: "top",
   },
   {
     n: "02",
     title: "Formulación y acompañamiento",
     desc: "Formulamos y acompañamos proyectos para apalancar recursos públicos como Corfo y ANID, con foco energético o ambiental. Desde la idea hasta la presentación y ejecución de la iniciativa.",
     img: "/servicios/servicio-02-v1.webp",
-    duoFrom: "#f1541c",
-    duoTo: "#fea94f",
   },
   {
     n: "03",
     title: "Simulaciones CFD",
     desc: "Simulaciones fluidodinámicas que optimizan el diseño de sistemas que interactúan con fluidos —turbinas, sistemas hidráulicos, embarcaciones—. Traducen el análisis en soluciones más rápidas y confiables.",
     img: "/servicios/servicio-03-v1.webp",
-    duoFrom: "#205358",
-    duoTo: "#8fb8c4",
   },
   {
     n: "04",
     title: "Ensayos en túnel de viento",
     desc: "Un túnel de viento propio —en construcción en Santiago— que complementa al CFD en todo lo referente al aire, permitiendo validar físicamente los diseños antes de fabricarlos.",
     img: "/servicios/servicio-04-v1.webp",
-    duoFrom: "#fea94f",
-    duoTo: "#f7dfba",
+    imgScale: 0.82,
   },
   {
     n: "05",
     title: "Cuantificación de huella de carbono",
     desc: "Medimos las emisiones de gases de efecto invernadero de empresas y municipios, camino a los sellos de calidad que entrega el Ministerio del Medio Ambiente.",
     img: "/servicios/servicio-05-v1.webp",
-    duoFrom: "#205358",
-    duoTo: "#3e7c6c",
   },
   {
     n: "06",
     title: "Charlas y difusión",
     desc: "Charlas sobre eficiencia energética y cambio climático, presentaciones ante consejos regionales, comunidades y juntas de vecinos, y difusión de estudios en medios de la región.",
     img: "/servicios/servicio-06-v1.webp",
-    duoFrom: "#f1541c",
-    duoTo: "#b12c00",
+    objPos: "bottom",
   },
 ];
 
@@ -475,14 +466,11 @@ export default function Services() {
                       className="col-start-1 row-start-1"
                       style={{ opacity: 0, visibility: "hidden" }}
                     >
-                      {/* ── MEDIA: foto duotono a sangre + trazo CFD encima ── */}
+                      {/* ── MEDIA: foto a sangre ── */}
                       <div
                         data-card-media
                         className="relative isolate h-44 w-full overflow-hidden sm:h-52"
-                        style={{
-                          backgroundColor: s.duoFrom,
-                          clipPath: "inset(0 100% 0 0)",
-                        }}
+                        style={{ clipPath: "inset(0 100% 0 0)" }}
                       >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
@@ -490,15 +478,10 @@ export default function Services() {
                           src={s.img}
                           alt=""
                           loading="lazy"
-                          className="absolute inset-0 h-full w-full object-cover grayscale"
-                          style={{ transform: "scale(1.08)" }}
-                        />
-                        {/* Duotono — colorea la imagen con el par de marca del servicio */}
-                        <span
-                          aria-hidden="true"
-                          className="absolute inset-0 mix-blend-color"
+                          className="absolute inset-0 h-full w-full object-cover"
                           style={{
-                            background: `linear-gradient(135deg, ${s.duoFrom}, ${s.duoTo})`,
+                            transform: `scale(${s.imgScale ?? 1.08})`,
+                            objectPosition: s.objPos ?? "center",
                           }}
                         />
                         {/* Profundidad — oscurece levemente bordes (lectura premium) */}
