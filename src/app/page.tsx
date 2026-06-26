@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { pageMetadata, DEFAULT_TITLE, DEFAULT_DESCRIPTION } from "@/lib/seo";
 import IntroVeil from "@/components/layout/IntroVeil";
 import NavBar from "@/components/layout/NavBar";
 import Hero from "@/components/sections/Hero";
@@ -9,6 +11,17 @@ import Equipo from "@/components/sections/Equipo";
 import Blog from "@/components/sections/Blog";
 import FAQ from "@/components/sections/FAQ";
 import Footer from "@/components/layout/Footer";
+
+export const metadata: Metadata = {
+  ...pageMetadata({
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    path: "/",
+  }),
+  // La Home usa el title por defecto, sin la plantilla "· Enma" (quedaría
+  // "Enma — … · Enma").
+  title: DEFAULT_TITLE,
+};
 
 export default function Home() {
   return (
