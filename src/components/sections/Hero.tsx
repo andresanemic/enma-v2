@@ -104,11 +104,14 @@ export default function Hero() {
       data-nav="dark"
       className="relative w-full min-h-[100svh] overflow-hidden"
       style={{
-        // Fallback cálido: si el video tarda o falla, nunca se ve negro frío.
+        // Último seguro de contraste: el blur-up de HeroBackdrop ya pinta los colores
+        // reales de la foto al instante, así que este gradiente cálido-oscuro solo se ve
+        // si la imagen falla por completo. Mantiene el H1/subtítulo crema legibles
+        // (nunca crema-sobre-crema) sin volver a un negro frío.
         background: "linear-gradient(150deg, #15110e 0%, #3a1305 60%, #5a1f08 100%)",
       }}
     >
-      {/* Imagen full-bleed con Ken Burns lento — el gradiente cálido queda detrás */}
+      {/* Imagen full-bleed con Ken Burns lento + blur-up — el gradiente cálido queda detrás */}
       <HeroBackdrop />
 
       {/* ── Grade cálido + scrim direccional (contraste corregido) ──
