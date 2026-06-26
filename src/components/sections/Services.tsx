@@ -23,7 +23,7 @@ const SERVICES: Service[] = [
     title: "Asesoría y estudios energéticos",
     desc: "El servicio base, y el que abre la puerta a todos los demás: estudios de soluciones energéticas para empresas y sector público. Su mayor valor es intangible: el conocimiento técnico y el de Aysén.",
     img: "/servicios/servicio-01-v1.webp",
-    objPos: "bottom",
+    objPos: "center 75%",
   },
   {
     n: "02",
