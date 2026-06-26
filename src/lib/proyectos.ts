@@ -12,7 +12,8 @@ export type ProyectoFact = { label: string; value: string };
 
 export type Proyecto = {
   slug: string;
-  /** Pill superior de la card (dominio). Outfit uppercase. */
+  /** Dominio del proyecto. Ya NO se renderiza como pill (H5): se conserva solo
+   *  como eyebrow del prev/next cuando haya varios proyectos. Outfit uppercase. */
   domain: string;
   title: string;
   /** Substring del título a resaltar (acento terra) en el hero del detalle. Solo énfasis. */
@@ -77,57 +78,6 @@ export const PROYECTOS: Proyecto[] = [
       { label: "Estaciones meteorológicas", detail: "Caracterización del viento" },
       { label: "Analizador de redes Clase A", detail: "Medición para netbilling" },
     ],
-  },
-  {
-    slug: "estudios-energeticos-ciep",
-    domain: "Hídrica",
-    title: "Estudios energéticos para el CIEP",
-    kicker: "Consultoría · sistemas aislados de Aysén",
-    image: "/proyectos/ciep.jpg",
-    imageAlt: "Río de montaña en la Patagonia, potencial para microcentrales hidráulicas",
-    cardFacts: [
-      "Microcentrales hidráulicas con netbilling",
-      "Prefactibilidad solar y eólica",
-      "Foco en sistemas aislados",
-    ],
-    lead:
-      "Estudios energéticos que lideramos para el CIEP: el potencial hidráulico de Aysén y la prefactibilidad de soluciones solares y eólicas para sistemas aislados.",
-    facts: [
-      { label: "Cliente", value: "CIEP — Centro de Investigación en Ecosistemas de la Patagonia" },
-      { label: "Línea 1", value: "Potencial de microcentrales hidráulicas para Aysén con netbilling" },
-      { label: "Línea 2", value: "Prefactibilidad de plantas solares y eólicas para sistemas aislados" },
-      { label: "Enfoque", value: "Autogeneración renovable adaptada a la realidad regional" },
-    ],
-    context:
-      "Aysén es una región aislada, de grandes distancias y baja densidad poblacional, donde la energía —eléctrica y térmica— cuesta especialmente caro. Para muchas comunidades y sistemas aislados, la autogeneración renovable no es una opción más: es la diferencia entre que un proyecto sea viable o no.",
-    did:
-      "Lideramos para el CIEP estudios del potencial de microcentrales hidráulicas para Aysén mediante netbilling, y de prefactibilidad de plantas solares y eólicas para sistemas aislados de la región. Pusimos nuestra capacidad de cómputo y nuestro conocimiento del territorio al servicio de decisiones de inversión informadas.",
-    capabilities: ["Consultoría energética", "Simulación de microrredes (Homer Pro)", "Prefactibilidad", "Conocimiento del territorio"],
-  },
-  {
-    slug: "biodiesel-regional",
-    domain: "Manufactura",
-    title: "Producción de biodiésel regional",
-    kicker: "Manufactura sustentable",
-    image: "/proyectos/biodiesel.jpg",
-    imageAlt: "Campo de raps en flor, cultivo asociado a la producción de biodiésel",
-    cardFacts: [
-      "Combustible renovable producido en la región",
-      "Línea de manufactura avanzada",
-      "Menos dependencia del combustible",
-    ],
-    lead:
-      "Un proyecto de producción de biodiésel a escala regional, dentro de nuestra línea de manufactura avanzada y mitigación ambiental.",
-    facts: [
-      { label: "Línea", value: "Manufactura avanzada y mitigación ambiental" },
-      { label: "Objetivo", value: "Producción de biodiésel a escala regional" },
-      { label: "Por qué importa", value: "El alto costo del combustible y la dependencia energética son críticos en Aysén" },
-    ],
-    context:
-      "En Aysén el costo del combustible y la dependencia energética son factores que, si no se abordan desde el inicio, suelen ser fatales para un proyecto o un emprendimiento. Un biodiésel producido en la propia región apunta justo a ese problema.",
-    did:
-      "Es uno de los proyectos que buscamos destacar dentro de nuestra línea de upcycling, manufactura avanzada y mitigación ambiental.",
-    capabilities: ["Manufactura avanzada", "Mitigación ambiental", "Cuantificación de emisiones"],
   },
 ];
 

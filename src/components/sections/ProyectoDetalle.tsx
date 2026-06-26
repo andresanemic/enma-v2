@@ -30,6 +30,11 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
   // si no, cae a las capabilities simples (CIEP / biodiésel).
   const steps = proyecto.approach ?? proyecto.capabilities.map((label) => ({ label, detail: "" }));
 
+  // Con un solo proyecto, getProyectoNav es circular y prev/next serían el mismo
+  // proyecto apuntándose a sí mismo (H5): ocultamos "Más proyectos". Vuelve solo
+  // cuando se sumen proyectos.
+  const hasMore = nav.prev.slug !== proyecto.slug && nav.next.slug !== proyecto.slug;
+
   // Título con realce: parte el título alrededor de titleAccent (solo énfasis).
   const renderTitle = () => {
     const acc = proyecto.titleAccent;
@@ -172,16 +177,12 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
           <div data-fade className="relative" style={{ opacity: 0 }}>
             <div data-panel className="relative aspect-[4/5] w-full overflow-hidden rounded-[18px] ring-1 ring-ink/15 shadow-[0_30px_70px_-40px_rgba(26,26,26,0.6)]" style={{ clipPath: "inset(100% 0 0 0 round 18px)" }}>
               <Image src={proyecto.image} alt={proyecto.imageAlt} fill priority sizes="(min-width: 768px) 520px, 90vw" className="object-cover object-center" />
-              {/* Scrim inferior → la pill y el borde se leen */}
+              {/* Scrim inferior tenue → el borde de la foto se asienta sobre el panel */}
               <span
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-0"
                 style={{ background: "linear-gradient(0deg, rgba(26,26,26,0.22) 0%, transparent 20%)" }}
               />
-              {/* Pill de dominio (sin eyebrow sobre el título) */}
-              <span className="absolute left-4 top-4 rounded-full bg-cream/90 px-3.5 py-1.5 font-body text-xs font-semibold uppercase tracking-[0.16em] text-ink shadow-[0_6px_18px_-8px_rgba(26,26,26,0.5)] backdrop-blur-sm">
-                {proyecto.domain}
-              </span>
             </div>
           </div>
         </div>
@@ -278,11 +279,13 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
       </section>
 
       {/* ════════ 4 · CÓMO LO ABORDAMOS — riel conectado (ex-pills) ════════ */}
+      {/* Última sección cálida cuando no hay "Más proyectos": su gradiente sube de
+          vuelta a #f3ddbc para empalmar con el verde del Footer sin costura. */}
       <section
         data-reveal="rail"
         data-nav="light"
         className="relative w-full"
-        style={{ background: "linear-gradient(180deg, #e8c08e 0%, #edca9c 100%)" }}
+        style={{ background: `linear-gradient(180deg, #e8c08e 0%, ${hasMore ? "#edca9c" : "#f3ddbc"} 100%)` }}
       >
         <div className="mx-auto max-w-[1180px] px-6 py-12 sm:px-10 md:px-14 md:py-16">
           <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-ink/55" style={{ opacity: 0 }}>
@@ -327,29 +330,31 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
         </div>
       </section>
 
-      {/* ════════ 5 · SIGUIENTE LÁMINA — prev / next con imagen ════════ */}
-      <section
-        data-reveal="next"
-        data-nav="light"
-        className="relative w-full"
-        style={{ background: "linear-gradient(180deg, #edca9c 0%, #f3ddbc 100%)" }}
-      >
-        <div className="mx-auto max-w-[1180px] px-6 pb-20 pt-4 sm:px-10 md:px-14 md:pb-24">
-          <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-ink/55" style={{ opacity: 0 }}>
-            Más proyectos
-          </h2>
-          <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
-            <PrevNextCard
-              item={{ href: `/proyectos/${nav.prev.slug}`, image: nav.prev.image, imageAlt: nav.prev.imageAlt, eyebrow: nav.prev.domain, title: nav.prev.title }}
-              dir="prev"
-            />
-            <PrevNextCard
-              item={{ href: `/proyectos/${nav.next.slug}`, image: nav.next.image, imageAlt: nav.next.imageAlt, eyebrow: nav.next.domain, title: nav.next.title }}
-              dir="next"
-            />
+      {/* ════════ 5 · SIGUIENTE LÁMINA — prev / next con imagen (solo si hay más) ════════ */}
+      {hasMore && (
+        <section
+          data-reveal="next"
+          data-nav="light"
+          className="relative w-full"
+          style={{ background: "linear-gradient(180deg, #edca9c 0%, #f3ddbc 100%)" }}
+        >
+          <div className="mx-auto max-w-[1180px] px-6 pb-20 pt-4 sm:px-10 md:px-14 md:pb-24">
+            <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-ink/55" style={{ opacity: 0 }}>
+              Más proyectos
+            </h2>
+            <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
+              <PrevNextCard
+                item={{ href: `/proyectos/${nav.prev.slug}`, image: nav.prev.image, imageAlt: nav.prev.imageAlt, eyebrow: nav.prev.domain, title: nav.prev.title }}
+                dir="prev"
+              />
+              <PrevNextCard
+                item={{ href: `/proyectos/${nav.next.slug}`, image: nav.next.image, imageAlt: nav.next.imageAlt, eyebrow: nav.next.domain, title: nav.next.title }}
+                dir="next"
+              />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </div>
   );
 }

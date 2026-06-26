@@ -9,12 +9,14 @@ import { PROYECTOS } from "@/lib/proyectos";
 // ─────────────────────────────────────────────────────────────────────────────
 // PROYECTOS — mini-landing (banco de proyectos). 3 secciones, igual que Vinculación:
 //   1 · Hero (sin imágenes) — portada de dossier, datum que se traza.
-//   2 · Fila de 3 cards que GIRAN en hover (foto ↔ ficha de ingeniería).
+//   2 · Card destacada 16:9 a todo el ancho (H5): hoy un único proyecto — al
+//       hover/tap la foto se desenfoca y revela datos + CTA (foto ↔ ficha). El
+//       .map se conserva: si se suman proyectos, apilan cards anchas.
 //   3 · Cierre cálido centrado (mismo patrón que Vinculación) → entrega al Footer.
 //
 // Firma: "papel técnico / blueprint" — grilla de ingeniería de fondo, cotas y el
 // giro foto→plano que encarna la tesis (territorio ↔ rigor). Acento terra + "E" teal.
-// Copy en 1ª persona; datos solo de que-es-enma.txt.
+// Copy en 1ª persona; datos solo de que-es-enma.txt. Sin pills de dominio (H5).
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function Proyectos() {
@@ -155,7 +157,11 @@ export default function Proyectos() {
         </div>
       </section>
 
-      {/* ════════ 2 · CARDS — fila de 3 que giran (foto ↔ ficha) ════════ */}
+      {/* ════════ 2 · CARD — proyecto destacado (16:9 a todo el ancho) ════════ */}
+      {/* Una sola card horizontal (H5): la foto ocupa el ancho; al hover/tap se
+          desenfoca y revela los datos + CTA (interacción firma foto ↔ ficha).
+          En móvil va algo más alta (la foto es vertical y el panel necesita aire);
+          desde sm queda 16:9 estricto. Sin pill de dominio. */}
       <section
         data-reveal="cards"
         data-nav="light"
@@ -163,7 +169,7 @@ export default function Proyectos() {
         style={{ background: "linear-gradient(180deg, #f3ddbc 0%, #eecea1 100%)" }}
       >
         <div className="relative mx-auto max-w-[1340px] px-6 pb-20 pt-4 sm:px-10 md:px-14 md:pb-28 md:pt-6">
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
+          <div className="flex flex-col gap-6">
             {PROYECTOS.map((p) => {
               const mob = activeMobileCard === p.slug;
               return (
@@ -173,15 +179,16 @@ export default function Proyectos() {
                   onClick={handleCardClick(p.slug)}
                   data-card
                   aria-label={`${p.title} — ver proyecto`}
-                  className="group relative block aspect-[3/4.4] w-full overflow-hidden rounded-[18px] outline-none ring-1 ring-ink/12 transition-shadow duration-500 focus-visible:ring-2 focus-visible:ring-terra/60 hover:shadow-[0_28px_60px_-28px_rgba(26,26,26,0.45)]"
+                  className="group relative block aspect-[4/5] w-full overflow-hidden rounded-[20px] outline-none ring-1 ring-ink/12 transition-shadow duration-500 focus-visible:ring-2 focus-visible:ring-terra/60 hover:shadow-[0_34px_80px_-34px_rgba(26,26,26,0.5)] sm:aspect-video"
                   style={{ opacity: 0 }}
                 >
                   <Image
                     src={p.image}
                     alt={p.imageAlt}
                     fill
-                    sizes="(min-width: 1024px) 360px, (min-width: 640px) 45vw, 90vw"
-                    className={`object-cover object-center transition-[filter] duration-700 ease-out group-hover:blur-[7px] group-focus-within:blur-[7px]${mob ? " blur-[7px]" : ""}`}
+                    priority
+                    sizes="(min-width: 1340px) 1280px, 92vw"
+                    className={`object-cover object-center transition-[filter] duration-700 ease-out group-hover:blur-[6px] group-focus-within:blur-[6px]${mob ? " blur-[6px]" : ""}`}
                   />
                   {/* Scrim base */}
                   <span
@@ -189,48 +196,43 @@ export default function Proyectos() {
                     className="pointer-events-none absolute inset-0"
                     style={{
                       background:
-                        "linear-gradient(180deg, rgba(26,26,26,0.28) 0%, transparent 26%, transparent 52%, rgba(26,26,26,0.78) 100%)",
+                        "linear-gradient(180deg, rgba(26,26,26,0.20) 0%, transparent 30%, transparent 46%, rgba(26,26,26,0.80) 100%)",
                     }}
                   />
                   {/* Velo oscuro al hover / tap */}
                   <span
                     aria-hidden="true"
-                    className={`pointer-events-none absolute inset-0 transition-colors duration-500 ease-out group-hover:bg-ink/55 group-focus-within:bg-ink/55${mob ? " bg-ink/55" : " bg-ink/0"}`}
+                    className={`pointer-events-none absolute inset-0 transition-colors duration-500 ease-out group-hover:bg-ink/50 group-focus-within:bg-ink/50${mob ? " bg-ink/50" : " bg-ink/0"}`}
                   />
 
-                  {/* Pill de dominio */}
-                  <span className="absolute left-4 top-4 rounded-full bg-cream/90 px-3.5 py-1.5 font-body text-xs font-semibold uppercase tracking-[0.16em] text-ink shadow-[0_6px_18px_-8px_rgba(26,26,26,0.5)] backdrop-blur-sm">
-                    {p.domain}
-                  </span>
-
-                  <div className="absolute inset-x-0 bottom-0 p-6">
+                  <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8 md:p-10">
                     <h2
-                      className="m-0 font-display font-medium text-cream"
-                      style={{ fontSize: "clamp(1.5rem, 2.4vw, 1.95rem)", lineHeight: 1.1, letterSpacing: "-0.02em" }}
+                      className="m-0 max-w-[20ch] font-display font-medium text-cream"
+                      style={{ fontSize: "clamp(1.9rem, 3.6vw, 3rem)", lineHeight: 1.05, letterSpacing: "-0.03em" }}
                     >
                       {p.title}
                     </h2>
-                    <p className={`mt-2 font-body text-[15px] font-light text-cream/75 transition-opacity duration-300 ease-out group-hover:opacity-0 group-focus-within:opacity-0${mob ? " opacity-0" : ""}`}>
+                    <p className={`mt-2.5 font-body text-[15px] font-light text-cream/75 transition-opacity duration-300 ease-out group-hover:opacity-0 group-focus-within:opacity-0 sm:text-base${mob ? " opacity-0" : ""}`}>
                       {p.kicker}
                     </p>
 
                     <div className={`grid transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:grid-rows-[1fr] group-hover:opacity-100 group-focus-within:grid-rows-[1fr] group-focus-within:opacity-100${mob ? " grid-rows-[1fr] opacity-100" : " grid-rows-[0fr] opacity-0"}`}>
                       <div className="overflow-hidden">
-                        <ul className="mt-4 flex flex-col gap-2.5">
+                        <ul className="mt-5 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:gap-x-9 sm:gap-y-2.5">
                           {p.cardFacts.map((f) => (
                             <li key={f} className="flex items-start gap-2.5">
                               <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange" />
-                              <span className="font-body text-sm font-light leading-snug text-cream/85">{f}</span>
+                              <span className="font-body text-sm font-light leading-snug text-cream/85 sm:text-[15px]">{f}</span>
                             </li>
                           ))}
                         </ul>
                         {mob && (
-                          <p className="mt-4 font-body text-xs font-semibold uppercase tracking-[0.12em] text-orange/90">
+                          <p className="mt-5 font-body text-xs font-semibold uppercase tracking-[0.12em] text-orange/90">
                             Toca de nuevo para entrar →
                           </p>
                         )}
                         {!mob && (
-                          <span className="mt-5 inline-flex items-center gap-2 font-display text-base font-medium text-cream">
+                          <span className="mt-6 inline-flex items-center gap-2 font-display text-base font-medium text-cream sm:text-lg">
                             <span className="relative">
                               Ver proyecto
                               <span aria-hidden="true" className="absolute -bottom-1 left-0 h-px w-full bg-orange" />
