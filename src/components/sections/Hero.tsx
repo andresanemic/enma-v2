@@ -4,12 +4,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap";
-import HeroVideo from "@/components/hero/HeroVideo";
-
-// TODO: reemplazar con video propio de Enma (Patagonia / proceso / I+D).
-// Debe servirse con CORS o desde /public/video para reemplazar este placeholder.
-const HERO_VIDEO =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260511_131941_d136af49-e243-493a-be14-6ff3f24e09e6.mp4";
+import HeroBackdrop from "@/components/hero/HeroBackdrop";
 
 const LINES = ["Energía y", "Manufactura"];
 const ACCENT = "Sustentable";
@@ -114,8 +109,8 @@ export default function Hero() {
         background: "linear-gradient(150deg, #15110e 0%, #3a1305 60%, #5a1f08 100%)",
       }}
     >
-      {/* Video full-bleed (placeholder) — el gradiente cálido queda detrás */}
-      <HeroVideo src={HERO_VIDEO} />
+      {/* Imagen full-bleed con Ken Burns lento — el gradiente cálido queda detrás */}
+      <HeroBackdrop />
 
       {/* ── Grade cálido + scrim direccional (contraste corregido) ──
           1) tinte cálido (multiply terra) para alejar el frío del video
@@ -218,19 +213,28 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* ── Indicador de scroll — bottom-right ── */}
+      {/* ── Crédito de la foto — bottom-right (sustituye al indicador de scroll) ── */}
       <div
         data-scroll
         style={{ opacity: 0 }}
-        className="absolute bottom-9 right-6 z-10 hidden items-center gap-2 text-cream/45 sm:flex md:right-14"
+        className="absolute bottom-9 right-6 z-10 hidden sm:block md:right-14"
       >
-        <span className="eyebrow !tracking-[0.2em] text-cream/45">scroll</span>
-        <span className="block h-8 w-px overflow-hidden bg-cream/25">
-          <span
-            className="block h-full w-full bg-cream/70"
-            style={{ animation: "hero-scroll 1.8s ease-in-out infinite" }}
-          />
-        </span>
+        <p className="font-body text-[11px] font-light leading-tight tracking-[0.04em] text-cream/55">
+          Foto de{" "}
+          <a
+            href="https://unsplash.com/@carter_obasohan"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative font-normal text-cream/85 transition-colors duration-200 hover:text-cream"
+          >
+            Carter Obasohan
+            <span
+              aria-hidden="true"
+              className="absolute -bottom-0.5 left-0 h-px w-full origin-right scale-x-0 bg-cream/70 transition-transform duration-500 group-hover:origin-left group-hover:scale-x-100"
+            />
+          </a>
+          , Cerro Castillo, Aysén.
+        </p>
       </div>
     </section>
   );

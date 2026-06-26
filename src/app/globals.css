@@ -58,11 +58,23 @@ body {
   color: #1a1a1a;
 }
 
-/* Indicador de scroll del Hero */
-@keyframes hero-scroll {
-  0% { transform: scaleY(0); transform-origin: top; opacity: 1; }
-  50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
-  100% { transform: scaleY(1); transform-origin: bottom; opacity: 0; }
+/* Hero — zoom lento del fondo (reemplaza el zoom del video placeholder).
+   Animamos un wrapper DIV (no el <img>) con will-change → capa de compositor (GPU).
+   Zoom puro 1.2 → 1.0: parte acercado y termina mostrando la imagen completa.
+   Sin paneo (translate) → a scale 1.0 el object-cover llena exacto, sin bordes. */
+@keyframes hero-kenburns {
+  from { transform: scale(1.2); }
+  to { transform: scale(1); }
+}
+.hero-kenburns {
+  transform: scale(1);
+  animation: hero-kenburns 14s ease-in-out infinite alternate;
+  will-change: transform;
+}
+/* Reduced motion: imagen quieta y completa (scale 1). El bloque global ya frena
+   animaciones; este override la deja limpia en vez de saltar al frame final. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-kenburns { animation: none !important; transform: scale(1); }
 }
 
 /* Métricas — flotación suave de cada métrica sobre el campo de viento */
