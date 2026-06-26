@@ -19,8 +19,7 @@ export type RichText = InlineSpan[];
 export type ArticleBlock =
   | { type: "p"; spans: RichText }
   | { type: "h2"; text: string }
-  | { type: "quote"; text: string; cite?: string }
-  | { type: "fact"; value: string; label: string };
+  | { type: "quote"; text: string; cite?: string };
 
 export type Article = {
   slug: string;
@@ -70,7 +69,6 @@ export const ARTICLES: Article[] = [
         { text: `netbilling`, italic: true },
         `. No es ciencia ficción; es ingeniería aplicada al territorio.`,
       ] },
-      { type: "fact", value: `Al norte de Puerto Montt`, label: `VIAJAN HOY LOS RESIDUOS RECICLABLES DE AYSÉN` },
       { type: "h2", text: `Una turbina pensada para el viento patagónico` },
       { type: "p", spans: [
         `En esa línea estamos desarrollando, con financiamiento de la `,
@@ -109,7 +107,6 @@ export const ARTICLES: Article[] = [
         { text: `simulaciones computacionales fluidodinámicas (CFD)`, bold: true },
         ` para optimizar el diseño de sistemas que interactúan con fluidos, y la cuantificación de huella de carbono para empresas y municipalidades.`,
       ] },
-      { type: "fact", value: `CORFO · ANID`, label: `INSTRUMENTOS PÚBLICOS QUE FORMULAMOS Y ACOMPAÑAMOS` },
       { type: "p", spans: [`El valor de simular es tangible: con capacidad de cómputo podemos validar soluciones complejas de manera rápida y confiable, contrastando la teoría con modelos antes de gastar en terreno. Eso se traduce en eficiencia y, a la larga, en menores costos por el tiempo de ejecución.`] },
       { type: "p", spans: [
         `No me gusta la palabra experto; prefiero `,
@@ -141,7 +138,6 @@ export const ARTICLES: Article[] = [
         { text: `bajar ese costo energético`, bold: true },
         `, porque cuando la energía es más barata aumenta la productividad y aparecen nuevas oportunidades.`,
       ] },
-      { type: "fact", value: `ENergía + MAnufactura`, label: `EL ORIGEN DEL NOMBRE ENMA` },
       { type: "h2", text: `¿Qué servicios ofrece?` },
       { type: "p", spans: [
         `Enma acompaña proyectos de principio a fin. Lo más importante es la consultoría y los estudios de soluciones energéticas, que abren la puerta a todo lo demás. También formula y acompaña proyectos para postular a fondos públicos (como `,

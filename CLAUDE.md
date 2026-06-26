@@ -270,8 +270,8 @@ El wireframe define contenido y orden lógico, no el layout visual final — el 
 - [ ] **Fase H** — Road to Namecheap: arreglos finales + deploy vía FTP ← **siguiente**
   - [x] **H1** — Cambios generales ✅ COMPLETA y pusheada (2026-06-26): métrica → 10, leads blog, capas cálidas CFD+túnel, copy Proyectos/equipo, revisión "Territorio", fix object-position Services (commits 4ca4904, 9fc1990)
   - [x] **H2** — Rediseño acordeón Vinculación (click en vez de hover, imágenes reales de participaciones)
-  - [ ] **H3** — Simplificación metadata Blog (quitar "socio fundador" y fecha de la lista de artículos)
-  - [ ] **H4** — Rediseño páginas de lectura `/blog/[slug]` (brainstorming previo obligatorio)
+  - [x] **H3** — Simplificación metadata Blog (quitar "socio fundador" y fecha de la lista de artículos)
+  - [x] **H4** — Rediseño páginas de lectura `/blog/[slug]` ✅ COMPLETA y aprobada (2026-06-26). Rich text inline (negrita/cursiva/links externos vía spans en `ArticleBlock`), bloque **PullQuote** (cita destacada con cite, acento teal), cuerpo `text-xl`/columna `72ch`, lead mayor, topic como label limpio (sin pill). Links externos (ANID/CORFO) con `rel="noopener noreferrer"` + aviso `sr-only` de pestaña nueva. **DataFact se exploró y se DESCARTÓ** (el usuario lo eliminó: ni tipo `fact`, ni render, ni datos). Spec/plan en `docs/superpowers/`. `components/sections/BlogArticle.tsx` + `lib/blog.ts`.
   - [ ] **H5** — Cambios página Proyectos (reducir a 1 proyecto, card 16:9, quitar pills)
   - [ ] **H6** — Optimización SEO (sitemap.xml, metadata, preparar Google Search Console)
   - [ ] **H7** — Build de producción + preparación export estático para FTP

@@ -247,21 +247,6 @@ export default function BlogArticle({ article, nav }: { article: Article; nav: N
                   </figure>
                 );
               }
-              if (block.type === "fact") {
-                return (
-                  <div key={i} data-fade className="my-9" style={{ opacity: 0 }}>
-                    {/* Card compacta inline: abraza su contenido, no se estira al ancho de la columna */}
-                    <span className="inline-flex max-w-full flex-col rounded-2xl bg-[#f3ddbc] px-6 py-4 ring-1 ring-ink/10">
-                      <span className="font-display font-medium text-teal" style={{ fontSize: "clamp(1.4rem, 2.6vw, 1.85rem)", lineHeight: 1.12, letterSpacing: "-0.02em" }}>
-                        {block.value}
-                      </span>
-                      <span className="mt-1.5 font-body text-xs font-semibold uppercase tracking-[0.16em] text-ink/55">
-                        {block.label}
-                      </span>
-                    </span>
-                  </div>
-                );
-              }
               return (
                 <p key={i} data-fade className="mt-6 font-body text-xl font-light text-ink/80 first:mt-0" style={{ opacity: 0, lineHeight: 1.8 }}>
                   {renderSpans(block.spans)}
