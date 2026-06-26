@@ -35,7 +35,7 @@ const APARICIONES: Aparicion[] = [
     tag: "Charla",
     title: "Congreso Jóvenes Futuro Aysén",
     outlet: "Congreso Jóvenes Futuro Aysén",
-    images: ["/vinculacion/participaciones/congreso-jovenes-futuro-v2.webp"],
+    images: ["/vinculacion/participaciones/congreso-jovenes-futuro-v3.webp"],
   },
   {
     id: "rocco-tv",
@@ -111,6 +111,10 @@ export default function Vinculacion() {
   const [channel, setChannel] = useState<Channel>("todo");
   const [repoIn, setRepoIn] = useState(false);
   const [openId, setOpenId] = useState<string | null>(null);
+  // Imágenes ya decodificadas: la foto del acordeón es lazy y solo carga al
+  // expandir; sin esto aparecería de golpe (rompe el tono premium en móvil).
+  // Arranca en opacity:0 y entra con fade al terminar de cargar (onLoad).
+  const [loadedImg, setLoadedImg] = useState<Set<string>>(new Set());
   const reduceMotion =
     typeof window !== "undefined" &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -433,8 +437,20 @@ export default function Vinculacion() {
                           width={0}
                           height={0}
                           sizes="(min-width: 768px) 55vw, 90vw"
+                          onLoad={() =>
+                            setLoadedImg((prev) =>
+                              prev.has(a.id) ? prev : new Set(prev).add(a.id)
+                            )
+                          }
                           className="mt-4 w-full rounded-xl"
-                          style={{ height: "auto" }}
+                          style={{
+                            height: "auto",
+                            opacity: loadedImg.has(a.id) ? 1 : 0,
+                            transform: loadedImg.has(a.id) ? "scale(1)" : "scale(1.02)",
+                            transition: reduceMotion
+                              ? "none"
+                              : "opacity 600ms ease-out, transform 700ms ease-out",
+                          }}
                         />
                       )}
                     </div>
