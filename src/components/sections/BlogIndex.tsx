@@ -154,13 +154,6 @@ export default function BlogIndex() {
                 quienes lo viven de cerca.
               </p>
 
-              <p
-                data-fade
-                className="mt-9 max-w-[52ch] font-body text-sm font-light uppercase tracking-[0.2em] text-ink/45"
-                style={{ opacity: 0 }}
-              >
-                Energía · Territorio · Manufactura · Patagonia
-              </p>
             </div>
 
             {/* ── Imagen del hero — atmósfera patagónica con velo cálido y clip-wipe ── */}

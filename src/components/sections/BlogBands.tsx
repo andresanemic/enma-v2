@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { gsap } from "@/lib/gsap";
-import { ARTICLES, formatArticleDate } from "@/lib/blog";
+import { ARTICLES } from "@/lib/blog";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // BlogBands — franjas editoriales (imagen alternada izq/der) que listan todas
@@ -38,7 +38,7 @@ function ContourRule() {
   );
 }
 
-export default function BlogBands({ accent = "terra", compactMeta = false }: { accent?: Accent; compactMeta?: boolean }) {
+export default function BlogBands({ accent = "terra" }: { accent?: Accent }) {
   const ref = useRef<HTMLDivElement>(null);
   const a = ACCENT[accent];
 
@@ -185,17 +185,6 @@ export default function BlogBands({ accent = "terra", compactMeta = false }: { a
 
                 <div data-bmeta className="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1" style={{ opacity: 0 }}>
                   <span className="font-body text-[15px] font-medium text-ink sm:text-base">Por {art.author}</span>
-                  {!compactMeta && (
-                    <>
-                      {art.role && (
-                        <span className="font-body text-[11px] uppercase tracking-[0.18em] text-ink/50">{art.role}</span>
-                      )}
-                      <span aria-hidden="true" className="h-1 w-1 rounded-full bg-ink/30" />
-                      <time dateTime={art.date} className="font-body text-[13px] font-light text-ink/50">
-                        {formatArticleDate(art.date)}
-                      </time>
-                    </>
-                  )}
                 </div>
 
                 {/* "Leer nota" — subrayado que se traza + flecha que desliza */}

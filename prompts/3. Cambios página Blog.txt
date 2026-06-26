@@ -1,0 +1,40 @@
+# Minifase H3 — Simplificación de metadata en listas de artículos (Blog)
+
+## Contexto
+Fase H del proyecto Enma (road to Namecheap). H1 y H2 completas. Dos cambios quirúrgicos:
+simplificar el byline en las vistas de lista del Blog y eliminar el tagline del Hero de /blog.
+
+## Alcance
+NO abarca la página de lectura `/blog/[slug]` (BlogArticle.tsx) — ese rediseño es H4.
+
+## Cambio 1 — Byline en listas (BlogBands.tsx)
+
+BlogBands renderiza el byline en la sección Blog del landing Y en el índice /blog.
+Actualmente muestra: «Por Bruno Ortega · Socio fundador · 22 de junio de 2026»
+
+El componente tiene un prop `compactMeta` (default false) que cuando es true oculta
+rol y fecha. La solución correcta NO es pasar compactMeta={true} en todos los consumidores,
+sino eliminar por completo el bloque `{!compactMeta && (...)}` del JSX del byline.
+
+Después del cambio el byline solo muestra: «Por {art.author}»
+
+- Eliminar el prop `compactMeta` de la firma del componente (ya no se necesita).
+- Eliminar el import de `formatArticleDate` de BlogBands.tsx (queda sin uso aquí).
+- NO tocar `formatArticleDate`, `role` ni `date` en lib/blog.ts — los datos se preservan para H4.
+
+## Cambio 2 — Tagline del Hero (BlogIndex.tsx)
+
+En components/sections/BlogIndex.tsx, dentro del Hero (~líneas 157-163), hay un <p> con:
+«Energía · Territorio · Manufactura · Patagonia»
+
+Eliminarlo completo. El resto del Hero queda intacto.
+
+## Criterios de cierre
+- [ ] BlogBands: byline muestra solo «Por {author}»; rol y fecha eliminados del JSX
+- [ ] BlogBands: prop compactMeta eliminado; import formatArticleDate eliminado
+- [ ] BlogIndex: <p> «Energía · Territorio · Manufactura · Patagonia» eliminado del Hero
+- [ ] BlogArticle.tsx sin cambios (es H4)
+- [ ] lib/blog.ts sin cambios
+- [ ] pnpm typecheck sin errores
+- [ ] pnpm build OK
+- [ ] Commit descriptivo

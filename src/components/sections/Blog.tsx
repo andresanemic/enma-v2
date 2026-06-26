@@ -116,7 +116,7 @@ export default function Blog() {
         </div>
 
         {/* ── Franjas editoriales (compartidas con /blog) ── */}
-        <BlogBands accent="terra" compactMeta />
+        <BlogBands accent="terra" />
       </div>
     </section>
   );
