@@ -1,6 +1,15 @@
 import type { Metadata } from "next";
 import { Manrope, Outfit } from "next/font/google";
 import "./globals.css";
+import JsonLd from "@/components/seo/JsonLd";
+import {
+  DEFAULT_TITLE,
+  DEFAULT_DESCRIPTION,
+  SITE_NAME,
+  SITE_URL,
+  organizationJsonLd,
+  websiteJsonLd,
+} from "@/lib/seo";
 
 // Manrope — títulos y subtítulos
 const manrope = Manrope({
@@ -19,13 +28,27 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://enmachile.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Enma — Energía y manufactura sustentable desde la Patagonia",
+    default: DEFAULT_TITLE,
     template: "%s · Enma",
   },
-  description:
-    "Empresa chilena de base científico-tecnológica en energía y manufactura sustentable. Consultoría, simulaciones CFD y proyectos de energías renovables desde la Región de Aysén.",
+  description: DEFAULT_DESCRIPTION,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "es_CL",
+    siteName: SITE_NAME,
+    url: SITE_URL,
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+  },
+  verification: { google: "REEMPLAZAR_EN_FASE_I" },
 };
 
 export default function RootLayout({
@@ -39,6 +62,8 @@ export default function RootLayout({
       className={`${manrope.variable} ${outfit.variable}`}
     >
       <body>
+        <JsonLd data={organizationJsonLd()} />
+        <JsonLd data={websiteJsonLd()} />
         {children}
       </body>
     </html>
