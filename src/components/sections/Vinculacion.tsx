@@ -21,86 +21,59 @@ type Kind = "medios" | "charlas" | "entrevistas";
 
 type Aparicion = {
   id: string;
-  year: string; // TODO: confirmar fechas reales
+  year: string;
   kind: Kind;
-  tag: string; // etiqueta corta (Charla, Tribuna, Radio, Prensa, TV…)
+  tag: string;
   title: string;
-  outlet: string; // medio o lugar
-  detail: string; // línea que se revela al hover/focus
+  outlet: string;
+  images: string[];
 };
 
-// TODO(enma): reemplazar TODO este arreglo por las apariciones reales (medio,
-// fecha, enlace cuando exista). Los textos actuales son placeholders verosímiles.
 const APARICIONES: Aparicion[] = [
   {
-    id: "consejo-regional",
-    year: "2024",
-    kind: "charlas",
-    tag: "Tribuna",
-    title: "Camino a la descarbonización de Aysén",
-    outlet: "Comisión de Ciencia, Tecnología e Innovación · Consejo Regional",
-    detail:
-      "Presentamos tres formulaciones de proyectos energéticos para sectores aislados de la región y su ruta de implementación.",
-  },
-  {
-    id: "junta-vecinos",
-    year: "2024",
+    id: "congreso-jovenes-aysen",
+    year: "2026",
     kind: "charlas",
     tag: "Charla",
-    title: "Eficiencia energética para tu hogar",
-    outlet: "Junta de vecinos · Puerto Cisnes",
-    detail:
-      "Cómo bajar la cuenta de luz en una región donde la energía cuesta especialmente caro —explicado sin tecnicismos.",
+    title: "Congreso Jóvenes Futuro Aysén",
+    outlet: "Congreso Jóvenes Futuro Aysén",
+    images: ["/vinculacion/participaciones/congreso-jovenes-futuro.webp"],
   },
   {
-    id: "turbina-prensa",
-    year: "2024",
-    kind: "medios",
-    tag: "Prensa",
-    title: "Una turbina diseñada para el viento patagónico",
-    outlet: "TODO: medio digital regional",
-    detail:
-      "Reportaje sobre el prototipo de turbina eólica de baja escala desarrollado con financiamiento ANID.",
-  },
-  {
-    id: "radio-renovables",
-    year: "2024",
-    kind: "entrevistas",
-    tag: "Radio",
-    title: "Energías renovables para sistemas aislados",
-    outlet: "TODO: radio local",
-    detail:
-      "Conversamos sobre microcentrales hidráulicas, netbilling y autogeneración para comunidades aisladas de Aysén.",
-  },
-  {
-    id: "energia-territorio",
-    year: "2023",
-    kind: "charlas",
-    tag: "Charla",
-    title: "Energía que nace en el territorio",
-    outlet: "Encuentro abierto a la comunidad",
-    detail:
-      "Por qué las soluciones pensadas desde un escritorio en Santiago no resisten la realidad de la Patagonia.",
-  },
-  {
-    id: "columna-costo",
-    year: "2023",
-    kind: "medios",
-    tag: "Columna",
-    title: "El verdadero costo de la energía en Aysén",
-    outlet: "TODO: medio digital",
-    detail:
-      "Columna sobre dependencia energética, costo del combustible y logística como factores que matan proyectos.",
-  },
-  {
-    id: "tv-origen",
-    year: "2023",
+    id: "rocco-tv",
+    year: "2025",
     kind: "entrevistas",
     tag: "TV",
-    title: "Innovación con raíces en la Patagonia",
-    outlet: "TODO: canal de televisión local",
-    detail:
-      "Nota sobre el origen de Enma en Puerto Cisnes y su trabajo en energía y manufactura sustentable.",
+    title: "Estudios energéticos regionales",
+    outlet: "Rocco TV",
+    images: ["/vinculacion/participaciones/patricio-rocco-tv.webp"],
+  },
+  {
+    id: "radio-santa-maria",
+    year: "2025",
+    kind: "entrevistas",
+    tag: "Radio",
+    title: "Estudios energéticos regionales",
+    outlet: "Radio Santa María",
+    images: ["/vinculacion/participaciones/patricio-radio-santa-maria.webp"],
+  },
+  {
+    id: "contexto-energetico-aysen",
+    year: "2025",
+    kind: "charlas",
+    tag: "Charla",
+    title: "Contexto energético en la Región de Aysén",
+    outlet: "Charla pública · Aysén",
+    images: ["/vinculacion/participaciones/charla-patricio-contexto-energetico.webp"],
+  },
+  {
+    id: "litoral-aysen",
+    year: "2025",
+    kind: "charlas",
+    tag: "Charla",
+    title: "Difusión de estudios energéticos en el litoral",
+    outlet: "Litoral de Aysén",
+    images: ["/vinculacion/participaciones/patricio-charla-litoral.webp"],
   },
 ];
 
