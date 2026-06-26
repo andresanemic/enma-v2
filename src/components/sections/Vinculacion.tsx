@@ -12,9 +12,7 @@ import SignalMarquee from "./SignalMarquee";
 // presencia de Enma") y la voz de los fundadores (entrevistas). La marca es
 // "comunicativa, activa, intrusa pero profesional, entra por la vista".
 //
-// ⚠️ CONTENIDO PLACEHOLDER: aún NO hay listado real de apariciones. Las entradas
-// de abajo son verosímiles (derivadas del contexto regional real) pero deben
-// reemplazarse por el registro real. Cada campo a confirmar lleva un TODO.
+// Contenido real actualizado 2026-06-26. Añadir nuevas apariciones según ocurran.
 // ─────────────────────────────────────────────────────────────────────────────
 
 type Kind = "medios" | "charlas" | "entrevistas";
@@ -353,7 +351,9 @@ export default function Vinculacion() {
               className="flex flex-wrap items-center gap-2"
               style={{ opacity: 0 }}
             >
-              {CHANNELS.map((c) => {
+              {CHANNELS.filter(
+                (c) => c.id === "todo" || APARICIONES.some((a) => a.kind === c.id)
+              ).map((c) => {
                 const on = channel === c.id;
                 return (
                   <button
