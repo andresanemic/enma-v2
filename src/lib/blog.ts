@@ -38,7 +38,7 @@ export const ARTICLES: Article[] = [
     topic: "Energía",
     title: "En Aysén pagamos la energía más cara. Y tenemos cómo cambiarlo",
     summary:
-      "La lejanía encarece cada kilovatio de la región. Por qué el costo energético frena a la Patagonia —y qué ingeniería ya tenemos para revertirlo hoy.",
+      "Somos la región con menor densidad poblacional del país, lo cual encarece los proyectos energéticos y nos mantiene hoy día con una fuerte dependencia Diesel. Sin embargo, tenemos de todo al alcance para cambiarlo.",
     author: "Bruno Ortega",
     role: "Socio fundador",
     date: "2026-06-22",
@@ -64,7 +64,7 @@ export const ARTICLES: Article[] = [
     topic: "Territorio",
     title: "La Patagonia se resuelve desde la Patagonia",
     summary:
-      "La pertenencia territorial no es un eslogan: es una ventaja técnica. Por qué la realidad de Aysén no se entiende —ni se resuelve— a control remoto.",
+      "Porque los desafíos regionales no se resuelven sin entender las particularidades logísticas, climáticas y culturales del territorio.",
     author: "Patricio Campos",
     role: "Socio fundador",
     date: "2026-06-22",

@@ -14,7 +14,7 @@ const DIFERENCIADORES: Diferenciador[] = [
     lead: "Pertenencia",
     accent: "territorial",
     support:
-      "Nacimos en el territorio. El desafío logístico de la Patagonia mata a quien no lo considera desde el primer día.",
+      "Nacimos en Aysén. El desafío logístico de la Patagonia mata a quien no lo considera desde el primer día.",
   },
   {
     lead: "Soluciones",
@@ -44,17 +44,19 @@ const VALORES: Valor[] = [
   { word: "Disciplina", gloss: "Método y rigor, de la simulación a la obra." },
 ];
 
-type Cofounder = { name: string; role: string; photo: string; alt: string; bio: string };
+type Cofounder = { name: string; nameLine2?: string; role: string; photo: string; alt: string; bio: string };
 const COFOUNDERS: Cofounder[] = [
   {
-    name: "Bruno Ortega Leiva",
+    name: "Bruno Ortega",
+    nameLine2: "Leiva",
     role: "Gerente de proyecto",
     photo: "/equipo/bruno-ortega-v3.webp",
     alt: "Bruno Ortega, co-fundador de Enma",
     bio: "Ingeniero civil mecánico. Diez años en energías renovables e innovación, donde lidero proyectos de hidrógeno verde y geotermia con mirada territorial y sostenible. Sumo experiencia en IoT, sensorización y automatización.",
   },
   {
-    name: "Patricio Campos Cisternas",
+    name: "Patricio Campos",
+    nameLine2: "Cisternas",
     role: "Personal científico-tecnológico",
     photo: "/equipo/patricio-campos-v2.webp",
     alt: "Patricio Campos, co-fundador de Enma",
@@ -340,7 +342,7 @@ export default function Nosotros() {
                 style={{ opacity: 0 }}
               >
                 Energía y manufactura sustentable, diseñadas desde la Patagonia.
-                Hechas a la medida de un territorio difícil.
+                Hechas a la medida de la Patagonia.
               </p>
               <p
                 data-rise
@@ -373,8 +375,7 @@ export default function Nosotros() {
                   Entre 2022 y 2023 fundamos Enma en Puerto Cisnes, al alero de dos
                   proyectos: el upcycling de residuos salmoneros que diseñó Patricio y
                   la calefacción geotérmica que supervisó Bruno. Ese cruce —energía y
-                  residuos, resueltos con ingeniería a la medida en un territorio
-                  difícil— es nuestro ADN.
+                  residuos, resueltos con ingeniería a la medida en ese contexto— es nuestro ADN.
                 </p>
               </div>
               <div className="order-1 md:order-2">
@@ -510,7 +511,7 @@ export default function Nosotros() {
                   <p className="mt-4 max-w-[46ch] font-body text-base font-light leading-relaxed text-ink/70 sm:text-lg">
                     Diseñar y desarrollar soluciones sustentables en energía y
                     manufactura para personas, comunidades y empresas, resolviendo
-                    problemas reales de un territorio complejo y reduciendo los costos
+                    problemas reales de la región y reduciendo los costos
                     energéticos y el impacto ambiental.
                   </p>
                 </div>
@@ -599,7 +600,13 @@ export default function Nosotros() {
                     </div>
                     <div className="min-w-0">
                       <h3 data-rise className="m-0 font-display font-light leading-tight text-ink" style={{ opacity: 0, fontSize: "clamp(1.5rem, 2.6vw, 2.1rem)", letterSpacing: "-0.02em" }}>
-                        {cf.name}
+                        {cf.nameLine2 ? (
+                          <>
+                            {cf.name}
+                            <br className="hidden md:block" />
+                            {cf.nameLine2}
+                          </>
+                        ) : cf.name}
                       </h3>
                       <p data-rise className="mt-1.5 font-body text-[11px] uppercase tracking-[0.2em] text-ink/55" style={{ opacity: 0 }}>
                         {cf.role}

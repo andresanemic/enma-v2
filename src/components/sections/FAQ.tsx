@@ -9,7 +9,7 @@ import { useState, useEffect, useRef } from "react";
 const FAQS = [
   {
     q: "¿Qué hace exactamente Enma?",
-    a: "Diseñamos soluciones sustentables en energía y manufactura: consultoría y estudios energéticos, formulación y acompañamiento de proyectos, simulaciones CFD, ensayos en túnel de viento y cuantificación de huella de carbono. Cada solución se ajusta al territorio donde vive.",
+    a: "Diseñamos soluciones sustentables en energía y manufactura: consultoría y estudios energéticos, formulación y acompañamiento de proyectos, simulaciones CFD, ensayos en túnel de viento y cuantificación de huella de carbono. Cada solución se adapta al contexto donde funciona.",
   },
   {
     q: "¿Por qué desde Aysén y no desde Santiago?",

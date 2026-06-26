@@ -164,7 +164,7 @@ export default function Proyecto() {
             </span>
           </h2>
           <p data-dek className="mt-5 max-w-[58ch] font-body text-base font-light leading-relaxed text-ink/65 sm:text-lg" style={{ opacity: 0 }}>
-            Un diseño propio de baja escala, financiado por ANID, pensado para los vientos más difíciles de la Patagonia.
+            Un diseño propio, de baja escala, pensado para los vientos más difíciles de la Patagonia.
           </p>
         </div>
 

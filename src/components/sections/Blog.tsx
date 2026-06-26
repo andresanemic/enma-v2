@@ -11,7 +11,7 @@ import BlogBands from "./BlogBands";
 
 // Título de sección → palabras (rise+blur, sin clip → seguro al hacer wrap, lore).
 const HEAD_WORDS = ["Ideas", "desde", "el"];
-const HEAD_ACCENT = "territorio";
+const HEAD_ACCENT = "sur";
 
 export default function Blog() {
   const ref = useRef<HTMLElement>(null);
@@ -93,7 +93,7 @@ export default function Blog() {
         <div data-head className="mb-14 md:mb-20">
           <h2
             className="m-0 max-w-[18ch] font-display font-light text-ink"
-            aria-label="Ideas desde el territorio."
+            aria-label="Ideas desde el sur."
             style={{ fontSize: "clamp(1.9rem, 4vw, 3.2rem)", lineHeight: 1.06, letterSpacing: "-0.03em" }}
           >
             <span aria-hidden="true">

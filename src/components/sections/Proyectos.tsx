@@ -150,7 +150,7 @@ export default function Proyectos() {
             className="mx-auto mt-6 max-w-[46ch] font-body text-lg font-light leading-relaxed text-ink/70 sm:text-xl"
             style={{ opacity: 0 }}
           >
-            Tres iniciativas en energía y manufactura, nacidas en Aysén.
+            Iniciativas en energía y manufactura, nacidas en Aysén.
           </p>
         </div>
       </section>
@@ -287,7 +287,7 @@ export default function Proyectos() {
             className="mx-auto mt-6 max-w-[56ch] font-body text-base font-light leading-relaxed text-ink/65 sm:text-lg"
             style={{ opacity: 0 }}
           >
-            Cada uno de estos proyectos empezó con una conversación. Cuéntanos qué
+            Cada uno de estos proyectos empezó con una conversación. Hablemos sobre qué
             necesitas resolver y lo estudiamos contigo.
           </p>
         </div>

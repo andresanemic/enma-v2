@@ -20,7 +20,7 @@ type Metric = {
 };
 
 const METRICS: Metric[] = [
-  { kind: "num", value: 5, label: "Estudios energéticos liderados en Aysén", hint: "Para el sector público regional, junto al CIEP.", accent: "orange", hero: true },
+  { kind: "num", value: 10, label: "Estudios energéticos liderados en Aysén", hint: "Para el sector público y privado.", accent: "orange", hero: true },
   { kind: "badge", text: "+$150M", label: "Para proyectos de I+D", hint: "Apalancados por concursos públicos.", accent: "teal" },
   { kind: "num", value: 2, label: "Socios fundadores, ingenieros mecánicos", hint: "Con experiencia exitosa como consultores.", accent: "orange" },
 ];
@@ -174,7 +174,7 @@ export default function Metrics() {
             style={{ opacity: 0, textShadow: "0 1px 20px rgba(0,0,0,0.5)" }}
           >
             Somos una empresa joven con evidencia real detrás de cada solución:
-            estudios liderados en el territorio, I+D financiado y dominio de las
+            estudios liderados en la región, I+D financiado y dominio de las
             principales energías renovables.
           </p>
         </div>

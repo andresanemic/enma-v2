@@ -264,4 +264,15 @@ El wireframe define contenido y orden lógico, no el layout visual final — el 
   - [x] **Minifase 1 — Índice (`/blog`)**: mini-landing espejo de Vinculación (Hero + `SignalMarquee` al pie + cierre tono CTA), sección central = franjas editoriales con todas las publicaciones. **Acentos en teal/verde** (no ember/terra) sobre el mismo fondo cálido → diferencia el Blog de Vinculación respetando la regla de paleta. `components/sections/BlogIndex.tsx`.
   - [x] **Minifase 2 — Lectura (`/blog/[slug]`)**: página de lectura limpia (Hero con portada clip-wipe → byline autor·fecha → lead → cuerpo `68ch` con `h2`/`p` → prev/next). Cuerpos reales migrados de los `.docx` de `\blog`. `components/sections/BlogArticle.tsx`; ruta server con `generateStaticParams`/`generateMetadata`/`notFound`.
   - **Arquitectura DRY:** `lib/blog.ts` (única fuente de verdad: 3 notas + `body` + `getArticle`/`getArticleNav`); componentes compartidos extraídos `BlogBands.tsx` (franjas, prop `accent`), `SignalMarquee.tsx` (sacado de Vinculación) y `PrevNext.tsx` (`PrevNextCard`, sacado del `PlateCard` de Proyectos sin cambiar su aspecto). La sección Blog del landing y Vinculación quedaron visualmente intactas.
-- [ ] **Fase G** — Verificación final de Golden Paths en todo el sitio + ajustes finales ← **siguiente**
+- [x] **Fase G** — Verificación final de Golden Paths + ajustes de polish ✅ COMPLETA (2026-06-26).
+  - [x] **Minifase G1** — Ajustes generales post-Fase F (aprobado).
+  - [x] **Minifase G2** — Spacing Nosotros/Equipo, navbar móvil, copy compacto Blog landing, BlogIndex cierre, CTA Servicios (commit `1e97276`, 2026-06-22).
+- [ ] **Fase H** — Road to Namecheap: arreglos finales + deploy vía FTP ← **siguiente**
+  - [x] **H1** — Cambios generales ✅ COMPLETA (2026-06-26): métrica → 10, leads blog actualizados, capas cálidas CFD+túnel, copy Proyectos/equipo, revisión global "Territorio" (Lore actualizado)
+  - [ ] **H2** — Rediseño acordeón Vinculación (click en vez de hover, imágenes reales de participaciones)
+  - [ ] **H3** — Simplificación metadata Blog (quitar "socio fundador" y fecha de la lista de artículos)
+  - [ ] **H4** — Rediseño páginas de lectura `/blog/[slug]` (brainstorming previo obligatorio)
+  - [ ] **H5** — Cambios página Proyectos (reducir a 1 proyecto, card 16:9, quitar pills)
+  - [ ] **H6** — Optimización SEO (sitemap.xml, metadata, preparar Google Search Console)
+  - [ ] **H7** — Build de producción + preparación export estático para FTP
+  - [ ] **H8** — Deploy a Namecheap vía FTP + verificación en enmachile.com

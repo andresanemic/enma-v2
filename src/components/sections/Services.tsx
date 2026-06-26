@@ -14,13 +14,14 @@ type Service = {
   img: string;
   objPos?: string;   // object-position del img (default "center")
   imgScale?: number; // zoom del img (default 1.08)
+  warmTint?: boolean; // capa cálida naranja sobre la foto
 };
 
 const SERVICES: Service[] = [
   {
     n: "01",
     title: "Asesoría y estudios energéticos",
-    desc: "El servicio base, y el que abre la puerta a todos los demás: estudios de soluciones energéticas para empresas y sector público. Su mayor valor es intangible: el conocimiento técnico y el del territorio.",
+    desc: "El servicio base, y el que abre la puerta a todos los demás: estudios de soluciones energéticas para empresas y sector público. Su mayor valor es intangible: el conocimiento técnico y el de Aysén.",
     img: "/servicios/servicio-01-v1.webp",
     objPos: "bottom",
   },
@@ -35,12 +36,14 @@ const SERVICES: Service[] = [
     title: "Simulaciones CFD",
     desc: "Simulaciones fluidodinámicas que optimizan el diseño de sistemas que interactúan con fluidos —turbinas, sistemas hidráulicos, embarcaciones—. Traducen el análisis en soluciones más rápidas y confiables.",
     img: "/servicios/servicio-03-v1.webp",
+    warmTint: true,
   },
   {
     n: "04",
     title: "Ensayos en túnel de viento",
     desc: "Un túnel de viento propio —en construcción en Santiago— que complementa al CFD en todo lo referente al aire, permitiendo validar físicamente los diseños antes de fabricarlos.",
     img: "/servicios/servicio-04-v2.png",
+    warmTint: true,
   },
   {
     n: "05",
@@ -367,7 +370,7 @@ export default function Services() {
             className="mt-5 max-w-[56ch] font-body text-base font-light leading-relaxed text-ink/60 sm:text-lg"
             style={{ opacity: 0 }}
           >
-            Seis líneas de servicio, una misma lógica: entender el territorio y
+            Seis líneas de servicio, una misma lógica: entender Aysén y
             resolver con ingeniería a la medida. Consultoría, innovación y
             desarrollo.
           </p>
@@ -492,6 +495,17 @@ export default function Services() {
                               "linear-gradient(180deg, rgba(20,30,30,0.10) 0%, transparent 32%, rgba(15,25,24,0.42) 100%)",
                           }}
                         />
+                        {/* Capa cálida — naranja suave sobre imágenes técnicas (CFD / túnel) */}
+                        {s.warmTint && (
+                          <span
+                            aria-hidden="true"
+                            className="absolute inset-0"
+                            style={{
+                              background: "linear-gradient(160deg, rgba(254,169,79,0.28) 0%, rgba(241,84,28,0.18) 60%, transparent 100%)",
+                              mixBlendMode: "multiply",
+                            }}
+                          />
+                        )}
                       </div>
 
                       {/* ── TEXTO ── */}
