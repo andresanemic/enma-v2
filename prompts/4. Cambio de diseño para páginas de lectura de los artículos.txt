@@ -1,0 +1,45 @@
+Mini-fase H4 — Rediseño páginas de lectura `/blog/[slug]`
+
+Ejecuta `superpowers:brainstorming` antes de escribir una sola línea de código.
+
+**Estado actual:**
+- Componente: `src/components/sections/BlogArticle.tsx`
+- Datos: `src/lib/blog.ts` — tipos `Article`, `ArticleBlock` y cuerpos de los 3 artículos
+- `ArticleBlock` solo admite `{ type: "p" | "h2", text: string }` — texto plano sin
+  ningún formato inline
+
+**Problemas concretos a resolver:**
+
+1. **Sin formato inline en los párrafos:** no hay negritas, cursivas ni hipervínculos.
+   Los artículos se leen planos.
+2. **Sin componentes editoriales de enriquecimiento:** falta soporte para (a) citas
+   destacadas (pull-quote visual) y (b) bloques de dato curioso / métrica contextual.
+3. **Tipografía de lectura demasiado pequeña:** `text-lg font-light` es poco generoso
+   para una página dedicada 100% a leer.
+4. **Pill de topic en el Hero genérica:** el diseño actual (borde teal, fondo
+   transparente) no tiene personalidad. Mejorar su tratamiento visual.
+5. **Sin hipervínculos externos en el contenido:** los artículos no tienen ningún link
+     saliente relevante que apoye el posicionamiento SEO.
+
+**Restricciones obligatorias (no negociables):**
+- Solo `Manrope` (títulos) y `Outfit` (cuerpo) — sin mono.
+- Sin eyebrows numerados.
+- Paleta: teal/verde como acento sobre fondo crema (#f8eddd / #f7e6cf). No romper
+  este acuerdo.
+- Motion nivel bajado: el clip-wipe de portada y los fade-up sobrios se conservan.
+  Sin blur en entradas, sin rebotes.
+- El `role` (socio fundador) puede mantenerse en el byline de la página de lectura —
+  la H3 solo lo quitó de las listas y del hero del índice.
+- Cursor nativo (no reintroducir cursor custom).
+
+**Scope de la mini-fase:**
+1. Extender `ArticleBlock` para soportar rich text inline (negritas, cursivas, links
+   externos) y nuevos tipos de bloque (pull-quote, data-fact).
+2. Rediseñar `BlogArticle.tsx` para renderizar todos los tipos y mejorar legibilidad.
+3. Enriquecer los cuerpos de los 3 artículos en `lib/blog.ts` (sin inventar datos:
+   basarse en `que-es-enma.txt` y los `.docx` de `\blog`).
+4. Verificar Golden Paths al cierre.
+
+El brainstorming debe explorar especialmente: cómo modelar el rich text inline
+(opciones: JSON estructurado con spans, markdown, HTML string) y cómo lucen
+visualmente el PullQuote y el DataFact en la columna de lectura.
