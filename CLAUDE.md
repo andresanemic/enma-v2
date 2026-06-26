@@ -269,7 +269,7 @@ El wireframe define contenido y orden lógico, no el layout visual final — el 
   - [x] **Minifase G2** — Spacing Nosotros/Equipo, navbar móvil, copy compacto Blog landing, BlogIndex cierre, CTA Servicios (commit `1e97276`, 2026-06-22).
 - [ ] **Fase H** — Road to Namecheap: arreglos finales + deploy vía FTP ← **siguiente**
   - [x] **H1** — Cambios generales ✅ COMPLETA y pusheada (2026-06-26): métrica → 10, leads blog, capas cálidas CFD+túnel, copy Proyectos/equipo, revisión "Territorio", fix object-position Services (commits 4ca4904, 9fc1990)
-  - [ ] **H2** — Rediseño acordeón Vinculación (click en vez de hover, imágenes reales de participaciones)
+  - [x] **H2** — Rediseño acordeón Vinculación (click en vez de hover, imágenes reales de participaciones)
   - [ ] **H3** — Simplificación metadata Blog (quitar "socio fundador" y fecha de la lista de artículos)
   - [ ] **H4** — Rediseño páginas de lectura `/blog/[slug]` (brainstorming previo obligatorio)
   - [ ] **H5** — Cambios página Proyectos (reducir a 1 proyecto, card 16:9, quitar pills)
