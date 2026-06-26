@@ -292,14 +292,6 @@ export default function Vinculacion() {
                 nada si nadie sabe que existe, y porque la confianza se construye
                 hablando de frente.
               </p>
-
-              <p
-                data-fade
-                className="mt-9 max-w-[52ch] font-body text-sm font-light uppercase tracking-[0.2em] text-ink/45"
-                style={{ opacity: 0 }}
-              >
-                Medios · Charlas · Entrevistas · Difusión
-              </p>
             </div>
 
             <div data-fade className="relative mx-auto w-full max-w-[460px]" style={{ opacity: 0 }}>
