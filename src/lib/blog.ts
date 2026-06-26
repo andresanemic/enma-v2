@@ -58,11 +58,25 @@ export const ARTICLES: Article[] = [
     body: [
       { type: "p", spans: [`Vivir en la Región de Aysén significa pagar caro por algo tan básico como encender la luz o calefaccionar la casa. No es una percepción: es una realidad estructural. Estamos lejos, somos pocos y mover cualquier cosa hasta acá cuesta. Esa distancia se traduce, casi línea por línea, en el valor que personas y empresas pagamos por la energía, sea eléctrica o térmica.`] },
       { type: "p", spans: [`El problema es que la energía cara no se queda en la boleta. Encarece todo lo demás. Una industria que consume mucha energía simplemente no es viable en la región. El ejemplo más claro es el reciclaje: hoy buena parte de los residuos que podríamos procesar acá terminan viajando al norte de Puerto Montt, porque localmente no existe la capacidad de hacerlo a un costo razonable. Perdemos la oportunidad, el empleo y el círculo virtuoso completo.`] },
+      { type: "quote", text: `La energía cara no se queda en la boleta. Encarece todo lo demás.`, cite: `Bruno Ortega` },
       { type: "h2", text: `Las renovables ya no son una promesa` },
-      { type: "p", spans: [`Durante años se habló de energías renovables «no convencionales». Ese apellido ya sobra. Al año 2026 la energía eólica, solar, geotérmica e hidráulica son tecnologías probadas, con décadas de operación en el mundo. Lo digo desde la experiencia de haber trabajado en proyectos de cada una de ellas: sabemos qué funciona, qué tiene más riesgo y cómo evaluar ese riesgo antes de invertir un peso.`] },
-      { type: "p", spans: [`Para un hogar o una empresa de Aysén, esto se traduce en algo muy concreto: autogenerar parte de su energía y, cuando hay red disponible, inyectar el excedente para bajar la cuenta de luz mediante netbilling. No es ciencia ficción; es ingeniería aplicada al territorio.`] },
+      { type: "p", spans: [
+        `Durante años se habló de energías renovables «no convencionales». Ese apellido ya sobra. Al año 2026 la `,
+        { text: `energía eólica, solar, geotérmica e hidráulica`, bold: true },
+        ` son tecnologías probadas, con décadas de operación en el mundo. Lo digo desde la experiencia de haber trabajado en proyectos de cada una de ellas: sabemos qué funciona, qué tiene más riesgo y cómo evaluar ese riesgo antes de invertir un peso.`,
+      ] },
+      { type: "p", spans: [
+        `Para un hogar o una empresa de Aysén, esto se traduce en algo muy concreto: autogenerar parte de su energía y, cuando hay red disponible, inyectar el excedente para bajar la cuenta de luz mediante `,
+        { text: `netbilling`, italic: true },
+        `. No es ciencia ficción; es ingeniería aplicada al territorio.`,
+      ] },
+      { type: "fact", value: `Al norte de Puerto Montt`, label: `VIAJAN HOY LOS RESIDUOS RECICLABLES DE AYSÉN` },
       { type: "h2", text: `Una turbina pensada para el viento patagónico` },
-      { type: "p", spans: [`En esa línea estamos desarrollando, con financiamiento de la Agencia Nacional de Investigación y Desarrollo (ANID), una turbina eólica de baja escala con un diseño resiliente a condiciones que aquí son la norma: vientos excesivos, ráfagas que pasan de la calma a la furia en segundos y turbulencia que cambia de dirección. Son máquinas de baja potencia pensadas para instalarse de a muchas, en granjas, ideales para campos, electrificación rural y también para la industria.`] },
+      { type: "p", spans: [
+        `En esa línea estamos desarrollando, con financiamiento de la `,
+        { text: `Agencia Nacional de Investigación y Desarrollo (ANID)`, href: `https://anid.cl`, external: true },
+        `, una turbina eólica de baja escala con un diseño resiliente a condiciones que aquí son la norma: vientos excesivos, ráfagas que pasan de la calma a la furia en segundos y turbulencia que cambia de dirección. Son máquinas de baja potencia pensadas para instalarse de a muchas, en granjas, ideales para campos, electrificación rural y también para la industria.`,
+      ] },
       { type: "p", spans: [`Bajar el costo energético no es un fin en sí mismo: es la llave que destraba productividad, empleo y calidad de vida en la región.`] },
       { type: "h2", text: `Co-crear, no imponer` },
       { type: "p", spans: [`Si algo aprendimos operando en un contexto complejo es que las soluciones no se imponen desde un escritorio en Santiago: se construyen junto a quienes viven el problema. Existe una desconfianza histórica entre la sociedad civil y la industria, y la única forma de cerrarla es trabajando de manera asociativa, conversando y co-creando. No queremos posicionarnos como dominadores de mercado, sino como un socio con quien sentarse a resolver.`] },
