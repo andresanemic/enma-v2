@@ -35,7 +35,7 @@ const APARICIONES: Aparicion[] = [
     tag: "Charla",
     title: "Congreso Jóvenes Futuro Aysén",
     outlet: "Congreso Jóvenes Futuro Aysén",
-    images: ["/vinculacion/participaciones/congreso-jovenes-futuro.webp"],
+    images: ["/vinculacion/participaciones/congreso-jovenes-futuro-v2.webp"],
   },
   {
     id: "rocco-tv",
@@ -44,7 +44,7 @@ const APARICIONES: Aparicion[] = [
     tag: "TV",
     title: "Estudios energéticos regionales",
     outlet: "Rocco TV",
-    images: ["/vinculacion/participaciones/patricio-rocco-tv.webp"],
+    images: ["/vinculacion/participaciones/patricio-rocco-tv-v2.webp"],
   },
   {
     id: "radio-santa-maria",
@@ -53,7 +53,7 @@ const APARICIONES: Aparicion[] = [
     tag: "Radio",
     title: "Estudios energéticos regionales",
     outlet: "Radio Santa María",
-    images: ["/vinculacion/participaciones/patricio-radio-santa-maria.webp"],
+    images: ["/vinculacion/participaciones/patricio-radio-santa-maria-v2.webp"],
   },
   {
     id: "contexto-energetico-aysen",
@@ -62,7 +62,7 @@ const APARICIONES: Aparicion[] = [
     tag: "Charla",
     title: "Contexto energético en la Región de Aysén",
     outlet: "Charla pública · Aysén",
-    images: ["/vinculacion/participaciones/charla-patricio-contexto-energetico.webp"],
+    images: ["/vinculacion/participaciones/charla-patricio-contexto-energetico-v2.webp"],
   },
   {
     id: "litoral-aysen",
@@ -427,15 +427,15 @@ export default function Vinculacion() {
                   >
                     <div className="overflow-hidden">
                       {a.images[0] && (
-                        <div className="relative mt-4 aspect-video w-full overflow-hidden rounded-xl">
-                          <Image
-                            src={a.images[0]}
-                            alt={a.title}
-                            fill
-                            sizes="(min-width: 768px) 55vw, 90vw"
-                            className="object-cover"
-                          />
-                        </div>
+                        <Image
+                          src={a.images[0]}
+                          alt={a.title}
+                          width={0}
+                          height={0}
+                          sizes="(min-width: 768px) 55vw, 90vw"
+                          className="mt-4 w-full rounded-xl"
+                          style={{ height: "auto" }}
+                        />
                       )}
                     </div>
                   </div>
