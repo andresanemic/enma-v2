@@ -112,6 +112,10 @@ export default function Vinculacion() {
 
   const [channel, setChannel] = useState<Channel>("todo");
   const [repoIn, setRepoIn] = useState(false);
+  const [openId, setOpenId] = useState<string | null>(null);
+  const reduceMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const shown = APARICIONES.filter((a) => channel === "todo" || a.kind === channel);
 
@@ -387,7 +391,17 @@ export default function Vinculacion() {
                 key={a.id}
                 data-row
                 style={{ opacity: 0 }}
-                className="group relative grid grid-cols-1 items-baseline gap-x-8 gap-y-2 border-b border-ink/12 py-7 transition-[padding] duration-300 ease-out hover:pl-3 md:grid-cols-[150px_1fr_auto] md:py-8"
+                role="button"
+                tabIndex={0}
+                aria-expanded={openId === a.id}
+                onClick={() => setOpenId(openId === a.id ? null : a.id)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setOpenId(openId === a.id ? null : a.id);
+                  }
+                }}
+                className="group relative grid cursor-pointer grid-cols-1 items-baseline gap-x-8 gap-y-2 border-b border-ink/12 py-7 transition-[padding] duration-300 ease-out hover:pl-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember/50 md:grid-cols-[150px_1fr_auto] md:py-8"
               >
                 {/* Año + tag */}
                 <div className="flex items-center gap-3">
@@ -400,7 +414,7 @@ export default function Vinculacion() {
                   </span>
                 </div>
 
-                {/* Título + detalle (revela en hover/focus) */}
+                {/* Título + outlet + imagen expandida */}
                 <div className="min-w-0 md:px-4">
                   <h3
                     className="m-0 font-display font-light text-ink transition-colors duration-300 group-hover:text-ember"
@@ -409,15 +423,33 @@ export default function Vinculacion() {
                     {a.title}
                   </h3>
                   <p className="mt-1 font-body text-sm font-light text-ink/55">{a.outlet}</p>
-                  {/* Detalle — siempre en el DOM (lectores de pantalla); colapsa visualmente */}
-                  <div className="grid grid-rows-[0fr] opacity-0 transition-all duration-500 ease-out group-hover:grid-rows-[1fr] group-hover:opacity-100 group-focus-within:grid-rows-[1fr] group-focus-within:opacity-100">
-                    <p className="overflow-hidden pt-0 font-body text-sm font-light leading-relaxed text-ink/65 group-hover:pt-3">
-                      {a.detail}
-                    </p>
+
+                  {/* Panel expandido — imagen real */}
+                  <div
+                    className="grid overflow-hidden"
+                    style={{
+                      gridTemplateRows: openId === a.id ? "1fr" : "0fr",
+                      opacity: openId === a.id ? 1 : 0,
+                      transition: reduceMotion ? "none" : "grid-template-rows 320ms ease-out, opacity 280ms ease-out",
+                    }}
+                  >
+                    <div className="overflow-hidden">
+                      {a.images[0] && (
+                        <div className="relative mt-4 aspect-video w-full overflow-hidden rounded-xl">
+                          <Image
+                            src={a.images[0]}
+                            alt={a.title}
+                            fill
+                            sizes="(min-width: 768px) 55vw, 90vw"
+                            className="object-cover"
+                          />
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
 
-                {/* Onda de "señal" que se traza en hover (firma de la página) */}
+                {/* Onda de señal — se traza al abrir */}
                 <div className="flex items-center justify-end self-center">
                   <svg
                     aria-hidden="true"
@@ -435,10 +467,9 @@ export default function Vinculacion() {
                       pathLength={1}
                       style={{
                         strokeDasharray: 1,
-                        strokeDashoffset: 1,
-                        transition: "stroke-dashoffset 0.6s ease-out",
+                        strokeDashoffset: openId === a.id ? 0 : 1,
+                        transition: reduceMotion ? "none" : "stroke-dashoffset 0.6s ease-out",
                       }}
-                      className="group-hover:[stroke-dashoffset:0] group-focus-within:[stroke-dashoffset:0]"
                     />
                   </svg>
                 </div>
