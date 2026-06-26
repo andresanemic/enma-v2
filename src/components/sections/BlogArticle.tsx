@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { gsap } from "@/lib/gsap";
-import { formatArticleDate, type Article } from "@/lib/blog";
+import { formatArticleDate, type Article, type RichText } from "@/lib/blog";
 import PrevNextCard from "./PrevNext";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -21,7 +21,7 @@ export default function BlogArticle({ article, nav }: { article: Article; nav: N
   const rootRef = useRef<HTMLDivElement>(null);
 
   // Fallback de cuerpo si aún no hay `body` (no debería ocurrir: las 3 notas lo tienen).
-  const body = article.body ?? [{ type: "p" as const, text: article.summary }];
+  const body = article.body ?? [{ type: "p" as const, spans: [article.summary] }];
 
   useEffect(() => {
     const root = rootRef.current;
@@ -96,6 +96,33 @@ export default function BlogArticle({ article, nav }: { article: Article; nav: N
     };
   }, []);
 
+  const renderSpans = (spans: RichText) =>
+    spans.map((s, i) => {
+      if (typeof s === "string") return <span key={i}>{s}</span>;
+      if ("href" in s) {
+        const ext = s.external;
+        return (
+          <a
+            key={i}
+            href={s.href}
+            {...(ext ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            className="font-medium text-teal underline decoration-teal/40 underline-offset-4 transition-colors duration-200 hover:decoration-teal"
+          >
+            {s.text}
+            {ext && <span aria-hidden="true" className="ml-0.5 text-[0.85em]">↗</span>}
+          </a>
+        );
+      }
+      let cls = "";
+      if (s.bold) cls += " font-semibold text-ink";
+      if (s.italic) cls += " italic";
+      return (
+        <span key={i} className={cls.trim() || undefined}>
+          {s.text}
+        </span>
+      );
+    });
+
   return (
     <div ref={rootRef} className="w-full">
       {/* ════════ 1 · HERO — título + portada centrada + byline ════════ */}
@@ -119,11 +146,9 @@ export default function BlogArticle({ article, nav }: { article: Article; nav: N
             Todas las notas
           </Link>
 
-          {/* Topic (pill teal, sin eyebrow numerado) */}
-          <p data-fade className="mb-5" style={{ opacity: 0 }}>
-            <span className="inline-flex rounded-full border border-teal/30 bg-teal/[0.06] px-3.5 py-1.5 font-body text-xs font-semibold uppercase tracking-[0.18em] text-teal">
-              {article.topic}
-            </span>
+          {/* Topic — label limpio (sin pill, sin eyebrow numerado) */}
+          <p data-fade className="mb-5 font-body text-xs font-semibold uppercase tracking-[0.18em] text-teal" style={{ opacity: 0 }}>
+            {article.topic}
           </p>
 
           <h1
@@ -181,9 +206,9 @@ export default function BlogArticle({ article, nav }: { article: Article; nav: N
         className="relative w-full"
         style={{ background: "linear-gradient(180deg, #f7e6cf 0%, #f8eddd 14%, #f8eddd 100%)" }}
       >
-        <div data-reveal="body" className="mx-auto max-w-[68ch] px-6 pb-20 pt-12 sm:px-8 md:pb-24 md:pt-16">
+        <div data-reveal="body" className="mx-auto max-w-[72ch] px-6 pb-20 pt-12 sm:px-8 md:pb-24 md:pt-16">
           {/* Lead — bajada al inicio de la nota */}
-          <p data-fade className="m-0 font-body text-xl font-light leading-relaxed text-ink/75 sm:text-2xl" style={{ opacity: 0 }}>
+          <p data-fade className="m-0 font-body text-2xl font-light leading-relaxed text-ink/75 sm:text-3xl" style={{ opacity: 0 }}>
             {article.summary}
           </p>
 
@@ -192,25 +217,49 @@ export default function BlogArticle({ article, nav }: { article: Article; nav: N
 
           {/* Cuerpo */}
           <div className="mt-9">
-            {body.map((block, i) =>
-              block.type === "h2" ? (
-                <div key={i} data-fade className="mt-12 first:mt-0" style={{ opacity: 0 }}>
-                  <span aria-hidden="true" className="mb-3 block h-px w-10 bg-teal/60" />
-                  <h2 className="m-0 font-display font-medium text-ink" style={{ fontSize: "clamp(1.4rem, 2.6vw, 1.9rem)", lineHeight: 1.18, letterSpacing: "-0.02em" }}>
-                    {block.text}
-                  </h2>
-                </div>
-              ) : (
-                <p
-                  key={i}
-                  data-fade
-                  className="mt-6 font-body text-lg font-light text-ink/80 first:mt-0"
-                  style={{ opacity: 0, lineHeight: 1.75 }}
-                >
-                  {block.text}
+            {body.map((block, i) => {
+              if (block.type === "h2") {
+                return (
+                  <div key={i} data-fade className="mt-12 first:mt-0" style={{ opacity: 0 }}>
+                    <span aria-hidden="true" className="mb-3 block h-px w-10 bg-teal/60" />
+                    <h2 className="m-0 font-display font-medium text-ink" style={{ fontSize: "clamp(1.5rem, 2.8vw, 2.05rem)", lineHeight: 1.18, letterSpacing: "-0.02em" }}>
+                      {block.text}
+                    </h2>
+                  </div>
+                );
+              }
+              if (block.type === "quote") {
+                return (
+                  <figure key={i} data-fade className="mt-11 mb-2 border-l-4 border-teal pl-6 sm:pl-8" style={{ opacity: 0 }}>
+                    <blockquote className="m-0 font-display font-light italic text-ink/85" style={{ fontSize: "clamp(1.5rem, 3vw, 2.1rem)", lineHeight: 1.3, letterSpacing: "-0.015em" }}>
+                      {block.text}
+                    </blockquote>
+                    {block.cite && (
+                      <figcaption className="mt-4 font-body text-xs font-semibold uppercase tracking-[0.18em] text-teal">
+                        {block.cite}
+                      </figcaption>
+                    )}
+                  </figure>
+                );
+              }
+              if (block.type === "fact") {
+                return (
+                  <div key={i} data-fade className="my-10 rounded-2xl bg-[#f3ddbc] px-7 py-6 ring-1 ring-ink/8" style={{ opacity: 0 }}>
+                    <p className="m-0 font-display font-medium text-teal" style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.2rem)", lineHeight: 1.1, letterSpacing: "-0.02em" }}>
+                      {block.value}
+                    </p>
+                    <p className="mt-2 font-body text-xs font-semibold uppercase tracking-[0.16em] text-ink/55">
+                      {block.label}
+                    </p>
+                  </div>
+                );
+              }
+              return (
+                <p key={i} data-fade className="mt-6 font-body text-xl font-light text-ink/80 first:mt-0" style={{ opacity: 0, lineHeight: 1.8 }}>
+                  {renderSpans(block.spans)}
                 </p>
-              )
-            )}
+              );
+            })}
           </div>
         </div>
       </section>
