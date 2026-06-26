@@ -5,11 +5,10 @@ import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap";
 import HeroBackdrop from "@/components/hero/HeroBackdrop";
+import { WHATSAPP_URL } from "@/lib/seo";
 
 const LINES = ["Energía y", "Manufactura"];
 const ACCENT = "Sustentable";
-
-const WHATSAPP = "https://wa.me/56993377835";
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
@@ -176,7 +175,7 @@ export default function Hero() {
           {/* WhatsApp — botón de texto del footer (sin pill, subrayado animado).
               El ícono hace pop y el texto desliza en la entrada. */}
           <a
-            href={WHATSAPP}
+            href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-2 font-display text-base font-medium text-cream transition-colors duration-200 hover:text-orange sm:text-lg"

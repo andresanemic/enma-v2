@@ -4,8 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { gsap } from "@/lib/gsap";
-
-const WHATSAPP = "https://wa.me/56993377835";
+import { WHATSAPP_URL, WHATSAPP_DISPLAY } from "@/lib/seo";
 
 const NAV_PAGES = [
   { href: "/", label: "Inicio" },
@@ -17,7 +16,7 @@ const NAV_PAGES = [
 
 const NAV_CONTACT = [
   { href: "mailto:contacto@enmachile.com", label: "contacto@enmachile.com", external: false },
-  { href: "https://wa.me/56993377835", label: "+56 9 9337 7835", external: true },
+  { href: WHATSAPP_URL, label: WHATSAPP_DISPLAY, external: true },
 ];
 
 const LOCATION = ["Coyhaique", "Región de Aysén", "Chile"];
@@ -311,7 +310,7 @@ export default function Footer() {
 
             {/* Acción — WhatsApp directo (el correo vive en la columna Contacto) */}
             <a
-              href={WHATSAPP}
+              href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="group mt-7 inline-flex items-center gap-3 font-display text-xl font-medium text-cream transition-colors duration-200 hover:text-orange sm:text-2xl"
