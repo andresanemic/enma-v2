@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import NavBar from "@/components/layout/NavBar";
 import Footer from "@/components/layout/Footer";
 import BlogArticle from "@/components/sections/BlogArticle";
+import JsonLd from "@/components/seo/JsonLd";
+import { pageMetadata, articleJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 import { ARTICLES, getArticle, getArticleNav } from "@/lib/blog";
 
 export function generateStaticParams() {
@@ -17,10 +19,12 @@ export async function generateMetadata({
   const { slug } = await params;
   const article = getArticle(slug);
   if (!article) return {};
-  return {
+  return pageMetadata({
     title: article.title,
     description: article.summary,
-  };
+    path: `/blog/${slug}`,
+    type: "article",
+  });
 }
 
 export default async function BlogArticlePage({
@@ -35,6 +39,14 @@ export default async function BlogArticlePage({
 
   return (
     <>
+      <JsonLd data={articleJsonLd(article)} />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Inicio", path: "/" },
+          { name: "Blog", path: "/blog" },
+          { name: article.title, path: `/blog/${slug}` },
+        ])}
+      />
       <NavBar />
       <main>
         <BlogArticle article={article} nav={nav} />

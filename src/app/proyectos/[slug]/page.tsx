@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import NavBar from "@/components/layout/NavBar";
 import Footer from "@/components/layout/Footer";
 import ProyectoDetalle from "@/components/sections/ProyectoDetalle";
+import JsonLd from "@/components/seo/JsonLd";
+import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { PROYECTOS, getProyecto, getProyectoNav } from "@/lib/proyectos";
 
 export function generateStaticParams() {
@@ -17,10 +19,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const proyecto = getProyecto(slug);
   if (!proyecto) return {};
-  return {
+  return pageMetadata({
     title: proyecto.title,
     description: proyecto.lead,
-  };
+    path: `/proyectos/${slug}`,
+  });
 }
 
 export default async function ProyectoDetallePage({
@@ -35,6 +38,13 @@ export default async function ProyectoDetallePage({
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Inicio", path: "/" },
+          { name: "Proyectos", path: "/proyectos" },
+          { name: proyecto.title, path: `/proyectos/${slug}` },
+        ])}
+      />
       <NavBar />
       <main>
         <ProyectoDetalle proyecto={proyecto} nav={nav} />
