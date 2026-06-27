@@ -153,12 +153,12 @@ export default function About() {
               ))}
             </dl>
 
-            {/* CTA — mismo efecto que el botón del navbar: ember → terra en hover
+            {/* CTA — negro que cambia a naranjo en hover, como el botón del navbar
                 (Golden Path: → /nosotros) */}
             <div className={`${reveal()} mt-10`} style={delay(5)}>
               <Link
                 href="/nosotros"
-                className="group inline-flex items-center gap-2.5 rounded-full bg-ember px-7 py-3.5 font-body text-base font-medium text-cream transition-colors duration-300 hover:bg-terra focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember/60 focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
+                className="group inline-flex items-center gap-2.5 rounded-full bg-ink px-7 py-3.5 font-body text-base font-medium text-cream transition-colors duration-300 hover:bg-ember focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember/60 focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
               >
                 Conoce más sobre nosotros
                 <span className="transition-transform duration-300 group-hover:translate-x-0.5">

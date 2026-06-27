@@ -599,10 +599,10 @@ export default function Services() {
             </div>
 
             {/* CTA → página de Vinculación (Golden Path).
-                Mismo efecto que el botón del navbar: ember → terra en hover. */}
+                Negro que cambia a naranjo en hover, como el botón del navbar. */}
             <Link
               href="/vinculacion"
-              className="group mt-6 inline-flex items-center gap-2.5 rounded-full bg-ember px-7 py-3.5 font-body text-base font-medium text-cream transition-colors duration-300 hover:bg-terra focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember/60 focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
+              className="group mt-6 inline-flex items-center gap-2.5 rounded-full bg-ink px-7 py-3.5 font-body text-base font-medium text-cream transition-colors duration-300 hover:bg-ember focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember/60 focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
             >
               Síguenos de cerca
               <span className="transition-transform duration-300 group-hover:translate-x-0.5">
