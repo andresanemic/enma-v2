@@ -136,7 +136,7 @@ export default function About() {
             <dl className="mt-10">
               {AREAS.map((a, i) => (
                 <div key={a.title} className={reveal()} style={delay(2 + i)}>
-                  <div className="group relative cursor-default border-t border-ink/12 py-5 pl-0 transition-[padding] duration-300 ease-out hover:pl-3">
+                  <div className="group relative cursor-default border-t border-ink/12 py-5 pl-0">
                     {/* Línea-acento brasa que recorre el borde superior en hover */}
                     <span
                       aria-hidden="true"

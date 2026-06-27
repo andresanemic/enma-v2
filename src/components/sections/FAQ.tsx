@@ -131,11 +131,12 @@ export default function FAQ() {
               <li key={item.q} className={reveal()} style={delay(2 + i)}>
                 <div className="group relative border-t border-ink/12">
                   {/* Línea-acento que recorre el borde superior:
-                      teal suave en hover, teal de marca pleno cuando está abierta */}
+                      solo se rellena (teal de marca) cuando la pregunta está abierta,
+                      no en hover — el único acento de hover es el botón +. */}
                   <span
                     aria-hidden="true"
                     className={`absolute left-0 top-0 h-px transition-all duration-500 ease-out ${
-                      isOpen ? "w-full bg-teal" : "w-0 bg-teal/70 group-hover:w-full"
+                      isOpen ? "w-full bg-teal" : "w-0 bg-teal/70"
                     }`}
                   />
 
@@ -146,7 +147,7 @@ export default function FAQ() {
                     aria-expanded={isOpen}
                     aria-controls={`faq-panel-${i}`}
                     id={`faq-trigger-${i}`}
-                    className="flex w-full items-center justify-between gap-6 py-6 pl-0 pr-1 text-left outline-none transition-[padding] duration-300 ease-out focus-visible:pl-3 group-hover:pl-3 sm:py-7"
+                    className="flex w-full items-center justify-between gap-6 py-6 pl-0 pr-1 text-left outline-none transition-[padding] duration-300 ease-out focus-visible:pl-3 sm:py-7"
                   >
                     <span
                       className={`font-display font-light leading-tight transition-colors duration-300 ${

@@ -45,7 +45,7 @@ export const ARTICLES: Article[] = [
   {
     slug: "energia-mas-cara-aysen",
     topic: "Energía",
-    title: "En Aysén pagamos la energía más cara. Y tenemos cómo cambiarlo",
+    title: "En Aysén pagamos la energía más cara, y tenemos cómo cambiarlo",
     summary:
       "Somos la región con menor densidad poblacional del país, lo cual encarece los proyectos energéticos y nos mantiene hoy día con una fuerte dependencia Diesel. Sin embargo, tenemos de todo al alcance para cambiarlo.",
     author: "Bruno Ortega",

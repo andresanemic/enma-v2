@@ -426,10 +426,10 @@ export default function Services() {
                     </span>
                     {/* Título */}
                     <span
-                      className={`flex-1 font-display font-light leading-tight transition-all duration-300 ${
+                      className={`flex-1 font-display font-light leading-tight transition-colors duration-300 ${
                         isActive
-                          ? "translate-x-1 text-ink"
-                          : "text-ink/55 group-hover:translate-x-1 group-hover:text-ink"
+                          ? "text-ink"
+                          : "text-ink/55 group-hover:text-ink"
                       }`}
                       style={{
                         fontSize: "clamp(1.1rem, 2.3vw, 1.6rem)",
