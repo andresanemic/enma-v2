@@ -2,9 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
-import WindField from "@/components/metrics/WindField";
-import WindTurbine from "@/components/metrics/WindTurbine";
-import Ridge from "@/components/metrics/Ridge";
+import SnowField from "@/components/metrics/SnowField";
+import MetricsBackdrop from "@/components/metrics/MetricsBackdrop";
 
 // Métricas REALES (entrevistas + que-es-enma.txt). Sin cifras infladas.
 // Confirmar con el cliente antes de publicar.
@@ -21,16 +20,20 @@ type Metric = {
 
 const METRICS: Metric[] = [
   { kind: "num", value: 10, label: "Estudios energéticos liderados en Aysén", hint: "Para el sector público y privado.", accent: "orange", hero: true },
-  { kind: "badge", text: "+$150M", label: "Para proyectos de I+D", hint: "Apalancados por concursos públicos.", accent: "teal" },
-  { kind: "num", value: 2, label: "Socios fundadores, ingenieros mecánicos", hint: "Con experiencia exitosa como consultores.", accent: "orange" },
+  { kind: "badge", text: "+$150M", label: "Para proyectos de I+D", hint: "Apalancados por concursos públicos.", accent: "ember" },
+  { kind: "num", value: 2, label: "Socios fundadores, ingenieros mecánicos", hint: "Con experiencia exitosa como consultores.", accent: "teal" },
 ];
 
+// Acentos VIVOS (varios colores) sobre base fría: cada métrica con su tono fuerte
+// y luminoso sobre el oscuro. El "10" y el header anclan en naranja; +$150M en
+// brasa; 2 en teal-menta brillante (acento frío que da vida y contraste — no el
+// teal apagado de antes). El número secundario vira a su color en hover.
 const ACCENT = {
-  orange: { bar: "bg-orange", num: "text-orange" },
-  ember: { bar: "bg-ember", num: "text-ember" },
-  teal: { bar: "bg-[#54c0a8]", num: "text-[#54c0a8]" },
-  green: { bar: "bg-[#7cc38a]", num: "text-[#7cc38a]" },
-  sky: { bar: "bg-[#8fb8c4]", num: "text-[#8fb8c4]" },
+  orange: { bar: "bg-[#fea94f]", numHero: "text-[#fea94f]", num: "text-cream group-hover:text-[#fea94f]" },
+  ember: { bar: "bg-[#f1541c]", numHero: "text-[#f1541c]", num: "text-cream group-hover:text-[#f1541c]" },
+  teal: { bar: "bg-[#5fc9ad]", numHero: "text-[#5fc9ad]", num: "text-cream group-hover:text-[#5fc9ad]" },
+  green: { bar: "bg-[#fea94f]", numHero: "text-[#fea94f]", num: "text-cream group-hover:text-[#fea94f]" },
+  sky: { bar: "bg-[#fea94f]", numHero: "text-[#fea94f]", num: "text-cream group-hover:text-[#fea94f]" },
 } as const;
 
 const HEAD_WORDS = ["Respaldo", "que", "se", "puede"];
@@ -107,43 +110,53 @@ export default function Metrics() {
       data-nav="dark"
       className="relative w-full overflow-hidden px-6 py-24 text-cream sm:px-10 sm:py-32 md:px-14 md:py-36"
       style={{
-        background:
-          "radial-gradient(62% 44% at 20% 100%, rgba(247,201,150,0.55) 0%, rgba(233,150,86,0.16) 38%, transparent 66%)," +
-          "linear-gradient(176deg, #2c4a5e 0%, #3c6976 30%, #56877f 54%, #7f9a76 76%, #b98f63 100%)",
+        // Respaldo dark-frío: solo se ve si la foto falla. Sección "dark" de la
+        // landing — azul/teal profundo, nunca crema-sobre-crema.
+        background: "linear-gradient(160deg, #0a1216 0%, #10222a 60%, #16323a 100%)",
       }}
     >
-      {/* Nubes suaves a la deriva (cielo patagónico) */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-        <span className="absolute left-[6%] top-[14%] h-28 w-72 rounded-full bg-cream/15 blur-3xl" style={{ animation: "metric-cloud 46s ease-in-out infinite alternate" }} />
-        <span className="absolute left-[42%] top-[24%] h-24 w-96 rounded-full bg-cream/10 blur-3xl" style={{ animation: "metric-cloud 64s ease-in-out infinite alternate", animationDelay: "-22s" }} />
-        <span className="absolute left-[22%] top-[40%] h-20 w-72 rounded-full bg-[#cfe0e6]/10 blur-3xl" style={{ animation: "metric-cloud 54s ease-in-out infinite alternate", animationDelay: "-35s" }} />
-      </div>
+      {/* ── Fondo fotográfico de Aysén (Opción A) con blur-up ── */}
+      <MetricsBackdrop />
 
-      {/* Campo de viento (CFD) — firma de la sección */}
-      <WindField />
+      {/* ── Grade frío (multiply) ──
+          Enfría la foto hacia azul/teal profundo → la sección lee como "dark".
+          Apaga la calidez general sin matar la imagen. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 mix-blend-multiply"
+        style={{ background: "linear-gradient(125deg, #08131a 0%, rgba(22,58,68,0.62) 45%, rgba(40,92,98,0.40) 100%)" }}
+      />
 
-      {/* Cordillera patagónica — bosque, flores y huellas (visión diseñadora).
-          Más baja en móvil → la franja de bosque ocupa menos y el "slice" del
-          Ridge muestra una porción más ancha (árboles con proporción natural). */}
-      <Ridge className="pointer-events-none absolute inset-x-0 bottom-0 h-[30%] w-full sm:h-[38%] md:h-[46%]" />
+      {/* ── Brillo cálido de cumbre (screen) — re-enciende la luz dorada del
+          amanecer sobre los picos como ÚNICO acento cálido (energía cálida sobre
+          base fría). Radial acotado a la banda superior donde está la cordillera. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 mix-blend-screen"
+        style={{ background: "radial-gradient(50% 34% at 56% 28%, rgba(254,169,79,0.32) 0%, rgba(241,84,28,0.12) 45%, transparent 74%)" }}
+      />
 
-      {/* Scrim frío sutil — profundidad arriba/abajo sin reintroducir calidez */}
+      {/* ── Scrim frío direccional — oscurece donde viven el título y los números ── */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
-        style={{ background: "linear-gradient(180deg, rgba(26,46,58,0.32) 0%, transparent 26%, transparent 64%, rgba(16,32,38,0.4) 100%)" }}
+        style={{
+          background:
+            "linear-gradient(95deg, rgba(7,16,21,0.80) 0%, rgba(7,16,21,0.44) 40%, rgba(7,16,21,0.06) 72%), linear-gradient(to top, rgba(7,16,21,0.68) 0%, transparent 38%)",
+        }}
       />
 
-      <div className="relative z-10 mx-auto max-w-[1400px]">
-        {/* Aerogenerador — fuente del viento. En móvil se muestra COMPLETO en la
-            esquina inferior izquierda (ancho acotado por w-%), a opacidad plena;
-            el contenido se corre muy a la derecha para dejarle su carril, así no
-            hay solape ni problema de contraste. Desde md recupera su disposición
-            original (alto-% + carril editorial). */}
-        <WindTurbine className="pointer-events-none absolute bottom-0 left-[1%] -z-0 w-[40%] opacity-90 sm:left-0 sm:w-[28%] md:left-[-14%] md:h-[86%] md:w-auto lg:left-[-4%] lg:h-auto lg:w-[22%]" />
+      {/* ── Viñeta — oscurece los bordes para dar drama y foco (impacto) ── */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{ background: "radial-gradient(125% 115% at 50% 40%, transparent 52%, rgba(5,11,15,0.55) 100%)" }}
+      />
 
-        {/* Contenido en su posición editorial, con carril libre para el molino. */}
-        <div className="relative md:pl-[30%] lg:pl-[23%]">
+      {/* ── Nieve fina a la deriva — firma de la sección, sobre la foto graduada ── */}
+      <SnowField />
+
+      <div className="relative z-10 mx-auto max-w-[1400px]">
         {/* ── Encabezado ── */}
         <div className="mb-16 md:mb-20">
           <h2
@@ -157,7 +170,7 @@ export default function Metrics() {
                   {w}
                 </span>
               ))}
-              <span className="inline-block font-medium text-orange">
+              <span className="inline-block font-medium text-[#fea94f]">
                 {Array.from(HEAD_ACCENT).map((ch, i) => (
                   <span key={i} data-letter className="inline-block" style={{ opacity: 0, transform: "translateY(0.45em)" }}>
                     {ch}
@@ -179,28 +192,35 @@ export default function Metrics() {
           </p>
         </div>
 
-        {/* ── Métricas sobre el viento (sin cards, estáticas) ──
-            En móvil todas las métricas van alineadas a la izquierda, en columna,
-            y se reserva espacio al final (pb-%) igual al alto del molino para que
-            la columna termine ARRIBA y el molino se vea completo debajo (sin
-            solaparse). El pb-% es relativo al ancho → calza con w-% del molino.
-            Desde md el carril lo da el padding del wrapper. */}
-        <div className="flex flex-col gap-10 pb-[64%] sm:pb-[44%] md:pb-0 lg:flex-row lg:flex-nowrap lg:items-end lg:gap-8">
+        {/* ── Métricas sobre el viento — fila horizontal, columnas reveladas ──
+            En reposo cada columna muestra número + barra + label; el hint de las
+            secundarias se revela en hover (la hero lo lleva abierto = tesis). En
+            touch/sin hover los hints quedan visibles (@media hover). */}
+        <div className="flex flex-col gap-10 lg:flex-row lg:flex-nowrap lg:items-end lg:gap-8">
           {METRICS.map((m) => {
             const a = ACCENT[m.accent];
-            const numColor = m.hero ? ACCENT.orange.num : "text-cream";
+            const numColor = m.hero ? a.numHero : `${a.num} transition-colors duration-300`;
             return (
               <div
                 key={m.label}
-                className={`lg:min-w-0 ${m.hero ? "lg:flex-[1.4]" : "lg:flex-1"}`}
+                className={`group relative lg:min-w-0 ${m.hero ? "lg:flex-[1.4]" : "lg:flex-1"}`}
               >
-                <div data-metric style={{ opacity: 0 }}>
+                {/* Brillo cálido de hover (detrás del contenido por orden de pintado) */}
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -inset-x-4 -inset-y-3 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  style={{ background: "radial-gradient(58% 70% at 28% 42%, rgba(244,201,140,0.13) 0%, transparent 70%)" }}
+                />
+
+                <div data-metric className="relative" style={{ opacity: 0 }}>
                   {/* Número / badge */}
                   <p
                     className={`font-display font-light leading-[0.9] ${numColor}`}
                     style={{
                       fontSize: m.hero ? "clamp(3.25rem, 6vw, 5.5rem)" : "clamp(2.25rem, 3.4vw, 3.5rem)",
-                      textShadow: "0 4px 40px rgba(0,0,0,0.55)",
+                      textShadow: m.hero
+                        ? "0 4px 40px rgba(0,0,0,0.55), 0 0 28px rgba(254,169,79,0.45)"
+                        : "0 4px 40px rgba(0,0,0,0.55)",
                     }}
                   >
                     {m.kind === "num" ? (
@@ -215,26 +235,36 @@ export default function Metrics() {
                     )}
                   </p>
 
-                  {/* Barra de acento (se dibuja) */}
+                  {/* Barra de acento (se dibuja en la entrada; crece en hover) */}
                   <span
                     aria-hidden="true"
                     data-bar
-                    className={`mt-4 block h-[3px] origin-left rounded-full ${a.bar} ${m.hero ? "w-20" : "w-12"}`}
+                    className={`mt-4 block h-[3px] origin-left rounded-full ${a.bar} transition-[width] duration-300 ${m.hero ? "w-20 group-hover:w-28" : "w-12 group-hover:w-24"}`}
                     style={{ transform: "scaleX(0)" }}
                   />
 
-                  {/* Label + hint */}
+                  {/* Label */}
                   <p className={`mt-3.5 font-display font-medium text-cream ${m.hero ? "text-lg sm:text-xl" : "text-base sm:text-lg"}`} style={{ textShadow: "0 1px 16px rgba(0,0,0,0.5)" }}>
                     {m.label}
                   </p>
-                  <p className="mt-1.5 font-body text-sm leading-relaxed text-cream/55" style={{ textShadow: "0 1px 14px rgba(0,0,0,0.5)" }}>
+
+                  {/* Hint — la hero abierto; las secundarias se revelan en hover
+                      (colapso solo en dispositivos con hover; espacio reservado
+                      → sin saltos de layout). */}
+                  <p
+                    className={`mt-1.5 font-body text-sm leading-relaxed text-cream/60 transition-all duration-300 ${
+                      m.hero
+                        ? ""
+                        : "[@media(hover:hover)]:opacity-0 [@media(hover:hover)]:translate-y-1 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:translate-y-0"
+                    }`}
+                    style={{ textShadow: "0 1px 14px rgba(0,0,0,0.5)" }}
+                  >
                     {m.hint}
                   </p>
                 </div>
               </div>
             );
           })}
-        </div>
         </div>
       </div>
     </section>
