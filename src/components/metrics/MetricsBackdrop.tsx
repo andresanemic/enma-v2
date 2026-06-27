@@ -12,8 +12,9 @@ import Image from "next/image";
  * nítida se disuelve encima → sin pop-in al entrar en viewport. No lleva
  * `priority` (está bajo el pliegue; no es el LCP).
  *
- * `object-position` en ~38% favorece la franja de cordillera + luz dorada del
- * amanecer; ajustable si se cambia la foto.
+ * `object-position` responsive: en móvil/tablet ~38% (franja de cordillera + luz
+ * dorada del amanecer); en desktop (lg+) ~62% para encuadrar el PUEBLO del fondo
+ * de la foto (las casas, la cabaña de techo rojo). Ajustable si se cambia la foto.
  */
 const IMAGE = {
   src: "/metrics/metrics-cerro-castillo-v1.webp",
@@ -31,11 +32,13 @@ export default function MetricsBackdrop() {
         placeholder="blur"
         blurDataURL={IMAGE.blurDataURL}
         sizes="100vw"
-        className="object-cover"
+        // Recorte responsive: móvil/tablet muestra el cerro (~38%); desktop (lg+)
+        // baja al pueblo del fondo de la foto (~62%).
+        className="object-cover object-[center_38%] lg:object-[center_62%]"
         // Color vivo pero frío: la saturación vuelve casi entera (el frío lo da el
         // grade, no el lavado) → evita el duotono "deslavado". El drama lo aportan
         // la viñeta y el brillo de cumbre en Metrics.tsx.
-        style={{ objectPosition: "center 38%", filter: "saturate(0.96) brightness(0.97)" }}
+        style={{ filter: "saturate(0.96) brightness(0.97)" }}
       />
     </div>
   );

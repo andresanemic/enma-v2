@@ -205,17 +205,10 @@ export default function Metrics() {
                 key={m.label}
                 className={`group relative lg:min-w-0 ${m.hero ? "lg:flex-[1.4]" : "lg:flex-1"}`}
               >
-                {/* Brillo cálido de hover (detrás del contenido por orden de pintado) */}
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute -inset-x-4 -inset-y-3 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                  style={{ background: "radial-gradient(58% 70% at 28% 42%, rgba(244,201,140,0.13) 0%, transparent 70%)" }}
-                />
-
                 <div data-metric className="relative" style={{ opacity: 0 }}>
                   {/* Número / badge */}
                   <p
-                    className={`font-display font-light leading-[0.9] ${numColor}`}
+                    className={`relative inline-block font-display font-light leading-[0.9] ${numColor}`}
                     style={{
                       fontSize: m.hero ? "clamp(3.25rem, 6vw, 5.5rem)" : "clamp(2.25rem, 3.4vw, 3.5rem)",
                       textShadow: m.hero
@@ -223,6 +216,18 @@ export default function Metrics() {
                         : "0 4px 40px rgba(0,0,0,0.55)",
                     }}
                   >
+                    {/* Brillo cálido de hover — centrado en el NÚMERO (no en la
+                        columna), así se alinea con cada métrica sin importar su ancho.
+                        Blur → glow orgánico que se desvanece por todos lados. */}
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute left-1/2 top-1/2 h-[13rem] w-[19rem] -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                      style={{
+                        background:
+                          "radial-gradient(50% 50% at 50% 50%, rgba(246,206,150,0.32) 0%, rgba(246,206,150,0.10) 50%, transparent 76%)",
+                        filter: "blur(22px)",
+                      }}
+                    />
                     {m.kind === "num" ? (
                       <span className="inline-block">
                         <span data-count data-target={m.value}>{m.value}</span>
@@ -248,9 +253,9 @@ export default function Metrics() {
                     {m.label}
                   </p>
 
-                  {/* Hint — la hero abierto; las secundarias se revelan en hover
-                      (colapso solo en dispositivos con hover; espacio reservado
-                      → sin saltos de layout). */}
+                  {/* Hint — la hero (métrica 1) lo muestra de una; las secundarias se
+                      revelan en hover (colapso solo en dispositivos con hover; espacio
+                      reservado → sin saltos de layout; touch/lectores ven el texto). */}
                   <p
                     className={`mt-1.5 font-body text-sm leading-relaxed text-cream/60 transition-all duration-300 ${
                       m.hero
