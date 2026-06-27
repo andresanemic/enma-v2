@@ -598,17 +598,14 @@ export default function Services() {
               </button>
             </div>
 
-            {/* CTA → página de Vinculación (Golden Path) */}
+            {/* CTA → página de Vinculación (Golden Path).
+                Mismo efecto que el botón del navbar: ember → terra en hover. */}
             <Link
               href="/vinculacion"
-              className="group relative mt-6 inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-ink px-7 py-3.5 font-body text-base font-medium text-cream transition-shadow duration-500 ease-out hover:shadow-[0_10px_34px_-8px_rgba(241,84,28,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember/60 focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
+              className="group mt-6 inline-flex items-center gap-2.5 rounded-full bg-ember px-7 py-3.5 font-body text-base font-medium text-cream transition-colors duration-300 hover:bg-terra focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember/60 focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
             >
-              <span
-                aria-hidden="true"
-                className="absolute left-5 top-1/2 h-8 w-8 -translate-y-1/2 scale-0 rounded-full bg-[radial-gradient(circle,#f1541c,#b12c00)] transition-transform duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[22]"
-              />
-              <span className="relative z-10">Síguenos de cerca</span>
-              <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">
+              Síguenos de cerca
+              <span className="transition-transform duration-300 group-hover:translate-x-0.5">
                 →
               </span>
             </Link>
