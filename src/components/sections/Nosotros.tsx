@@ -14,7 +14,7 @@ const DIFERENCIADORES: Diferenciador[] = [
     lead: "Pertenencia",
     accent: "territorial",
     support:
-      "Nacimos en Aysén. El desafío logístico de la Patagonia mata a quien no lo considera desde el primer día.",
+      "El desafío logístico de la Patagonia mata a quien no lo considera desde el primer día.",
   },
   {
     lead: "Soluciones",
@@ -26,13 +26,13 @@ const DIFERENCIADORES: Diferenciador[] = [
     lead: "Visión estratégica",
     accent: "+ cómputo",
     support:
-      "Simulamos y validamos con CFD y túnel de viento antes de construir: más rápido, eficiente y confiable.",
+      "Simulamos y validamos con CFD antes de construir: más rápido, eficiente y confiable.",
   },
   {
     lead: "Asociatividad",
     accent: "y co-creación",
     support:
-      "Co-creamos contigo. Queremos ser el aliado con el que conversar, no un dominador de mercado.",
+      "Co-creamos contigo. Queremos ser el aliado con el que conversar.",
   },
 ];
 
@@ -494,7 +494,7 @@ export default function Nosotros() {
               </h2>
               <p data-rise className="relative mt-7 max-w-[56ch] font-body text-base font-light leading-relaxed text-ink/70 sm:text-lg" style={{ opacity: 0 }}>
                 Al reducir ese costo aumenta la productividad, se abre la puerta a
-                tecnologizar la industria y se vuelve viable lo que hoy no lo es —como
+                tecnologizar la industria y se vuelve viable lo que hoy no lo es, como
                 reciclar en la región en vez de enviar todo al norte de Puerto Montt.
                 En el fondo: descarbonización, menores costos y más empleo local.
               </p>
@@ -509,10 +509,10 @@ export default function Nosotros() {
                 <div data-rise style={{ opacity: 0 }}>
                   <h3 className="font-display text-xl font-medium text-ink sm:text-2xl">Misión</h3>
                   <p className="mt-4 max-w-[46ch] font-body text-base font-light leading-relaxed text-ink/70 sm:text-lg">
-                    Diseñar y desarrollar soluciones sustentables en energía y
+                    Desarrollar soluciones sustentables en energía y
                     manufactura para personas, comunidades y empresas, resolviendo
-                    problemas reales de la región y reduciendo los costos
-                    energéticos y el impacto ambiental.
+                    problemas reales de la región al reducir costos
+                    energéticos y mitigar el impacto ambiental.
                   </p>
                 </div>
                 <div data-rise style={{ opacity: 0 }}>
