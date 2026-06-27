@@ -26,6 +26,8 @@ type Aparicion = {
   outlet: string;
   images: string[];
   description?: string;
+  link?: string; // URL externa (p. ej. la columna publicada)
+  quote?: string; // pull quote; si existe (e images vacío) → tarjeta editorial
 };
 
 const APARICIONES: Aparicion[] = [
@@ -37,6 +39,20 @@ const APARICIONES: Aparicion[] = [
     title: "Congreso Jóvenes Futuro Aysén",
     outlet: "Congreso Jóvenes Futuro Aysén",
     images: ["/vinculacion/participaciones/congreso-jovenes-futuro-v3.webp"],
+  },
+  {
+    id: "columna-denota-no-convencional",
+    year: "2025",
+    kind: "medios",
+    tag: "Medios",
+    title: "Más allá de lo no convencional: el verdadero desafío energético",
+    outlet: "DeNota · periodismo independiente de Aysén",
+    images: [],
+    description:
+      "Patricio Campos, cofundador de Enma, sobre la generación eléctrica comunitaria como camino a la soberanía energética en Aysén.",
+    quote:
+      "Aprovechar las renovables convencionales de una manera menos convencional, mediante la generación colectiva, es dar pasos concretos hacia una mayor soberanía energética.",
+    link: "https://denota.cl/opinion/mas-alla-de-lo-no-convencional-el-verdadero-desafio-energetico",
   },
   {
     id: "camara-construccion-coyhaique",
@@ -455,7 +471,17 @@ export default function Vinculacion() {
                           {a.description}
                         </p>
                       )}
-                      {a.images.length > 1 ? (
+                      {a.quote ? (
+                        <OpinionCard
+                          quote={a.quote}
+                          source="Columna de opinión · DeNota"
+                          author="Patricio Campos"
+                          role="Cofundador de Enma"
+                          link={a.link}
+                          active={openId === a.id}
+                          reduceMotion={reduceMotion}
+                        />
+                      ) : a.images.length > 1 ? (
                         <ImageSlider
                           images={a.images}
                           title={a.title}
@@ -656,6 +682,113 @@ function ImageSlider({
           />
         ))}
       </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// OPINION CARD — tarjeta editorial para columnas/medios sin foto de evento.
+// Reemplaza el slot de imagen del acordeón cuando la aparición trae `quote`.
+// Vive dentro de la fila clickeable: el CTA detiene la propagación para no
+// cerrar el panel al navegar a la fuente externa.
+// ─────────────────────────────────────────────────────────────────────────────
+function OpinionCard({
+  quote,
+  source,
+  author,
+  role,
+  link,
+  active,
+  reduceMotion,
+}: {
+  quote: string;
+  source: string;
+  author: string;
+  role: string;
+  link?: string;
+  active: boolean;
+  reduceMotion: boolean;
+}) {
+  const stop = (e: { stopPropagation: () => void }) => e.stopPropagation();
+  return (
+    <div
+      className="mt-5 max-w-[640px] rounded-xl bg-cream/70 p-7 ring-1 ring-ink/10 sm:p-8"
+      style={{
+        opacity: active ? 1 : 0,
+        transform: active ? "translateY(0)" : "translateY(8px)",
+        transition: reduceMotion
+          ? "none"
+          : "opacity 460ms ease-out, transform 520ms ease-out",
+      }}
+    >
+      {/* Meta */}
+      <p className="m-0 font-body text-xs font-semibold uppercase tracking-[0.18em] text-terra">
+        {source}
+      </p>
+
+      {/* Cita */}
+      <blockquote className="relative m-0 mt-4">
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-1 -top-6 font-display text-6xl leading-none text-terra/35"
+        >
+          &ldquo;
+        </span>
+        <p
+          className="relative m-0 font-display font-light text-ink"
+          style={{
+            fontSize: "clamp(1.25rem, 2.4vw, 1.9rem)",
+            lineHeight: 1.25,
+            letterSpacing: "-0.02em",
+          }}
+        >
+          {quote}
+        </p>
+      </blockquote>
+
+      {/* Pie: autor + isotipo */}
+      <div className="mt-6 flex items-center justify-between gap-4">
+        <div className="min-w-0">
+          <p className="m-0 font-body text-sm font-medium text-ink">{author}</p>
+          <p className="m-0 font-body text-sm font-light text-ink/55">{role}</p>
+        </div>
+        <Image
+          src="/isotipos/isotipo-verde.webp"
+          alt=""
+          aria-hidden="true"
+          width={32}
+          height={32}
+          className="h-8 w-8 shrink-0 opacity-70"
+        />
+      </div>
+
+      {/* CTA externo */}
+      {link && (
+        <a
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          tabIndex={active ? 0 : -1}
+          onClick={stop}
+          onKeyDown={stop}
+          className="group/cta mt-6 inline-flex items-center gap-2 font-body text-sm font-medium text-terra focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember/50"
+        >
+          <span className="relative">
+            Leer en DeNota
+            <span
+              aria-hidden="true"
+              className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-terra transition-transform duration-300 ease-out group-hover/cta:scale-x-100"
+            />
+          </span>
+          <span
+            aria-hidden="true"
+            className="transition-transform duration-300 ease-out group-hover/cta:translate-x-1"
+          >
+            &rarr;
+          </span>
+          <span className="sr-only">(se abre en una nueva pestaña)</span>
+        </a>
+      )}
     </div>
   );
 }
