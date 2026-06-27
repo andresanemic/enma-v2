@@ -177,18 +177,23 @@ export default function Proyecto() {
             ))}
           </div>
 
-          {/* Panel central — la turbina como espécimen */}
+          {/* Panel central — la turbina como espécimen (enlaza al detalle) */}
           <div className="relative shrink-0">
-            <div data-panel className="relative aspect-[3/4] w-[clamp(230px,32vw,340px)] overflow-hidden rounded-[18px] ring-1 ring-ink/15" style={{ clipPath: "inset(100% 0 0 0 round 18px)" }}>
+            <Link
+              href="/proyectos/turbina-eolica-baja-escala"
+              data-panel
+              aria-label="Ver el proyecto: turbina eólica de baja escala"
+              className="group relative block aspect-[3/4] w-[clamp(230px,32vw,340px)] cursor-pointer overflow-hidden rounded-[18px] ring-1 ring-ink/15 transition-shadow duration-300 hover:ring-ink/25"
+              style={{ clipPath: "inset(100% 0 0 0 round 18px)" }}
+            >
               <Image
                 src="/proyecto/turbina-v2.webp"
                 alt="Turbina eólica de baja escala en un paisaje abierto"
                 fill
                 sizes="(min-width: 768px) 300px, 70vw"
-                className="object-cover object-center"
+                className="object-cover object-center transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06] motion-reduce:transform-none motion-reduce:transition-none"
               />
-
-            </div>
+            </Link>
           </div>
 
           {/* Columna derecha (desktop) */}
