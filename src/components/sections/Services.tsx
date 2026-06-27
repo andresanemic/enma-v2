@@ -14,7 +14,7 @@ type Service = {
   img: string;
   objPos?: string;   // object-position del img (default "center")
   imgScale?: number; // zoom del img (default 1.08)
-  warmTint?: boolean; // capa cálida naranja sobre la foto
+  warmTint?: boolean; // capa cálida naranja sobre la foto (todas las cards)
 };
 
 const SERVICES: Service[] = [
@@ -24,12 +24,14 @@ const SERVICES: Service[] = [
     desc: "El servicio base, y el que abre la puerta a todos los demás: estudios de soluciones energéticas para empresas y sector público. Su mayor valor es intangible: el conocimiento técnico y el de Aysén.",
     img: "/servicios/servicio-01-v1.webp",
     objPos: "center 75%",
+    warmTint: true,
   },
   {
     n: "02",
     title: "Formulación y acompañamiento",
     desc: "Formulamos y acompañamos proyectos para apalancar recursos públicos como Corfo y ANID, con foco energético o ambiental. Desde la idea hasta la presentación y ejecución de la iniciativa.",
     img: "/servicios/servicio-02-v1.webp",
+    warmTint: true,
   },
   {
     n: "03",
@@ -42,7 +44,7 @@ const SERVICES: Service[] = [
     n: "04",
     title: "Ensayos en túnel de viento",
     desc: "Un túnel de viento propio —en construcción en Santiago— que complementa al CFD en todo lo referente al aire, permitiendo validar físicamente los diseños antes de fabricarlos.",
-    img: "/servicios/servicio-04-v2.png",
+    img: "/servicios/servicio-04-v3.webp",
     warmTint: true,
   },
   {
@@ -50,6 +52,7 @@ const SERVICES: Service[] = [
     title: "Cuantificación de huella de carbono",
     desc: "Medimos las emisiones de gases de efecto invernadero de empresas y municipios, camino a los sellos de calidad que entrega el Ministerio del Medio Ambiente.",
     img: "/servicios/servicio-05-v1.webp",
+    warmTint: true,
   },
   {
     n: "06",
@@ -57,6 +60,7 @@ const SERVICES: Service[] = [
     desc: "Charlas sobre eficiencia energética y cambio climático, presentaciones ante consejos regionales, comunidades y juntas de vecinos, y difusión de estudios en medios de la región.",
     img: "/servicios/servicio-06-v1.webp",
     objPos: "top",
+    warmTint: true,
   },
 ];
 
@@ -495,7 +499,7 @@ export default function Services() {
                               "linear-gradient(180deg, rgba(20,30,30,0.10) 0%, transparent 32%, rgba(15,25,24,0.42) 100%)",
                           }}
                         />
-                        {/* Capa cálida — naranja suave sobre imágenes técnicas (CFD / túnel) */}
+                        {/* Capa cálida — naranja suave sobre la foto (todas las cards) */}
                         {s.warmTint && (
                           <span
                             aria-hidden="true"
