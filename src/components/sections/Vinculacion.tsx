@@ -475,7 +475,7 @@ export default function Vinculacion() {
                                 prev.has(a.id) ? prev : new Set(prev).add(a.id)
                               )
                             }
-                            className="mt-4 w-full rounded-xl"
+                            className="mt-5 w-full max-w-[640px] rounded-xl"
                             style={{
                               height: "auto",
                               opacity: loadedImg.has(a.id) ? 1 : 0,
