@@ -417,7 +417,7 @@ export default function Vinculacion() {
                     setOpenId(openId === a.id ? null : a.id);
                   }
                 }}
-                className="group relative grid cursor-pointer grid-cols-1 items-baseline gap-x-8 gap-y-2 border-b border-ink/12 py-7 transition-[padding] duration-300 ease-out hover:pl-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember/50 md:grid-cols-[150px_1fr_auto] md:py-8"
+                className="group relative grid cursor-pointer grid-cols-1 items-baseline gap-x-8 gap-y-2 border-b border-ink/12 py-7 transition-[padding] duration-300 ease-out hover:pl-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember/50 md:grid-cols-[150px_1fr] md:py-8"
               >
                 {/* Año + tag */}
                 <div className="flex items-center gap-3">
@@ -491,30 +491,6 @@ export default function Vinculacion() {
                   </div>
                 </div>
 
-                {/* Onda de señal — se traza al abrir */}
-                <div className="flex items-center justify-end self-center">
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 64 16"
-                    className="h-4 w-16 text-ember"
-                    fill="none"
-                    preserveAspectRatio="none"
-                  >
-                    <path
-                      d="M0 8 H8 L12 2 L18 14 L24 4 L30 12 L34 8 H64"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      pathLength={1}
-                      style={{
-                        strokeDasharray: 1,
-                        strokeDashoffset: openId === a.id ? 0 : 1,
-                        transition: reduceMotion ? "none" : "stroke-dashoffset 0.6s ease-out",
-                      }}
-                    />
-                  </svg>
-                </div>
               </article>
             ))}
           </div>
