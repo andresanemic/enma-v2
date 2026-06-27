@@ -58,7 +58,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="es"
+      lang="es-CL"
       className={`${manrope.variable} ${outfit.variable}`}
     >
       <body>

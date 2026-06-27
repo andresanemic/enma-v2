@@ -1,0 +1,23 @@
+# Enma
+
+> Enma (Enma SPA) es una empresa chilena de base científico-tecnológica dedicada a la energía y la manufactura sustentable, nacida en 2022 en la Región de Aysén, Patagonia. Trabaja en consultoría, simulaciones CFD y proyectos de energías renovables. Fundada por los ingenieros mecánicos Bruno Ortega y Patricio Campos.
+
+Datos de contacto: contacto@enmachile.com · WhatsApp +56 9 9337 7935 · Coyhaique, Región de Aysén, Chile. Sitio en español (es-CL).
+
+## Páginas principales
+
+- [Inicio](https://enmachile.com/): qué es Enma, servicios y propuesta de valor.
+- [Nosotros](https://enmachile.com/nosotros): origen en la Patagonia, equipo, valores, misión y visión.
+- [Proyectos](https://enmachile.com/proyectos): proyectos de I+D en energía y manufactura sustentable.
+- [Vinculación](https://enmachile.com/vinculacion): participaciones de Enma en medios y charlas.
+- [Blog](https://enmachile.com/blog): columnas sobre energía, territorio y tecnología en Aysén.
+
+## Proyectos
+
+- [Turbina eólica de baja escala](https://enmachile.com/proyectos/turbina-eolica-baja-escala): diseño y validación (CFD → túnel de viento → prototipo) de una turbina eólica de baja escala.
+
+## Blog
+
+- [En Aysén pagamos la energía más cara. Y tenemos cómo cambiarlo](https://enmachile.com/blog/energia-mas-cara-aysen): el costo de la energía en Aysén y cómo revertirlo.
+- [La Patagonia se resuelve desde la Patagonia](https://enmachile.com/blog/patagonia-se-resuelve-desde-la-patagonia): por qué las soluciones energéticas del territorio deben nacer en el territorio.
+- [Enma explicado en fácil: energía y tecnología hechas en la Patagonia](https://enmachile.com/blog/enma-explicado-en-facil): introducción simple a qué hace Enma.
