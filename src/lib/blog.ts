@@ -26,8 +26,11 @@ export type Article = {
   /** Pill superior (sección/dominio editorial). Outfit uppercase. */
   topic: string;
   title: string;
-  /** Resumen — se usa en la franja del landing y como lead al inicio de la nota. */
+  /** Resumen — se usa en la franja del landing, como fallback de lead y como
+   *  description SEO. Debe quedarse como texto plano (sin enlaces). */
   summary: string;
+  /** Lead enriquecido al inicio de la nota. Si falta, se usa `summary`. */
+  lead?: RichText;
   author: string;
   /** Etiqueta del autor — Outfit uppercase (lo "técnico" no va en mono). */
   role?: string;
@@ -55,7 +58,11 @@ export const ARTICLES: Article[] = [
     coverAlt: "Parque eólico recortado contra una bruma dorada al atardecer",
     imageSide: "left",
     body: [
-      { type: "p", spans: [`Vivir en la Región de Aysén significa pagar caro por algo tan básico como encender la luz o calefaccionar la casa. No es una percepción: es una realidad estructural. Estamos lejos, somos pocos y mover cualquier cosa hasta acá cuesta. Esa distancia se traduce, casi línea por línea, en el valor que personas y empresas pagamos por la energía, sea eléctrica o térmica.`] },
+      { type: "p", spans: [
+        `Vivir en la Región de Aysén significa pagar caro por algo tan básico como encender la luz o calefaccionar la casa. No es una percepción: `,
+        { text: `es una realidad estructural`, href: `https://radio45sur.cl/2024/06/27/la-luz-mas-cara-de-chile-aumento-en-aysen-llegaria-al-50-acumulado-en-enero-de-2025/`, external: true },
+        `. Estamos lejos, somos pocos y mover cualquier cosa hasta acá cuesta. Esa distancia se traduce, casi línea por línea, en el valor que personas y empresas pagamos por la energía, sea eléctrica o térmica.`,
+      ] },
       { type: "p", spans: [`El problema es que la energía cara no se queda en la boleta. Encarece todo lo demás. Una industria que consume mucha energía simplemente no es viable en la región. El ejemplo más claro es el reciclaje: hoy buena parte de los residuos que podríamos procesar acá terminan viajando al norte de Puerto Montt, porque localmente no existe la capacidad de hacerlo a un costo razonable. Perdemos la oportunidad, el empleo y el círculo virtuoso completo.`] },
       { type: "quote", text: `La energía cara no se queda en la boleta. Encarece todo lo demás.`, cite: `Bruno Ortega` },
       { type: "h2", text: `Las renovables ya no son una promesa` },
@@ -66,7 +73,7 @@ export const ARTICLES: Article[] = [
       ] },
       { type: "p", spans: [
         `Para un hogar o una empresa de Aysén, esto se traduce en algo muy concreto: autogenerar parte de su energía y, cuando hay red disponible, inyectar el excedente para bajar la cuenta de luz mediante `,
-        { text: `netbilling`, italic: true },
+        { text: `netbilling`, href: `https://www.cge.cl/productos-y-servicios/generacion-distribuida-netbilling/`, external: true },
         `. No es ciencia ficción; es ingeniería aplicada al territorio.`,
       ] },
       { type: "h2", text: `Una turbina pensada para el viento patagónico` },
@@ -87,6 +94,11 @@ export const ARTICLES: Article[] = [
     title: "La Patagonia se resuelve desde la Patagonia",
     summary:
       "Porque los desafíos regionales no se resuelven sin entender las particularidades logísticas, climáticas y culturales del territorio.",
+    lead: [
+      `Porque los desafíos regionales no se resuelven sin entender `,
+      { text: `las particularidades logísticas, climáticas y culturales del territorio`, href: `https://www.uc.cl/noticias/una-mirada-al-aislamiento-en-aysen/`, external: true },
+      `.`,
+    ],
     author: "Patricio Campos",
     role: "Socio fundador",
     date: "2026-06-22",
@@ -104,8 +116,10 @@ export const ARTICLES: Article[] = [
         `Trabajamos principalmente en consultoría, formulación y acompañamiento de proyectos para instrumentos públicos como `,
         { text: `CORFO`, href: `https://www.corfo.cl`, external: true },
         `, ANID y los Gobiernos Regionales, con foco energético o ambiental. A eso sumamos dos servicios que veo con enorme potencial: las `,
-        { text: `simulaciones computacionales fluidodinámicas (CFD)`, bold: true },
-        ` para optimizar el diseño de sistemas que interactúan con fluidos, y la cuantificación de huella de carbono para empresas y municipalidades.`,
+        { text: `simulaciones computacionales fluidodinámicas (CFD)`, href: `https://www.ansys.com/simulation-topics/what-is-computational-fluid-dynamics`, external: true },
+        ` para optimizar el diseño de sistemas que interactúan con fluidos, y la `,
+        { text: `cuantificación de huella de carbono`, href: `https://mma.gob.cl/cambio-climatico/cc-02-7-huella-de-carbono/`, external: true },
+        ` para empresas y municipalidades.`,
       ] },
       { type: "p", spans: [`El valor de simular es tangible: con capacidad de cómputo podemos validar soluciones complejas de manera rápida y confiable, contrastando la teoría con modelos antes de gastar en terreno. Eso se traduce en eficiencia y, a la larga, en menores costos por el tiempo de ejecución.`] },
       { type: "p", spans: [

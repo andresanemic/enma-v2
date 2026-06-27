@@ -212,9 +212,9 @@ export default function BlogArticle({ article, nav }: { article: Article; nav: N
         style={{ background: "linear-gradient(180deg, #f7e6cf 0%, #f8eddd 14%, #f8eddd 100%)" }}
       >
         <div data-reveal="body" className="mx-auto max-w-[72ch] px-6 pb-20 pt-12 sm:px-8 md:pb-24 md:pt-16">
-          {/* Lead — bajada al inicio de la nota */}
+          {/* Lead — bajada al inicio de la nota (enriquecido si hay `lead`) */}
           <p data-fade className="m-0 font-body text-2xl font-light leading-relaxed text-ink/75 sm:text-3xl" style={{ opacity: 0 }}>
-            {article.summary}
+            {article.lead ? renderSpans(article.lead) : article.summary}
           </p>
 
           {/* Regla de apertura (acento teal) */}
