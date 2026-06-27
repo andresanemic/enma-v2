@@ -8,7 +8,7 @@ import SignalMarquee from "./SignalMarquee";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 404 — "Esta página no existe"
-// Reusa el lenguaje del hero de Vinculación (mismo marco, glow, marquee y reveal
+// Reusa el lenguaje del hero de Vinculación (mismo marco, marquee y reveal
 // clip+fade) adaptado a una ruta no encontrada. La imagen es un guiño de marca:
 // el "Rey Enma" (King Yemma), juez que revisa su registro y no encuentra la ruta.
 // El personaje va de cuerpo entero sobre fondo transparente → object-contain
@@ -156,13 +156,11 @@ export default function NotFound() {
               </Link>
             </div>
 
-            {/* ── Imagen (Rey Enma) — mismo marco, encuadre contain sobre cálido ── */}
+            {/* ── Imagen (Rey Enma) — PNG transparente sobre el crema, sin glow.
+                 (Se retiró el glow radial: al estar clipado al box `inset-0` con un
+                 radio grande, dejaba un escalón rectangular visible — el "cuadrado".
+                 El drop-shadow basta para asentar la figura y sigue la silueta.) ── */}
             <div data-fade className="relative mx-auto w-full max-w-[460px]" style={{ opacity: 0 }}>
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 -z-10"
-                style={{ background: "radial-gradient(58% 52% at 50% 46%, rgba(241,84,28,0.14) 0%, transparent 68%)" }}
-              />
               <div className="relative aspect-[4/5] w-full">
                 <Image
                   src="/404/rey-enma-v1.webp"
