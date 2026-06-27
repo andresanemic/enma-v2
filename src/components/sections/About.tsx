@@ -89,13 +89,13 @@ export default function About() {
         <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-14 lg:gap-20">
           {/* Imagen */}
           <div className={`${reveal()} order-1`} style={delay(1)}>
-            <div className="relative aspect-[4/5] group overflow-hidden rounded-3xl bg-sand">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-sand">
               <Image
                 src={IMG}
                 alt="Paisaje de la Patagonia chilena, Región de Aysén"
                 fill
                 sizes="(min-width: 768px) 50vw, 90vw"
-                className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
+                className="object-cover"
               />
               <span
                 aria-hidden="true"
