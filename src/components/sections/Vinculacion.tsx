@@ -133,6 +133,16 @@ const MARQUEE = [
   "Prensa digital",
 ];
 
+// Hero — dos retratos posibles (Bruno / Patricio), uno al azar por carga (50/50).
+// Misma caja (aspect-[4/5] + rounded), solo cambia el encuadre horizontal.
+const HERO_IMAGES = [
+  { src: "/vinculacion/hero-v1.webp", objectPosition: "top", wash: false },
+  // Patricio: recorte a la franja 4:5 visible. La foto tiene mucho azul/morado;
+  // se "deslava" vía CSS (filter desatura + sube brillo + baja contraste) más un
+  // velo cream. La calidez la da la capa terracota multiply compartida del hero.
+  { src: "/vinculacion/hero-patricio-v7.webp", objectPosition: "center", wash: true },
+] as const;
+
 export default function Vinculacion() {
   const rootRef = useRef<HTMLDivElement>(null);
   const repoRef = useRef<HTMLElement>(null);
@@ -145,11 +155,21 @@ export default function Vinculacion() {
   // expandir; sin esto aparecería de golpe (rompe el tono premium en móvil).
   // Arranca en opacity:0 y entra con fade al terminar de cargar (onLoad).
   const [loadedImg, setLoadedImg] = useState<Set<string>>(new Set());
+  // Retrato del hero al azar (50/50). Arranca en 0 (SSR estable) y se decide en
+  // cliente al montar; la caja parte en opacity:0 (data-fade), así no hay flash.
+  const [heroIdx, setHeroIdx] = useState(0);
   const reduceMotion =
     typeof window !== "undefined" &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const shown = APARICIONES.filter((a) => channel === "todo" || a.kind === channel);
+
+  // Elegir retrato del hero al azar en el cliente (evita mismatch de hidratación).
+  useEffect(() => {
+    setHeroIdx(Math.random() < 0.5 ? 0 : 1);
+  }, []);
+
+  const hero = HERO_IMAGES[heroIdx];
 
   // ── Reveals de los bloques narrativos (hero, destacada, cierre): IO + fallback
   // gateado por visibilidad real (lore/animation). Cada bloque, su firma. ──
@@ -334,13 +354,27 @@ export default function Vinculacion() {
               />
               <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[18px] ring-1 ring-ink/15 shadow-[0_30px_70px_-40px_rgba(26,26,26,0.6)]">
                 <Image
-                  src="/vinculacion/hero-v1.webp"
+                  key={hero.src}
+                  src={hero.src}
                   alt=""
                   fill
                   priority
+                  quality={90}
                   sizes="(min-width: 768px) 460px, 90vw"
-                  className="object-cover object-top"
+                  className="object-cover"
+                  style={{
+                    objectPosition: hero.objectPosition,
+                    ...(hero.wash ? { filter: "saturate(0.9) brightness(1.025) contrast(0.97)" } : {}),
+                  }}
                 />
+                {/* Deslavado — velo cream que apaga el azul/morado de la escena */}
+                {hero.wash && (
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0"
+                    style={{ background: "rgba(248,237,221,0.06)" }}
+                  />
+                )}
                 <span
                   aria-hidden="true"
                   className="pointer-events-none absolute inset-0"
