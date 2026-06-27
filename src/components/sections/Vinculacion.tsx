@@ -398,7 +398,7 @@ export default function Vinculacion() {
                     onClick={() => setChannel(c.id)}
                     className={`rounded-full border px-4 py-2 font-body text-sm font-medium transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember/50 ${
                       on
-                        ? "border-ember bg-ember text-cream shadow-[0_8px_24px_-12px_rgba(241,84,28,0.7)]"
+                        ? "border-ink bg-ink text-cream shadow-[0_8px_24px_-12px_rgba(26,26,26,0.7)]"
                         : "border-ink/15 text-ink/60 hover:border-ember/50 hover:text-ink"
                     }`}
                   >
