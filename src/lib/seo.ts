@@ -15,7 +15,7 @@ export const WHATSAPP_NUMBER = "56993377935";
 export const WHATSAPP_DISPLAY = "+56 9 9337 7935";
 export const TELEPHONE = "+56993377935";
 export const WHATSAPP_MESSAGE =
-  "Hola Enma 👋 Vengo desde su sitio web y me gustaría conversar sobre un proyecto.";
+  "Hola Enma! Vengo desde su sitio web y me gustaría conversar sobre un proyecto.";
 export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
   WHATSAPP_MESSAGE,
 )}`;
