@@ -8,7 +8,13 @@
 // NO inventar cifras, fechas, alcances ni clientes.
 // ─────────────────────────────────────────────────────────────────────────────
 
+/** Valor admite realce con `**negrita**` (markdown mínimo) — se parsea en el render. */
 export type ProyectoFact = { label: string; value: string };
+
+/** Métrica de impacto destacable. Cualitativa y honesta: SIN cifras inventadas
+ *  (que-es-enma.txt no documenta números duros del proyecto). `figure` es el dato
+ *  grande (número o palabra), `label` su nombre, `detail` el respaldo. */
+export type ProyectoMetric = { figure: string; label: string; detail: string };
 
 export type Proyecto = {
   slug: string;
@@ -41,6 +47,8 @@ export type Proyecto = {
   /** Galería de fotos del proyecto (orientación mixta). Si falta o está vacía, la
    *  sección "Imágenes del proyecto" del detalle no se muestra. Orden mostrado al azar. */
   gallery?: string[];
+  /** Métricas de impacto (cierre de la Ficha técnica). Si falta, el bloque no se muestra. */
+  metrics?: ProyectoMetric[];
 };
 
 export const PROYECTOS: Proyecto[] = [
@@ -60,13 +68,13 @@ export const PROYECTOS: Proyecto[] = [
     lead:
       "Una turbina de diseño propio, financiada por ANID, pensada para los vientos más difíciles de la Patagonia.",
     facts: [
-      { label: "Financiamiento", value: "Agencia Nacional de Investigación y Desarrollo (ANID)" },
-      { label: "Escala", value: "Baja escala — pensada para granjas de muchas unidades" },
-      { label: "Diseñada para", value: "Vientos excesivos, ráfagas súbitas y alta turbulencia" },
-      { label: "Aplicación", value: "Campo, casas, electrificación rural e industria — netbilling" },
-      { label: "Modelado CFD", value: "Simulamos el comportamiento aerodinámico en aire antes de fabricar." },
-      { label: "Túnel de viento", value: "Validación física con un túnel propio, en construcción en Santiago." },
-      { label: "Prototipo físico", value: "Construido y ensayado, no solo simulado." },
+      { label: "Financiamiento", value: "Agencia Nacional de Investigación y Desarrollo (**ANID**)" },
+      { label: "Escala", value: "Baja escala: pensada para **granjas de muchas unidades**" },
+      { label: "Diseñada para", value: "Vientos excesivos, ráfagas súbitas y **alta turbulencia**" },
+      { label: "Aplicación", value: "Campo, casas, electrificación rural e industria: **netbilling**" },
+      { label: "Modelado CFD", value: "Simulamos el comportamiento aerodinámico en aire antes de fabricar" },
+      { label: "Túnel de viento", value: "Validación física con un túnel propio, en construcción en Santiago" },
+      { label: "Prototipo físico", value: "Construido y ensayado, no solo simulado" },
     ],
     context:
       "Buena parte de Aysén tiene un viento difícil: en un mismo minuto puede pasar de una brisa baja a una ráfaga muy energética, y cambiar de dirección de golpe. Es un régimen que destruye a las máquinas pensadas para vientos estables. Quisimos una turbina que no solo tolerara esas condiciones, sino que naciera diseñada para ellas.",
@@ -89,6 +97,13 @@ export const PROYECTOS: Proyecto[] = [
       "/proyectos/galeria/turbina-galeria-3-v1.webp",
       "/proyectos/galeria/turbina-galeria-4-v1.webp",
       "/proyectos/galeria/turbina-galeria-5-v1.webp",
+    ],
+    // Métricas cualitativas honestas (sin cifras inventadas, ver que-es-enma.txt):
+    // validación en 3 frentes, financiamiento ANID, diseño propio resiliente.
+    metrics: [
+      { figure: "3", label: "Frentes de validación", detail: "CFD · túnel de viento · prototipo físico" },
+      { figure: "ANID", label: "Financiamiento", detail: "Fondo público competitivo de I+D" },
+      { figure: "Propio", label: "Diseño", detail: "Resiliente a vientos excesivos y turbulentos" },
     ],
   },
 ];

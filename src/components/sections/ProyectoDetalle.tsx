@@ -24,6 +24,29 @@ import ImageSlider from "./ImageSlider";
 
 type NavPair = { prev: Proyecto; next: Proyecto };
 
+// Realce mínimo en los valores de la ficha: `**texto**` → <strong>. Mantiene el
+// valor como string plano en los datos y lo enfatiza al renderizar (sin HTML crudo).
+function renderRich(text: string) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+    part.startsWith("**") && part.endsWith("**") ? (
+      <strong key={i} className="font-semibold text-ink">
+        {part.slice(2, -2)}
+      </strong>
+    ) : (
+      <span key={i}>{part}</span>
+    )
+  );
+}
+
+// Acentos rotativos de las métricas de impacto: color del dato + lavado de hover +
+// inclinación analógica (se endereza al pasar el cursor). Cálidos primero (regla
+// de paleta): brasa → teal → terracota.
+const METRIC_ACCENTS = [
+  { fg: "text-ember", bar: "bg-ember", wash: "rgba(241,84,28,0.12)", tilt: "-rotate-[0.7deg]" },
+  { fg: "text-teal", bar: "bg-teal", wash: "rgba(32,83,88,0.12)", tilt: "rotate-[0.6deg]" },
+  { fg: "text-terra", bar: "bg-terra", wash: "rgba(177,44,0,0.12)", tilt: "-rotate-[0.4deg]" },
+] as const;
+
 // Anotación de la "línea de cota" (sin caja): número (Manrope, dispositivo de
 // secuencia) + label + detalle, enmarcados por dos esquineros de registro (crop
 // marks) en vértices opuestos — encuadre técnico sin el peso de una card.
@@ -109,6 +132,7 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
         q("[data-rail-v]", b).forEach((e) => gsap.set(e, { scaleY: 1 }));
         q("[data-step]", b).forEach((e) => gsap.set(e, { opacity: 1, y: 0 }));
         q("[data-card]", b).forEach((e) => gsap.set(e, { opacity: 1, y: 0 }));
+        q("[data-metric]", b).forEach((e) => gsap.set(e, { opacity: 1, y: 0 }));
       });
       return;
     }
@@ -133,8 +157,11 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
         case "ficha": {
           // Registro de datos: el header entra y los valores hacen fade-up en cascada
           // (un solo momento, sin líneas que se tracen — quedó más limpio y junto).
+          // Las métricas de cierre entran después, sobrias (fade-up); su vida está en
+          // el color y el hover, no en la entrada (estándar de efectos bajados).
           tl.fromTo(q("[data-fade]", b), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7 }, 0);
           tl.fromTo(q("[data-card]", b), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.55, stagger: 0.07 }, 0.12);
+          tl.fromTo(q("[data-metric]", b), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 }, 0.32);
           break;
         }
         case "narrativa": {
@@ -269,7 +296,11 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
         </div>
       </section>
 
-      {/* ════════ 3 · FICHA TÉCNICA — lámina de cotas sobre papel de cuaderno ════════ */}
+      {/* ════════ 3 · FICHA TÉCNICA + MÉTRICAS — hoja de cuaderno de ingeniería ════════ */}
+      {/* Una sola sección hace doble función (ficha + impacto): la "hoja" técnica con
+          los datos y, al cierre, las métricas. La hoja se desordena un poco a propósito
+          —ligeramente inclinada, con margen, perforaciones y grano de papel— para que
+          se sienta una página real, no una recreación pulcra. */}
       <section
         data-reveal="ficha"
         data-nav="light"
@@ -281,69 +312,138 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
             Ficha técnica
           </h2>
 
-          {/* Lámina de ingeniería: las líneas de cota viven sobre papel cuadriculado,
-              enmarcadas por una hoja con borde hairline y crop marks de registro en las
-              esquinas — contenedor con presencia, pero no una card estándar. El header
-              queda afuera/arriba; las cotas respiran dentro de la hoja. */}
-          <div className="relative mt-8 overflow-hidden rounded-[4px] border border-ink/20 bg-cream/80 px-6 py-[32px] shadow-[0_14px_40px_-44px_rgba(26,26,26,0.5)] sm:mt-10 sm:px-10 md:px-12">
-            {/* Papel cuadriculado del cuaderno de ingeniería. Celda = módulo de fila
-                (70px) y line-up vertical anclado (background-position 32px) para que
-                las líneas horizontales coincidan con los divisores bajo cada valor. */}
+          {/* La hoja: borde hairline, levísima inclinación + sombra de "página apoyada",
+              papel cuadriculado fino, margen rojo de cuaderno con perforaciones y un
+              grano de papel sutil. El header queda afuera/arriba; los datos respiran
+              dentro, pasada la columna de margen. */}
+          <div className="relative mt-8 -rotate-[0.4deg] overflow-hidden rounded-[4px] border border-ink/25 bg-cream/85 px-5 py-[32px] shadow-[0_20px_55px_-44px_rgba(26,26,26,0.65)] sm:mt-10 sm:px-8 md:px-10">
+            {/* Papel cuadriculado fino (35px → 4 celdas por el módulo de fila de 70px).
+                background-position 32px alinea las líneas horizontales con los divisores. */}
             <span
               aria-hidden="true"
               className="pointer-events-none absolute inset-0"
               style={{
                 backgroundImage:
-                  "linear-gradient(rgba(26,26,26,0.06) 1px, transparent 1px)," +
-                  "linear-gradient(90deg, rgba(26,26,26,0.06) 1px, transparent 1px)",
-                backgroundSize: "70px 70px",
+                  "linear-gradient(rgba(26,26,26,0.055) 1px, transparent 1px)," +
+                  "linear-gradient(90deg, rgba(26,26,26,0.055) 1px, transparent 1px)",
+                backgroundSize: "35px 35px",
                 backgroundPosition: "0px 32px",
               }}
             />
-            {/* Crop marks de registro en las 4 esquinas de la hoja */}
+            {/* Grano de papel — textura analógica muy tenue */}
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0"
+              style={{
+                backgroundImage:
+                  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+                opacity: 0.06,
+                mixBlendMode: "multiply",
+              }}
+            />
+            {/* Crop marks de registro en las 4 esquinas */}
             <span aria-hidden="true" className="pointer-events-none absolute left-3 top-3 h-3 w-3 border-l border-t border-ink/30" />
             <span aria-hidden="true" className="pointer-events-none absolute right-3 top-3 h-3 w-3 border-r border-t border-ink/30" />
             <span aria-hidden="true" className="pointer-events-none absolute bottom-3 left-3 h-3 w-3 border-b border-l border-ink/30" />
             <span aria-hidden="true" className="pointer-events-none absolute bottom-3 right-3 h-3 w-3 border-b border-r border-ink/30" />
 
-            {/* ── Desktop ≥ sm: label (con tick) · valor, en dos columnas juntas ── */}
-            <dl className="relative hidden flex-col sm:flex">
-              {proyecto.facts.map((f) => (
-                <div key={f.label} className="group flex min-h-[70px] items-center gap-8 border-b border-ink/15">
-                  <dt className="flex w-40 shrink-0 items-baseline gap-2.5 font-body text-[12px] font-semibold uppercase tracking-[0.16em] text-ink/55 transition-colors duration-200 group-hover:text-terra lg:w-48">
-                    <span aria-hidden="true" className="h-3 w-px shrink-0 self-center bg-terra/70 transition-all duration-300 group-hover:h-4 group-hover:bg-ember" />
-                    {f.label}
-                  </dt>
-                  <dd
-                    data-card
-                    className="m-0 max-w-[58ch] flex-1 font-body text-lg font-normal leading-relaxed text-ink"
-                    style={{ opacity: 0 }}
-                  >
-                    {f.value}
-                  </dd>
-                </div>
-              ))}
-            </dl>
+            {/* Contenido: columna de margen (regla + perforaciones) + datos */}
+            <div className="relative z-10 flex">
+              {/* Margen de cuaderno: regla roja al borde derecho + 3 perforaciones */}
+              <div aria-hidden="true" className="relative w-8 shrink-0 sm:w-11">
+                <span className="absolute bottom-0 right-0 top-0 w-px bg-terra/35" />
+                <span className="absolute left-1 top-[58px] h-3 w-3 rounded-full border border-ink/25 bg-ink/[0.045] sm:left-2 sm:h-3.5 sm:w-3.5" />
+                <span className="absolute left-1 top-[178px] h-3 w-3 rounded-full border border-ink/25 bg-ink/[0.045] sm:left-2 sm:h-3.5 sm:w-3.5" />
+                <span className="absolute left-1 top-[298px] h-3 w-3 rounded-full border border-ink/25 bg-ink/[0.045] sm:left-2 sm:h-3.5 sm:w-3.5" />
+              </div>
 
-            {/* ── Móvil < sm: label (con tick) sobre valor ── */}
-            <dl className="relative flex flex-col sm:hidden">
-              {proyecto.facts.map((f) => (
-                <div key={f.label} className="group flex min-h-[70px] flex-col justify-center gap-1.5 border-b border-ink/15">
-                  <dt className="flex items-center gap-2.5 font-body text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/55">
-                    <span aria-hidden="true" className="h-3 w-px shrink-0 bg-terra/70 transition-all duration-300 group-hover:h-4 group-hover:bg-ember" />
-                    {f.label}
-                  </dt>
-                  <dd
-                    data-card
-                    className="m-0 font-body text-base font-normal leading-relaxed text-ink"
-                    style={{ opacity: 0 }}
-                  >
-                    {f.value}
-                  </dd>
-                </div>
-              ))}
-            </dl>
+              <div className="min-w-0 flex-1 pl-4 sm:pl-7">
+                {/* ── Desktop ≥ sm: label (con tick) · valor, en dos columnas juntas ── */}
+                <dl className="hidden flex-col sm:flex">
+                  {proyecto.facts.map((f) => (
+                    <div key={f.label} className="group flex min-h-[70px] items-center gap-8 border-b border-ink/25 last:border-b-0">
+                      <dt className="flex w-40 shrink-0 items-baseline gap-2.5 font-body text-[12px] font-semibold uppercase tracking-[0.16em] text-ink/55 transition-colors duration-200 group-hover:text-terra lg:w-48">
+                        <span aria-hidden="true" className="h-3 w-px shrink-0 self-center bg-terra/70 transition-all duration-300 group-hover:h-4 group-hover:bg-ember" />
+                        {f.label}
+                      </dt>
+                      <dd
+                        data-card
+                        className="m-0 max-w-[58ch] flex-1 font-body text-lg font-normal leading-relaxed text-ink"
+                        style={{ opacity: 0 }}
+                      >
+                        {renderRich(f.value)}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+
+                {/* ── Móvil < sm: label (con tick) sobre valor ── */}
+                <dl className="flex flex-col sm:hidden">
+                  {proyecto.facts.map((f) => (
+                    <div key={f.label} className="group flex min-h-[70px] flex-col justify-center gap-1.5 border-b border-ink/25 last:border-b-0">
+                      <dt className="flex items-center gap-2.5 font-body text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/55">
+                        <span aria-hidden="true" className="h-3 w-px shrink-0 bg-terra/70 transition-all duration-300 group-hover:h-4 group-hover:bg-ember" />
+                        {f.label}
+                      </dt>
+                      <dd
+                        data-card
+                        className="m-0 font-body text-base font-normal leading-relaxed text-ink"
+                        style={{ opacity: 0 }}
+                      >
+                        {renderRich(f.value)}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            </div>
           </div>
+
+          {/* ── Métricas de impacto — cierre de la hoja. Fichas de papel propias, con el
+              dato grande a color y un hover libre (se levanta, se endereza, se tiñe). ── */}
+          {proyecto.metrics && proyecto.metrics.length > 0 && (
+            <div className="mt-14 sm:mt-16">
+              <h3 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-teal" style={{ opacity: 0 }}>
+                Métricas de impacto
+              </h3>
+              <ul className="mt-7 grid grid-cols-1 gap-5 sm:mt-8 sm:grid-cols-3">
+                {proyecto.metrics.map((m, i) => {
+                  const a = METRIC_ACCENTS[i % METRIC_ACCENTS.length];
+                  return (
+                    <li key={m.label} data-metric style={{ opacity: 0 }}>
+                      <div
+                        className={`group relative h-full overflow-hidden rounded-[4px] border border-ink/25 bg-cream/85 px-6 py-7 shadow-[0_12px_32px_-32px_rgba(26,26,26,0.55)] ${a.tilt} transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:rotate-0 hover:shadow-[0_24px_48px_-30px_rgba(26,26,26,0.55)]`}
+                      >
+                        {/* Lavado de color que sube en hover */}
+                        <span
+                          aria-hidden="true"
+                          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                          style={{ background: `linear-gradient(180deg, transparent 35%, ${a.wash} 100%)` }}
+                        />
+                        {/* Barra de acento que se extiende en hover */}
+                        <span aria-hidden="true" className={`pointer-events-none absolute left-0 top-0 h-[3px] w-9 origin-left ${a.bar} transition-transform duration-300 group-hover:scale-x-[2.6]`} />
+                        {/* Crop mark inferior derecho — guiño a la hoja técnica */}
+                        <span aria-hidden="true" className="pointer-events-none absolute bottom-2.5 right-2.5 h-2.5 w-2.5 border-b border-r border-ink/30" />
+
+                        <span
+                          className={`relative block font-display font-light leading-none ${a.fg} transition-transform duration-300 group-hover:scale-[1.06]`}
+                          style={{ fontSize: "clamp(2.3rem, 4.6vw, 3.1rem)", letterSpacing: "-0.02em", transformOrigin: "left center" }}
+                        >
+                          {m.figure}
+                        </span>
+                        <span className="relative mt-3 block font-body text-[12px] font-semibold uppercase tracking-[0.16em] text-ink/70">
+                          {m.label}
+                        </span>
+                        <span className="relative mt-1.5 block font-body text-sm font-light leading-relaxed text-ink/60">
+                          {m.detail}
+                        </span>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
         </div>
       </section>
 
