@@ -406,15 +406,15 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
                   const a = METRIC_ACCENTS[i % METRIC_ACCENTS.length];
                   return (
                     <li key={m.label} data-metric style={{ opacity: 0 }}>
-                      <div className="relative h-full overflow-hidden rounded-[4px] border border-ink/25 bg-cream/85 px-6 py-7 shadow-[0_12px_32px_-32px_rgba(26,26,26,0.55)]">
-                        {/* Barra de acento (estática) */}
-                        <span aria-hidden="true" className={`pointer-events-none absolute left-0 top-0 h-[3px] w-9 ${a.bar}`} />
+                      <div className="group relative h-full overflow-hidden rounded-[4px] border border-ink/25 bg-cream/85 px-6 py-7 shadow-[0_12px_32px_-32px_rgba(26,26,26,0.55)]">
+                        {/* Barra de acento — crece un poco en hover */}
+                        <span aria-hidden="true" className={`pointer-events-none absolute left-0 top-0 h-[3px] w-9 origin-left ${a.bar} transition-transform duration-300 group-hover:scale-x-[2.6]`} />
                         {/* Crop mark inferior derecho — guiño a la hoja técnica */}
                         <span aria-hidden="true" className="pointer-events-none absolute bottom-2.5 right-2.5 h-2.5 w-2.5 border-b border-r border-ink/30" />
 
                         <span
-                          className={`relative block font-display font-light leading-none ${a.fg}`}
-                          style={{ fontSize: "clamp(2.3rem, 4.6vw, 3.1rem)", letterSpacing: "-0.02em" }}
+                          className={`relative block font-display font-light leading-none ${a.fg} transition-transform duration-300 group-hover:scale-[1.06]`}
+                          style={{ fontSize: "clamp(2.3rem, 4.6vw, 3.1rem)", letterSpacing: "-0.02em", transformOrigin: "left center" }}
                         >
                           {m.figure}
                         </span>
