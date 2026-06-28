@@ -274,12 +274,16 @@ export default function BlogArticle({ article, nav }: { article: Article; nav: N
               dir="prev"
               accentHover="group-hover:text-green"
               ariaNoun="Nota"
+              hideEyebrow
+              labelPill
             />
             <PrevNextCard
               item={{ href: `/blog/${nav.next.slug}`, image: nav.next.cover, imageAlt: nav.next.coverAlt, eyebrow: nav.next.topic, title: nav.next.title }}
               dir="next"
               accentHover="group-hover:text-green"
               ariaNoun="Nota"
+              hideEyebrow
+              labelPill
             />
           </div>
         </div>

@@ -61,7 +61,8 @@ const PROJECT_TEAMS: ProjectTeam[] = [
 ];
 
 // Título → palabras (rise+blur, sin clip → seguro al hacer wrap, lore/animation).
-const HEAD_WORDS = ["Equipo", "interdisciplinario", "para"];
+// "para" va pegado al acento (nbsp) para que nunca quede huérfano en una línea en móvil.
+const HEAD_WORDS = ["Equipo", "interdisciplinario"];
 const HEAD_ACCENT = "desafíos complejos";
 
 // Retratos: a color pleno siempre, estáticos (sin hover).
@@ -171,7 +172,7 @@ export default function Equipo() {
       style={{ background: "linear-gradient(180deg, #eecea1 0%, #f3ddbc 100%)" }}
     >
       {/* Textura de fondo — curvas de nivel finísimas en tinta */}
-      <svg aria-hidden="true" className="pointer-events-none absolute -left-24 bottom-0 h-[420px] w-[640px] text-ink/[0.06]" viewBox="0 0 600 400" fill="none">
+      <svg aria-hidden="true" className="pointer-events-none absolute -left-24 bottom-0 hidden h-[420px] w-[640px] text-ink/[0.06] md:block" viewBox="0 0 600 400" fill="none">
         {[0, 28, 56, 84, 112].map((o) => (
           <path key={o} d={`M-20 ${300 - o} C 150 ${360 - o}, 320 ${200 - o}, 470 ${300 - o} S 760 ${380 - o}, 920 ${260 - o}`} stroke="currentColor" strokeWidth="1.5" />
         ))}
@@ -187,8 +188,9 @@ export default function Equipo() {
                   {w}
                 </span>
               ))}
-              <span data-head-word className="inline-block font-medium text-teal" style={{ opacity: 0, transform: "translateY(0.8em)" }}>
-                {HEAD_ACCENT}.
+              <span data-head-word className="inline-block" style={{ opacity: 0, transform: "translateY(0.8em)" }}>
+                {"para "}
+                <span className="font-medium text-teal">{HEAD_ACCENT}.</span>
               </span>
             </span>
           </h2>
