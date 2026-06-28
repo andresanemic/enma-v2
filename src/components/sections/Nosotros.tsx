@@ -24,7 +24,7 @@ const DIFERENCIADORES: Diferenciador[] = [
   },
   {
     lead: "Visión estratégica",
-    accent: "+ cómputo",
+    accent: "+ Tecnología",
     support:
       "Ocupamos herramientas computacionales de simulación y prototipos de bajo costo para validar antes de construir.",
   },
