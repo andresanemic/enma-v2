@@ -229,6 +229,29 @@ El wireframe define contenido y orden lógico, no el layout visual final — el 
 
 ---
 
+## Método de trabajo SEO (cómo hacer SEO en este proyecto)
+
+> Establecido y validado en la **Fase H7**. Aplica a cualquier tarea de SEO (metadata, OG, JSON-LD, sitemap, robots, llms.txt, GEO/AEO, etc.).
+
+El plugin **`claude-seo`** (skills `seo`, `seo-technical`, `seo-schema`, `seo-sitemap`, `seo-geo`, `seo-images`, y sus agents) se usa como **rúbrica y expertise aplicada a NUESTRO código** — Claude lee sus checklists y las ejecuta él mismo sobre los archivos del proyecto.
+
+**Reglas:**
+
+1. **Claude ejecuta los cambios**, igual que en H7: leer la skill/agent relevante de `claude-seo`, extraer su checklist, y aplicarla editando nuestro código. No delegar el trabajo "a ciegas" ni limitarse a generar un informe.
+2. **NO usar el modo nativo de `claude-seo`** (crawl en vivo, Playwright, APIs externas tipo DataForSEO/Moz/GSC/GA4). Ese modo asume un sitio ya desplegado y choca con las reglas del proyecto (regla #4: sin Playwright). Para un sitio pre-deploy, su valor son las **checklists**, no la ejecución automatizada.
+3. **Centralizar todo el SEO en `lib/seo.ts`** (constantes de marca, `pageMetadata()`, builders de JSON-LD) + `lib/og.tsx` (OG branded por código con `next/og`) + `components/seo/JsonLd.tsx`. `robots.ts` y `sitemap.ts` dinámicos. No esparcir metadata suelta por componentes.
+4. **OJO export estático (H8+):** `next.config.ts` necesita `images: { unoptimized: true }` para que `next/image` y las OG (`next/og`) salgan en el build estático/FTP.
+5. Validar siempre: `typecheck`/`build` OK + Golden Paths (200/404) antes de cerrar la fase SEO.
+6. Docs de referencia: `docs/seo/google-search-console.md`, `docs/seo/geo-aeo-notas.md`.
+
+---
+
+## Recordatorios automáticos (hook)
+
+Hay un hook `UserPromptSubmit` (`.claude/hooks/pre-prompt-reminders.py`, configurado en `.claude/settings.local.json` — local, no se commitea) que, según las palabras del prompt, inyecta recordatorios para: (a) leer el **Lore** relevante, (b) verificar **Golden Paths** al cerrar fase o tocar navegación/rutas, y (c) seguir este **método SEO**. Es una red de seguridad, no reemplaza estas reglas. Para ajustarlo, editar ese script.
+
+---
+
 ## Estado del Proyecto
 
 ### ✅ Completado (heredado, como insumo)

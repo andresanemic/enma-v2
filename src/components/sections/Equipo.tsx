@@ -18,7 +18,7 @@ const COFOUNDERS: Cofounder[] = [
   {
     id: "bruno",
     name: "Bruno Ortega Leiva",
-    role: "Gerente de proyecto",
+    role: "Socio Fundador · Gerente de Proyectos",
     photo: "/equipo/bruno-ortega-v3.webp",
     alt: "Bruno Ortega, co-fundador de Enma",
     bio: "Ingeniero civil mecánico. Diez años en energías renovables e innovación, donde lidero proyectos de hidrógeno verde y geotermia con mirada territorial y sostenible. Sumo experiencia en IoT, sensorización y automatización.",
@@ -26,7 +26,7 @@ const COFOUNDERS: Cofounder[] = [
   {
     id: "patricio",
     name: "Patricio Campos Cisternas",
-    role: "Personal científico-tecnológico",
+    role: "Socio Fundador · Gerente de Estudios",
     photo: "/equipo/patricio-campos-v2.webp",
     alt: "Patricio Campos, co-fundador de Enma",
     bio: "Ingeniero civil mecánico. Diez años en energías renovables, I+D+i y cambio climático, donde lidero proyectos de generación limpia, eficiencia energética y desarrollo tecnológico.",
@@ -34,8 +34,8 @@ const COFOUNDERS: Cofounder[] = [
 ];
 
 // Título → palabras (rise+blur, sin clip → seguro al hacer wrap, lore/animation).
-const HEAD_WORDS = ["Dos", "socios,"];
-const HEAD_ACCENT = "un propósito";
+const HEAD_WORDS = ["Equipo", "interdisciplinario", "para"];
+const HEAD_ACCENT = "desafíos complejos";
 
 // Retratos: a color pleno siempre, estáticos (sin hover).
 
@@ -127,7 +127,7 @@ export default function Equipo() {
       <div className="relative mx-auto max-w-[1180px]">
         {/* ── Encabezado (sin eyebrow) ── */}
         <div className="mb-16 md:mb-24">
-          <h2 className="m-0 max-w-[18ch] font-display font-light text-ink" aria-label="Dos socios, un propósito." style={{ fontSize: "clamp(1.9rem, 4vw, 3.2rem)", lineHeight: 1.06, letterSpacing: "-0.03em" }}>
+          <h2 className="m-0 max-w-[30ch] font-display font-light text-ink" aria-label="Equipo interdisciplinario para desafíos complejos." style={{ fontSize: "clamp(1.9rem, 4vw, 3.2rem)", lineHeight: 1.06, letterSpacing: "-0.03em" }}>
             <span aria-hidden="true">
               {HEAD_WORDS.map((w, i) => (
                 <span key={i} data-head-word className="mr-[0.26em] inline-block" style={{ opacity: 0, transform: "translateY(0.8em)" }}>
@@ -135,10 +135,7 @@ export default function Equipo() {
                 </span>
               ))}
               <span data-head-word className="inline-block font-medium text-teal" style={{ opacity: 0, transform: "translateY(0.8em)" }}>
-                {HEAD_ACCENT}
-              </span>
-              <span data-head-word className="inline-block" style={{ opacity: 0, transform: "translateY(0.8em)" }}>
-                .
+                {HEAD_ACCENT}.
               </span>
             </span>
           </h2>

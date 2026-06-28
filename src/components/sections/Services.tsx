@@ -1,16 +1,16 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { gsap } from "@/lib/gsap";
 
 // Copy real, derivado de que-es-enma.txt ("Servicios de Enma"). En el orden del
-// documento: consultoría (base) → formulación → ejecución → CFD → túnel de viento
+// documento: consultoría (base) → formulación → ejecución → CFD → economía circular
 // → huella de carbono → charlas. Sin inventar datos ni cifras.
 type Service = {
   n: string;
   title: string;
-  desc: string;
+  desc: ReactNode;
   img: string;
   objPos?: string;   // object-position del img (default "center")
   imgScale?: number; // zoom del img (default 1.08)
@@ -29,7 +29,30 @@ const SERVICES: Service[] = [
   {
     n: "02",
     title: "Formulación y acompañamiento",
-    desc: "Formulamos y acompañamos proyectos para apalancar recursos públicos como Corfo y ANID, con foco energético o ambiental. Desde la idea hasta la presentación y ejecución de la iniciativa.",
+    desc: (
+      <>
+        Formulamos y acompañamos proyectos para apalancar recursos públicos como{" "}
+        <a
+          href="https://www.corfo.gob.cl/sites/cpp/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-ember underline decoration-ember/40 underline-offset-4 transition-colors duration-200 hover:decoration-ember"
+        >
+          Corfo
+        </a>{" "}
+        y{" "}
+        <a
+          href="https://anid.cl/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-ember underline decoration-ember/40 underline-offset-4 transition-colors duration-200 hover:decoration-ember"
+        >
+          ANID
+        </a>
+        , con foco energético o ambiental. Desde la idea hasta la presentación y
+        ejecución de la iniciativa.
+      </>
+    ),
     img: "/servicios/servicio-02-v1.webp",
     warmTint: true,
   },
@@ -42,8 +65,8 @@ const SERVICES: Service[] = [
   },
   {
     n: "04",
-    title: "Ensayos en túnel de viento",
-    desc: "Un túnel de viento propio —en construcción en Santiago— que complementa al CFD en todo lo referente al aire, permitiendo validar físicamente los diseños antes de fabricarlos.",
+    title: "Economía circular",
+    desc: "Gestión de residuos, Ley REP, Upcycling y más. Asesoramos empresas para una correcta gestión de residuos y oportunidades de revalorización.",
     img: "/servicios/servicio-04-v3.webp",
     warmTint: true,
   },

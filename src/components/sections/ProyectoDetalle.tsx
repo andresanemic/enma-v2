@@ -102,8 +102,8 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
 
       // Orquestación en 2 tiers (acorde al sitio, sin sobrecarga):
       //   · Showcase → clip-wipe: la foto del espécimen en el Hero.
-      //   · Tranquilo → una sola familia de fade-up (y:16/18, ~0.7s) en el resto;
-      //     la curva de nivel de "Cómo" es el único trazo-firma extra.
+      //   · Tranquilo → fade-up (y:16/18, ~0.7s) como base; el trazo-firma (líneas
+      //     que se dibujan) aparece en la Ficha (líneas de cota) y en "Cómo" (curva).
       switch (id) {
         case "hero": {
           tl.fromTo(q("[data-fade]", b), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.85, stagger: 0.12 }, 0);
@@ -111,8 +111,10 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
           break;
         }
         case "ficha": {
+          // Registro de datos: el header entra y los valores hacen fade-up en cascada
+          // (un solo momento, sin líneas que se tracen — quedó más limpio y junto).
           tl.fromTo(q("[data-fade]", b), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7 }, 0);
-          tl.fromTo(q("[data-card]", b), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.09 }, 0.15);
+          tl.fromTo(q("[data-card]", b), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.55, stagger: 0.07 }, 0.12);
           break;
         }
         case "narrativa": {
@@ -243,63 +245,81 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
         </div>
       </section>
 
-      {/* ════════ 3 · FICHA TÉCNICA — lámina de cotas (grilla blueprint) ════════ */}
+      {/* ════════ 3 · FICHA TÉCNICA — lámina de cotas sobre papel de cuaderno ════════ */}
       <section
         data-reveal="ficha"
         data-nav="light"
         className="relative w-full overflow-hidden"
         style={{ background: "linear-gradient(180deg, #edcfa4 0%, #e8c08e 100%)" }}
       >
-        {/* Trama blueprint tenue, anclada a la esquina superior derecha */}
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(26,26,26,0.05) 1px, transparent 1px)," +
-              "linear-gradient(90deg, rgba(26,26,26,0.05) 1px, transparent 1px)",
-            backgroundSize: "34px 34px",
-            maskImage: "radial-gradient(120% 100% at 100% 0%, #000 28%, transparent 78%)",
-            WebkitMaskImage: "radial-gradient(120% 100% at 100% 0%, #000 28%, transparent 78%)",
-          }}
-        />
         <div className="relative mx-auto max-w-[1180px] px-6 py-12 sm:px-10 md:px-14 md:py-16">
           <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-terra" style={{ opacity: 0 }}>
             Ficha técnica
           </h2>
 
-          {/* Panel flotante: celdas en grilla, separadas por hairlines (papel técnico).
-              Cada celda enciende en hover; la marca de registro "+" gira y se vuelve brasa. */}
-          <dl className="mt-8 grid grid-cols-1 gap-px overflow-hidden rounded-[20px] bg-ink/12 shadow-[0_24px_60px_-40px_rgba(26,26,26,0.55)] ring-1 ring-ink/12 sm:grid-cols-2">
-            {proyecto.facts.map((f, i) => {
-              const spanAll = i === proyecto.facts.length - 1 && proyecto.facts.length % 2 === 1;
-              return (
-                <div
-                  key={f.label}
-                  data-card
-                  className={`group relative bg-cream/75 px-6 py-6 transition-colors duration-300 hover:bg-sand/80 sm:px-7 sm:py-7 ${spanAll ? "sm:col-span-2" : ""}`}
-                  style={{ opacity: 0 }}
-                >
-                  {/* Marca de registro (cruz de cotas) — gira y se enciende en hover */}
-                  <svg
-                    viewBox="0 0 12 12"
-                    aria-hidden="true"
-                    className="absolute right-5 top-5 h-3 w-3 text-ink/25 transition-all duration-300 group-hover:rotate-90 group-hover:text-ember"
-                    fill="none"
-                  >
-                    <path d="M6 0.5v11M0.5 6h11" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-                  </svg>
-                  <dt className="flex items-center gap-2.5 pr-8 font-body text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/55">
-                    <span className="h-3 w-[3px] shrink-0 rounded-full bg-terra transition-all duration-300 group-hover:h-4 group-hover:bg-ember" />
+          {/* Lámina de ingeniería: las líneas de cota viven sobre papel cuadriculado,
+              enmarcadas por una hoja con borde hairline y crop marks de registro en las
+              esquinas — contenedor con presencia, pero no una card estándar. El header
+              queda afuera/arriba; las cotas respiran dentro de la hoja. */}
+          <div className="relative mt-8 overflow-hidden rounded-[4px] border border-ink/20 bg-cream/80 px-6 py-[32px] shadow-[0_14px_40px_-44px_rgba(26,26,26,0.5)] sm:mt-10 sm:px-10 md:px-12">
+            {/* Papel cuadriculado del cuaderno de ingeniería. Celda = módulo de fila
+                (70px) y line-up vertical anclado (background-position 32px) para que
+                las líneas horizontales coincidan con los divisores bajo cada valor. */}
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0"
+              style={{
+                backgroundImage:
+                  "linear-gradient(rgba(26,26,26,0.06) 1px, transparent 1px)," +
+                  "linear-gradient(90deg, rgba(26,26,26,0.06) 1px, transparent 1px)",
+                backgroundSize: "70px 70px",
+                backgroundPosition: "0px 32px",
+              }}
+            />
+            {/* Crop marks de registro en las 4 esquinas de la hoja */}
+            <span aria-hidden="true" className="pointer-events-none absolute left-3 top-3 h-3 w-3 border-l border-t border-ink/30" />
+            <span aria-hidden="true" className="pointer-events-none absolute right-3 top-3 h-3 w-3 border-r border-t border-ink/30" />
+            <span aria-hidden="true" className="pointer-events-none absolute bottom-3 left-3 h-3 w-3 border-b border-l border-ink/30" />
+            <span aria-hidden="true" className="pointer-events-none absolute bottom-3 right-3 h-3 w-3 border-b border-r border-ink/30" />
+
+            {/* ── Desktop ≥ sm: label (con tick) · valor, en dos columnas juntas ── */}
+            <dl className="relative hidden flex-col sm:flex">
+              {proyecto.facts.map((f) => (
+                <div key={f.label} className="group flex min-h-[70px] items-center gap-8 border-b border-ink/15">
+                  <dt className="flex w-40 shrink-0 items-baseline gap-2.5 font-body text-[12px] font-semibold uppercase tracking-[0.16em] text-ink/55 transition-colors duration-200 group-hover:text-terra lg:w-48">
+                    <span aria-hidden="true" className="h-3 w-px shrink-0 self-center bg-terra/70 transition-all duration-300 group-hover:h-4 group-hover:bg-ember" />
                     {f.label}
                   </dt>
-                  <dd className="mt-2.5 font-display text-lg font-medium leading-snug text-ink transition-colors duration-200 group-hover:text-terra sm:text-xl">
+                  <dd
+                    data-card
+                    className="m-0 max-w-[58ch] flex-1 font-body text-lg font-normal leading-relaxed text-ink"
+                    style={{ opacity: 0 }}
+                  >
                     {f.value}
                   </dd>
                 </div>
-              );
-            })}
-          </dl>
+              ))}
+            </dl>
+
+            {/* ── Móvil < sm: label (con tick) sobre valor ── */}
+            <dl className="relative flex flex-col sm:hidden">
+              {proyecto.facts.map((f) => (
+                <div key={f.label} className="group flex min-h-[70px] flex-col justify-center gap-1.5 border-b border-ink/15">
+                  <dt className="flex items-center gap-2.5 font-body text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/55">
+                    <span aria-hidden="true" className="h-3 w-px shrink-0 bg-terra/70 transition-all duration-300 group-hover:h-4 group-hover:bg-ember" />
+                    {f.label}
+                  </dt>
+                  <dd
+                    data-card
+                    className="m-0 font-body text-base font-normal leading-relaxed text-ink"
+                    style={{ opacity: 0 }}
+                  >
+                    {f.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
         </div>
       </section>
 

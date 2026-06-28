@@ -7,7 +7,7 @@ import { gsap } from "@/lib/gsap";
 import HeroBackdrop from "@/components/hero/HeroBackdrop";
 import { WHATSAPP_URL } from "@/lib/seo";
 
-const LINES = ["Energía y", "Manufactura"];
+const LINES = ["Energía y", "Medio Ambiente"];
 const ACCENT = "Sustentable";
 
 export default function Hero() {
@@ -135,7 +135,7 @@ export default function Hero() {
       <div className="relative z-10 flex min-h-[100svh] flex-col justify-center px-6 pt-28 sm:px-10 md:px-14">
         <h1
           className="max-w-[14ch] font-display font-light text-cream"
-          aria-label="Energía y Manufactura Sustentable"
+          aria-label="Energía y Medio Ambiente Sustentable"
           style={{
             fontSize: "clamp(2.75rem, 8vw, 6.5rem)",
             lineHeight: 1.1,
@@ -169,8 +169,8 @@ export default function Hero() {
           style={{ opacity: 0 }}
           className="mt-7 max-w-xl font-body text-lg font-light leading-relaxed text-cream/85 sm:text-xl"
         >
-          Soluciones de ingeniería para la transición energética y una
-          manufactura avanzada, diseñadas desde la Patagonia chilena.
+          Soluciones interdisciplinarias para un desarrollo sostenible, diseñadas
+          desde la Patagonia chilena.
         </p>
 
         {/* ── CTAs — Golden Path 4.1 / 4.2 ── */}

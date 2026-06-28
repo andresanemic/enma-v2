@@ -1,14 +1,18 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { gsap } from "@/lib/gsap";
 
 // ── Specs reales de la turbina (que-es-enma.txt) — sin números inventados ──
-type Spec = { title: string; sub: string };
+type Spec = { title: string; titleNode?: ReactNode; sub: string };
 const SPECS_LEFT: Spec[] = [
-  { title: "Financiada por ANID", sub: "Visión a largo plazo" },
+  {
+    title: "Financiada por ANID",
+    titleNode: <>Financiada por ANID</>,
+    sub: "Visión a largo plazo",
+  },
   { title: "Baja escala", sub: "Granjas de muchas unidades" },
 ];
 const SPECS_RIGHT: Spec[] = [
@@ -101,7 +105,7 @@ export default function Proyecto() {
     );
     const text = (
       <div className={side === "left" ? "text-right" : "text-left"}>
-        <p className="font-display text-[15px] font-medium leading-tight text-ink lg:text-base">{s.title}</p>
+        <p className="font-display text-[15px] font-medium leading-tight text-ink lg:text-base">{s.titleNode ?? s.title}</p>
         <p className="mt-0.5 font-body text-[12px] uppercase tracking-[0.12em] text-ink/55">{s.sub}</p>
       </div>
     );
@@ -210,7 +214,7 @@ export default function Proyecto() {
             <li key={s.title} data-anno-m className="flex items-start gap-2.5" style={{ opacity: 0 }}>
               <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-ink/50" />
               <div>
-                <p className="font-display text-[15px] font-medium leading-tight text-ink">{s.title}</p>
+                <p className="font-display text-[15px] font-medium leading-tight text-ink">{s.titleNode ?? s.title}</p>
                 <p className="mt-0.5 font-body text-[12px] uppercase tracking-[0.12em] text-ink/55">{s.sub}</p>
               </div>
             </li>
@@ -220,7 +224,15 @@ export default function Proyecto() {
         {/* ── Pie + CTA ── */}
         <div data-cta className="mt-14 text-center md:mt-20" style={{ opacity: 0 }}>
           <p className="font-body text-sm uppercase tracking-[0.16em] text-ink/55">
-            Netbilling · reduce la cuenta de luz — campo, electrificación rural e industria
+            <a
+              href="https://autoconsumo.minenergia.cl/?page_id=245"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-terra underline decoration-terra/40 underline-offset-4 transition-colors duration-200 hover:decoration-terra"
+            >
+              Netbilling
+            </a>{" "}
+            · reduce la cuenta de luz — campo, electrificación rural e industria
           </p>
           <Link
             href="/proyectos"

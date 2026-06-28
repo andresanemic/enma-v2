@@ -9,21 +9,21 @@ const IMG = "/about/about-v1.webp";
 const AREAS = [
   {
     title: "Energía",
-    desc: "Autogeneración renovable: microhidro, solar, eólica y geotermia, desde el diseño hasta su planificación.",
+    desc: "I+D+i, prototipado, estudios sociotécnicos y proyectos energéticos sobre tecnologías limpias.",
   },
   {
-    title: "Manufactura",
-    desc: "Upcycling y manufactura avanzada mediante impresión 3D y corte CNC, para el prototipado de ideas.",
+    title: "Economía circular",
+    desc: "Proyectos de upcycling, gestión de residuos y Ley REP para un desarrollo sostenible.",
   },
   {
-    title: "Cambio Climático",
-    desc: "Cuantificación de huella de carbono y mitigación de impacto ambiental.",
+    title: "Cambio climático",
+    desc: "Cuantificación de huella de carbono y mitigación de gases de efecto invernadero.",
   },
 ];
 
 // Título del About en segmentos (el central lleva acento brasa).
 const TITLE_SEGMENTS = [
-  { text: "Energía, manufactura y cambio climático:", accent: false },
+  { text: "Energía, Economía circular y Cambio climático:", accent: false },
   { text: "tres áreas de impacto", accent: true },
   { text: "en la Patagonia chilena.", accent: false },
 ];
@@ -112,10 +112,10 @@ export default function About() {
           <div className="order-2">
             {/* Título — aparece como un bloque (mismo gesto que el header de Servicios) */}
             <h2
-              className="max-w-[18ch] font-display font-light text-ink"
+              className="max-w-[22ch] font-display font-light text-ink"
               style={{
-                fontSize: "clamp(1.9rem, 4vw, 3.4rem)",
-                lineHeight: 1.08,
+                fontSize: "clamp(1.7rem, 3.4vw, 3rem)",
+                lineHeight: 1.1,
                 letterSpacing: "-0.03em",
               }}
             >

@@ -20,8 +20,7 @@ type Metric = {
 
 const METRICS: Metric[] = [
   { kind: "num", value: 10, label: "Estudios energéticos liderados en Aysén", hint: "Para el sector público y privado.", accent: "orange", hero: true },
-  { kind: "badge", text: "+$150M", label: "Para proyectos de I+D", hint: "Apalancados por concursos públicos.", accent: "ember" },
-  { kind: "num", value: 2, label: "Socios fundadores, ingenieros mecánicos", hint: "Con experiencia exitosa como consultores.", accent: "teal" },
+  { kind: "badge", text: "+$200M", label: "Apalancados para proyectos I+D+i", hint: "", accent: "ember" },
 ];
 
 // Acentos VIVOS (varios colores) sobre base fría: cada métrica con su tono fuerte
@@ -197,6 +196,8 @@ export default function Metrics() {
             secundarias se revela en hover (la hero lo lleva abierto = tesis). En
             touch/sin hover los hints quedan visibles (@media hover). */}
         <div className="flex flex-col gap-10 lg:flex-row lg:flex-nowrap lg:items-end lg:gap-8">
+          {/* spacer invisible — mantiene la posición original del +$200M en el centro */}
+          <div aria-hidden="true" className="hidden lg:block lg:flex-1 lg:order-last" />
           {METRICS.map((m) => {
             const a = ACCENT[m.accent];
             const numColor = m.hero ? a.numHero : `${a.num} transition-colors duration-300`;

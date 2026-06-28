@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { WHATSAPP_URL, CONTACT_EMAIL } from "@/lib/seo";
 
 // Copy real, derivado de que-es-enma.txt — sin inventar datos.
 // Orientado al tomador de decisiones (público/privado): qué hacen, por qué Aysén,
@@ -13,7 +14,22 @@ const FAQS = [
   },
   {
     q: "¿Por qué desde Aysén y no desde Santiago?",
-    a: "Porque el territorio es parte de la solución. Operar en la Patagonia —con sus distancias, costos logísticos y energéticos— nos obliga a entender contextos que las consultoras instaladas en Santiago no logran adaptar. Esa pertenencia es nuestra ventaja, no un detalle.",
+    a: (
+      <>
+        Porque el territorio es parte de la solución. Operar en la Patagonia —
+        <a
+          href="https://planeamiento.mop.gob.cl/plan-de-mejoramiento-para-la-integracion-y-conectividad-2022_2030/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-teal underline decoration-teal/40 underline-offset-4 transition-colors duration-200 hover:decoration-teal"
+        >
+          con sus distancias, costos logísticos y energéticos
+        </a>
+        — nos obliga a entender contextos que las consultoras instaladas en
+        Santiago no logran adaptar. Esa pertenencia es nuestra ventaja, no un
+        detalle.
+      </>
+    ),
   },
   {
     q: "¿Implementan los proyectos o solo asesoran?",
@@ -25,11 +41,47 @@ const FAQS = [
   },
   {
     q: "¿Qué es una simulación CFD y para qué la necesito?",
-    a: "Es una simulación fluidodinámica por computador: modelamos cómo se comporta un fluido —viento, agua— alrededor de turbinas, embarcaciones u otros sistemas, para optimizar su diseño antes de construirlo. Más rápido, más eficiente y más confiable.",
+    a: (
+      <>
+        Es una{" "}
+        <a
+          href="https://www.ansys.com/simulation-topics/what-is-computational-fluid-dynamics"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-teal underline decoration-teal/40 underline-offset-4 transition-colors duration-200 hover:decoration-teal"
+        >
+          simulación fluidodinámica por computador
+        </a>
+        : modelamos cómo se comporta un fluido —viento, agua— alrededor de
+        turbinas, embarcaciones u otros sistemas, para optimizar su diseño antes
+        de construirlo. Más rápido, más eficiente y más confiable.
+      </>
+    ),
   },
   {
     q: "¿Cuánto cuesta y cómo empezamos?",
-    a: "Cada solución es a la medida, así que no publicamos precios. El primer paso es una conversación: cuéntanos qué necesitas resolver por correo o WhatsApp y agendamos una reunión para entender tu caso.",
+    a: (
+      <>
+        Cada solución es a la medida, así que no publicamos precios. El primer
+        paso es una conversación: cuéntanos qué necesitas resolver por{" "}
+        <a
+          href={`mailto:${CONTACT_EMAIL}`}
+          className="font-medium text-teal underline decoration-teal/40 underline-offset-4 transition-colors duration-200 hover:decoration-teal"
+        >
+          correo
+        </a>{" "}
+        o{" "}
+        <a
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-teal underline decoration-teal/40 underline-offset-4 transition-colors duration-200 hover:decoration-teal"
+        >
+          WhatsApp
+        </a>{" "}
+        y agendamos una reunión para entender tu caso.
+      </>
+    ),
   },
 ];
 

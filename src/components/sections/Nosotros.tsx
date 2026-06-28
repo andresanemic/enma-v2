@@ -26,7 +26,7 @@ const DIFERENCIADORES: Diferenciador[] = [
     lead: "Visión estratégica",
     accent: "+ cómputo",
     support:
-      "Simulamos y validamos con CFD antes de construir: más rápido, eficiente y confiable.",
+      "Ocupamos herramientas computacionales de simulación y prototipos de bajo costo para validar antes de construir.",
   },
   {
     lead: "Asociatividad",
@@ -49,7 +49,7 @@ const COFOUNDERS: Cofounder[] = [
   {
     name: "Bruno Ortega",
     nameLine2: "Leiva",
-    role: "Gerente de proyecto",
+    role: "Socio Fundador · Gerente de Proyectos",
     photo: "/equipo/bruno-ortega-v3.webp",
     alt: "Bruno Ortega, co-fundador de Enma",
     bio: "Ingeniero civil mecánico. Diez años en energías renovables e innovación, donde lidero proyectos de hidrógeno verde y geotermia con mirada territorial y sostenible. Sumo experiencia en IoT, sensorización y automatización.",
@@ -57,7 +57,7 @@ const COFOUNDERS: Cofounder[] = [
   {
     name: "Patricio Campos",
     nameLine2: "Cisternas",
-    role: "Personal científico-tecnológico",
+    role: "Socio Fundador · Gerente de Estudios",
     photo: "/equipo/patricio-campos-v2.webp",
     alt: "Patricio Campos, co-fundador de Enma",
     bio: "Ingeniero civil mecánico. Diez años en energías renovables, I+D+i y cambio climático, donde lidero proyectos de generación limpia, eficiencia energética y desarrollo tecnológico.",
@@ -341,15 +341,15 @@ export default function Nosotros() {
                 className="mt-7 max-w-[40ch] font-body text-lg font-light leading-relaxed text-ink/70 sm:text-xl"
                 style={{ opacity: 0 }}
               >
-                Energía y manufactura sustentable, diseñadas desde la Patagonia.
-                Hechas a la medida de la Patagonia.
+                Energía y Medio Ambiente. Soluciones interdisciplinarias diseñadas
+                desde la Patagonia para un desarrollo descentralizado.
               </p>
               <p
                 data-rise
                 className="mt-9 font-body text-sm uppercase tracking-[0.22em] text-ink/45"
                 style={{ opacity: 0 }}
               >
-                <span className="text-terra">EN</span>ergía · <span className="text-terra">MA</span>nufactura
+                <span className="text-terra">EN</span>ergía · <span className="text-terra">M</span>edio <span className="text-terra">A</span>mbiente
               </p>
             </section>
 
@@ -364,18 +364,22 @@ export default function Nosotros() {
                   className="mt-4 max-w-[20ch] font-display font-light text-ink"
                   style={{ opacity: 0, fontSize: "clamp(1.8rem, 3.6vw, 2.8rem)", lineHeight: 1.1, letterSpacing: "-0.03em" }}
                 >
-                  Nos fuimos a Aysén a resolver, de raíz, el problema de la energía.
+                  Nos vinimos a la Región de Aysén por su belleza escénica. Nos quedamos para aportar.
                 </h2>
                 <p data-rise className="mt-6 max-w-[48ch] font-body text-base font-light leading-relaxed text-ink/70 sm:text-lg" style={{ opacity: 0 }}>
-                  Nos conocimos en el colegio, en Santiago, y los dos terminamos siendo
-                  ingenieros mecánicos. En vez de quedarnos donde todo era más fácil,
-                  nos fuimos a vivir a la Región de Aysén.
+                  En el año 2022, fundamos Enma en Puerto Cisnes, al alero de un proyecto
+                  de upcycling que buscaba mitigar la generación de residuos de la actividad
+                  salmonera en la localidad, con el fin de poder levantar y financiar
+                  iniciativas que tuvieran un impacto positivo en el ecosistema.
                 </p>
                 <p data-rise className="mt-4 max-w-[48ch] font-body text-base font-light leading-relaxed text-ink/70 sm:text-lg" style={{ opacity: 0 }}>
-                  Entre 2022 y 2023 fundamos Enma en Puerto Cisnes, al alero de dos
-                  proyectos: el upcycling de residuos salmoneros que diseñó Patricio y
-                  la calefacción geotérmica que supervisó Bruno. Ese cruce —energía y
-                  residuos, resueltos con ingeniería a la medida en ese contexto— es nuestro ADN.
+                  En esta búsqueda, ambos socios participaron en importantes estudios
+                  energéticos regionales junto a instituciones científicas de renombre.
+                </p>
+                <p data-rise className="mt-4 max-w-[48ch] font-body text-base font-light leading-relaxed text-ink/70 sm:text-lg" style={{ opacity: 0 }}>
+                  Hoy en día, Enma busca acortar la última milla: del estudio a la acción,
+                  para transferir conocimiento y apalancar el desarrollo social y productivo
+                  de la Región.
                 </p>
               </div>
               <div className="order-1 md:order-2">
@@ -411,10 +415,12 @@ export default function Nosotros() {
                 </span>
               </h2>
               <p data-rise className="mt-6 max-w-[58ch] font-body text-base font-light leading-relaxed text-ink/70 sm:text-lg" style={{ opacity: 0 }}>
-                Una región aislada, de grandes distancias y logística cara, donde
-                personas y empresas pagan un valor altísimo por la energía. Las
-                empresas de ingeniería de este tipo suelen estar en Santiago y no
-                logran entender esa realidad. Nosotros la entendemos completamente.
+                La Región de Aysén presenta importantes desafíos logísticos y
+                costos básicos, como la energía eléctrica. Sin embargo, estos
+                desafíos vienen acompañados de grandes oportunidades
+                provenientes de la riqueza de bienes naturales y soluciones
+                descentralizadas. Esta forma distinta de pensar, es nuestra
+                ventaja.
               </p>
             </section>
 
@@ -486,17 +492,18 @@ export default function Nosotros() {
                 04 · El problema que resolvemos
               </p>
               <h2
-                aria-label="Bajamos el costo de la energía en la Patagonia."
+                aria-label="Aumentar la competitividad regional."
                 className="relative mt-5 max-w-[16ch] font-display font-light text-ink"
                 style={{ fontSize: "clamp(2.2rem, 6vw, 4.4rem)", lineHeight: 1.04, letterSpacing: "-0.035em" }}
               >
-                <span aria-hidden="true">{words("Bajamos el costo de la energía en la Patagonia.", "tesis", 7)}</span>
+                <span aria-hidden="true">{words("Aumentar la competitividad regional.", "tesis", 2)}</span>
               </h2>
               <p data-rise className="relative mt-7 max-w-[56ch] font-body text-base font-light leading-relaxed text-ink/70 sm:text-lg" style={{ opacity: 0 }}>
-                Al reducir ese costo aumenta la productividad, se abre la puerta a
-                tecnologizar la industria y se vuelve viable lo que hoy no lo es, como
-                reciclar en la región en vez de enviar todo al norte de Puerto Montt.
-                En el fondo: descarbonización, menores costos y más empleo local.
+                Mediante la reducción de costos de suministro eléctrico, eficiencia
+                energética, reducción de residuos o sellos de calidad, es posible
+                avanzar en una mayor competitividad y desarrollo productivo de manera
+                sustentable, que permita mejorar el bienestar general y cuidar el mayor
+                activo natural de este territorio: su belleza escénica.
               </p>
             </section>
 
@@ -510,7 +517,7 @@ export default function Nosotros() {
                   <h3 className="font-display text-xl font-medium text-ink sm:text-2xl">Misión</h3>
                   <p className="mt-4 max-w-[46ch] font-body text-base font-light leading-relaxed text-ink/70 sm:text-lg">
                     Desarrollar soluciones sustentables en energía y
-                    manufactura para personas, comunidades y empresas, resolviendo
+                    medio ambiente para personas, comunidades y empresas, resolviendo
                     problemas reales de la región al reducir costos
                     energéticos y mitigar el impacto ambiental.
                   </p>

@@ -437,7 +437,7 @@ export default function Footer() {
             {/* Línea legal — derecha, alineada al borde inferior del logo */}
             <div data-legal className="flex shrink-0 flex-col gap-1 sm:items-end sm:text-right" style={{ opacity: 0 }}>
               <span className="font-body text-[14px] font-medium uppercase leading-[1.4] tracking-[0.2em] text-orange/70">
-                <span className="text-orange">EN</span>ergía · <span className="text-orange">MA</span>nufactura
+                <span className="text-orange">EN</span>ergía · <span className="text-orange">M</span>edio <span className="text-orange">A</span>mbiente
               </span>
               <p className="m-0 font-body text-[15px] leading-[1.4] text-cream/45">
                 © {year} Enma SPA. Todos los derechos reservados.
