@@ -1,6 +1,6 @@
 # Enma
 
-> Enma (Enma SPA) es una empresa chilena de base científico-tecnológica dedicada a la energía y la manufactura sustentable, nacida en 2022 en la Región de Aysén, Patagonia. Trabaja en consultoría, simulaciones CFD y proyectos de energías renovables. Fundada por los ingenieros mecánicos Bruno Ortega y Patricio Campos.
+> Enma (Enma SPA) es una empresa chilena de base científico-tecnológica dedicada a la energía y el medio ambiente, nacida en 2022 en la Región de Aysén, Patagonia. Trabaja en consultoría, simulaciones CFD y proyectos de energías renovables. Fundada por los ingenieros mecánicos Bruno Ortega y Patricio Campos.
 
 Datos de contacto: contacto@enmachile.com · WhatsApp +56 9 9337 7935 · Coyhaique, Región de Aysén, Chile. Sitio en español (es-CL).
 
@@ -8,13 +8,15 @@ Datos de contacto: contacto@enmachile.com · WhatsApp +56 9 9337 7935 · Coyhaiq
 
 - [Inicio](https://enmachile.com/): qué es Enma, servicios y propuesta de valor.
 - [Nosotros](https://enmachile.com/nosotros): origen en la Patagonia, equipo, valores, misión y visión.
-- [Proyectos](https://enmachile.com/proyectos): proyectos de I+D en energía y manufactura sustentable.
+- [Proyectos](https://enmachile.com/proyectos): proyectos de I+D en energía y medio ambiente.
 - [Vinculación](https://enmachile.com/vinculacion): participaciones de Enma en medios y charlas.
 - [Blog](https://enmachile.com/blog): columnas sobre energía, territorio y tecnología en Aysén.
 
 ## Proyectos
 
-- [Turbina eólica de baja escala](https://enmachile.com/proyectos/turbina-eolica-baja-escala): diseño y validación (CFD → túnel de viento → prototipo) de una turbina eólica de baja escala.
+- [Turbina eólica de baja escala](https://enmachile.com/proyectos/turbina-eolica-baja-escala): diseño y validación (CFD → túnel de viento → prototipo) de una turbina eólica de baja escala, financiada por ANID.
+- [Upcycling de residuos salmoneros](https://enmachile.com/proyectos/upcycling-residuos-salmoneros): taller de upcycling en Puerto Cisnes que transforma residuos plásticos de la industria salmonera en tableros de HDPE 100% reciclado. Financiado por Corfo.
+- [Scouting de bombas de calor industriales](https://enmachile.com/proyectos/scouting-bombas-de-calor): scouting tecnológico de bombas de calor industriales para descarbonizar calor de proceso, elaborado para Colbún vía OpenBeauchef.
 
 ## Blog
 

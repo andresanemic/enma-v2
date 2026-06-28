@@ -7,7 +7,7 @@ import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "Proyectos",
   description:
-    "Proyectos de Enma en energía y manufactura, nacidos en Aysén: una turbina eólica de baja escala (ANID), un taller de upcycling de residuos salmoneros (Corfo) y un scouting de bombas de calor industriales para Colbún.",
+    "Proyectos de Enma en energía y medio ambiente, nacidos en Aysén: una turbina eólica de baja escala (ANID), un taller de upcycling de residuos salmoneros (Corfo) y un scouting de bombas de calor industriales para Colbún.",
   path: "/proyectos",
 });
 

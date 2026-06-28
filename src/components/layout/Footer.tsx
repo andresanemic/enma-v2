@@ -303,8 +303,8 @@ export default function Footer() {
               className="mt-5 max-w-[44ch] font-body text-base font-light leading-relaxed text-cream/70 sm:text-lg"
               style={{ opacity: 0 }}
             >
-              Cuéntanos qué necesitas resolver en energía, manufactura o
-              medioambiente. Diseñamos cada solución a la medida de tu
+              Cuéntanos qué necesitas resolver en energía o medio ambiente.
+              Diseñamos cada solución a la medida de tu
               territorio, y partimos por escuchar.
             </p>
 

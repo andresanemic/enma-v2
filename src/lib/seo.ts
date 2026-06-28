@@ -6,9 +6,9 @@ export const SITE_URL = "https://enmachile.com";
 export const SITE_NAME = "Enma";
 export const LEGAL_NAME = "Enma SPA";
 export const DEFAULT_TITLE =
-  "Enma — Energía y manufactura sustentable desde la Patagonia";
+  "Enma — Energía y medio ambiente desde la Patagonia";
 export const DEFAULT_DESCRIPTION =
-  "Empresa chilena de base científico-tecnológica en energía y manufactura sustentable. Consultoría, simulaciones CFD y proyectos de energías renovables desde la Región de Aysén.";
+  "Empresa chilena de base científico-tecnológica en energía y medio ambiente. Consultoría, simulaciones CFD y proyectos de energías renovables desde la Región de Aysén.";
 
 export const CONTACT_EMAIL = "contacto@enmachile.com";
 export const WHATSAPP_NUMBER = "56993377935";
@@ -31,6 +31,12 @@ export function absoluteUrl(path: string): string {
   return new URL(path, SITE_URL).toString();
 }
 
+// Forma canónica de un path: termina en "/" (salvo la raíz), para que canonical,
+// OG y sitemap apunten a la misma URL que sirve cPanel con `trailingSlash`.
+export function canonicalPath(path: string): string {
+  return path === "/" ? "/" : path.replace(/\/?$/, "/");
+}
+
 // ── Metadata por página (consistencia OG/twitter/canonical) ─────────────────
 export function pageMetadata(opts: {
   title: string;
@@ -39,11 +45,14 @@ export function pageMetadata(opts: {
   type?: "website" | "article";
 }): Metadata {
   const { title, description, path, type = "website" } = opts;
-  const url = absoluteUrl(path);
+  // El sitio se sirve con `trailingSlash` (export estático en cPanel): el
+  // canonical y la URL OG deben terminar en "/" para calzar con la URL real.
+  const normalizedPath = canonicalPath(path);
+  const url = absoluteUrl(normalizedPath);
   return {
     title,
     description,
-    alternates: { canonical: path },
+    alternates: { canonical: normalizedPath },
     openGraph: {
       type,
       locale: "es_CL",

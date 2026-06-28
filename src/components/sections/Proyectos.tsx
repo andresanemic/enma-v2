@@ -162,7 +162,7 @@ export default function Proyectos() {
             className="mx-auto mt-6 max-w-[46ch] font-body text-lg font-light leading-relaxed text-ink/70 sm:text-xl"
             style={{ opacity: 0 }}
           >
-            Iniciativas en energía y manufactura, nacidas en Aysén.
+            Iniciativas en energía y medio ambiente, nacidas en Aysén.
           </p>
         </div>
       </section>
@@ -292,7 +292,7 @@ export default function Proyectos() {
             className="m-0 mx-auto max-w-[24ch] font-display font-light text-ink"
             style={{ opacity: 0, fontSize: "clamp(1.8rem, 4vw, 3rem)", lineHeight: 1.1, letterSpacing: "-0.03em" }}
           >
-            ¿Tienes un problema de energía o manufactura?{" "}
+            ¿Tienes un problema de energía o medio ambiente?{" "}
             <span className="font-medium text-teal">Conversémoslo</span>.
           </h2>
           <p

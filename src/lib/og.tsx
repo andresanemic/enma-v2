@@ -89,7 +89,7 @@ export async function renderOgImage(opts: { title: string; kicker?: string }) {
         </div>
 
         <div style={{ display: "flex", fontSize: 26, fontWeight: 400, color: TEAL }}>
-          Energía y manufactura sustentable · Región de Aysén, Patagonia
+          Energía y medio ambiente · Región de Aysén, Patagonia
         </div>
       </div>
     ),

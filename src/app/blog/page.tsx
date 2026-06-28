@@ -7,7 +7,7 @@ import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "Blog",
   description:
-    "Columnas de los fundadores y notas del equipo de Enma sobre energía, manufactura sustentable y la vida en la Patagonia: por qué Aysén paga la energía más cara, por qué el territorio importa y qué hacemos en simple.",
+    "Columnas de los fundadores y notas del equipo de Enma sobre energía, medio ambiente y la vida en la Patagonia: por qué Aysén paga la energía más cara, por qué el territorio importa y qué hacemos en simple.",
   path: "/blog",
 });
 

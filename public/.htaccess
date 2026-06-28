@@ -1,0 +1,12 @@
+# Enma — sitio estático (Next.js export) servido en Apache/cPanel (Namecheap).
+# Next copia este archivo a out/.htaccess en cada build.
+
+# Página 404 propia (en el export estático es 404.html en la raíz).
+ErrorDocument 404 /404.html
+
+# Las imágenes Open Graph de next/og se exportan SIN extensión (archivos
+# llamados "opengraph-image"). Forzamos su tipo MIME a PNG para que los
+# previews de WhatsApp/redes las reconozcan como imagen.
+<FilesMatch "^opengraph-image$">
+  ForceType image/png
+</FilesMatch>

@@ -7,7 +7,7 @@ import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "Nosotros",
   description:
-    "Somos Enma: dos ingenieros mecánicos que fundaron en Aysén una empresa de energía y manufactura sustentable. Nuestro origen, territorio, diferenciadores, misión, valores y equipo.",
+    "Somos Enma: dos ingenieros mecánicos que fundaron en Aysén una empresa de energía y medio ambiente. Nuestro origen, territorio, diferenciadores, misión, valores y equipo.",
   path: "/nosotros",
 });
 

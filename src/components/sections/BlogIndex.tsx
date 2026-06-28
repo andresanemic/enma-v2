@@ -22,7 +22,7 @@ const MARQUEE = [
   "Energía",
   "Territorio",
   "Aysén",
-  "Manufactura",
+  "Medio ambiente",
   "El costo de la luz",
   "Patagonia",
   "Columnas de los fundadores",
@@ -150,7 +150,7 @@ export default function BlogIndex() {
                 style={{ opacity: 0 }}
               >
                 Columnas de los fundadores y notas del equipo. Lo que aprendemos
-                sobre energía, manufactura y la vida en la Patagonia, contado por
+                sobre energía, medio ambiente y la vida en la Patagonia, contado por
                 quienes lo viven de cerca.
               </p>
 

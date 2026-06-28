@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL, absoluteUrl } from "@/lib/seo";
 
+// Necesario con `output: export` para emitir robots.txt como archivo estático.
+export const dynamic = "force-static";
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: { userAgent: "*", allow: "/" },

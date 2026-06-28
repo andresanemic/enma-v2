@@ -111,7 +111,7 @@ export default function Blog() {
             </span>
           </h2>
           <p className="mt-5 max-w-[52ch] font-body text-base font-light leading-relaxed text-ink/65 sm:text-lg">
-            Columnas de los fundadores y notas del equipo sobre energía, manufactura y la vida en la Patagonia.
+            Columnas de los fundadores y notas del equipo sobre energía, medio ambiente y la vida en la Patagonia.
           </p>
         </div>
 

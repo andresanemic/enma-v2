@@ -195,7 +195,7 @@ export default function Equipo() {
             </span>
           </h2>
           <p data-dek className="mt-5 max-w-[54ch] font-body text-base font-light leading-relaxed text-ink/65 sm:text-lg" style={{ opacity: 0 }}>
-            Fundamos Enma para resolver, desde Aysén, los problemas de energía y manufactura de la Patagonia.
+            Fundamos Enma para resolver, desde Aysén, los problemas de energía y medio ambiente de la Patagonia.
           </p>
         </div>
 
