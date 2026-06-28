@@ -29,6 +29,7 @@ export default function PrevNextCard({
   ariaNoun = "Proyecto",
   hideEyebrow = false,
   labelPill = false,
+  pillClass = "bg-teal text-cream",
 }: {
   item: PrevNextItem;
   dir: "prev" | "next";
@@ -38,8 +39,10 @@ export default function PrevNextCard({
   ariaNoun?: string;
   /** Oculta la línea de dominio/sección (eyebrow) bajo el scrim. */
   hideEyebrow?: boolean;
-  /** Envuelve la etiqueta "Anterior/Siguiente" en una pill teal (mejor lectura). */
+  /** Envuelve la etiqueta "Anterior/Siguiente" en una pill (mejor lectura). */
   labelPill?: boolean;
+  /** Color de la pill (fondo + texto) por página. Default teal (Blog); terra en Proyectos. */
+  pillClass?: string;
 }) {
   const isPrev = dir === "prev";
   const arrow = isPrev ? "M17 10H4M9 5l-5 5 5 5" : "M3 10h13M11 5l5 5-5 5";
@@ -67,7 +70,7 @@ export default function PrevNextCard({
         <span
           className={`flex items-center gap-2 font-body text-[11px] font-semibold uppercase tracking-[0.18em] transition-colors duration-200 ${
             labelPill
-              ? "rounded-full bg-teal px-3 py-1.5 text-cream shadow-[0_8px_22px_-12px_rgba(26,26,26,0.7)]"
+              ? `rounded-full px-3 py-1.5 shadow-[0_8px_22px_-12px_rgba(26,26,26,0.7)] ${pillClass}`
               : `text-cream/85 ${accentHover}`
           } ${isPrev ? "" : "flex-row-reverse"}`}
         >

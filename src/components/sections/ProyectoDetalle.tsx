@@ -551,10 +551,16 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
               <PrevNextCard
                 item={{ href: `/proyectos/${nav.prev.slug}`, image: nav.prev.image, imageAlt: nav.prev.imageAlt, eyebrow: nav.prev.domain, title: nav.prev.title }}
                 dir="prev"
+                hideEyebrow
+                labelPill
+                pillClass="bg-terra text-cream"
               />
               <PrevNextCard
                 item={{ href: `/proyectos/${nav.next.slug}`, image: nav.next.image, imageAlt: nav.next.imageAlt, eyebrow: nav.next.domain, title: nav.next.title }}
                 dir="next"
+                hideEyebrow
+                labelPill
+                pillClass="bg-terra text-cream"
               />
             </div>
           </div>
