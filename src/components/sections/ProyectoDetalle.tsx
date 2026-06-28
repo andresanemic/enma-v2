@@ -313,7 +313,7 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
         style={{ background: `linear-gradient(180deg, #e8c08e 0%, ${hasMore ? "#edca9c" : "#f3ddbc"} 100%)` }}
       >
         <div className="mx-auto max-w-[1180px] px-6 py-12 sm:px-10 md:px-14 md:py-16">
-          <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-ink/55" style={{ opacity: 0 }}>
+          <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-terra" style={{ opacity: 0 }}>
             Cómo lo abordamos
           </h2>
 
