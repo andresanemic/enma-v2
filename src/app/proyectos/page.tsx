@@ -7,7 +7,7 @@ import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "Proyectos",
   description:
-    "El proyecto que más queremos mostrar: una turbina eólica de baja escala financiada por ANID, diseñada para resistir los vientos extremos y turbulentos de la Patagonia. Así trabajamos en Enma.",
+    "Proyectos de Enma en energía y manufactura, nacidos en Aysén: una turbina eólica de baja escala (ANID), un taller de upcycling de residuos salmoneros (Corfo) y un scouting de bombas de calor industriales para Colbún.",
   path: "/proyectos",
 });
 

@@ -2,10 +2,10 @@
 // PROYECTOS — fuente de datos compartida (mini-landing /proyectos + detalle
 // /proyectos/[slug]). Única fuente de verdad: que-es-enma.txt.
 //
-// ⚠ Honestidad de datos: solo la turbina (ANID) tiene información rica documentada.
-// Los estudios CIEP y el biodiésel están descritos en una o dos líneas en
-// que-es-enma.txt → su detalle lleva únicamente lo confirmado.
-// NO inventar cifras, fechas, alcances ni clientes.
+// ⚠ Honestidad de datos: cada proyecto se redacta desde fuentes reales —
+// que-es-enma.txt y los informes técnicos originales de cada uno (turbina/ANID,
+// upcycling de residuos salmoneros/Corfo, scouting de bombas de calor/Colbún).
+// NO inventar cifras, fechas, alcances ni clientes fuera de esas fuentes.
 // ─────────────────────────────────────────────────────────────────────────────
 
 /** Valor admite realce con `**negrita**` (markdown mínimo) — se parsea en el render. */
@@ -52,6 +52,56 @@ export type Proyecto = {
 };
 
 export const PROYECTOS: Proyecto[] = [
+  {
+    slug: "upcycling-residuos-salmoneros",
+    domain: "Economía circular",
+    title: "Upcycling de residuos salmoneros",
+    titleAccent: "Upcycling",
+    kicker: "Taller en Puerto Cisnes · financiado por Corfo",
+    image: "/proyectos/upcycling-v1.webp",
+    imageAlt: "Taller de upcycling de plástico HDPE reciclado en Puerto Cisnes, Aysén",
+    cardFacts: [
+      "Financiado por Corfo",
+      "Boyas y tuberías salmoneras → tableros de HDPE",
+      "Trituradora y prensa diseñadas por nosotros",
+    ],
+    lead:
+      "Un taller que convierte el plástico de la industria salmonera —boyas y tuberías de HDPE— en tableros para la construcción, financiado por Corfo.",
+    facts: [
+      { label: "Financiamiento", value: "Corfo — programa **Conecta y Colabora** (21CYC-184203)" },
+      { label: "Residuo de origen", value: "**HDPE** de la acuicultura: boyas y tuberías en desuso" },
+      { label: "Producto", value: "Tableros de **1,22 × 1,22 m**, de 5 a 25 mm de espesor" },
+      { label: "Maquinaria", value: "Una **trituradora** y una **prensa caliente**, rediseñadas por nosotros" },
+      { label: "Ubicación", value: "Taller propio en **Puerto Cisnes**, Región de Aysén" },
+      { label: "Control de proceso", value: "Termocuplas con **PID** y sensor de carga: temperatura y presión exactas" },
+      { label: "Usos del material", value: "Madera plástica, mobiliario, revestimiento y hasta embarcaciones" },
+    ],
+    context:
+      "En Aysén reciclar es caro: la región está lejos de las plantas de proceso del norte y mover los residuos cuesta muchísimo. Al mismo tiempo, la industria salmonera local genera grandes volúmenes de plástico —boyas y tuberías de HDPE— que suelen terminar en vertederos, mientras la construcción depende de una madera cada vez más cara en un clima que promedia 2.347 mm de lluvia al año. Vimos ahí una sola oportunidad: convertir ese residuo en un material durable para construir.",
+    did:
+      "Diseñamos y montamos un taller de upcycling en Puerto Cisnes. Caracterizamos el residuo, rediseñamos desde diseños abiertos una trituradora y una prensa caliente —la pieza clave, capaz de conformar tableros de hasta 1,22 × 1,22 m— y, tras una larga etapa de ensayo y error ajustando temperatura y presión, fabricamos las primeras planchas de HDPE 100% reciclado, listas para mobiliario, revestimiento y construcción.",
+    capabilities: ["Análisis de residuos", "Diseño CAD", "Manufactura de maquinaria", "Termoconformado", "Economía circular"],
+    approach: [
+      { label: "Análisis de residuos", detail: "Boyas y tuberías\n· HDPE acuícola" },
+      { label: "Rediseño CAD", detail: "Trituradora\n· prensa caliente" },
+      { label: "Fabricación de maquinaria", detail: "Construcción\n· puesta en marcha" },
+      { label: "Triturado", detail: "Trozado previo\n· reducción a hojuelas" },
+      { label: "Prensado en caliente", detail: "Termocuplas + PID\n· sensor de carga" },
+      { label: "Tableros de HDPE", detail: "Madera plástica\n· mobiliario · barcos" },
+    ],
+    gallery: [
+      "/proyectos/galeria/upcycling-galeria-1-v1.webp",
+      "/proyectos/galeria/upcycling-galeria-2-v1.webp",
+      "/proyectos/galeria/upcycling-galeria-3-v1.webp",
+      "/proyectos/galeria/upcycling-galeria-4-v1.webp",
+      "/proyectos/galeria/upcycling-galeria-5-v1.webp",
+    ],
+    metrics: [
+      { figure: "1,22 m", label: "Tablero fabricado", detail: "Planchas de hasta 1,22 × 1,22 m, 5–25 mm" },
+      { figure: "Corfo", label: "Financiamiento", detail: "Programa Conecta y Colabora" },
+      { figure: "100%", label: "Material reciclado", detail: "HDPE recuperado de la industria salmonera" },
+    ],
+  },
   {
     slug: "turbina-eolica-baja-escala",
     domain: "Eólica",
@@ -105,6 +155,49 @@ export const PROYECTOS: Proyecto[] = [
       { figure: "3", label: "Frentes de validación", detail: "CFD · túnel de viento · prototipo físico" },
       { figure: "ANID", label: "Financiamiento", detail: "Fondo público competitivo de I+D+i" },
       { figure: "Propio", label: "Túnel de viento", detail: "Resiliente a vientos excesivos y turbulentos" },
+    ],
+  },
+  {
+    slug: "scouting-bombas-de-calor",
+    domain: "Energía térmica",
+    title: "Scouting de bombas de calor industriales",
+    titleAccent: "bombas de calor",
+    kicker: "Reporte para Colbún · vía OpenBeauchef",
+    image: "/proyectos/bombas-calor-v1.webp",
+    imageAlt: "Bomba de calor industrial de alta temperatura",
+    cardFacts: [
+      "Elaborado para Colbún SA",
+      "Bombas de calor de alta temperatura (HTHP)",
+      "Scouting tecnológico-comercial mundial",
+    ],
+    lead:
+      "Un reporte tecnológico y de scouting de bombas de calor de alta temperatura, elaborado para Colbún: la tecnología clave para descarbonizar el calor industrial.",
+    facts: [
+      { label: "Cliente", value: "**Colbún SA**, vía OpenBeauchef (FCFM, **U. de Chile**)" },
+      { label: "Tecnología", value: "Bombas de calor de **alta temperatura** (HTHP)" },
+      { label: "Por qué importa", value: "Descarboniza el calor industrial si se alimenta con **electricidad renovable**" },
+      { label: "Estado del arte", value: "**32 productos** mapeados (TRL 5+); la mitad ya en TRL 9" },
+      { label: "Scouting comercial", value: "**12 productos** de Japón, Noruega, Alemania, China, R. Unido e Italia" },
+      { label: "Rango de operación", value: "Suministro de **85 a 200 °C**; potencias de 30 kW a 30 MW" },
+      { label: "Aplicaciones", value: "Industria **alimentaria, petroquímica y manufactura**: secado, destilación, pasteurización" },
+    ],
+    context:
+      "Buena parte del calor que usa la industria todavía se produce quemando combustibles fósiles. Las bombas de calor de alta temperatura pueden reemplazar esa quema: toman calor de baja temperatura y lo elevan hasta el nivel que un proceso necesita, usando solo electricidad. Si esa electricidad es renovable, el proceso se descarboniza. En pocos años la tecnología pasó de entregar 80 °C a superar los 120 °C, abriendo aplicaciones que antes no eran posibles.",
+    did:
+      "Para Colbún elaboramos, a través de OpenBeauchef, un reporte tecnológico y comercial de la tecnología. Revisamos cómo funcionan y se clasifican estas bombas, dónde está la investigación y qué barreras quedan; cruzamos eso con la demanda térmica de la industria chilena para estimar su potencial de penetración; y rastreamos el mercado mundial para entregar fichas técnicas de proveedores con soluciones comercialmente maduras.",
+    capabilities: ["Revisión tecnológica", "Análisis de mercado", "Vigilancia tecnológica", "Descarbonización", "Eficiencia térmica"],
+    approach: [
+      { label: "Revisión tecnológica", detail: "Funcionamiento\n· clasificaciones" },
+      { label: "Madurez TRL", detail: "32 productos\n· estado del arte" },
+      { label: "Demanda térmica nacional", detail: "Procesos y sectores\n· potencial en Chile" },
+      { label: "Priorización", detail: "Por temperatura\n· de suministro" },
+      { label: "Scouting mundial", detail: "Empresas y\n· canales de contacto" },
+      { label: "Fichas técnicas", detail: "12 productos\n· casos de éxito" },
+    ],
+    metrics: [
+      { figure: "32", label: "Productos mapeados", detail: "Tecnologías HTHP en TRL 5 o superior" },
+      { figure: "200 °C", label: "Temperatura alcanzable", detail: "Suministro de hasta 200 °C, hasta 30 MW" },
+      { figure: "6", label: "Países prospectados", detail: "Japón, Noruega, Alemania, China, R. Unido e Italia" },
     ],
   },
 ];
