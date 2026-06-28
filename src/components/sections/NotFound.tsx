@@ -40,7 +40,7 @@ export default function NotFound() {
     if (reduce) {
       q("[data-fade]").forEach((e) => gsap.set(e, { opacity: 1, y: 0 }));
       q("[data-clip]").forEach((e) =>
-        gsap.set(e, { clipPath: "inset(0 0% 0 0)", opacity: 1 })
+        gsap.set(e, { clipPath: "inset(-0.25em 0% -0.25em 0)", opacity: 1 })
       );
       return;
     }
@@ -52,8 +52,8 @@ export default function NotFound() {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
       tl.fromTo(
         q("[data-clip]"),
-        { clipPath: "inset(0 100% 0 0)", opacity: 1 },
-        { clipPath: "inset(0 0% 0 0)", duration: 0.9, stagger: 0.14, ease: "power3.inOut" },
+        { clipPath: "inset(-0.25em 100% -0.25em 0)", opacity: 1 },
+        { clipPath: "inset(-0.25em 0% -0.25em 0)", duration: 0.9, stagger: 0.14, ease: "power3.inOut" },
         0
       );
       tl.fromTo(
@@ -112,13 +112,13 @@ export default function NotFound() {
                 className="m-0 mt-5 max-w-[14ch] font-display font-light text-ink"
                 style={{ fontSize: "clamp(2.6rem, 8vw, 6rem)", lineHeight: 1.0, letterSpacing: "-0.04em" }}
               >
-                <span aria-hidden="true" className="block overflow-hidden">
-                  <span data-clip className="block" style={{ clipPath: "inset(0 100% 0 0)" }}>
+                <span aria-hidden="true" className="block pb-[0.18em]">
+                  <span data-clip className="block" style={{ clipPath: "inset(-0.25em 100% -0.25em 0)" }}>
                     Esta página
                   </span>
                 </span>
-                <span aria-hidden="true" className="block overflow-hidden">
-                  <span data-clip className="block font-medium text-ember" style={{ clipPath: "inset(0 100% 0 0)" }}>
+                <span aria-hidden="true" className="block pb-[0.18em]">
+                  <span data-clip className="block font-medium text-ember" style={{ clipPath: "inset(-0.25em 100% -0.25em 0)" }}>
                     no existe.
                   </span>
                 </span>
