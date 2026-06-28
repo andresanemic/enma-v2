@@ -109,12 +109,7 @@ export default function BlogArticle({ article, nav }: { article: Article; nav: N
             className="font-medium text-teal underline decoration-teal/40 underline-offset-4 transition-colors duration-200 hover:decoration-teal"
           >
             {s.text}
-            {ext && (
-              <>
-                <span aria-hidden="true" className="ml-0.5 inline-block text-[0.85em] no-underline">↗</span>
-                <span className="sr-only"> (abre en una pestaña nueva)</span>
-              </>
-            )}
+            {ext && <span className="sr-only"> (abre en una pestaña nueva)</span>}
           </a>
         );
       }
@@ -151,9 +146,9 @@ export default function BlogArticle({ article, nav }: { article: Article; nav: N
             Todas las notas
           </Link>
 
-          {/* Topic — label limpio (sin pill, sin eyebrow numerado) */}
+          {/* Fecha de publicación — label limpio (toma el lugar del antiguo topic) */}
           <p data-fade className="mb-5 font-body text-xs font-semibold uppercase tracking-[0.18em] text-teal" style={{ opacity: 0 }}>
-            {article.topic}
+            <time dateTime={article.date}>{formatArticleDate(article.date)}</time>
           </p>
 
           <h1
@@ -164,16 +159,15 @@ export default function BlogArticle({ article, nav }: { article: Article; nav: N
             {article.title}
           </h1>
 
-          {/* Byline — autor · rol · fecha */}
+          {/* Byline — autor · rol (lectura natural, sin mono) */}
           <div data-fade className="mt-7 flex flex-wrap items-center justify-center gap-x-3 gap-y-1" style={{ opacity: 0 }}>
             <span className="font-body text-base font-medium text-ink">Por {article.author}</span>
             {article.role && (
-              <span className="font-body text-[11px] uppercase tracking-[0.18em] text-ink/50">{article.role}</span>
+              <>
+                <span aria-hidden="true" className="h-1 w-1 rounded-full bg-ink/25" />
+                <span className="font-body text-base font-light italic text-ink/55">{article.role}</span>
+              </>
             )}
-            <span aria-hidden="true" className="h-1 w-1 rounded-full bg-ink/30" />
-            <time dateTime={article.date} className="font-body text-sm font-light text-ink/55">
-              {formatArticleDate(article.date)}
-            </time>
           </div>
         </div>
 
@@ -211,9 +205,9 @@ export default function BlogArticle({ article, nav }: { article: Article; nav: N
         className="relative w-full"
         style={{ background: "linear-gradient(180deg, #f7e6cf 0%, #f8eddd 14%, #f8eddd 100%)" }}
       >
-        <div data-reveal="body" className="mx-auto max-w-[72ch] px-6 pb-20 pt-12 sm:px-8 md:pb-24 md:pt-16">
-          {/* Lead — bajada al inicio de la nota (enriquecido si hay `lead`) */}
-          <p data-fade className="m-0 font-body text-2xl font-light leading-relaxed text-ink/75 sm:text-3xl" style={{ opacity: 0 }}>
+        <div data-reveal="body" className="mx-auto max-w-[72ch] px-6 pb-20 pt-6 sm:px-8 md:pb-24 md:pt-8">
+          {/* Lead — bajada/introducción: más chica que el cuerpo, pegada al hero */}
+          <p data-fade className="m-0 font-body text-lg font-light leading-relaxed text-ink/65 sm:text-xl" style={{ opacity: 0 }}>
             {article.lead ? renderSpans(article.lead) : article.summary}
           </p>
 
@@ -233,22 +227,8 @@ export default function BlogArticle({ article, nav }: { article: Article; nav: N
                   </div>
                 );
               }
-              if (block.type === "quote") {
-                return (
-                  <figure key={i} data-fade className="mt-11 mb-2 border-l-4 border-teal pl-6 sm:pl-8" style={{ opacity: 0 }}>
-                    <blockquote className="m-0 font-display font-light italic text-ink/85" style={{ fontSize: "clamp(1.5rem, 3vw, 2.1rem)", lineHeight: 1.3, letterSpacing: "-0.015em" }}>
-                      {block.text}
-                    </blockquote>
-                    {block.cite && (
-                      <figcaption className="mt-4 font-body text-xs font-semibold uppercase tracking-[0.18em] text-teal">
-                        {block.cite}
-                      </figcaption>
-                    )}
-                  </figure>
-                );
-              }
               return (
-                <p key={i} data-fade className="mt-6 font-body text-xl font-light text-ink/80 first:mt-0" style={{ opacity: 0, lineHeight: 1.8 }}>
+                <p key={i} data-fade className="mt-7 font-body text-xl font-light text-ink/80 first:mt-0 sm:text-[1.3rem]" style={{ opacity: 0, lineHeight: 1.85 }}>
                   {renderSpans(block.spans)}
                 </p>
               );

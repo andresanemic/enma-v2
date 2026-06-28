@@ -18,8 +18,7 @@ export type RichText = InlineSpan[];
 /** Bloque de cuerpo de un artículo. */
 export type ArticleBlock =
   | { type: "p"; spans: RichText }
-  | { type: "h2"; text: string }
-  | { type: "quote"; text: string; cite?: string };
+  | { type: "h2"; text: string };
 
 export type Article = {
   slug: string;
@@ -63,8 +62,8 @@ export const ARTICLES: Article[] = [
         { text: `es una realidad estructural`, href: `https://radio45sur.cl/2024/06/27/la-luz-mas-cara-de-chile-aumento-en-aysen-llegaria-al-50-acumulado-en-enero-de-2025/`, external: true },
         `. Estamos lejos, somos pocos y mover cualquier cosa hasta acá cuesta. Esa distancia se traduce, casi línea por línea, en el valor que personas y empresas pagamos por la energía, sea eléctrica o térmica.`,
       ] },
-      { type: "p", spans: [`El problema es que la energía cara no se queda en la boleta. Encarece todo lo demás. Una industria que consume mucha energía simplemente no es viable en la región. El ejemplo más claro es el reciclaje: hoy buena parte de los residuos que podríamos procesar acá terminan viajando al norte de Puerto Montt, porque localmente no existe la capacidad de hacerlo a un costo razonable. Perdemos la oportunidad, el empleo y el círculo virtuoso completo.`] },
-      { type: "quote", text: `La energía cara no se queda en la boleta. Encarece todo lo demás.`, cite: `Bruno Ortega` },
+      { type: "p", spans: [`El problema es que la energía cara no se queda en la boleta. Encarece todo lo demás. Una industria que consume mucha energía simplemente no es viable en la región.`] },
+      { type: "p", spans: [`El ejemplo más claro es el reciclaje: hoy buena parte de los residuos que podríamos procesar acá terminan viajando al norte de Puerto Montt, porque localmente no existe la capacidad de hacerlo a un costo razonable. Perdemos la oportunidad, el empleo y el círculo virtuoso completo.`] },
       { type: "h2", text: `Las renovables ya no son una promesa` },
       { type: "p", spans: [
         `Durante años se habló de energías renovables «no convencionales». Ese apellido ya sobra. Al año 2026 la `,
@@ -80,12 +79,20 @@ export const ARTICLES: Article[] = [
       { type: "p", spans: [
         `En esa línea estamos desarrollando, con financiamiento de la `,
         { text: `Agencia Nacional de Investigación y Desarrollo (ANID)`, href: `https://anid.cl`, external: true },
-        `, una turbina eólica de baja escala con un diseño resiliente a condiciones que aquí son la norma: vientos excesivos, ráfagas que pasan de la calma a la furia en segundos y turbulencia que cambia de dirección. Son máquinas de baja potencia pensadas para instalarse de a muchas, en granjas, ideales para campos, electrificación rural y también para la industria.`,
+        `, una `,
+        { text: `turbina eólica de baja escala`, href: `/proyectos/turbina-eolica-baja-escala` },
+        ` con un diseño resiliente a condiciones que aquí son la norma: vientos excesivos, ráfagas que pasan de la calma a la furia en segundos y turbulencia que cambia de dirección.`,
       ] },
+      { type: "p", spans: [`Son máquinas de baja potencia pensadas para instalarse de a muchas, en granjas, ideales para campos, electrificación rural y también para la industria.`] },
       { type: "p", spans: [`Bajar el costo energético no es un fin en sí mismo: es la llave que destraba productividad, empleo y calidad de vida en la región.`] },
       { type: "h2", text: `Co-crear, no imponer` },
-      { type: "p", spans: [`Si algo aprendimos operando en un contexto complejo es que las soluciones no se imponen desde un escritorio en Santiago: se construyen junto a quienes viven el problema. Existe una desconfianza histórica entre la sociedad civil y la industria, y la única forma de cerrarla es trabajando de manera asociativa, conversando y co-creando. No queremos posicionarnos como dominadores de mercado, sino como un socio con quien sentarse a resolver.`] },
-      { type: "p", spans: [`Aysén tiene viento, agua, sol y calor bajo la tierra. Le sobra energía. Lo que falta es la ingeniería que la transforme en algo aprovechable a un costo justo, hecha por gente que entiende el lugar. En eso estamos.`] },
+      { type: "p", spans: [`Si algo aprendimos operando en un contexto complejo es que las soluciones no se imponen desde un escritorio en Santiago: se construyen junto a quienes viven el problema.`] },
+      { type: "p", spans: [`Existe una desconfianza histórica entre la sociedad civil y la industria, y la única forma de cerrarla es trabajando de manera asociativa, conversando y co-creando. No queremos posicionarnos como dominadores de mercado, sino como un socio con quien sentarse a resolver.`] },
+      { type: "p", spans: [
+        `Aysén tiene viento, agua, sol y calor bajo la tierra. Le sobra energía. Lo que falta es la ingeniería que la transforme en algo aprovechable a un costo justo, hecha por `,
+        { text: `gente que entiende el lugar`, href: `/nosotros` },
+        `. En eso estamos.`,
+      ] },
     ],
   },
   {
@@ -94,11 +101,6 @@ export const ARTICLES: Article[] = [
     title: "La Patagonia se resuelve desde la Patagonia",
     summary:
       "Porque los desafíos regionales no se resuelven sin entender las particularidades logísticas, climáticas y culturales del territorio.",
-    lead: [
-      `Porque los desafíos regionales no se resuelven sin entender `,
-      { text: `las particularidades logísticas, climáticas y culturales del territorio`, href: `https://www.uc.cl/noticias/una-mirada-al-aislamiento-en-aysen/`, external: true },
-      `.`,
-    ],
     author: "Patricio Campos",
     role: "Socio fundador",
     date: "2026-06-22",
@@ -107,15 +109,22 @@ export const ARTICLES: Article[] = [
     imageSide: "right",
     body: [
       { type: "p", spans: [`La mayoría de las empresas de ingeniería que ofrecen soluciones energéticas y ambientales para la Región de Aysén están instaladas en Santiago. No es un detalle menor. La realidad regional difiere por mucho de la del resto del país, y eso se nota apenas un proyecto se topa con la primera variable que nadie consideró: la logística.`] },
-      { type: "p", spans: [`Acá las distancias se miden en horas de viaje por tierra y mar. El costo del combustible y la dependencia energética no son notas al pie: son factores que, si no se abordan desde la primera línea de un proyecto, pueden matarlo. A eso se suma una idiosincrasia patagona que hay que entender para poder trabajar con la gente, no a pesar de ella.`] },
+      { type: "p", spans: [
+        `Acá las distancias se miden en horas de viaje por tierra y mar. El costo del combustible y `,
+        { text: `la dependencia energética`, href: `/blog/energia-mas-cara-aysen` },
+        ` no son notas al pie: son factores que, si no se abordan desde la primera línea de un proyecto, pueden matarlo. A eso se suma una idiosincrasia patagona que hay que entender para poder trabajar con la gente, no a pesar de ella.`,
+      ] },
       { type: "h2", text: `Pertenencia como ventaja competitiva` },
-      { type: "p", spans: [`Entender todo esto —la logística, los costos, la cultura— es precisamente lo que nos diferencia. La pertenencia territorial no es una postal turística que ponemos en la presentación: es conocimiento operativo que se traduce en proyectos que sí funcionan, porque fueron pensados para el lugar donde se van a ejecutar. Y creo que esa misma capacidad nos va a dar ventaja el día que nos expandamos a otros mercados igualmente desafiantes.`] },
-      { type: "quote", text: `La pertenencia territorial no es una postal turística que ponemos en la presentación: es conocimiento operativo.`, cite: `Patricio Campos` },
+      { type: "p", spans: [`Entender todo esto —la logística, los costos, la cultura— es precisamente lo que nos diferencia. La pertenencia territorial no es una postal turística que ponemos en la presentación: es conocimiento operativo que se traduce en proyectos que sí funcionan, porque fueron pensados para el lugar donde se van a ejecutar.`] },
+      { type: "p", spans: [`Y creo que esa misma capacidad nos va a dar ventaja el día que nos expandamos a otros mercados igualmente desafiantes.`] },
       { type: "h2", text: `Lo que hacemos, en concreto` },
       { type: "p", spans: [
-        `Trabajamos principalmente en consultoría, formulación y acompañamiento de proyectos para instrumentos públicos como `,
-        { text: `CORFO`, href: `https://www.corfo.cl`, external: true },
-        `, ANID y los Gobiernos Regionales, con foco energético o ambiental. A eso sumamos dos servicios que veo con enorme potencial: las `,
+        `Trabajamos principalmente en consultoría, formulación y `,
+        { text: `acompañamiento de proyectos`, href: `/proyectos` },
+        ` para instrumentos públicos como CORFO, ANID y los Gobiernos Regionales, con foco energético o ambiental.`,
+      ] },
+      { type: "p", spans: [
+        `A eso sumamos dos servicios que veo con enorme potencial: las `,
         { text: `simulaciones computacionales fluidodinámicas (CFD)`, href: `https://www.ansys.com/simulation-topics/what-is-computational-fluid-dynamics`, external: true },
         ` para optimizar el diseño de sistemas que interactúan con fluidos, y la `,
         { text: `cuantificación de huella de carbono`, href: `https://mma.gob.cl/cambio-climatico/cc-02-7-huella-de-carbono/`, external: true },
@@ -145,7 +154,6 @@ export const ARTICLES: Article[] = [
     imageSide: "left",
     body: [
       { type: "p", spans: [`Enma es una empresa chilena nacida en la Región de Aysén que diseña soluciones sustentables con foco en energía y medio ambiente. Su nombre lo dice todo: viene de ENergía y Medio Ambiente. En una frase, ayudamos a personas, comunidades y empresas a resolver problemas de energía, reciclaje o calefacción con soluciones hechas a la medida.`] },
-      { type: "quote", text: `Ayudamos a personas, comunidades y empresas a resolver problemas de energía, reciclaje o calefacción con soluciones hechas a la medida.` },
       { type: "h2", text: `¿Qué problema resuelve?` },
       { type: "p", spans: [
         `En Aysén la energía es cara, porque la región está aislada y todo cuesta más caro de traer. Eso golpea a las familias en la boleta de la luz y vuelve difícil que muchas industrias funcionen. Enma trabaja, ante todo, para `,
@@ -153,17 +161,24 @@ export const ARTICLES: Article[] = [
         `, porque cuando la energía es más barata aumenta la productividad y aparecen nuevas oportunidades.`,
       ] },
       { type: "h2", text: `¿Qué servicios ofrece?` },
+      { type: "p", spans: [`Enma acompaña proyectos de principio a fin. Lo más importante es la consultoría y los estudios de soluciones energéticas, que abren la puerta a todo lo demás.`] },
       { type: "p", spans: [
-        `Enma acompaña proyectos de principio a fin. Lo más importante es la consultoría y los estudios de soluciones energéticas, que abren la puerta a todo lo demás. También formula y acompaña proyectos para postular a fondos públicos (como `,
+        `También formula y acompaña proyectos para postular a fondos públicos (como `,
         { text: `CORFO`, href: `https://www.corfo.cl`, external: true },
         ` o `,
         { text: `ANID`, href: `https://anid.cl`, external: true },
-        `), realiza simulaciones por computador para optimizar diseños (CFD), mide la huella de carbono de empresas y municipios, y ejecuta y mantiene proyectos junto a una red de socios. A eso suma charlas y difusión sobre energía y medioambiente.`,
+        `), realiza simulaciones por computador para optimizar diseños (CFD), mide la huella de carbono de empresas y municipios, y ejecuta y mantiene proyectos junto a una red de socios. A eso suma `,
+        { text: `charlas y difusión`, href: `/vinculacion` },
+        ` sobre energía y medioambiente.`,
       ] },
       { type: "h2", text: `¿Para quién es?` },
       { type: "p", spans: [`Para empresas, municipalidades, comunidades y tomadores de decisión del mundo público y privado que necesiten resolver un problema energético o ambiental. Como cada solución es a la medida, el primer paso siempre es conversar para entender la necesidad.`] },
       { type: "h2", text: `El proyecto que mejor nos representa` },
-      { type: "p", spans: [`Enma está desarrollando, con apoyo de la ANID, una turbina eólica de baja escala diseñada para resistir el viento extremo y cambiante de la Patagonia. Son máquinas pequeñas pensadas para instalarse de a muchas, útiles para el campo, la electrificación rural y la industria, y capaces de ayudar a bajar la cuenta de luz.`] },
+      { type: "p", spans: [
+        `Enma está desarrollando, con apoyo de la ANID, una `,
+        { text: `turbina eólica de baja escala`, href: `/proyectos/turbina-eolica-baja-escala` },
+        ` diseñada para resistir el viento extremo y cambiante de la Patagonia. Son máquinas pequeñas pensadas para instalarse de a muchas, útiles para el campo, la electrificación rural y la industria, y capaces de ayudar a bajar la cuenta de luz.`,
+      ] },
       { type: "h2", text: `¿Cómo trabaja Enma?` },
       { type: "p", spans: [`Con una mezcla de cercanía y tecnología. Cercanía, porque cree en construir confianza y co-crear junto a las comunidades; y tecnología, porque usa herramientas de cómputo y manufactura avanzada para que las soluciones sean rápidas, eficientes y confiables. Si quieres explorar una idea o resolver un problema energético, el camino es simple: escribir y conversar.`] },
     ],
