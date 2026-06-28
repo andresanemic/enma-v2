@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { gsap } from "@/lib/gsap";
 import SignalMarquee from "./SignalMarquee";
+import ImageSlider from "./ImageSlider";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // VINCULACIÓN — "EN VIVO: la señal de Enma"
@@ -532,12 +533,14 @@ export default function Vinculacion() {
                         </p>
                       )}
                       {a.images.length > 1 ? (
-                        <ImageSlider
-                          images={a.images}
-                          title={a.title}
-                          active={openId === a.id}
-                          reduceMotion={reduceMotion}
-                        />
+                        <div className="mt-5 max-w-[640px]">
+                          <ImageSlider
+                            images={a.images}
+                            title={a.title}
+                            active={openId === a.id}
+                            reduceMotion={reduceMotion}
+                          />
+                        </div>
                       ) : (
                         a.images[0] && (
                           <Image
@@ -627,111 +630,6 @@ export default function Vinculacion() {
           </p>
         </div>
       </section>
-    </div>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// SLIDER de fotos — una a la vez, tamaño FIJO (3:2, igual al de las fotos).
-// Vive dentro de la fila clickeable del repositorio, así que cada control
-// detiene la propagación para no cerrar el panel al navegar las imágenes.
-// ─────────────────────────────────────────────────────────────────────────────
-function ImageSlider({
-  images,
-  title,
-  active,
-  reduceMotion,
-}: {
-  images: string[];
-  title: string;
-  active: boolean;
-  reduceMotion: boolean;
-}) {
-  const [idx, setIdx] = useState(0);
-  const [loaded, setLoaded] = useState<Set<number>>(new Set());
-  const stop = (e: { stopPropagation: () => void }) => e.stopPropagation();
-  const go = (n: number) =>
-    setIdx((p) => (n + images.length) % images.length);
-
-  return (
-    <div className="mt-5 max-w-[640px]">
-      <div className="relative aspect-[3/2] w-full overflow-hidden rounded-xl bg-ink/5 ring-1 ring-ink/10">
-        {images.map((src, i) => (
-          <Image
-            key={src}
-            src={src}
-            alt={`${title} — imagen ${i + 1} de ${images.length}`}
-            fill
-            sizes="(min-width: 768px) 55vw, 90vw"
-            onLoad={() =>
-              setLoaded((prev) => (prev.has(i) ? prev : new Set(prev).add(i)))
-            }
-            className="object-cover"
-            style={{
-              opacity: i === idx && loaded.has(i) ? 1 : 0,
-              transition: reduceMotion ? "none" : "opacity 500ms ease-out",
-            }}
-          />
-        ))}
-
-        {/* Flechas */}
-        <button
-          type="button"
-          aria-label="Foto anterior"
-          tabIndex={active ? 0 : -1}
-          onClick={(e) => {
-            stop(e);
-            go(idx - 1);
-          }}
-          onKeyDown={stop}
-          className="absolute left-3 top-1/2 -translate-y-1/2 grid h-10 w-10 place-items-center rounded-full bg-cream/85 text-ink shadow-[0_8px_20px_-10px_rgba(26,26,26,0.7)] backdrop-blur-sm transition-all duration-300 ease-out hover:bg-ember hover:text-cream focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember/60"
-        >
-          <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
-        </button>
-        <button
-          type="button"
-          aria-label="Foto siguiente"
-          tabIndex={active ? 0 : -1}
-          onClick={(e) => {
-            stop(e);
-            go(idx + 1);
-          }}
-          onKeyDown={stop}
-          className="absolute right-3 top-1/2 -translate-y-1/2 grid h-10 w-10 place-items-center rounded-full bg-cream/85 text-ink shadow-[0_8px_20px_-10px_rgba(26,26,26,0.7)] backdrop-blur-sm transition-all duration-300 ease-out hover:bg-ember hover:text-cream focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember/60"
-        >
-          <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M9 18l6-6-6-6" />
-          </svg>
-        </button>
-
-        {/* Contador */}
-        <span className="absolute bottom-3 right-3 rounded-full bg-ink/55 px-2.5 py-1 font-body text-xs font-medium tabular-nums text-cream backdrop-blur-sm">
-          {idx + 1} / {images.length}
-        </span>
-      </div>
-
-      {/* Puntos */}
-      <div className="mt-3 flex items-center justify-center gap-2.5">
-        {images.map((_, i) => (
-          <button
-            key={i}
-            type="button"
-            aria-label={`Ir a la foto ${i + 1}`}
-            aria-current={i === idx}
-            tabIndex={active ? 0 : -1}
-            onClick={(e) => {
-              stop(e);
-              setIdx(i);
-            }}
-            onKeyDown={stop}
-            className={`h-2.5 rounded-full transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember/60 ${
-              i === idx ? "w-6 bg-ember" : "w-2.5 bg-ink/25 hover:bg-ink/45"
-            }`}
-          />
-        ))}
-      </div>
     </div>
   );
 }

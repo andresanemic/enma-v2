@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { gsap } from "@/lib/gsap";
 import type { Proyecto } from "@/lib/proyectos";
 import PrevNextCard from "./PrevNext";
+import ImageSlider from "./ImageSlider";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PROYECTO — página de detalle (/proyectos/[slug]). Concepto "Lámina viva del
@@ -48,6 +49,9 @@ function StationCallout({ n, label, detail, center }: { n: string; label: string
 
 export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto; nav: NavPair }) {
   const rootRef = useRef<HTMLDivElement>(null);
+  const reduceMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // Riel "Cómo lo abordamos": usa el enriquecido (label + detalle) si existe;
   // si no, cae a las capabilities simples (CIEP / biodiésel).
@@ -57,6 +61,22 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
   // proyecto apuntándose a sí mismo (H5): ocultamos "Más proyectos". Vuelve solo
   // cuando se sumen proyectos.
   const hasMore = nav.prev.slug !== proyecto.slug && nav.next.slug !== proyecto.slug;
+
+  // Galería del proyecto en orden ALEATORIO. Se baraja en el cliente tras montar
+  // (useEffect) para no romper la hidratación: el primer render usa el orden de
+  // los datos y se reordena un instante después. Si no hay fotos, no se renderiza.
+  const gallery = proyecto.gallery ?? [];
+  const [shuffledGallery, setShuffledGallery] = useState<string[]>(gallery);
+  useEffect(() => {
+    if (gallery.length < 2) return;
+    const arr = [...gallery];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    setShuffledGallery(arr);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [proyecto.slug]);
 
   // Título con realce: parte el título alrededor de titleAccent (solo énfasis).
   const renderTitle = () => {
@@ -118,6 +138,10 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
           break;
         }
         case "narrativa": {
+          tl.fromTo(q("[data-fade]", b), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.75, stagger: 0.12 }, 0);
+          break;
+        }
+        case "galeria": {
           tl.fromTo(q("[data-fade]", b), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.75, stagger: 0.12 }, 0);
           break;
         }
@@ -253,7 +277,7 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
         style={{ background: "linear-gradient(180deg, #edcfa4 0%, #e8c08e 100%)" }}
       >
         <div className="relative mx-auto max-w-[1180px] px-6 py-12 sm:px-10 md:px-14 md:py-16">
-          <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-terra" style={{ opacity: 0 }}>
+          <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-ember" style={{ opacity: 0 }}>
             Ficha técnica
           </h2>
 
@@ -323,17 +347,46 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
         </div>
       </section>
 
-      {/* ════════ 4 · CÓMO LO ABORDAMOS — riel conectado (ex-pills) ════════ */}
+      {/* ════════ 4 · IMÁGENES DEL PROYECTO — galería (caja fija, orden al azar) ════════ */}
+      {/* Solo aparece si el proyecto tiene fotos. Caja de alto fijo con fit=contain:
+          encaja 16:9 y 9:16 sin redimensionar el slider ni recortar la foto. */}
+      {shuffledGallery.length > 0 && (
+        <section
+          data-reveal="galeria"
+          data-nav="light"
+          className="relative w-full"
+          style={{ background: "linear-gradient(180deg, #e8c08e 0%, #e3b478 100%)" }}
+        >
+          <div className="mx-auto max-w-[1180px] px-6 py-12 sm:px-10 md:px-14 md:py-16">
+            <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-terra" style={{ opacity: 0 }}>
+              Fotografías del proyecto
+            </h2>
+            <div data-fade className="mx-auto mt-8 max-w-[960px] sm:mt-10" style={{ opacity: 0 }}>
+              <ImageSlider
+                images={shuffledGallery}
+                title={proyecto.title}
+                reduceMotion={reduceMotion}
+                fit="contain"
+                sizes="(min-width: 768px) 60vw, 90vw"
+                showCounter={false}
+                accent="terra"
+              />
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ════════ 5 · CÓMO LO ABORDAMOS — riel conectado (ex-pills) ════════ */}
       {/* Última sección cálida cuando no hay "Más proyectos": su gradiente sube de
           vuelta a #f3ddbc para empalmar con el verde del Footer sin costura. */}
       <section
         data-reveal="rail"
         data-nav="light"
         className="relative w-full"
-        style={{ background: `linear-gradient(180deg, #e8c08e 0%, ${hasMore ? "#edca9c" : "#f3ddbc"} 100%)` }}
+        style={{ background: `linear-gradient(180deg, ${shuffledGallery.length > 0 ? "#e3b478" : "#e8c08e"} 0%, ${hasMore ? "#edca9c" : "#f3ddbc"} 100%)` }}
       >
         <div className="mx-auto max-w-[1180px] px-6 py-12 sm:px-10 md:px-14 md:py-16">
-          <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-terra" style={{ opacity: 0 }}>
+          <h2 data-fade className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-teal" style={{ opacity: 0 }}>
             Cómo lo abordamos
           </h2>
 
@@ -393,7 +446,7 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
         </div>
       </section>
 
-      {/* ════════ 5 · SIGUIENTE LÁMINA — prev / next con imagen (solo si hay más) ════════ */}
+      {/* ════════ 6 · SIGUIENTE LÁMINA — prev / next con imagen (solo si hay más) ════════ */}
       {hasMore && (
         <section
           data-reveal="next"

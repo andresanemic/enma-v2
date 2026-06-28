@@ -38,6 +38,9 @@ export type Proyecto = {
   capabilities: string[];
   /** Riel enriquecido (etiqueta + detalle/herramienta real). Si falta, se usan `capabilities`. */
   approach?: { label: string; detail: string }[];
+  /** Galería de fotos del proyecto (orientación mixta). Si falta o está vacía, la
+   *  sección "Imágenes del proyecto" del detalle no se muestra. Orden mostrado al azar. */
+  gallery?: string[];
 };
 
 export const PROYECTOS: Proyecto[] = [
@@ -79,6 +82,13 @@ export const PROYECTOS: Proyecto[] = [
       { label: "Túnel de viento propio", detail: "En construcción · Santiago" },
       { label: "Manufactura avanzada", detail: "Impresión 3D · corte CNC" },
       { label: "Analizador de redes Clase A", detail: "Medición para netbilling" },
+    ],
+    gallery: [
+      "/proyectos/galeria/turbina-galeria-1-v1.webp",
+      "/proyectos/galeria/turbina-galeria-2-v1.webp",
+      "/proyectos/galeria/turbina-galeria-3-v1.webp",
+      "/proyectos/galeria/turbina-galeria-4-v1.webp",
+      "/proyectos/galeria/turbina-galeria-5-v1.webp",
     ],
   },
 ];
