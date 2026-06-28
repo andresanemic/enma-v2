@@ -1,12 +1,18 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // SignalMarquee — marquee perpetuo al pie de un hero. Deriva a la izquierda con
 // rAF + wrap pixel-perfecto (patrón Footer, NO CSS keyframes), pausa fuera de
 // viewport y respeta prefers-reduced-motion (estático). Extraído de Vinculación
 // para reutilizarlo en el índice del Blog; comportamiento idéntico.
+//
+// El wrap es por el ancho de UN grupo (`% w`). Para que nunca quede hueco en el
+// borde derecho cuando un grupo es más angosto que el viewport (listas cortas /
+// pantallas anchas → palabras que "desaparecen" a la derecha y reaparecen al
+// reiniciar), se renderizan tantas copias como hagan falta para cubrir el
+// contenedor + 1 extra (ver lore/animation.md "Marquee CSS reinicia con salto").
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function SignalMarquee({
@@ -19,32 +25,45 @@ export default function SignalMarquee({
   dotClassName?: string;
   speed?: number;
 }) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const groupRef = useRef<HTMLDivElement>(null);
+  // Nº de copias del grupo. Arranca en 2 (SSR-safe) y se ajusta tras medir.
+  const [copies, setCopies] = useState(2);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const track = trackRef.current;
     const group = groupRef.current;
-    if (!track || !group) return;
+    const container = containerRef.current;
+    if (!track || !group || !container) return;
 
     let w = group.offsetWidth;
-    const onResize = () => {
+
+    // Copias necesarias para cubrir el contenedor + 1 extra para el wrap sin hueco.
+    const fit = () => {
       w = group.offsetWidth;
+      const cw = container.offsetWidth;
+      if (w > 0) setCopies(Math.max(2, Math.ceil(cw / w) + 1));
     };
+    fit();
+
+    const onResize = () => fit();
     window.addEventListener("resize", onResize);
-    if (document.fonts?.ready) document.fonts.ready.then(() => (w = group.offsetWidth));
+    if (document.fonts?.ready) document.fonts.ready.then(fit);
+
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     let raf = 0;
     let visible = true;
     const tick = (now: number) => {
-      if (visible && w > 0) {
+      if (!reduce && visible && w > 0) {
         const pos = ((now / 1000) * speed) % w;
         track.style.transform = `translate3d(${-pos}px,0,0)`;
       }
       raf = requestAnimationFrame(tick);
     };
-    raf = requestAnimationFrame(tick);
+    if (!reduce) raf = requestAnimationFrame(tick);
+
     const io = new IntersectionObserver((e) => (visible = e[0].isIntersecting), {
       threshold: 0,
     });
@@ -55,7 +74,7 @@ export default function SignalMarquee({
       window.removeEventListener("resize", onResize);
       io.disconnect();
     };
-  }, [speed]);
+  }, [speed, items]);
 
   const Item = ({ label }: { label: string }) => (
     <span className="flex items-center">
@@ -74,6 +93,7 @@ export default function SignalMarquee({
 
   return (
     <div
+      ref={containerRef}
       className="relative w-full overflow-hidden py-5"
       style={{
         maskImage:
@@ -87,7 +107,7 @@ export default function SignalMarquee({
         className="flex w-max"
         style={{ transform: "translate3d(0,0,0)", willChange: "transform" }}
       >
-        {[0, 1].map((g) => (
+        {Array.from({ length: copies }).map((_, g) => (
           <div key={g} ref={g === 0 ? groupRef : undefined} className="flex shrink-0">
             {items.map((m) => (
               <Item key={`${g}-${m}`} label={m} />
