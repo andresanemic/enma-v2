@@ -83,12 +83,13 @@ export const PROYECTOS: Proyecto[] = [
     capabilities: ["Simulaciones CFD", "Túnel de viento", "Diseño CAD", "Manufactura avanzada", "Prototipado 3D / CNC"],
     // Orden de proceso (secuencia): medir viento → diseñar → simular → validar
     // → fabricar → medir en red. El detalle de cada paso es la herramienta real.
+    // `\n` en el detalle fuerza un salto de línea exacto (render con whitespace-pre-line).
     approach: [
       { label: "Estaciones meteorológicas", detail: "Caracterización del viento" },
-      { label: "Diseño CAD", detail: "Fusion 360 · Inventor · AutoCAD" },
+      { label: "Diseño CAD", detail: "Fusion 360\n· Inventor · AutoCAD" },
       { label: "Simulaciones CFD", detail: "Optimización del diseño en aire" },
-      { label: "Túnel de viento propio", detail: "En construcción · Santiago" },
-      { label: "Manufactura avanzada", detail: "Impresión 3D · corte CNC" },
+      { label: "Túnel de viento propio", detail: "En construcción\n· Santiago" },
+      { label: "Manufactura avanzada", detail: "Impresión 3D\n· corte CNC" },
       { label: "Analizador de redes Clase A", detail: "Medición para netbilling" },
     ],
     gallery: [
@@ -102,8 +103,8 @@ export const PROYECTOS: Proyecto[] = [
     // validación en 3 frentes, financiamiento ANID, diseño propio resiliente.
     metrics: [
       { figure: "3", label: "Frentes de validación", detail: "CFD · túnel de viento · prototipo físico" },
-      { figure: "ANID", label: "Financiamiento", detail: "Fondo público competitivo de I+D" },
-      { figure: "Propio", label: "Diseño", detail: "Resiliente a vientos excesivos y turbulentos" },
+      { figure: "ANID", label: "Financiamiento", detail: "Fondo público competitivo de I+D+i" },
+      { figure: "Propio", label: "Túnel de viento", detail: "Resiliente a vientos excesivos y turbulentos" },
     ],
   },
 ];

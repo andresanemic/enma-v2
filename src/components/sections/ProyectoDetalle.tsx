@@ -38,13 +38,12 @@ function renderRich(text: string) {
   );
 }
 
-// Acentos rotativos de las métricas de impacto: color del dato + lavado de hover +
-// inclinación analógica (se endereza al pasar el cursor). Cálidos primero (regla
-// de paleta): brasa → teal → terracota.
+// Acento por métrica: color del dato + barra. Cálidos primero (regla de paleta):
+// brasa → teal → terracota. Sin movimiento ni glow (fichas rectas y estáticas).
 const METRIC_ACCENTS = [
-  { fg: "text-ember", bar: "bg-ember", wash: "rgba(241,84,28,0.12)", tilt: "-rotate-[0.7deg]" },
-  { fg: "text-teal", bar: "bg-teal", wash: "rgba(32,83,88,0.12)", tilt: "rotate-[0.6deg]" },
-  { fg: "text-terra", bar: "bg-terra", wash: "rgba(177,44,0,0.12)", tilt: "-rotate-[0.4deg]" },
+  { fg: "text-ember", bar: "bg-ember" },
+  { fg: "text-teal", bar: "bg-teal" },
+  { fg: "text-terra", bar: "bg-terra" },
 ] as const;
 
 // Anotación de la "línea de cota" (sin caja): número (Manrope, dispositivo de
@@ -55,16 +54,13 @@ const METRIC_ACCENTS = [
 function StationCallout({ n, label, detail, center }: { n: string; label: string; detail: string; center?: boolean }) {
   return (
     <div className={`w-full ${center ? "max-w-[192px] text-center" : "max-w-[340px] text-left"}`}>
-      <div className="relative inline-block max-w-full px-4 py-3 text-left">
-        {/* Esquineros de registro (vértices opuestos) — encuadran la anotación */}
-        <span aria-hidden="true" className="pointer-events-none absolute left-0 top-0 h-3 w-3 border-l border-t border-ink/30" />
-        <span aria-hidden="true" className="pointer-events-none absolute bottom-0 right-0 h-3 w-3 border-b border-r border-ink/30" />
+      <div className={`inline-block max-w-full px-4 py-3 ${center ? "" : "text-left"}`}>
         {/* Número inline con el header (mismo renglón y altura que el label) */}
         <span className="block font-display text-base font-medium leading-snug text-ink">
           <span className="mr-2 font-light text-ink/40 transition-colors duration-200 group-hover:text-terra">{n}</span>
           {label}
         </span>
-        {detail && <span className="mt-1.5 block font-body text-sm font-normal leading-relaxed text-ink/70">{detail}</span>}
+        {detail && <span className="mt-1.5 block whitespace-pre-line font-body text-sm font-normal leading-relaxed text-ink/70">{detail}</span>}
       </div>
     </div>
   );
@@ -316,7 +312,7 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
               papel cuadriculado fino, margen rojo de cuaderno con perforaciones y un
               grano de papel sutil. El header queda afuera/arriba; los datos respiran
               dentro, pasada la columna de margen. */}
-          <div className="relative mt-8 -rotate-[0.4deg] overflow-hidden rounded-[4px] border border-ink/25 bg-cream/85 px-5 py-[32px] shadow-[0_20px_55px_-44px_rgba(26,26,26,0.65)] sm:mt-10 sm:px-8 md:px-10">
+          <div className="relative mt-8 overflow-hidden rounded-[4px] border border-ink/25 bg-cream/85 px-5 py-[32px] shadow-[0_20px_55px_-44px_rgba(26,26,26,0.65)] sm:mt-10 sm:px-8 md:px-10">
             {/* Papel cuadriculado fino (35px → 4 celdas por el módulo de fila de 70px).
                 background-position 32px alinea las líneas horizontales con los divisores. */}
             <span
@@ -347,23 +343,22 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
             <span aria-hidden="true" className="pointer-events-none absolute bottom-3 left-3 h-3 w-3 border-b border-l border-ink/30" />
             <span aria-hidden="true" className="pointer-events-none absolute bottom-3 right-3 h-3 w-3 border-b border-r border-ink/30" />
 
-            {/* Contenido: columna de margen (regla + perforaciones) + datos */}
+            {/* Contenido: en desktop, columna de margen con regla roja de cuaderno;
+                en móvil se omite el margen y los datos ocupan todo el ancho de la hoja
+                (más legible en pantalla angosta). */}
             <div className="relative z-10 flex">
-              {/* Margen de cuaderno: regla roja al borde derecho + 3 perforaciones */}
-              <div aria-hidden="true" className="relative w-8 shrink-0 sm:w-11">
+              {/* Margen de cuaderno (solo desktop): regla roja al borde derecho */}
+              <div aria-hidden="true" className="relative hidden w-11 shrink-0 sm:block">
                 <span className="absolute bottom-0 right-0 top-0 w-px bg-terra/35" />
-                <span className="absolute left-1 top-[58px] h-3 w-3 rounded-full border border-ink/25 bg-ink/[0.045] sm:left-2 sm:h-3.5 sm:w-3.5" />
-                <span className="absolute left-1 top-[178px] h-3 w-3 rounded-full border border-ink/25 bg-ink/[0.045] sm:left-2 sm:h-3.5 sm:w-3.5" />
-                <span className="absolute left-1 top-[298px] h-3 w-3 rounded-full border border-ink/25 bg-ink/[0.045] sm:left-2 sm:h-3.5 sm:w-3.5" />
               </div>
 
-              <div className="min-w-0 flex-1 pl-4 sm:pl-7">
+              <div className="min-w-0 flex-1 sm:pl-7">
                 {/* ── Desktop ≥ sm: label (con tick) · valor, en dos columnas juntas ── */}
                 <dl className="hidden flex-col sm:flex">
                   {proyecto.facts.map((f) => (
                     <div key={f.label} className="group flex min-h-[70px] items-center gap-8 border-b border-ink/25 last:border-b-0">
                       <dt className="flex w-40 shrink-0 items-baseline gap-2.5 font-body text-[12px] font-semibold uppercase tracking-[0.16em] text-ink/55 transition-colors duration-200 group-hover:text-terra lg:w-48">
-                        <span aria-hidden="true" className="h-3 w-px shrink-0 self-center bg-terra/70 transition-all duration-300 group-hover:h-4 group-hover:bg-ember" />
+                        <span aria-hidden="true" className="h-3 w-px shrink-0 self-center bg-terra/70 transition-colors duration-300 group-hover:bg-ember" />
                         {f.label}
                       </dt>
                       <dd
@@ -382,7 +377,7 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
                   {proyecto.facts.map((f) => (
                     <div key={f.label} className="group flex min-h-[70px] flex-col justify-center gap-1.5 border-b border-ink/25 last:border-b-0">
                       <dt className="flex items-center gap-2.5 font-body text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/55">
-                        <span aria-hidden="true" className="h-3 w-px shrink-0 bg-terra/70 transition-all duration-300 group-hover:h-4 group-hover:bg-ember" />
+                        <span aria-hidden="true" className="h-3 w-px shrink-0 bg-terra/70 transition-colors duration-300 group-hover:bg-ember" />
                         {f.label}
                       </dt>
                       <dd
@@ -411,23 +406,15 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
                   const a = METRIC_ACCENTS[i % METRIC_ACCENTS.length];
                   return (
                     <li key={m.label} data-metric style={{ opacity: 0 }}>
-                      <div
-                        className={`group relative h-full overflow-hidden rounded-[4px] border border-ink/25 bg-cream/85 px-6 py-7 shadow-[0_12px_32px_-32px_rgba(26,26,26,0.55)] ${a.tilt} transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:rotate-0 hover:shadow-[0_24px_48px_-30px_rgba(26,26,26,0.55)]`}
-                      >
-                        {/* Lavado de color que sube en hover */}
-                        <span
-                          aria-hidden="true"
-                          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                          style={{ background: `linear-gradient(180deg, transparent 35%, ${a.wash} 100%)` }}
-                        />
-                        {/* Barra de acento que se extiende en hover */}
-                        <span aria-hidden="true" className={`pointer-events-none absolute left-0 top-0 h-[3px] w-9 origin-left ${a.bar} transition-transform duration-300 group-hover:scale-x-[2.6]`} />
+                      <div className="relative h-full overflow-hidden rounded-[4px] border border-ink/25 bg-cream/85 px-6 py-7 shadow-[0_12px_32px_-32px_rgba(26,26,26,0.55)]">
+                        {/* Barra de acento (estática) */}
+                        <span aria-hidden="true" className={`pointer-events-none absolute left-0 top-0 h-[3px] w-9 ${a.bar}`} />
                         {/* Crop mark inferior derecho — guiño a la hoja técnica */}
                         <span aria-hidden="true" className="pointer-events-none absolute bottom-2.5 right-2.5 h-2.5 w-2.5 border-b border-r border-ink/30" />
 
                         <span
-                          className={`relative block font-display font-light leading-none ${a.fg} transition-transform duration-300 group-hover:scale-[1.06]`}
-                          style={{ fontSize: "clamp(2.3rem, 4.6vw, 3.1rem)", letterSpacing: "-0.02em", transformOrigin: "left center" }}
+                          className={`relative block font-display font-light leading-none ${a.fg}`}
+                          style={{ fontSize: "clamp(2.3rem, 4.6vw, 3.1rem)", letterSpacing: "-0.02em" }}
                         >
                           {m.figure}
                         </span>
