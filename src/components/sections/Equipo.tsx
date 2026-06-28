@@ -33,6 +33,33 @@ const COFOUNDERS: Cofounder[] = [
   },
 ];
 
+// ── Equipos de proyecto (colaboradores por iniciativa) ──
+// No son cofundadores: son los equipos que suman fuerzas por proyecto. Se presentan
+// con el lenguaje del bloque "Cómo lo abordamos" del detalle de Proyectos (header
+// tipo eyebrow + callouts numerados con esquineros de registro), pero alineados en
+// grilla y sin riel ni nodos.
+type ProjectTeam = {
+  id: string;
+  name: string; // header tipo eyebrow (Outfit uppercase, terra)
+  subtitle?: string; // glosa del proyecto
+  members: string[];
+};
+
+const PROJECT_TEAMS: ProjectTeam[] = [
+  {
+    id: "anid-suc250296",
+    name: "Equipo ANID SUC250296",
+    subtitle:
+      "Investigación y Diseño de Innovación Eólica para Generación Distribuida en Condiciones no Convencionales",
+    members: ["Carlos Díaz", "José Aldunate", "Fernando\nSoto-Aguilar"],
+  },
+  {
+    id: "estudios-regionales",
+    name: "Equipo Estudios Regionales",
+    members: ["Pablo Aranda", "Claudio Herrera"],
+  },
+];
+
 // Título → palabras (rise+blur, sin clip → seguro al hacer wrap, lore/animation).
 const HEAD_WORDS = ["Equipo", "interdisciplinario", "para"];
 const HEAD_ACCENT = "desafíos complejos";
@@ -60,6 +87,9 @@ export default function Equipo() {
       gsap.set(q("[data-cf-block]"), { opacity: 1, x: 0, y: 0 });
       gsap.set(q("[data-head-word]"), { opacity: 1, y: 0, filter: "blur(0px)" });
       gsap.set(q("[data-dek]"), { opacity: 1, y: 0 });
+      gsap.set(q("[data-team-rule]"), { scaleX: 1 });
+      gsap.set(q("[data-team-head]"), { opacity: 1, y: 0 });
+      gsap.set(q("[data-member]"), { opacity: 1, y: 0 });
       return;
     }
 
@@ -85,19 +115,42 @@ export default function Equipo() {
 
       };
 
+      // Equipos de proyecto: reveal propio (entran más abajo que el dúo).
+      const teams = el.querySelector("[data-teams]");
+      let played2 = false;
+      const play2 = () => {
+        if (played2) return;
+        played2 = true;
+        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+        tl.fromTo(q("[data-team-rule]"), { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power2.inOut" }, 0);
+        tl.fromTo(q("[data-team-head]"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.06 }, 0.2);
+        tl.fromTo(q("[data-member]"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.55, stagger: 0.06 }, 0.32);
+      };
+
       const io = new IntersectionObserver(
         (entries) => {
-          if (entries[0].isIntersecting) {
-            play();
-            io.disconnect();
-          }
+          entries.forEach((e) => {
+            if (!e.isIntersecting) return;
+            if (e.target === el) {
+              play();
+              io.unobserve(el);
+            } else if (e.target === teams) {
+              play2();
+              io.unobserve(teams);
+            }
+          });
         },
         { threshold: 0.18, rootMargin: "0px 0px -8% 0px" }
       );
       io.observe(el);
+      if (teams) io.observe(teams);
       const t = window.setTimeout(() => {
         const r = el.getBoundingClientRect();
         if (r.top < window.innerHeight && r.bottom > 0) play();
+        if (teams) {
+          const rt = teams.getBoundingClientRect();
+          if (rt.top < window.innerHeight && rt.bottom > 0) play2();
+        }
       }, 2600);
       return () => {
         io.disconnect();
@@ -113,7 +166,7 @@ export default function Equipo() {
       ref={ref}
       id="equipo"
       data-nav="light"
-      className="relative w-full overflow-hidden px-6 py-28 sm:px-10 sm:py-32 md:px-14 md:py-40"
+      className="relative w-full overflow-hidden px-6 pb-14 pt-28 sm:px-10 sm:pb-16 sm:pt-32 md:px-14 md:pb-20 md:pt-40"
       // Tramo medio del degradado claro: encadena con Proyecto (arriba) y Blog (abajo).
       style={{ background: "linear-gradient(180deg, #eecea1 0%, #f3ddbc 100%)" }}
     >
@@ -186,6 +239,53 @@ export default function Equipo() {
               </div>
             );
           })}
+        </div>
+
+        {/* ── Equipos de proyecto (colaboradores por iniciativa) ── */}
+        <div data-teams className="mt-20 md:mt-28">
+          {/* Divider recto que se traza — mismo ancho que el cierre de /Vinculación */}
+          <div data-team-rule aria-hidden="true" className="mx-auto mb-14 h-px w-full max-w-[440px] origin-left bg-ink/20 md:mb-20" style={{ transform: "scaleX(0)" }} />
+          <div className="flex flex-col gap-14 md:gap-20">
+            {PROJECT_TEAMS.map((team) => {
+              const gridClass =
+                team.members.length >= 3
+                  ? "mx-auto grid max-w-[720px] grid-cols-1 gap-4 sm:grid-cols-3"
+                  : "mx-auto grid max-w-[480px] grid-cols-1 gap-4 sm:grid-cols-2";
+              return (
+                <div key={team.id} className="text-center">
+                  {/* Header tipo eyebrow (mismo estilo que "Cómo lo abordamos") */}
+                  <h3 data-team-head className="m-0 font-body text-xs font-semibold uppercase tracking-[0.2em] text-terra" style={{ opacity: 0 }}>
+                    {team.name}
+                  </h3>
+                  {team.subtitle && (
+                    <p data-team-head className="mx-auto mt-2.5 max-w-[60ch] font-body text-base font-light leading-relaxed text-ink/65" style={{ opacity: 0 }}>
+                      «{team.subtitle}»
+                    </p>
+                  )}
+
+                  {/* Integrantes — callouts numerados, centrados y juntos (sin riel, sin nodos, sin zig-zag) */}
+                  <ol className={`mt-8 ${gridClass}`}>
+                    {team.members.map((name) => (
+                      <li key={name} data-member className="group relative" style={{ opacity: 0 }}>
+                        <div className="relative flex h-full min-h-[88px] items-center justify-center px-4 py-4 text-center">
+                          {/* Esquineros de registro en vértices opuestos — encuadre técnico sin caja pesada */}
+                          <span aria-hidden="true" className="pointer-events-none absolute left-0 top-0 h-3 w-3 border-l border-t border-ink/25 transition-colors duration-300 group-hover:border-terra/60" />
+                          <span aria-hidden="true" className="pointer-events-none absolute bottom-0 right-0 h-3 w-3 border-b border-r border-ink/25 transition-colors duration-300 group-hover:border-terra/60" />
+                          <span className="block font-display text-lg font-medium leading-snug text-ink transition-colors duration-200 group-hover:text-terra">
+                            {name.split("\n").map((line, j) => (
+                              <span key={j} className="block">
+                                {line}
+                              </span>
+                            ))}
+                          </span>
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

@@ -66,7 +66,7 @@ export default function Blog() {
       ref={ref}
       id="blog"
       data-nav="light"
-      className="relative w-full overflow-hidden px-6 py-24 sm:px-10 sm:py-28 md:px-14 md:py-32"
+      className="relative w-full overflow-hidden px-6 pb-24 pt-12 sm:px-10 sm:pb-28 sm:pt-14 md:px-14 md:pb-32 md:pt-16"
       // Tramo final del degradado claro: encadena con Equipo (#f3ddbc) y termina
       // exactamente en el crema de FAQ (#f8eddd) → transición invisible.
       style={{ background: "linear-gradient(180deg, #f3ddbc 0%, #f8eddd 100%)" }}
