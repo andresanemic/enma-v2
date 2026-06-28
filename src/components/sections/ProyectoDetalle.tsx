@@ -372,17 +372,19 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
                   ))}
                 </dl>
 
-                {/* ── Móvil < sm: label (con tick) sobre valor ── */}
+                {/* ── Móvil < sm: label (con tick) sobre valor. Filas con aire (padding
+                    vertical generoso) → los divisores respiran y la hoja crece a lo
+                    largo; sin min-height para que el contenido que envuelve no apriete. ── */}
                 <dl className="flex flex-col sm:hidden">
                   {proyecto.facts.map((f) => (
-                    <div key={f.label} className="group flex min-h-[70px] flex-col justify-center gap-1.5 border-b border-ink/25 last:border-b-0">
+                    <div key={f.label} className="group flex flex-col gap-2.5 border-b border-ink/25 py-6 first:pt-2 last:border-b-0 last:pb-2">
                       <dt className="flex items-center gap-2.5 font-body text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/55">
                         <span aria-hidden="true" className="h-3 w-px shrink-0 bg-terra/70 transition-colors duration-300 group-hover:bg-ember" />
                         {f.label}
                       </dt>
                       <dd
                         data-card
-                        className="m-0 font-body text-base font-normal leading-relaxed text-ink"
+                        className="m-0 font-body text-base font-normal leading-[1.7] text-ink"
                         style={{ opacity: 0 }}
                       >
                         {renderRich(f.value)}
