@@ -23,6 +23,29 @@ import PrevNextCard from "./PrevNext";
 
 type NavPair = { prev: Proyecto; next: Proyecto };
 
+// Anotación de la "línea de cota" (sin caja): número (Manrope, dispositivo de
+// secuencia) + label + detalle, enmarcados por dos esquineros de registro (crop
+// marks) en vértices opuestos — encuadre técnico sin el peso de una card.
+// `center` → desktop (centrado, angosto); sin él → móvil (alineado a la
+// izquierda, más ancho). El group-hover del número depende del `.group` ancestro.
+function StationCallout({ n, label, detail, center }: { n: string; label: string; detail: string; center?: boolean }) {
+  return (
+    <div className={`w-full ${center ? "max-w-[192px] text-center" : "max-w-[340px] text-left"}`}>
+      <div className="relative inline-block max-w-full px-4 py-3 text-left">
+        {/* Esquineros de registro (vértices opuestos) — encuadran la anotación */}
+        <span aria-hidden="true" className="pointer-events-none absolute left-0 top-0 h-3 w-3 border-l border-t border-ink/30" />
+        <span aria-hidden="true" className="pointer-events-none absolute bottom-0 right-0 h-3 w-3 border-b border-r border-ink/30" />
+        {/* Número inline con el header (mismo renglón y altura que el label) */}
+        <span className="block font-display text-base font-medium leading-snug text-ink">
+          <span className="mr-2 font-light text-ink/40 transition-colors duration-200 group-hover:text-terra">{n}</span>
+          {label}
+        </span>
+        {detail && <span className="mt-1.5 block font-body text-sm font-normal leading-relaxed text-ink/70">{detail}</span>}
+      </div>
+    </div>
+  );
+}
+
 export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto; nav: NavPair }) {
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -98,9 +121,11 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
         }
         case "rail": {
           tl.fromTo(q("[data-fade]", b), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7 }, 0);
-          tl.fromTo(q("[data-rail]", b), { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: "power2.inOut" }, 0.15);
-          tl.fromTo(q("[data-rail-v]", b), { scaleY: 0 }, { scaleY: 1, duration: 0.9, ease: "power2.inOut" }, 0.15);
-          tl.fromTo(q("[data-step]", b), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.09 }, 0.35);
+          // El eje se traza y cada estación aparece a medida que el trazo la cruza:
+          // el stagger se solapa con el trazo (reveal sincronizado, un solo momento).
+          tl.fromTo(q("[data-rail]", b), { scaleX: 0 }, { scaleX: 1, duration: 0.95, ease: "power2.inOut" }, 0.15);
+          tl.fromTo(q("[data-rail-v]", b), { scaleY: 0 }, { scaleY: 1, duration: 0.95, ease: "power2.inOut" }, 0.15);
+          tl.fromTo(q("[data-step]", b), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08 }, 0.25);
           break;
         }
         case "next": {
@@ -292,41 +317,59 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
             Cómo lo abordamos
           </h2>
 
-          <div className="relative mt-10 md:mt-14">
-            {/* Curva de nivel que se traza tras los nodos (desktop); en móvil,
-                conector vertical recto para la columna de cards. */}
-            <div data-rail aria-hidden="true" className="absolute left-0 right-0 top-[10px] hidden origin-left sm:block" style={{ transform: "scaleX(0)" }}>
-              <svg viewBox="0 0 1200 12" preserveAspectRatio="none" className="h-3 w-full text-ink/25" fill="none">
-                <path d="M0 6 C 100 1, 200 11, 300 6 S 500 1, 600 6 S 800 11, 900 6 S 1100 1, 1200 6" stroke="currentColor" strokeWidth="1" vectorEffect="non-scaling-stroke" />
-              </svg>
+          {/* ── Desktop ≥ sm: eje horizontal acotado + callouts en zig-zag ── */}
+          <div className="relative mt-12 hidden sm:block md:mt-16">
+            {/* Eje acotado: hairline que se traza (data-rail) entre dos end-caps
+                de medición (ticks que NO escalan con el trazo). */}
+            <div aria-hidden="true" className="pointer-events-none absolute left-0 right-0 top-1/2 -translate-y-1/2">
+              <div data-rail className="h-px w-full origin-left bg-ink/30" style={{ transform: "scaleX(0)" }} />
+              <span className="absolute left-0 top-1/2 h-3 w-px -translate-y-1/2 bg-ink/40" />
+              <span className="absolute right-0 top-1/2 h-3 w-px -translate-y-1/2 bg-ink/40" />
             </div>
-            <span data-rail-v aria-hidden="true" className="absolute bottom-3 left-[11px] top-3 block w-px origin-top bg-ink/20 sm:hidden" style={{ transform: "scaleY(0)" }} />
 
-            <ol className="flex flex-col gap-5 sm:flex-row sm:items-stretch sm:justify-between sm:gap-4">
-              {steps.map((s) => (
-                <li
-                  key={s.label}
-                  data-step
-                  className="group flex items-start gap-4 sm:flex-1 sm:flex-col sm:items-center sm:gap-4 sm:text-center"
-                  style={{ opacity: 0 }}
-                >
-                  {/* Nodo (estación) sobre la curva — se enciende y crece en hover */}
-                  <span className="relative z-10 mt-0.5 flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full border-2 border-terra bg-cream transition-colors duration-300 group-hover:border-ember sm:mt-0">
-                    <span className="h-[6px] w-[6px] rounded-full bg-terra transition-all duration-300 group-hover:h-[10px] group-hover:w-[10px] group-hover:bg-ember" />
-                  </span>
-                  {/* Card: panel cálido que cuelga del nodo */}
-                  <span className="block w-full rounded-2xl bg-cream/70 px-4 py-4 text-left ring-1 ring-ink/10 transition-all duration-300 group-hover:-translate-y-1 group-hover:bg-sand/75 group-hover:shadow-[0_18px_42px_-28px_rgba(26,26,26,0.55)] group-hover:ring-terra/40 sm:flex-1 sm:text-center">
-                    <span className="block font-display text-base font-medium leading-snug text-ink transition-colors duration-200 group-hover:text-terra">
-                      {s.label}
-                    </span>
-                    {s.detail && (
-                      <span className="mt-1.5 block font-body text-[13px] font-light leading-snug text-ink/55">{s.detail}</span>
+            <ol className="relative flex items-stretch">
+              {steps.map((s, i) => {
+                const up = i % 2 === 0; // par arriba, impar abajo (zig-zag)
+                const n = String(i + 1).padStart(2, "0");
+                return (
+                  <li key={s.label} data-step className="group grid min-h-[280px] flex-1 grid-rows-[1fr_auto_1fr]" style={{ opacity: 0 }}>
+                    {/* Callout arriba: panel + witness line bajando al nodo */}
+                    {up && (
+                      <div className="row-start-1 flex flex-col items-center justify-end gap-2 px-2">
+                        <StationCallout n={n} label={s.label} detail={s.detail} center />
+                        <span className="h-6 w-px bg-ink/30 transition-colors duration-300 group-hover:bg-terra" />
+                      </div>
                     )}
-                  </span>
-                </li>
-              ))}
+                    {/* Nodo: punto mínimo sobre el eje — se enciende en hover */}
+                    <span className="row-start-2 mx-auto h-[5px] w-[5px] rounded-full bg-terra/60 transition-all duration-300 group-hover:scale-150 group-hover:bg-terra" />
+                    {/* Callout abajo: witness line subiendo al nodo + panel */}
+                    {!up && (
+                      <div className="row-start-3 flex flex-col items-center justify-start gap-2 px-2">
+                        <span className="h-6 w-px bg-ink/30 transition-colors duration-300 group-hover:bg-terra" />
+                        <StationCallout n={n} label={s.label} detail={s.detail} center />
+                      </div>
+                    )}
+                  </li>
+                );
+              })}
             </ol>
           </div>
+
+          {/* ── Móvil < sm: mismo concepto rotado — eje vertical + callouts a la derecha ── */}
+          <ol className="relative mt-10 flex flex-col gap-6 sm:hidden">
+            <span data-rail-v aria-hidden="true" className="absolute bottom-3 left-[11px] top-3 w-px origin-top bg-ink/30" style={{ transform: "scaleY(0)" }} />
+            {steps.map((s, i) => {
+              const n = String(i + 1).padStart(2, "0");
+              return (
+                <li key={s.label} data-step className="group relative flex items-start gap-4" style={{ opacity: 0 }}>
+                  <span className="relative z-10 mt-1 flex h-[22px] w-[22px] shrink-0 items-center justify-center">
+                    <span className="h-[5px] w-[5px] rounded-full bg-terra/60 transition-all duration-300 group-hover:scale-150 group-hover:bg-terra" />
+                  </span>
+                  <StationCallout n={n} label={s.label} detail={s.detail} />
+                </li>
+              );
+            })}
+          </ol>
         </div>
       </section>
 

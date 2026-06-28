@@ -70,12 +70,14 @@ export const PROYECTOS: Proyecto[] = [
     did:
       "Desarrollamos un diseño propio, resiliente a condiciones no convencionales de viento, y lo validamos de principio a fin, del modelo digital al prototipo físico. «Baja escala» significa que cada máquina es de baja potencia, pero pensada para instalarse en granjas de muchas unidades; para clientes conectados a la red, permite inyectar energía mediante netbilling y bajar la cuenta de luz.",
     capabilities: ["Simulaciones CFD", "Túnel de viento", "Diseño CAD", "Manufactura avanzada", "Prototipado 3D / CNC"],
+    // Orden de proceso (secuencia): medir viento → diseñar → simular → validar
+    // → fabricar → medir en red. El detalle de cada paso es la herramienta real.
     approach: [
+      { label: "Estaciones meteorológicas", detail: "Caracterización del viento" },
+      { label: "Diseño CAD", detail: "Fusion 360 · Inventor · AutoCAD" },
       { label: "Simulaciones CFD", detail: "Optimización del diseño en aire" },
       { label: "Túnel de viento propio", detail: "En construcción · Santiago" },
-      { label: "Diseño CAD", detail: "Fusion 360 · Inventor · AutoCAD" },
       { label: "Manufactura avanzada", detail: "Impresión 3D · corte CNC" },
-      { label: "Estaciones meteorológicas", detail: "Caracterización del viento" },
       { label: "Analizador de redes Clase A", detail: "Medición para netbilling" },
     ],
   },
