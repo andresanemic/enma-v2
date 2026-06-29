@@ -71,7 +71,7 @@ const SERVICES: Service[] = [
     n: "04",
     title: "Economía circular",
     desc: "Gestión de residuos, Ley REP, Upcycling y más. Asesoramos empresas para una correcta gestión de residuos y oportunidades de revalorización.",
-    img: "/servicios/servicio-04-v4.webp",
+    img: "/servicios/servicio-04-v6.webp",
     imgAlt: "Economía circular: gestión de residuos y revalorización de materiales",
     warmTint: true,
   },
