@@ -149,7 +149,7 @@ export const ARTICLES: Article[] = [
       "Qué somos, qué hacemos y a quién ayudamos, contado en simple: energía y tecnología hechas en la Patagonia para bajar costos y abrir oportunidades.",
     author: "Equipo Enma",
     date: "2026-06-22",
-    cover: "/blog/portada-enma-v1.webp",
+    cover: "/blog/portada-enma-v2.webp",
     coverAlt: "Impresora 3D junto a piezas de turbina prototipadas y herramientas",
     imageSide: "left",
     body: [
