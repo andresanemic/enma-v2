@@ -156,8 +156,9 @@ export const ARTICLES: Article[] = [
       { type: "p", spans: [`Enma es una empresa chilena nacida en la Región de Aysén que diseña soluciones sustentables con foco en energía y medio ambiente. Su nombre lo dice todo: viene de ENergía y Medio Ambiente.`] },
       { type: "p", spans: [`En una frase, ayudamos a personas, comunidades y empresas a resolver problemas de energía, reciclaje o calefacción con soluciones hechas a la medida.`] },
       { type: "h2", text: `¿Qué problema resuelve?` },
+      { type: "p", spans: [`En Aysén la energía es cara, porque la región está aislada y todo cuesta más caro de traer. Eso golpea a las familias en la boleta de la luz y vuelve difícil que muchas industrias funcionen.`] },
       { type: "p", spans: [
-        `En Aysén la energía es cara, porque la región está aislada y todo cuesta más caro de traer. Eso golpea a las familias en la boleta de la luz y vuelve difícil que muchas industrias funcionen. Enma trabaja, ante todo, para `,
+        `Enma trabaja, ante todo, para `,
         { text: `bajar ese costo energético`, bold: true },
         `, porque cuando la energía es más barata aumenta la productividad y aparecen nuevas oportunidades.`,
       ] },
