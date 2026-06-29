@@ -118,13 +118,13 @@ export const PROYECTOS: Proyecto[] = [
     lead:
       "Una turbina de diseño propio, financiada por ANID, pensada para los vientos más difíciles de la Patagonia.",
     facts: [
-      { label: "Financiamiento", value: "Agencia Nacional de Investigación y Desarrollo (**ANID**)" },
-      { label: "Escala", value: "Baja escala: pensada para **granjas de muchas unidades**" },
-      { label: "Diseñada para", value: "Vientos excesivos, ráfagas súbitas y **alta turbulencia**" },
-      { label: "Aplicación", value: "Campo, casas, electrificación rural e industria: **netbilling**" },
-      { label: "Modelado CFD", value: "Simulamos el comportamiento aerodinámico en aire antes de fabricar" },
-      { label: "Túnel de viento", value: "Validación física con un túnel propio, en construcción en Santiago" },
-      { label: "Prototipo físico", value: "Construido y ensayado, no solo simulado" },
+      { label: "Financiamiento", value: "**Agencia Nacional de Investigación y Desarrollo** (ANID)" },
+      { label: "Escala", value: "**Baja escala**: pensada para granjas de muchas unidades" },
+      { label: "Diseñada para", value: "Vientos excesivos, **ráfagas súbitas** y alta turbulencia" },
+      { label: "Aplicación", value: "Campo, casas, **electrificación rural** e industria: netbilling" },
+      { label: "Modelado CFD", value: "Simulamos el **comportamiento aerodinámico** en aire antes de fabricar" },
+      { label: "Túnel de viento", value: "Validación física con un **túnel propio**, en construcción en Santiago" },
+      { label: "Prototipo físico", value: "**Construido y ensayado**, no solo simulado" },
     ],
     context:
       "Buena parte de Aysén tiene un viento difícil: en un mismo minuto puede pasar de una brisa baja a una ráfaga muy energética, y cambiar de dirección de golpe. Es un régimen que destruye a las máquinas pensadas para vientos estables. Quisimos una turbina que no solo tolerara esas condiciones, sino que naciera diseñada para ellas.",
