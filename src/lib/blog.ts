@@ -77,9 +77,7 @@ export const ARTICLES: Article[] = [
       ] },
       { type: "h2", text: `Una turbina pensada para el viento patagónico` },
       { type: "p", spans: [
-        `En esa línea estamos desarrollando, con financiamiento de la `,
-        { text: `Agencia Nacional de Investigación y Desarrollo (ANID)`, href: `https://anid.cl`, external: true },
-        `, una `,
+        `En esa línea estamos desarrollando, con financiamiento de la Agencia Nacional de Investigación y Desarrollo (ANID), una `,
         { text: `turbina eólica de baja escala`, href: `/proyectos/turbina-eolica-baja-escala` },
         ` con un diseño resiliente a condiciones que aquí son la norma: vientos excesivos, ráfagas que pasan de la calma a la furia en segundos y turbulencia que cambia de dirección.`,
       ] },
