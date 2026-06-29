@@ -285,7 +285,9 @@ export default function Equipo() {
               const gridClass =
                 team.members.length >= 3
                   ? "mx-auto grid max-w-[720px] grid-cols-1 gap-4 sm:grid-cols-3"
-                  : "mx-auto grid max-w-[480px] grid-cols-1 gap-4 sm:grid-cols-2";
+                  : // 2 integrantes: mismo ancho de card que la grilla de arriba (~230px)
+                    // y más separación entre ambas. max-w = 2·230 + 80(gap) = 540.
+                    "mx-auto grid max-w-[540px] grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-20";
               return (
                 <div key={team.id} className="text-center">
                   {/* Header tipo eyebrow (mismo estilo que "Cómo lo abordamos") */}
@@ -307,7 +309,7 @@ export default function Equipo() {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={`${member.name.replace("\n", " ")} — ${member.role}. Ver perfil de LinkedIn (abre en una pestaña nueva)`}
-                          className="relative flex h-full min-h-[88px] flex-col items-center justify-center px-4 py-4 text-center"
+                          className="relative flex h-full min-h-[88px] flex-col items-center justify-start px-4 py-4 text-center"
                         >
                           {/* Esquineros de registro en vértices opuestos — encuadre técnico sin caja pesada */}
                           <span aria-hidden="true" className="pointer-events-none absolute left-0 top-0 h-3 w-3 border-l border-t border-ink/25 transition-colors duration-300 group-hover:border-terra/60" />
