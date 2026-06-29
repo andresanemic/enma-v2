@@ -38,11 +38,17 @@ const COFOUNDERS: Cofounder[] = [
 // con el lenguaje del bloque "Cómo lo abordamos" del detalle de Proyectos (header
 // tipo eyebrow + callouts numerados con esquineros de registro), pero alineados en
 // grilla y sin riel ni nodos.
+type Member = {
+  name: string; // puede contener "\n" para forzar salto en móvil
+  role: string; // cargo — Outfit, letra pequeña
+  href: string; // perfil de LinkedIn
+};
+
 type ProjectTeam = {
   id: string;
   name: string; // header tipo eyebrow (Outfit uppercase, terra)
   subtitle?: string; // glosa del proyecto
-  members: string[];
+  members: Member[];
 };
 
 const PROJECT_TEAMS: ProjectTeam[] = [
@@ -51,12 +57,39 @@ const PROJECT_TEAMS: ProjectTeam[] = [
     name: "Equipo ANID SUC250296",
     subtitle:
       "Investigación y Diseño de Innovación Eólica para Generación Distribuida en Condiciones no Convencionales",
-    members: ["Carlos Díaz", "José Aldunate", "Fernando\nSoto-Aguilar"],
+    members: [
+      {
+        name: "Carlos Díaz",
+        role: "Director de Proyecto",
+        href: "https://www.linkedin.com/in/carlos-d%C3%ADaz-varela-00578088/",
+      },
+      {
+        name: "José Aldunate",
+        role: "Personal Científico-Tecnológico",
+        href: "https://www.linkedin.com/in/jose-aldunate-458b3b26/",
+      },
+      {
+        name: "Fernando\nSoto-Aguilar",
+        role: "Gestor de Negocios y Transferencia",
+        href: "https://www.linkedin.com/in/fernando-soto-aguilar-791060156/",
+      },
+    ],
   },
   {
     id: "estudios-regionales",
     name: "Equipo Estudios Regionales",
-    members: ["Pablo Aranda", "Claudio Herrera"],
+    members: [
+      {
+        name: "Pablo Aranda",
+        role: "Experto en Economía Circular y Ley REP",
+        href: "https://www.linkedin.com/in/pablo-aranda-029b92215/",
+      },
+      {
+        name: "Claudio Herrera",
+        role: "Especialista en Estudios Territoriales",
+        href: "https://www.linkedin.com/in/claudio-herrera-figueroa-189306119/",
+      },
+    ],
   },
 ];
 
@@ -267,20 +300,29 @@ export default function Equipo() {
 
                   {/* Integrantes — callouts numerados, centrados y juntos (sin riel, sin nodos, sin zig-zag) */}
                   <ol className={`mt-8 ${gridClass}`}>
-                    {team.members.map((name) => (
-                      <li key={name} data-member className="group relative" style={{ opacity: 0 }}>
-                        <div className="relative flex h-full min-h-[88px] items-center justify-center px-4 py-4 text-center">
+                    {team.members.map((member) => (
+                      <li key={member.name} data-member className="group relative" style={{ opacity: 0 }}>
+                        <a
+                          href={member.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${member.name.replace("\n", " ")} — ${member.role}. Ver perfil de LinkedIn (abre en una pestaña nueva)`}
+                          className="relative flex h-full min-h-[88px] flex-col items-center justify-center px-4 py-4 text-center"
+                        >
                           {/* Esquineros de registro en vértices opuestos — encuadre técnico sin caja pesada */}
                           <span aria-hidden="true" className="pointer-events-none absolute left-0 top-0 h-3 w-3 border-l border-t border-ink/25 transition-colors duration-300 group-hover:border-terra/60" />
                           <span aria-hidden="true" className="pointer-events-none absolute bottom-0 right-0 h-3 w-3 border-b border-r border-ink/25 transition-colors duration-300 group-hover:border-terra/60" />
                           <span className="block font-display text-lg font-medium leading-snug text-ink transition-colors duration-200 group-hover:text-terra">
-                            {name.split("\n").map((line, j) => (
+                            {member.name.split("\n").map((line, j) => (
                               <span key={j} className="block">
                                 {line}
                               </span>
                             ))}
                           </span>
-                        </div>
+                          <span className="mt-1.5 block max-w-[26ch] font-body text-[11px] font-light uppercase tracking-[0.14em] leading-snug text-ink/55">
+                            {member.role}
+                          </span>
+                        </a>
                       </li>
                     ))}
                   </ol>
