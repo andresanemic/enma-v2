@@ -24,6 +24,8 @@ export async function generateMetadata({
     description: article.summary,
     path: `/blog/${slug}`,
     type: "article",
+    // La OG por artículo la provee `opengraph-image.tsx` de este segmento.
+    ogImage: null,
   });
 }
 

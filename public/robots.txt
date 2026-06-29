@@ -1,0 +1,40 @@
+# Enma — robots.txt (sitio estático servido en Apache/cPanel · Namecheap).
+# Antes era dinámico (app/robots.ts); se pasó a estático para declarar señales que
+# la API de robots de Next no emite (Content-Signal y permisos por agente de IA).
+
+User-agent: *
+Allow: /
+# Content signals (propuesta Cloudflare): qué usos del contenido se permiten.
+# Enma busca visibilidad en buscadores y motores de IA → permitido todo.
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+
+# Agentes de IA / buscadores generativos explícitamente bienvenidos (GEO/AEO).
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://enmachile.com/sitemap.xml
+Host: https://enmachile.com

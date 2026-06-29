@@ -12,6 +12,7 @@ type Service = {
   title: string;
   desc: ReactNode;
   img: string;
+  imgAlt: string;    // alt descriptivo (accesibilidad + comprensión por agentes de IA)
   objPos?: string;   // object-position del img (default "center")
   imgScale?: number; // zoom del img (default 1.08)
   warmTint?: boolean; // capa cálida naranja sobre la foto (todas las cards)
@@ -23,6 +24,7 @@ const SERVICES: Service[] = [
     title: "Asesoría y estudios energéticos",
     desc: "El servicio base, y el que abre la puerta a todos los demás: estudios de soluciones energéticas para empresas y sector público. Su mayor valor es intangible: el conocimiento técnico y el de Aysén.",
     img: "/servicios/servicio-01-v1.webp",
+    imgAlt: "Asesoría y estudios energéticos de Enma en la Región de Aysén",
     objPos: "center 75%",
     warmTint: true,
   },
@@ -54,6 +56,7 @@ const SERVICES: Service[] = [
       </>
     ),
     img: "/servicios/servicio-02-v1.webp",
+    imgAlt: "Formulación y acompañamiento de proyectos para fondos públicos (Corfo, ANID)",
     warmTint: true,
   },
   {
@@ -61,6 +64,7 @@ const SERVICES: Service[] = [
     title: "Simulaciones CFD",
     desc: "Simulaciones fluidodinámicas que optimizan el diseño de sistemas que interactúan con fluidos —turbinas, sistemas hidráulicos, embarcaciones—. Traducen el análisis en soluciones más rápidas y confiables.",
     img: "/servicios/servicio-03-v1.webp",
+    imgAlt: "Simulación computacional fluidodinámica (CFD) de un sistema que interactúa con fluidos",
     warmTint: true,
   },
   {
@@ -68,6 +72,7 @@ const SERVICES: Service[] = [
     title: "Economía circular",
     desc: "Gestión de residuos, Ley REP, Upcycling y más. Asesoramos empresas para una correcta gestión de residuos y oportunidades de revalorización.",
     img: "/servicios/servicio-04-v3.webp",
+    imgAlt: "Economía circular: gestión de residuos y revalorización de materiales",
     warmTint: true,
   },
   {
@@ -75,6 +80,7 @@ const SERVICES: Service[] = [
     title: "Cuantificación de huella de carbono",
     desc: "Medimos las emisiones de gases de efecto invernadero de empresas y municipios, camino a los sellos de calidad que entrega el Ministerio del Medio Ambiente.",
     img: "/servicios/servicio-05-v1.webp",
+    imgAlt: "Cuantificación de la huella de carbono de empresas y municipios",
     warmTint: true,
   },
   {
@@ -82,6 +88,7 @@ const SERVICES: Service[] = [
     title: "Charlas y difusión",
     desc: "Charlas sobre eficiencia energética y cambio climático, presentaciones ante consejos regionales, comunidades y juntas de vecinos, y difusión de estudios en medios de la región.",
     img: "/servicios/servicio-06-v1.webp",
+    imgAlt: "Charla de Enma sobre eficiencia energética y cambio climático ante la comunidad",
     objPos: "top",
     warmTint: true,
   },
@@ -505,7 +512,7 @@ export default function Services() {
                         <img
                           data-card-img
                           src={s.img}
-                          alt=""
+                          alt={s.imgAlt}
                           loading="lazy"
                           className="absolute inset-0 h-full w-full object-cover"
                           style={{

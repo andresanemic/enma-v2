@@ -4,7 +4,7 @@ import NavBar from "@/components/layout/NavBar";
 import Footer from "@/components/layout/Footer";
 import ProyectoDetalle from "@/components/sections/ProyectoDetalle";
 import JsonLd from "@/components/seo/JsonLd";
-import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
+import { pageMetadata, breadcrumbJsonLd, proyectoJsonLd } from "@/lib/seo";
 import { PROYECTOS, getProyecto, getProyectoNav } from "@/lib/proyectos";
 
 export function generateStaticParams() {
@@ -23,6 +23,8 @@ export async function generateMetadata({
     title: proyecto.title,
     description: proyecto.lead,
     path: `/proyectos/${slug}`,
+    // La OG por slug la provee `opengraph-image.tsx` de este segmento.
+    ogImage: null,
   });
 }
 
@@ -38,6 +40,7 @@ export default async function ProyectoDetallePage({
 
   return (
     <>
+      <JsonLd data={proyectoJsonLd(proyecto)} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Inicio", path: "/" },

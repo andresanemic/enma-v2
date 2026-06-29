@@ -1,0 +1,199 @@
+# Enma — contenido completo para LLMs (llms-full.txt)
+
+> Enma (Enma SPA) es una empresa chilena de base científico-tecnológica dedicada a la energía y el medio ambiente, nacida en 2022 en la Región de Aysén, Patagonia. Su nombre viene de ENergía y Medio Ambiente. Trabaja en consultoría, formulación y acompañamiento de proyectos, simulaciones computacionales fluidodinámicas (CFD), ensayos en túnel de viento, cuantificación de huella de carbono y proyectos de energías renovables y economía circular. Fundada por los ingenieros mecánicos Bruno Ortega y Patricio Campos.
+
+Contacto: contacto@enmachile.com · WhatsApp +56 9 9337 7935 · Coyhaique, Región de Aysén, Chile. Sitio en español (es-CL). Sitio web: https://enmachile.com
+
+Esta es la versión COMPLETA y sin truncar del contenido del sitio (ver también /llms.txt para el índice resumido).
+
+---
+
+## Quiénes somos
+
+Enma nace en Aysén de la mano de dos ingenieros mecánicos, Bruno Ortega y Patricio Campos. La mayoría de las empresas de ingeniería que ofrecen soluciones energéticas y ambientales para la región están instaladas en Santiago, y la realidad de Aysén difiere por mucho de la del resto del país: distancias que se miden en horas de viaje por tierra y mar, alto costo del combustible y una fuerte dependencia energética. La pertenencia territorial no es un eslogan: es conocimiento operativo que se traduce en proyectos que sí funcionan, porque fueron pensados para el lugar donde se ejecutan.
+
+Personalidad de marca: activa, enérgica, en constante movimiento. Trabajo asociativo y de co-creación con las comunidades, no imposición desde un escritorio.
+
+## Qué hacemos (servicios)
+
+- Consultoría y estudios de soluciones energéticas (el servicio central, que abre la puerta a todo lo demás).
+- Formulación y acompañamiento de proyectos para instrumentos públicos como CORFO, ANID y los Gobiernos Regionales, con foco energético o ambiental.
+- Simulaciones computacionales fluidodinámicas (CFD) para optimizar el diseño de sistemas que interactúan con fluidos (viento, agua) antes de construirlos.
+- Cuantificación de huella de carbono para empresas y municipalidades.
+- Ejecución y mantención de proyectos junto a una red de socios y colaboradores.
+- Charlas y difusión sobre energía y medioambiente (vinculación con el medio).
+
+## A quién ayudamos
+
+Empresas (lógica principalmente B2B: mediana y gran empresa, industria del reciclaje), municipalidades, comunidades y tomadores de decisión del mundo público y privado que necesiten resolver un problema energético o ambiental. Como cada solución es a la medida, el primer paso siempre es conversar.
+
+---
+
+# Blog (artículos completos)
+
+## En Aysén pagamos la energía más cara, y tenemos cómo cambiarlo
+Autor: Bruno Ortega (socio fundador). Publicado: 2026-06-22. URL: https://enmachile.com/blog/energia-mas-cara-aysen
+
+Vivir en la Región de Aysén significa pagar caro por algo tan básico como encender la luz o calefaccionar la casa. No es una percepción: es una realidad estructural. Estamos lejos, somos pocos y mover cualquier cosa hasta acá cuesta. Esa distancia se traduce, casi línea por línea, en el valor que personas y empresas pagamos por la energía, sea eléctrica o térmica.
+
+El problema es que la energía cara no se queda en la boleta. Encarece todo lo demás. Una industria que consume mucha energía simplemente no es viable en la región.
+
+El ejemplo más claro es el reciclaje: hoy buena parte de los residuos que podríamos procesar acá terminan viajando al norte de Puerto Montt, porque localmente no existe la capacidad de hacerlo a un costo razonable. Perdemos la oportunidad, el empleo y el círculo virtuoso completo.
+
+### Las renovables ya no son una promesa
+Durante años se habló de energías renovables «no convencionales». Ese apellido ya sobra. Al año 2026 la energía eólica, solar, geotérmica e hidráulica son tecnologías probadas, con décadas de operación en el mundo.
+
+Lo digo desde la experiencia de haber trabajado en proyectos de cada una de ellas: sabemos qué funciona, qué tiene más riesgo y cómo evaluar ese riesgo antes de invertir un peso.
+
+Para un hogar o una empresa de Aysén, esto se traduce en algo muy concreto: autogenerar parte de su energía y, cuando hay red disponible, inyectar el excedente para bajar la cuenta de luz mediante netbilling. No es ciencia ficción; es ingeniería aplicada al territorio.
+
+### Una turbina pensada para el viento patagónico
+En esa línea estamos desarrollando, con financiamiento de la Agencia Nacional de Investigación y Desarrollo (ANID), una turbina eólica de baja escala con un diseño resiliente a condiciones que aquí son la norma: vientos excesivos, ráfagas que pasan de la calma a la furia en segundos y turbulencia que cambia de dirección.
+
+Son máquinas de baja potencia pensadas para instalarse de a muchas, en granjas, ideales para campos, electrificación rural y también para la industria.
+
+Bajar el costo energético no es un fin en sí mismo: es la llave que destraba productividad, empleo y calidad de vida en la región.
+
+### Co-crear, no imponer
+Si algo aprendimos operando en un contexto complejo es que las soluciones no se imponen desde un escritorio en Santiago: se construyen junto a quienes viven el problema.
+
+Existe una desconfianza histórica entre la sociedad civil y la industria, y la única forma de cerrarla es trabajando de manera asociativa, conversando y co-creando. No queremos posicionarnos como dominadores de mercado, sino como un socio con quien sentarse a resolver.
+
+Aysén tiene viento, agua, sol y calor bajo la tierra. Le sobra energía. Lo que falta es la ingeniería que la transforme en algo aprovechable a un costo justo, hecha por gente que entiende el lugar. En eso estamos.
+
+## La Patagonia se resuelve desde la Patagonia
+Autor: Patricio Campos (socio fundador). Publicado: 2026-06-22. URL: https://enmachile.com/blog/patagonia-se-resuelve-desde-la-patagonia
+
+La mayoría de las empresas de ingeniería que ofrecen soluciones energéticas y ambientales para la Región de Aysén están instaladas en Santiago. No es un detalle menor. La realidad regional difiere por mucho de la del resto del país, y eso se nota apenas un proyecto se topa con la primera variable que nadie consideró: la logística.
+
+Acá las distancias se miden en horas de viaje por tierra y mar. El costo del combustible y la dependencia energética no son notas al pie: son factores que, si no se abordan desde la primera línea de un proyecto, pueden matarlo. A eso se suma una idiosincrasia patagona que hay que entender para poder trabajar con la gente, no a pesar de ella.
+
+### Pertenencia como ventaja competitiva
+Entender todo esto —la logística, los costos, la cultura— es precisamente lo que nos diferencia. La pertenencia territorial no es una postal turística que ponemos en la presentación: es conocimiento operativo que se traduce en proyectos que sí funcionan, porque fueron pensados para el lugar donde se van a ejecutar.
+
+Y creo que esa misma capacidad nos va a dar ventaja el día que nos expandamos a otros mercados igualmente desafiantes.
+
+### Lo que hacemos, en concreto
+Trabajamos principalmente en consultoría, formulación y acompañamiento de proyectos para instrumentos públicos como CORFO, ANID y los Gobiernos Regionales, con foco energético o ambiental.
+
+A eso sumamos dos servicios que veo con enorme potencial: las simulaciones computacionales fluidodinámicas (CFD) para optimizar el diseño de sistemas que interactúan con fluidos, y la cuantificación de huella de carbono para empresas y municipalidades.
+
+El valor de simular es tangible: con capacidad de cómputo podemos validar soluciones complejas de manera rápida y confiable, contrastando la teoría con modelos antes de gastar en terreno. Eso se traduce en eficiencia y, a la larga, en menores costos por el tiempo de ejecución.
+
+No me gusta la palabra experto; prefiero especialista. Un socio tecnológico estratégico al que recurres porque sabe lo que hace y porque está donde tú estás.
+
+### Descarbonizar también es emprender
+Detrás de cada proyecto hay un problema mayor que estamos ayudando a resolver: la descarbonización, los costos energéticos y la generación de empleo a través del emprendimiento.
+
+En una región como la nuestra, esas tres cosas están entrelazadas. Cuando una solución energética hace viable una industria local, no solo bajan las emisiones: aparece trabajo, aparece arraigo.
+
+Mi aspiración es simple y ambiciosa a la vez: que alguien conozca lo que hacemos y piense «no sabía que esto se hacía acá». Porque sí se hace, y se hace desde la Patagonia.
+
+## Enma explicado en fácil: energía y tecnología hechas en la Patagonia
+Autor: Equipo Enma. Publicado: 2026-06-22. URL: https://enmachile.com/blog/enma-explicado-en-facil
+
+Enma es una empresa chilena nacida en la Región de Aysén que diseña soluciones sustentables con foco en energía y medio ambiente. Su nombre lo dice todo: viene de ENergía y Medio Ambiente.
+
+En una frase, ayudamos a personas, comunidades y empresas a resolver problemas de energía, reciclaje o calefacción con soluciones hechas a la medida.
+
+### ¿Qué problema resuelve?
+En Aysén la energía es cara, porque la región está aislada y todo cuesta más caro de traer. Eso golpea a las familias en la boleta de la luz y vuelve difícil que muchas industrias funcionen.
+
+Enma trabaja, ante todo, para bajar ese costo energético, porque cuando la energía es más barata aumenta la productividad y aparecen nuevas oportunidades.
+
+### ¿Qué servicios ofrece?
+Enma acompaña proyectos de principio a fin. Lo más importante es la consultoría y los estudios de soluciones energéticas, que abren la puerta a todo lo demás.
+
+También formula y acompaña proyectos para postular a fondos públicos (como CORFO o ANID), realiza simulaciones por computador para optimizar diseños (CFD), mide la huella de carbono de empresas y municipios, y ejecuta y mantiene proyectos junto a una red de socios. A eso suma charlas y difusión sobre energía y medioambiente.
+
+### ¿Para quién es?
+Para empresas, municipalidades, comunidades y tomadores de decisión del mundo público y privado que necesiten resolver un problema energético o ambiental. Como cada solución es a la medida, el primer paso siempre es conversar para entender la necesidad.
+
+### El proyecto que mejor nos representa
+Enma está desarrollando, con apoyo de la ANID, una turbina eólica de baja escala diseñada para resistir el viento extremo y cambiante de la Patagonia.
+
+Son máquinas pequeñas pensadas para instalarse de a muchas, útiles para el campo, la electrificación rural y la industria, y capaces de ayudar a bajar la cuenta de luz.
+
+### ¿Cómo trabaja Enma?
+Con una mezcla de cercanía y tecnología. Cercanía, porque cree en construir confianza y co-crear junto a las comunidades; y tecnología, porque usa herramientas de cómputo y manufactura avanzada.
+
+Si quieres explorar una idea o resolver un problema energético, el camino es simple: escribir y conversar.
+
+---
+
+# Proyectos (fichas completas)
+
+## Turbina eólica de baja escala
+Dominio: Eólica. Financiamiento: ANID. URL: https://enmachile.com/proyectos/turbina-eolica-baja-escala
+
+Resumen: Una turbina de diseño propio, financiada por ANID, pensada para los vientos más difíciles de la Patagonia.
+
+El contexto: Buena parte de Aysén tiene un viento difícil: en un mismo minuto puede pasar de una brisa baja a una ráfaga muy energética, y cambiar de dirección de golpe. Es un régimen que destruye a las máquinas pensadas para vientos estables. Quisimos una turbina que no solo tolerara esas condiciones, sino que naciera diseñada para ellas.
+
+Qué hicimos: Desarrollamos un diseño propio, resiliente a condiciones no convencionales de viento, y lo validamos de principio a fin, del modelo digital al prototipo físico. «Baja escala» significa que cada máquina es de baja potencia, pero pensada para instalarse en granjas de muchas unidades; para clientes conectados a la red, permite inyectar energía mediante netbilling y bajar la cuenta de luz.
+
+Ficha técnica:
+- Financiamiento: Agencia Nacional de Investigación y Desarrollo (ANID).
+- Escala: baja escala, pensada para granjas de muchas unidades.
+- Diseñada para vientos excesivos, ráfagas súbitas y alta turbulencia.
+- Aplicación: campo, casas, electrificación rural e industria (netbilling).
+- Modelado CFD: se simula el comportamiento aerodinámico en aire antes de fabricar.
+- Túnel de viento: validación física con un túnel propio, en construcción en Santiago.
+- Prototipo físico: construido y ensayado, no solo simulado.
+Validación en 3 frentes: CFD, túnel de viento y prototipo físico.
+
+## Upcycling de residuos salmoneros
+Dominio: Economía circular. Financiamiento: Corfo (programa Conecta y Colabora, 21CYC-184203). URL: https://enmachile.com/proyectos/upcycling-residuos-salmoneros
+
+Resumen: Un taller que convierte el plástico de la industria salmonera —boyas y tuberías de HDPE— en tableros para la construcción, financiado por Corfo.
+
+El contexto: En Aysén reciclar es caro: la región está lejos de las plantas de proceso del norte y mover los residuos cuesta muchísimo. Al mismo tiempo, la industria salmonera local genera grandes volúmenes de plástico —boyas y tuberías de HDPE— que suelen terminar en vertederos, mientras la construcción depende de una madera cada vez más cara en un clima que promedia 2.347 mm de lluvia al año. Vimos ahí una sola oportunidad: convertir ese residuo en un material durable para construir.
+
+Qué hicimos: Diseñamos y montamos un taller de upcycling en Puerto Cisnes. Caracterizamos el residuo, rediseñamos desde diseños abiertos una trituradora y una prensa caliente —la pieza clave, capaz de conformar tableros de hasta 1,22 × 1,22 m— y, tras una larga etapa de ensayo y error ajustando temperatura y presión, fabricamos las primeras planchas de HDPE 100% reciclado, listas para mobiliario, revestimiento y construcción.
+
+Ficha técnica:
+- Residuo de origen: HDPE de la acuicultura (boyas y tuberías en desuso).
+- Producto: tableros de 1,22 × 1,22 m, de 5 a 25 mm de espesor.
+- Maquinaria: una trituradora y una prensa caliente, rediseñadas por Enma.
+- Ubicación: taller propio en Puerto Cisnes, Región de Aysén.
+- Control de proceso: termocuplas con PID y sensor de carga (temperatura y presión exactas).
+- Usos del material: madera plástica, mobiliario, revestimiento y hasta embarcaciones.
+- 100% material reciclado: HDPE recuperado de la industria salmonera.
+
+## Scouting de bombas de calor industriales
+Dominio: Energía térmica. Cliente: Colbún SA, vía OpenBeauchef (FCFM, U. de Chile). URL: https://enmachile.com/proyectos/scouting-bombas-de-calor
+
+Resumen: Un reporte tecnológico y de scouting de bombas de calor de alta temperatura (HTHP), elaborado para Colbún: la tecnología clave para descarbonizar el calor industrial.
+
+El contexto: Buena parte del calor que usa la industria todavía se produce quemando combustibles fósiles. Las bombas de calor de alta temperatura pueden reemplazar esa quema: toman calor de baja temperatura y lo elevan hasta el nivel que un proceso necesita, usando solo electricidad. Si esa electricidad es renovable, el proceso se descarboniza. En pocos años la tecnología pasó de entregar 80 °C a superar los 120 °C, abriendo aplicaciones que antes no eran posibles.
+
+Qué hicimos: Para Colbún elaboramos, a través de OpenBeauchef, un reporte tecnológico y comercial de la tecnología. Revisamos cómo funcionan y se clasifican estas bombas, dónde está la investigación y qué barreras quedan; cruzamos eso con la demanda térmica de la industria chilena para estimar su potencial de penetración; y rastreamos el mercado mundial para entregar fichas técnicas de proveedores con soluciones comercialmente maduras.
+
+Ficha técnica:
+- Tecnología: bombas de calor de alta temperatura (HTHP).
+- Estado del arte: 32 productos mapeados (TRL 5+); la mitad ya en TRL 9.
+- Scouting comercial: 12 productos de Japón, Noruega, Alemania, China, Reino Unido e Italia.
+- Rango de operación: suministro de 85 a 200 °C; potencias de 30 kW a 30 MW.
+- Aplicaciones: industria alimentaria, petroquímica y manufactura (secado, destilación, pasteurización).
+
+---
+
+# Preguntas frecuentes
+
+P: ¿Qué hace exactamente Enma?
+R: Diseñamos soluciones sustentables en energía y medio ambiente: consultoría y estudios energéticos, formulación y acompañamiento de proyectos, simulaciones CFD, ensayos en túnel de viento y cuantificación de huella de carbono. Cada solución se adapta al contexto donde funciona.
+
+P: ¿Por qué desde Aysén y no desde Santiago?
+R: Porque el territorio es parte de la solución. Operar en la Patagonia —con sus distancias, costos logísticos y energéticos— nos obliga a entender contextos que las consultoras instaladas en Santiago no logran adaptar. Esa pertenencia es nuestra ventaja, no un detalle.
+
+P: ¿Implementan los proyectos o solo asesoran?
+R: Nuestro foco es la consultoría, la formulación y el acompañamiento integral: desde la idea hasta la presentación del proyecto. Para la ejecución, operación y mantenimiento nos apoyamos en una red sólida de socios y colaboradores.
+
+P: ¿Con quién trabajan: empresas, comunidades o sector público?
+R: Con los tres. Nuestra lógica es principalmente B2B —mediana y gran empresa, industria del reciclaje— y mantenemos trabajo permanente con municipalidades y el Gobierno Regional.
+
+P: ¿Qué es una simulación CFD y para qué la necesito?
+R: Es una simulación fluidodinámica por computador: modelamos cómo se comporta un fluido —viento, agua— alrededor de turbinas, embarcaciones u otros sistemas, para optimizar su diseño antes de construirlo.
+
+P: ¿Cuánto cuesta y cómo empezamos?
+R: Cada solución es a la medida, así que no publicamos precios. El primer paso es una conversación: escribir a contacto@enmachile.com o por WhatsApp +56 9 9337 7935.

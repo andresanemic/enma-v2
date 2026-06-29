@@ -4,6 +4,8 @@
 
 Datos de contacto: contacto@enmachile.com · WhatsApp +56 9 9337 7935 · Coyhaique, Región de Aysén, Chile. Sitio en español (es-CL).
 
+Versión completa sin truncar (artículos y proyectos a texto completo): https://enmachile.com/llms-full.txt
+
 ## Páginas principales
 
 - [Inicio](https://enmachile.com/): qué es Enma, servicios y propuesta de valor.

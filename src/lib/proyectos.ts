@@ -22,6 +22,10 @@ export type Proyecto = {
    *  como eyebrow del prev/next cuando haya varios proyectos. Outfit uppercase. */
   domain: string;
   title: string;
+  /** Fecha ISO de publicación/actualización de la página del proyecto (no de un
+   *  hito inventado): alimenta el byline visible y el `datePublished`/`dateModified`
+   *  del Article JSON-LD (señal de frescura para agentes de IA). */
+  published: string;
   /** Substring del título a resaltar (acento terra) en el hero del detalle. Solo énfasis. */
   titleAccent?: string;
   /** Subtítulo corto de la cara frontal de la card. */
@@ -56,6 +60,7 @@ export const PROYECTOS: Proyecto[] = [
     slug: "upcycling-residuos-salmoneros",
     domain: "Economía circular",
     title: "Upcycling de residuos salmoneros",
+    published: "2026-06-28",
     titleAccent: "Upcycling",
     kicker: "Taller en Puerto Cisnes · financiado por Corfo",
     image: "/proyectos/upcycling-v1.webp",
@@ -106,6 +111,7 @@ export const PROYECTOS: Proyecto[] = [
     slug: "turbina-eolica-baja-escala",
     domain: "Eólica",
     title: "Turbina eólica de baja escala",
+    published: "2026-06-26",
     titleAccent: "eólica",
     kicker: "Diseño propio · financiado por ANID",
     image: "/proyectos/turbina-v1.webp",
@@ -161,6 +167,7 @@ export const PROYECTOS: Proyecto[] = [
     slug: "scouting-bombas-de-calor",
     domain: "Energía térmica",
     title: "Scouting de bombas de calor industriales",
+    published: "2026-06-28",
     titleAccent: "bombas de calor",
     kicker: "Reporte para Colbún · vía OpenBeauchef",
     image: "/proyectos/bombas-calor-v1.webp",

@@ -10,3 +10,15 @@ ErrorDocument 404 /404.html
 <FilesMatch "^opengraph-image$">
   ForceType image/png
 </FilesMatch>
+
+# Link headers — exponen relaciones útiles a crawlers y agentes sin que tengan
+# que parsear el HTML: el sitemap XML y el feed RSS del blog.
+<IfModule mod_headers.c>
+  Header set Link "</sitemap.xml>; rel=\"sitemap\", </feed.xml>; rel=\"alternate\"; type=\"application/rss+xml\""
+</IfModule>
+
+# El feed RSS de next/og/route se exporta como archivo "feed.xml" (con extensión);
+# Apache ya lo sirve, pero fijamos el MIME por si acaso.
+<FilesMatch "^feed\.xml$">
+  ForceType application/rss+xml
+</FilesMatch>

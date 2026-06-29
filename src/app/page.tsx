@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { pageMetadata, DEFAULT_TITLE, DEFAULT_DESCRIPTION } from "@/lib/seo";
+import { pageMetadata, faqJsonLd, DEFAULT_TITLE, DEFAULT_DESCRIPTION } from "@/lib/seo";
+import { FAQ_SCHEMA } from "@/lib/faq";
+import JsonLd from "@/components/seo/JsonLd";
 import IntroVeil from "@/components/layout/IntroVeil";
 import NavBar from "@/components/layout/NavBar";
 import Hero from "@/components/sections/Hero";
@@ -26,6 +28,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
+      <JsonLd data={faqJsonLd(FAQ_SCHEMA)} />
       <IntroVeil />
       <NavBar />
       <main>

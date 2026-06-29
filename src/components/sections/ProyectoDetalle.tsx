@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { gsap } from "@/lib/gsap";
 import type { Proyecto } from "@/lib/proyectos";
+import { formatArticleDate } from "@/lib/blog";
 import PrevNextCard from "./PrevNext";
 import ImageSlider from "./ImageSlider";
 
@@ -245,6 +246,16 @@ export default function ProyectoDetalle({ proyecto, nav }: { proyecto: Proyecto;
             <p data-fade className="mt-6 max-w-[50ch] font-body text-lg font-light leading-relaxed text-ink/70 sm:text-xl" style={{ opacity: 0 }}>
               {proyecto.lead}
             </p>
+
+            {/* Byline — autor + fecha visible (señal de frescura para agentes de IA;
+                el dato de fecha también va en el Article JSON-LD de la página). */}
+            <div data-fade className="mt-7 flex flex-wrap items-center gap-x-3 gap-y-1" style={{ opacity: 0 }}>
+              <span className="font-body text-base font-medium text-ink">Por Equipo Enma</span>
+              <span aria-hidden="true" className="h-1 w-1 rounded-full bg-ink/25" />
+              <span className="font-body text-xs font-semibold uppercase tracking-[0.18em] text-teal">
+                Actualizado <time dateTime={proyecto.published}>{formatArticleDate(proyecto.published)}</time>
+              </span>
+            </div>
           </div>
 
           {/* Espécimen — imagen con cotas que se trazan */}

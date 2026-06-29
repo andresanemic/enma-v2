@@ -34,7 +34,24 @@ export const metadata: Metadata = {
     template: "%s · Enma",
   },
   description: DEFAULT_DESCRIPTION,
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    // Autodescubrimiento del feed RSS del blog (crawlers, lectores, agentes).
+    types: { "application/rss+xml": "/feed.xml" },
+  },
+  // Directivas explícitas para buscadores y agentes de IA: indexar/seguir y, en
+  // resultados enriquecidos / AI Overviews, permitir snippet e imagen completos.
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
     type: "website",
     locale: "es_CL",

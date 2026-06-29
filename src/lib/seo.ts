@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { Article } from "@/lib/blog";
+import type { Proyecto } from "@/lib/proyectos";
 
 // ── Datos de marca (fuente: docs/que-es-enma.txt + Footer) ──────────────────
 export const SITE_URL = "https://enmachile.com";
@@ -27,6 +28,12 @@ export const FOUNDERS = ["Bruno Ortega", "Patricio Campos"];
 export const FOUNDING_DATE = "2022";
 export const LOGO_PATH = "/logos/logo-verde.webp";
 
+// OG por defecto del sitio (la imagen branded de `app/opengraph-image.tsx`,
+// exportada como archivo `/opengraph-image`). Se usa en las páginas que NO tienen
+// su propio `opengraph-image.tsx` de segmento (índices internos): sin esto, Next
+// NO cascada la OG raíz a los segmentos hijos y quedan sin og:image.
+export const DEFAULT_OG_IMAGE = "/opengraph-image";
+
 export function absoluteUrl(path: string): string {
   return new URL(path, SITE_URL).toString();
 }
@@ -43,12 +50,20 @@ export function pageMetadata(opts: {
   description: string;
   path: string;
   type?: "website" | "article";
+  /** Imagen OG. Por defecto la OG branded del sitio. Pasar `null` en rutas que
+   *  tienen su propio `opengraph-image.tsx` de segmento (detalle de blog/proyecto)
+   *  para no pisar su OG dinámica por slug. */
+  ogImage?: string | null;
 }): Metadata {
   const { title, description, path, type = "website" } = opts;
   // El sitio se sirve con `trailingSlash` (export estático en cPanel): el
   // canonical y la URL OG deben terminar en "/" para calzar con la URL real.
   const normalizedPath = canonicalPath(path);
   const url = absoluteUrl(normalizedPath);
+  const ogPath = opts.ogImage === undefined ? DEFAULT_OG_IMAGE : opts.ogImage;
+  const images = ogPath
+    ? [{ url: absoluteUrl(ogPath), width: 1200, height: 630, alt: title }]
+    : undefined;
   return {
     title,
     description,
@@ -60,8 +75,14 @@ export function pageMetadata(opts: {
       url,
       title,
       description,
+      ...(images ? { images } : {}),
     },
-    twitter: { card: "summary_large_image", title, description },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      ...(images ? { images } : {}),
+    },
   };
 }
 
@@ -119,6 +140,46 @@ export function articleJsonLd(article: Article) {
       logo: { "@type": "ImageObject", url: absoluteUrl(LOGO_PATH) },
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
+  };
+}
+
+// Article sobre una página de proyecto (/proyectos/[slug]). El audit GEO premia
+// Article/BlogPosting con headline + datePublished en las páginas de contenido;
+// los proyectos son reseñas editoriales del equipo, así que el tipo es defendible.
+export function proyectoJsonLd(p: Proyecto) {
+  const url = absoluteUrl(canonicalPath(`/proyectos/${p.slug}`));
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: p.title,
+    description: p.lead,
+    image: absoluteUrl(p.image),
+    datePublished: p.published,
+    dateModified: p.published,
+    articleSection: p.domain,
+    inLanguage: "es-CL",
+    author: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      logo: { "@type": "ImageObject", url: absoluteUrl(LOGO_PATH) },
+    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+  };
+}
+
+// FAQPage sobre las preguntas frecuentes del landing. Mejora fuerte de citación
+// de Q&A por agentes de IA. El contenido (texto plano) vive en lib/faq.ts.
+export function faqJsonLd(items: { question: string; answer: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    inLanguage: "es-CL",
+    mainEntity: items.map((it) => ({
+      "@type": "Question",
+      name: it.question,
+      acceptedAnswer: { "@type": "Answer", text: it.answer },
+    })),
   };
 }
 
