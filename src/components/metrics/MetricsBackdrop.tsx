@@ -17,7 +17,7 @@ import Image from "next/image";
  * de la foto (las casas, la cabaña de techo rojo). Ajustable si se cambia la foto.
  */
 const IMAGE = {
-  src: "/metrics/metrics-cerro-castillo-v1.webp",
+  src: "/metrics/metrics-cerro-castillo-v2.webp",
   blurDataURL:
     "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAACQAwCdASoQABgAPwForE6rJaQiMAgBYCAJZQC7AAkRUXZo+3d8AK5mieo+hTC+M2CsUajI+RCDnq5aeOq+XV7Tbtb5xp4q5/feW2yyMhMC0fjpD4N4Yu95DX3bswrtqAu43ei8JyPItdRfxeE0N5J1ROpfZzOpu4AAAA==",
 } as const;

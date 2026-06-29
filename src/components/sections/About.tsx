@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const IMG = "/about/about-v1.webp";
+const IMG = "/about/about-v2.webp";
 
 const AREAS = [
   {
@@ -132,23 +132,29 @@ export default function About() {
               ))}
             </h2>
 
-            {/* Tres áreas — filas interactivas */}
+            {/* Tres áreas — filas interactivas.
+                Estructura: <dl> → un único <div> por par → <dt>/<dd>. axe exige que
+                dt/dd estén a lo más UN <div> bajo el <dl> (regla dlitem); el doble
+                anidamiento anterior rompía esa regla (y el árbol de accesibilidad
+                para agentes de IA). El <span> decorativo es aria-hidden. */}
             <dl className="mt-10">
               {AREAS.map((a, i) => (
-                <div key={a.title} className={reveal()} style={delay(2 + i)}>
-                  <div className="group relative cursor-default border-t border-ink/12 py-5 pl-0">
-                    {/* Línea-acento brasa que recorre el borde superior en hover */}
-                    <span
-                      aria-hidden="true"
-                      className="absolute left-0 top-0 h-px w-0 bg-ember transition-all duration-500 ease-out group-hover:w-full"
-                    />
-                    <dt className="font-display text-xl font-medium text-ink transition-colors duration-300 group-hover:text-ember sm:text-2xl">
-                      {a.title}
-                    </dt>
-                    <dd className="mt-2 max-w-md font-body text-base leading-relaxed text-ink/60 transition-colors duration-300 group-hover:text-ink/80 sm:text-lg">
-                      {a.desc}
-                    </dd>
-                  </div>
+                <div
+                  key={a.title}
+                  className={`${reveal()} group relative cursor-default border-t border-ink/12 py-5 pl-0`}
+                  style={delay(2 + i)}
+                >
+                  {/* Línea-acento brasa que recorre el borde superior en hover */}
+                  <span
+                    aria-hidden="true"
+                    className="absolute left-0 top-0 h-px w-0 bg-ember transition-all duration-500 ease-out group-hover:w-full"
+                  />
+                  <dt className="font-display text-xl font-medium text-ink transition-colors duration-300 group-hover:text-ember sm:text-2xl">
+                    {a.title}
+                  </dt>
+                  <dd className="mt-2 max-w-md font-body text-base leading-relaxed text-ink/60 transition-colors duration-300 group-hover:text-ink/80 sm:text-lg">
+                    {a.desc}
+                  </dd>
                 </div>
               ))}
             </dl>

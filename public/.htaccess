@@ -15,6 +15,15 @@ ErrorDocument 404 /404.html
 # que parsear el HTML: el sitemap XML y el feed RSS del blog.
 <IfModule mod_headers.c>
   Header set Link "</sitemap.xml>; rel=\"sitemap\", </feed.xml>; rel=\"alternate\"; type=\"application/rss+xml\""
+
+  # ── Cabeceras de seguridad (recomendaciones de Lighthouse) ──────────────────
+  # Solo las seguras para un export estático de Next: NO añadimos una CSP que
+  # restrinja scripts/estilos ni Trusted Types, porque Next sirve scripts/estilos
+  # inline (hydration) y sin nonces/hashes los bloquearía → rompería el sitio.
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Cross-Origin-Opener-Policy "same-origin"
 </IfModule>
 
 # El feed RSS de next/og/route se exporta como archivo "feed.xml" (con extensión);

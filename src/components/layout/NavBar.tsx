@@ -130,7 +130,7 @@ export default function NavBar() {
           <Link href="/" aria-label="Enma — inicio" className="relative hidden h-7 sm:h-8 md:block">
             {/* Define la caja en el flujo (sin layout shift) */}
             <Image
-              src="/logos/logo-verde.webp"
+              src="/logos/logo-verde-v2.webp"
               alt="Enma"
               width={112}
               height={36}
@@ -139,7 +139,7 @@ export default function NavBar() {
               style={{ opacity: 0 }}
             />
             <Image
-              src="/logos/logo-verde.webp"
+              src="/logos/logo-verde-v2.webp"
               alt=""
               aria-hidden="true"
               width={112}
