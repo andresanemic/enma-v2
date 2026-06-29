@@ -53,7 +53,7 @@ export const ARTICLES: Article[] = [
     author: "Bruno Ortega",
     role: "Socio fundador",
     date: "2026-06-22",
-    cover: "/blog/portada-aysen-v1.webp",
+    cover: "/blog/portada-aysen-v2.webp",
     coverAlt: "Parque eólico recortado contra una bruma dorada al atardecer",
     imageSide: "left",
     body: [
@@ -103,7 +103,7 @@ export const ARTICLES: Article[] = [
     author: "Patricio Campos",
     role: "Socio fundador",
     date: "2026-06-22",
-    cover: "/blog/portada-patagonia-v1.webp",
+    cover: "/blog/portada-patagonia-v2.webp",
     coverAlt: "Lago turquesa, montañas nevadas y vegetación otoñal de la Patagonia",
     imageSide: "right",
     body: [

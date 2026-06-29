@@ -149,11 +149,11 @@ export const PROYECTOS: Proyecto[] = [
       { label: "Analizador de redes Clase A", detail: "Medición para netbilling" },
     ],
     gallery: [
-      "/proyectos/galeria/turbina-galeria-1-v1.webp",
-      "/proyectos/galeria/turbina-galeria-2-v1.webp",
-      "/proyectos/galeria/turbina-galeria-3-v1.webp",
-      "/proyectos/galeria/turbina-galeria-4-v1.webp",
-      "/proyectos/galeria/turbina-galeria-5-v1.webp",
+      "/proyectos/galeria/turbina-galeria-1-v2.webp",
+      "/proyectos/galeria/turbina-galeria-2-v2.webp",
+      "/proyectos/galeria/turbina-galeria-3-v2.webp",
+      "/proyectos/galeria/turbina-galeria-4-v2.webp",
+      "/proyectos/galeria/turbina-galeria-5-v2.webp",
     ],
     // Métricas cualitativas honestas (sin cifras inventadas, ver que-es-enma.txt):
     // validación en 3 frentes, financiamiento ANID, diseño propio resiliente.

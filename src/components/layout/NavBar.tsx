@@ -224,6 +224,11 @@ export default function NavBar() {
           (gradiente verde) y chispas cálidas a la deriva como efecto diferenciador ── */}
       <div
         aria-hidden={!menuOpen}
+        // inert cuando está cerrado: saca el drawer (y sus links enfocables) del
+        // tab order y del árbol de accesibilidad. Sin esto, un contenedor
+        // aria-hidden con descendientes enfocables falla la regla axe
+        // "aria-hidden-focus" (Accesibilidad + Navegación con agentes en Lighthouse).
+        inert={!menuOpen}
         className={`fixed inset-0 z-40 transition-opacity duration-500 ease-out md:hidden ${
           menuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
