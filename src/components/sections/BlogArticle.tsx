@@ -146,11 +146,6 @@ export default function BlogArticle({ article, nav }: { article: Article; nav: N
             Todas las notas
           </Link>
 
-          {/* Fecha de publicación — label limpio (toma el lugar del antiguo topic) */}
-          <p data-fade className="mb-5 font-body text-xs font-semibold uppercase tracking-[0.18em] text-teal" style={{ opacity: 0 }}>
-            <time dateTime={article.date}>{formatArticleDate(article.date)}</time>
-          </p>
-
           <h1
             data-fade
             className="m-0 mx-auto max-w-[20ch] font-display font-light text-ink"
@@ -159,15 +154,13 @@ export default function BlogArticle({ article, nav }: { article: Article; nav: N
             {article.title}
           </h1>
 
-          {/* Byline — autor · rol (lectura natural, sin mono) */}
+          {/* Byline — autor · fecha (fecha a la derecha, estilo teal de siempre) */}
           <div data-fade className="mt-7 flex flex-wrap items-center justify-center gap-x-3 gap-y-1" style={{ opacity: 0 }}>
             <span className="font-body text-base font-medium text-ink">Por {article.author}</span>
-            {article.role && (
-              <>
-                <span aria-hidden="true" className="h-1 w-1 rounded-full bg-ink/25" />
-                <span className="font-body text-base font-light italic text-ink/55">{article.role}</span>
-              </>
-            )}
+            <span aria-hidden="true" className="h-1 w-1 rounded-full bg-ink/25" />
+            <span className="font-body text-xs font-semibold uppercase tracking-[0.18em] text-teal">
+              <time dateTime={article.date}>{formatArticleDate(article.date)}</time>
+            </span>
           </div>
         </div>
 
