@@ -183,7 +183,8 @@ export const ARTICLES: Article[] = [
       ] },
       { type: "p", spans: [`Son máquinas pequeñas pensadas para instalarse de a muchas, útiles para el campo, la electrificación rural y la industria, y capaces de ayudar a bajar la cuenta de luz.`] },
       { type: "h2", text: `¿Cómo trabaja Enma?` },
-      { type: "p", spans: [`Con una mezcla de cercanía y tecnología. Cercanía, porque cree en construir confianza y co-crear junto a las comunidades; y tecnología, porque usa herramientas de cómputo y manufactura avanzada para que las soluciones sean rápidas, eficientes y confiables. Si quieres explorar una idea o resolver un problema energético, el camino es simple: escribir y conversar.`] },
+      { type: "p", spans: [`Con una mezcla de cercanía y tecnología. Cercanía, porque cree en construir confianza y co-crear junto a las comunidades; y tecnología, porque usa herramientas de cómputo y manufactura avanzada.`] },
+      { type: "p", spans: [`Si quieres explorar una idea o resolver un problema energético, el camino es simple: escribir y conversar.`] },
     ],
   },
 ];
