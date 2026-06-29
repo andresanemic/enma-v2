@@ -59,12 +59,12 @@ const PROJECT_TEAMS: ProjectTeam[] = [
       "Investigación y Diseño de Innovación Eólica para Generación Distribuida en Condiciones no Convencionales",
     members: [
       {
-        name: "Carlos Diaz Varela",
+        name: "Carlos\nDiaz Varela",
         role: "Director de Proyecto",
         href: "https://www.linkedin.com/in/carlos-d%C3%ADaz-varela-00578088/",
       },
       {
-        name: "José Aldunate Infante",
+        name: "José\nAldunate Infante",
         role: "Personal Científico-Tecnológico",
         href: "https://www.linkedin.com/in/jose-aldunate-458b3b26/",
       },
