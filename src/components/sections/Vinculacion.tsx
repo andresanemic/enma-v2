@@ -448,7 +448,7 @@ export default function Vinculacion() {
           <div ref={listRef} className="mt-12 flex flex-col md:mt-16">
             <span aria-hidden="true" className="block border-t border-ink/12" />
             {shown.map((a) => (
-              <article
+              <div
                 key={a.id}
                 data-row
                 style={{ opacity: 0 }}
@@ -570,7 +570,7 @@ export default function Vinculacion() {
                   </div>
                 </div>
 
-              </article>
+              </div>
             ))}
           </div>
 
