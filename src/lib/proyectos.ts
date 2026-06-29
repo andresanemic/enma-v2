@@ -95,11 +95,11 @@ export const PROYECTOS: Proyecto[] = [
       { label: "Tableros de HDPE", detail: "Madera plástica\n· mobiliario · barcos" },
     ],
     gallery: [
-      "/proyectos/galeria/upcycling-galeria-1-v1.webp",
-      "/proyectos/galeria/upcycling-galeria-2-v1.webp",
-      "/proyectos/galeria/upcycling-galeria-3-v1.webp",
-      "/proyectos/galeria/upcycling-galeria-4-v1.webp",
-      "/proyectos/galeria/upcycling-galeria-5-v1.webp",
+      "/proyectos/galeria/upcycling-galeria-1-v2.webp",
+      "/proyectos/galeria/upcycling-galeria-2-v2.webp",
+      "/proyectos/galeria/upcycling-galeria-3-v2.webp",
+      "/proyectos/galeria/upcycling-galeria-4-v2.webp",
+      "/proyectos/galeria/upcycling-galeria-5-v2.webp",
     ],
     metrics: [
       { figure: "1,22 m", label: "Tablero fabricado", detail: "Planchas de hasta 1,22 × 1,22 m, 5–25 mm" },
@@ -114,7 +114,7 @@ export const PROYECTOS: Proyecto[] = [
     published: "2026-06-26",
     titleAccent: "eólica",
     kicker: "Diseño propio · financiado por ANID",
-    image: "/proyectos/turbina-v1.webp",
+    image: "/proyectos/turbina-v2.webp",
     imageAlt: "Turbina eólica de baja escala en un paisaje abierto de la Patagonia",
     cardFacts: [
       "Financiada por ANID",
@@ -170,7 +170,7 @@ export const PROYECTOS: Proyecto[] = [
     published: "2026-06-28",
     titleAccent: "bombas de calor",
     kicker: "Reporte para Colbún · vía OpenBeauchef",
-    image: "/proyectos/bombas-calor-v1.webp",
+    image: "/proyectos/bombas-calor-v2.webp",
     imageAlt: "Bomba de calor industrial de alta temperatura",
     cardFacts: [
       "Elaborado para Colbún SA",
