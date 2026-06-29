@@ -68,8 +68,9 @@ export const ARTICLES: Article[] = [
       { type: "p", spans: [
         `Durante años se habló de energías renovables «no convencionales». Ese apellido ya sobra. Al año 2026 la `,
         { text: `energía eólica, solar, geotérmica e hidráulica`, bold: true },
-        ` son tecnologías probadas, con décadas de operación en el mundo. Lo digo desde la experiencia de haber trabajado en proyectos de cada una de ellas: sabemos qué funciona, qué tiene más riesgo y cómo evaluar ese riesgo antes de invertir un peso.`,
+        ` son tecnologías probadas, con décadas de operación en el mundo.`,
       ] },
+      { type: "p", spans: [`Lo digo desde la experiencia de haber trabajado en proyectos de cada una de ellas: sabemos qué funciona, qué tiene más riesgo y cómo evaluar ese riesgo antes de invertir un peso.`] },
       { type: "p", spans: [
         `Para un hogar o una empresa de Aysén, esto se traduce en algo muy concreto: autogenerar parte de su energía y, cuando hay red disponible, inyectar el excedente para bajar la cuenta de luz mediante `,
         { text: `netbilling`, href: `https://www.cge.cl/productos-y-servicios/generacion-distribuida-netbilling/`, external: true },
