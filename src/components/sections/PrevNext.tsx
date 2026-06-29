@@ -51,8 +51,10 @@ export default function PrevNextCard({
       data-card
       href={item.href}
       aria-label={`${isPrev ? `${ariaNoun} anterior` : `${ariaNoun} siguiente`}: ${item.title}`}
-      className="group relative block aspect-[16/10] overflow-hidden rounded-[18px] outline-none ring-1 ring-ink/12 transition-shadow duration-500 focus-visible:ring-2 focus-visible:ring-terra/60 hover:shadow-[0_28px_60px_-30px_rgba(26,26,26,0.5)]"
-      style={{ opacity: 0 }}
+      className="group relative block aspect-[16/10] overflow-hidden rounded-[18px] outline-none ring-1 ring-ink/12 transition-shadow duration-500 focus-visible:ring-2 focus-visible:ring-terra/60"
+      // willChange: capa GPU estable → el recorte rounded del padre no se pierde
+      // cuando la imagen interior se compone aparte al hacer zoom en hover (lore/layout).
+      style={{ opacity: 0, willChange: "transform" }}
     >
       <Image
         src={item.image}

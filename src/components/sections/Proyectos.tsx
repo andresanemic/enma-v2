@@ -191,8 +191,10 @@ export default function Proyectos() {
                     onClick={handleCardClick(p.slug)}
                     data-card
                     aria-label={`${p.title} — ver proyecto`}
-                    className={`group relative block aspect-[9/16] w-full overflow-hidden rounded-[18px] outline-none ring-1 ring-ink/12 transition-shadow duration-500 focus-visible:ring-2 focus-visible:ring-terra/60 hover:shadow-[0_28px_60px_-28px_rgba(26,26,26,0.45)] ${CARD_ORDER[p.slug].desktop}`}
-                    style={{ opacity: 0 }}
+                    className={`group relative block aspect-[9/16] w-full overflow-hidden rounded-[18px] outline-none ring-1 ring-ink/12 transition-shadow duration-500 focus-visible:ring-2 focus-visible:ring-terra/60 ${CARD_ORDER[p.slug].desktop}`}
+                    // willChange: capa GPU estable → el recorte rounded del padre no se
+                    // pierde cuando la imagen interior se compone aparte al animar (lore/layout).
+                    style={{ opacity: 0, willChange: "transform" }}
                   >
                     <Image
                       src={p.image}
