@@ -1,10 +1,14 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
 import Link from "next/link";
 
-const IMG = "/about/about-v3.webp";
+// Foto del About con `<picture>` art-directed (Lighthouse móvil, H7.6): con
+// `images.unoptimized` (export estático) next/image no genera srcset, así que
+// móvil descargaba el archivo de desktop (820×1093 / 111 KiB). Servimos una
+// variante liviana en móvil (480×640 / ~37 KiB) y el archivo nítido en desktop.
+const IMG_DESKTOP = "/about/about-v3.webp";
+const IMG_MOBILE = "/about/about-v3-m.webp";
 
 const AREAS = [
   {
@@ -90,13 +94,17 @@ export default function About() {
           {/* Imagen */}
           <div className={`${reveal()} order-1`} style={delay(1)}>
             <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-sand">
-              <Image
-                src={IMG}
-                alt="Paisaje de la Patagonia chilena, Región de Aysén"
-                fill
-                sizes="(min-width: 768px) 50vw, 90vw"
-                className="object-cover"
-              />
+              <picture>
+                <source media="(max-width: 767px)" srcSet={IMG_MOBILE} />
+                {/* eslint-disable-next-line @next/next/no-img-element -- next/image no hace art-direction en export estático */}
+                <img
+                  src={IMG_DESKTOP}
+                  alt="Paisaje de la Patagonia chilena, Región de Aysén"
+                  decoding="async"
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              </picture>
               <span
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-0"
