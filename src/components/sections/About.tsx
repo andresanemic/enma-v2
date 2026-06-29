@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const IMG = "/about/about-v2.webp";
+const IMG = "/about/about-v3.webp";
 
 const AREAS = [
   {

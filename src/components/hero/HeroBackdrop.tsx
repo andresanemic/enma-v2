@@ -19,7 +19,7 @@ import Image from "next/image";
  */
 const HERO_IMAGES = [
   {
-    src: "/hero/hero-aysen-v2.webp",
+    src: "/hero/hero-aysen-v3.webp",
     blurDataURL:
       "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAAAwAgCdASoQAAsAA4BaJQBdgCB0ssrO8wRmgAD+8hGFkT7TlL4SSD34iZFpvQcp564F+BYxbrM9+vF9j/uHZwJ/mplXJxSgvyknk1YI4k56nYAA",
   },
